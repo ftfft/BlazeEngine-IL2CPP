@@ -32,5 +32,5 @@ public:
 	static HMODULE __stdcall _LoadLibraryW(LPCWSTR lpLibFileName);
 
 	static il2cpp_init_t fnil2cpp_init;
-	static IL2CPPDomain* _il2cpp_init(const char* name);
+	// static IL2CPPDomain* _il2cpp_init(const char* name);
 };

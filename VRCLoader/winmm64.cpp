@@ -46,7 +46,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	}
 	return TRUE;
 }
-
+/*
 extern "C" void CloseDriver_wrapper();
 extern "C" void DefDriverProc_wrapper();
 extern "C" void DriverCallback_wrapper();
@@ -228,3 +228,4 @@ extern "C" void waveOutSetVolume_wrapper();
 extern "C" void waveOutUnprepareHeader_wrapper();
 extern "C" void waveOutWrite_wrapper();
 extern "C" void ExportByOrdinal2();
+*/

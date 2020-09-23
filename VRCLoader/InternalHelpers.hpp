@@ -31,7 +31,6 @@ public:
 	}
 };
 
-#if (DEBUG)
 class ConsoleUtils {
 public:
 	static bool HasConsole() {
@@ -68,4 +67,3 @@ public:
 		std::cout << text << std::endl;
 	}
 };
-#endif
