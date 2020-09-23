@@ -64,6 +64,5 @@ namespace Addons.Patch
         }
 
         public static bool isFastCreate = false;
-        private static IL2Patch pFastCreate = null;
     }
 }

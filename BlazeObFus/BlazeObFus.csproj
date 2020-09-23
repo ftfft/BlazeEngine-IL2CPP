@@ -44,11 +44,5 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\dnlib\dnlib.csproj">
-      <Project>{8c29cfe6-5fef-4d8a-a169-43ae8c21617c}</Project>
-      <Name>dnlib</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
