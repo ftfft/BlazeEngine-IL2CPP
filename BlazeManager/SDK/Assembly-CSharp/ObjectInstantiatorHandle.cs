@@ -1,0 +1,66 @@
+﻿using System;
+using System.Linq;
+using UnityEngine;
+using BlazeIL;
+using BlazeIL.il2cpp;
+
+public class ObjectInstantiatorHandle : Component
+{
+    public ObjectInstantiatorHandle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+	private static IL2Field fieldInstantiator = null;
+	public ObjectInstantiator Instantiator
+	{
+		get
+		{
+			if (fieldInstantiator == null)
+			{
+				fieldInstantiator = Instance_Class.GetFields().First(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName);
+				if (fieldInstantiator == null)
+					return null;
+			}
+			return fieldInstantiator.GetValue(ptr).MonoCast<ObjectInstantiator>();
+		}
+		set
+		{
+			if (fieldInstantiator == null)
+			{
+				fieldInstantiator = Instance_Class.GetFields().First(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName);
+				if (fieldInstantiator == null)
+					return;
+			}
+			fieldInstantiator.SetValue(ptr, value.ptr);
+		}
+	}
+
+	private static IL2Field fieldLocalID = null;
+	public int? LocalID
+	{
+		get
+		{
+			if (fieldLocalID == null)
+			{
+				fieldLocalID = Instance_Class.GetFields().First(x => x.ReturnType.Name == "System.Nullable<System.Int32>");
+				if (fieldLocalID == null)
+					return null;
+			}
+			IL2Object result = fieldLocalID.GetValue(ptr);
+			if (result == null)
+				return null;
+
+			return result.MonoCast<int>();
+		}
+		set
+		{
+			if (fieldLocalID == null)
+			{
+				fieldLocalID = Instance_Class.GetFields().First(x => x.ReturnType.Name == "System.Nullable<System.Int32>");
+				if (fieldLocalID == null)
+					return;
+			}
+			fieldLocalID.SetValue(ptr, value.Value.MonoCast());
+		}
+	}
+
+	public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("ObjectInstantiatorHandle");
+}

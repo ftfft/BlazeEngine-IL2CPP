@@ -1,0 +1,107 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using VRCSDK2;
+using UnityEngine;
+
+namespace Addons.Mods
+{
+	public static class PortableMirror
+	{
+		public static void UpdateStatus()
+		{
+			if (!BlazeManagerMenu.Main.singleList.ContainsKey("LocalMirror"))
+				return;
+
+			var menu = BlazeManagerMenu.Main.singleList["LocalMirror"];
+			if (_isEnable)
+			{
+				menu.setButtonText("<color=red>Destroy</color>\nLocal Mirror");
+				menu.setToolTip("Destroy Portable Mirror (Local).");
+				return;
+			}
+			menu.setButtonText("Spawn\nLocal Mirror");
+			menu.setToolTip("Spawn Portable Mirror (Local).");
+		}
+
+		public static void OnCreate()
+		{
+			OnDestroy(false);
+		
+			Transform transform = VRC.Player.Instance.transform;
+			Vector3 position = transform.position + (transform.forward * 2);
+			position.y += _mirrorScaleY / 2f;
+
+            #region Create Object
+            GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			gameObject.transform.position = position;
+			gameObject.transform.rotation = transform.rotation;
+			gameObject.transform.localScale = new Vector3(_mirrorScaleX, _mirrorScaleY, 1f);
+			gameObject.name = objName;
+			gameObject.GetComponent<Collider>().Destroy();
+			#endregion
+			#region BoxCollider
+			BoxCollider boxCollider;
+			if ((boxCollider = gameObject.GetComponent<BoxCollider>()) == null)
+				boxCollider = gameObject.AddComponent<BoxCollider>();
+			boxCollider.size = new Vector3(1f, 1f, 0.05f);
+			boxCollider.isTrigger = true;
+			#endregion
+			#region MeshRender
+			MeshRenderer meshRenderer;
+			if ((meshRenderer = gameObject.GetComponent<MeshRenderer>()) == null)
+				meshRenderer = gameObject.AddComponent<MeshRenderer>();
+			meshRenderer.material.shader = Shader.Find("FX/MirrorReflection");
+			#endregion
+			#region MirrorReflection
+			VRC_MirrorReflection mirrorReflection;
+			if ((mirrorReflection = gameObject.GetComponent<VRC_MirrorReflection>()) == null)
+				mirrorReflection = gameObject.AddComponent<VRC_MirrorReflection>();
+			LayerMask reflectLayers = new LayerMask();
+			reflectLayers.value = (_optimizedMirror ? 263680 : -1025);
+			mirrorReflection.m_ReflectLayers = reflectLayers;
+			#endregion
+			#region VRCPickup
+			VRC_Pickup pickup;
+			if ((pickup = gameObject.GetComponent<VRC_Pickup>()) == null)
+				pickup = gameObject.AddComponent<VRC_Pickup>();
+			pickup.proximity = 0.3f;
+			pickup.pickupable = _canPickupMirror;
+			pickup.allowManipulationWhenEquipped = false;
+			#endregion
+			#region Rigidbody
+			Rigidbody rigidbody;
+			if ((rigidbody = gameObject.GetComponent<Rigidbody>()) == null)
+				rigidbody = gameObject.AddComponent<Rigidbody>();
+			rigidbody.useGravity = false;
+			rigidbody.isKinematic = true;
+			#endregion
+
+			_isEnable = true;
+			UpdateStatus();
+		}
+
+		public static void OnDestroy(bool updateStatus = true)
+        {
+            GameObject.Find(objName)?.Destroy();
+			if (updateStatus)
+			{
+				_isEnable = false;
+				UpdateStatus();
+			}
+		}
+
+		public static string objName = UserUtils.prefix + "PortableMirror";
+
+		private static float _mirrorScaleX = 5f;
+
+		private static float _mirrorScaleY = 3f;
+
+		private static bool _optimizedMirror = true;
+
+		private static bool _canPickupMirror = true;
+
+		public static bool _isEnable = false;
+	}
+}

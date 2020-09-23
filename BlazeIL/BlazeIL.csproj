@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9FA168DC-F03E-46DE-9C99-DD2498BBE6D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlazeIL</RootNamespace>
+    <AssemblyName>BlazeIL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="il2ch\IL2Ch.cs" />
+    <Compile Include="il2ch\IL2Patch.cs" />
+    <Compile Include="IL2Cmds.cs" />
+    <Compile Include="il2cpp\IL2Assembly.cs" />
+    <Compile Include="il2cpp\IL2Base.cs" />
+    <Compile Include="il2cpp\IL2BindingFlags.cs" />
+    <Compile Include="il2cpp\IL2Field.cs" />
+    <Compile Include="il2cpp\IL2Method.cs" />
+    <Compile Include="il2cpp\IL2Object.cs" />
+    <Compile Include="il2cpp\IL2Param.cs" />
+    <Compile Include="il2cpp\IL2Property.cs" />
+    <Compile Include="il2cpp\IL2ReturnType.cs" />
+    <Compile Include="il2cpp\IL2Type.cs" />
+    <Compile Include="il2generic\IL2Dictionary.cs" />
+    <Compile Include="il2generic\IL2List.cs" />
+    <Compile Include="IL2Import.cs" />
+    <Compile Include="IL2Load.cs" />
+    <Compile Include="IL2Tools.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlazeSDK\BlazeSDK.csproj">
+      <Project>{6df182b9-2619-4481-9606-3f20e01c547d}</Project>
+      <Name>BlazeSDK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
