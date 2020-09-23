@@ -288,7 +288,7 @@ DO_API(bool, (*il2cpp_custom_attrs_has_attr_t), (IL2CPPCustomAttrInfo* ainfo, IL
 DO_API(IL2CPPArray*, (*il2cpp_custom_attrs_construct_t), (IL2CPPCustomAttrInfo* cinfo));
 
 DO_API(void, (*il2cpp_custom_attrs_free_t), (IL2CPPCustomAttrInfo* ainfo));
-
+/*
 extern il2cpp_init_t il2cpp_init;
 extern il2cpp_init_utf16_t il2cpp_init_utf16;
 extern il2cpp_shutdown_t il2cpp_shutdown;
@@ -468,8 +468,9 @@ extern il2cpp_custom_attrs_get_attr_t il2cpp_custom_attrs_get_attr;
 extern il2cpp_custom_attrs_has_attr_t il2cpp_custom_attrs_has_attr;
 extern il2cpp_custom_attrs_construct_t il2cpp_custom_attrs_construct;
 extern il2cpp_custom_attrs_free_t il2cpp_custom_attrs_free;
-
+/*
 void* il2cpp_array_get(IL2CPPArray* _array, size_t size, int index);
 void il2cpp_array_set(IL2CPPArray* _array, size_t size, int index, char* obj);
 
 void Build_IL2CPP(HMODULE hMono);
+*/

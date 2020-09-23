@@ -85,7 +85,7 @@ HMODULE __stdcall Hooking::_LoadLibraryW(LPCWSTR lpLibFileName) {
 		ConsoleUtils::Log("Captured GameAssembly.dll LLW! Starting hooks...");
 #endif
 		VRCLoader::hGameAssembly = lib;
-		Build_IL2CPP(lib);
+		// Build_IL2CPP(lib);
 		if (!Hooking::fnil2cpp_init)
 			Hooking::fnil2cpp_init = (il2cpp_init_t)GetProcAddress(VRCLoader::hGameAssembly, "il2cpp_init");
 		DetourTransactionBegin();

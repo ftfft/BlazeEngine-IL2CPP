@@ -1,3 +1,4 @@
+/*
 #include "il2cpp.h"
 
 il2cpp_init_t il2cpp_init = NULL;
@@ -211,7 +212,7 @@ void il2cpp_array_set(IL2CPPArray* _array, size_t size, int index, char* obj)
 {
 	*il2cpp_array_addr_with_size(_array, size, index) = *obj;
 }
-
+/*
 void Build_IL2CPP(HMODULE hMono)
 {
 	if (!hMono)
@@ -424,3 +425,4 @@ void Build_IL2CPP(HMODULE hMono)
 	ConsoleUtils::Log("Built IL2CPP runtime!");
 #endif
 }
+*/
