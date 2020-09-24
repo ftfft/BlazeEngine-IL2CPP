@@ -37,6 +37,25 @@ namespace Addons.Patch
 
         public static void Start()
         {
+            /*
+            unsafe
+            {
+                IL2Method m1 = QuickMenu.Instance_Class.GetMethod("Start");
+                var disassembler = disasm.GetDisassembler(m1);
+                var instructions = disassembler.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
+                int i = 0;
+                foreach (var instruction in instructions)
+                {
+                    //System.IO.File.AppendAllText("testt.txt", instruction.ToString() + "\n");
+                    try
+                    {
+                        IntPtr addr = ILCode.GetPointer(instruction);
+                        Console.Write(*(byte*)addr.ToPointer() + " ");
+                    }
+                    catch { Console.WriteLine("bad"); }
+                }
+            }
+            */
             IL2Method method = QuickMenu.Instance_Class.GetMethod("LateUpdate");
             List<IL2Method> methods = new List<IL2Method>();
             try
