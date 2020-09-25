@@ -123,6 +123,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonView.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\PhotonLagSimulationGui.cs" />
     <Compile Include="SDK\Assembly-CSharp\HighlightsFX.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Networking\UdonSync.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\UI\PageUserInfo.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCUiPage.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCUiManager.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="SDK\UnityEngine.UI\Text.cs" />
     <Compile Include="SDK\UnityEngine.UnityAnalyticsModule\AnalyticsResult.cs" />
     <Compile Include="SDK\UnityEngine.UnityAnalyticsModule\ApiAnalyticEvent.cs" />
+    <Compile Include="SDK\VRC.Udon.Common\VRC\Udon\Common\Interfaces\NetworkEventTarget.cs" />
     <Compile Include="SDK\VRC.Udon\VRC\Udon\UdonBehaviour.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiAvatar.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiContainer.cs" />

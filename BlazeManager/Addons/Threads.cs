@@ -9,6 +9,7 @@ using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
 using Addons.Patch;
 using Addons.Utils;
+using VRCSDK2;
 using Photon.Pun.UtilityScripts;
 
 namespace Addons
@@ -16,6 +17,7 @@ namespace Addons
     public delegate void _Control_Thread_Update(IntPtr instance);
     public delegate void _Control_Thread_GUI(IntPtr instance);
     public delegate void _Nulled(IntPtr instance);
+    public delegate void _udonSync(IntPtr instance, IntPtr ptrString, IntPtr ptrPlayer);
     public delegate IntPtr _Nulled2(IntPtr instance);
     public static class Threads
     {
@@ -95,6 +97,14 @@ namespace Addons
 
         public static void Nulled(IntPtr instance) { }
         public static IntPtr Nulled2(IntPtr instance) { return IntPtr.Zero; }
+
+
+        private static IL2Patch pUdonSync = null;
+        public static void udonSync(IntPtr instance, IntPtr ptrString, IntPtr ptrPlayer)
+        {
+            Console.WriteLine(IL2Import.IntPtrToString(ptrString));
+            pUdonSync.InvokeOriginal(instance, new IntPtr[] { ptrString, ptrPlayer });
+        }
 
         public static void Control_Thread_GUI(IntPtr instance)
         {
@@ -236,6 +246,14 @@ namespace Addons
 
             if (Input.GetKeyDown(KeyCode.G))
             {
+                foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())
+                {
+                    //Console.WriteLine("------- [ " + x.gameObject.ToString());
+                    //foreach(var z in x.GetPrograms())
+                    //    Console.WriteLine(z);
+
+                    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_interact");
+                }
                 // Notification.SendMessage(VRC.Player.Instance, "Test world");
             }
 
