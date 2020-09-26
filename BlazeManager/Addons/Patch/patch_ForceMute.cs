@@ -76,7 +76,7 @@ namespace Addons.Patch
             {
                 if (!APIUser.IsFriendsWith(userid)) return true;
             }
-            if (!ModerationManager.Instance.IsBlockedEitherWay(userid)) return true;
+            if (ModerationManager.Instance.IsBlockedEitherWay(userid)) return true;
             if (player?.uSpeaker == null) return true;
             if (player.uSpeaker.Mute) return true;
             if (forceMuteList.Contains(userid)) return true;
