@@ -117,12 +117,15 @@
     <Compile Include="SDK\Assembly-CSharp\NetworkManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\NetworkingPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\NotificationManager.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\MonoBehaviourPun.cs" />
     <Compile Include="SDK\Assembly-CSharp\SteamNetworks.cs" />
     <Compile Include="SDK\Assembly-CSharp\PhotonSettings.cs" />
     <Compile Include="SDK\Assembly-CSharp\PhotonNetwork.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonView.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\PhotonLagSimulationGui.cs" />
     <Compile Include="SDK\Assembly-CSharp\HighlightsFX.cs" />
+    <Compile Include="SDK\Assembly-CSharp\PlayerNet.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRCNetworkBehaviour.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Networking\UdonSync.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\UI\PageUserInfo.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCUiPage.cs" />

@@ -126,22 +126,6 @@ public class VRCPlayer : Component
         }
     }
 
-    private static IL2Field fieldUSpeaker = null;
-    public USpeaker uSpeaker
-    {
-        get
-        {
-            if (fieldUSpeaker == null)
-            {
-                fieldUSpeaker = Instance_Class.GetFields().First(x => x.ReturnType.Name == USpeaker.Instance_Class.FullName);
-                if (fieldUSpeaker == null)
-                    return null;
-            }
-
-            return fieldUSpeaker.GetValue(ptr)?.Unbox<USpeaker>();
-        }
-    }
-
     private static IL2Field fieldPlayerSelector = null;
     public PlayerSelector playerSelector
     {
@@ -158,22 +142,6 @@ public class VRCPlayer : Component
         }
     }
     
-    private static IL2Field fieldPlayer = null;
-    public Player player
-    {
-        get
-        {
-            if (fieldPlayer == null)
-            {
-                fieldPlayer = Instance_Class.GetFields().First(x => x.ReturnType.Name == Player.Instance_Class.FullName);
-                if (fieldPlayer == null)
-                    return null;
-            }
-
-            return fieldPlayer.GetValue(ptr)?.Unbox<Player>();
-        }
-    }
-
     private static IL2Field fieldAvatarGameObject = null;
     public GameObject avatarGameObject
     {
@@ -218,6 +186,88 @@ public class VRCPlayer : Component
         }
     }
 
+    /*
+     * [~] Property:
+     * VRC.Player [+]
+     * VRC.Core.ApiAvatar [+]
+     * VRCAvatarManager
+     * ulong (naverno steamid)
+     * PlayerAudioManager
+     * PlayerNet
+     * USpeaker
+     * VRC.SDKBase.VRCPlayerApi
+     */
+
+    private static IL2Property propertyPlayer = null;
+    public Player player
+    {
+        get
+        {
+            if (propertyPlayer == null)
+            {
+                propertyPlayer = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName);
+                if (propertyPlayer == null)
+                    return default;
+            }
+
+            return propertyPlayer.GetGetMethod().Invoke(ptr)?.Unbox<Player>();
+        }
+    }
+    
+    private static IL2Property propertyApiAvatar = null;
+    public ApiAvatar apiAvatar
+    {
+        get
+        {
+            if (propertyApiAvatar == null)
+            {
+                propertyApiAvatar = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == ApiAvatar.Instance_Class.FullName);
+                if (propertyApiAvatar == null)
+                    return default;
+            }
+
+            return propertyApiAvatar.GetGetMethod().Invoke(ptr)?.Unbox<ApiAvatar>();
+        }
+    }
+
+    // * VRCAvatarManager
+    // * ulong (naverno steamid)
+    // * PlayerAudioManager
+
+    private static IL2Property propertyPlayerNet = null;
+    public PlayerNet playerNet
+    {
+        get
+        {
+            if (propertyPlayerNet == null)
+            {
+                propertyPlayerNet = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName);
+                if (propertyPlayerNet == null)
+                    return default;
+            }
+
+            return propertyPlayerNet.GetGetMethod().Invoke(ptr)?.Unbox<PlayerNet>();
+        }
+    }
+    
+
+    private static IL2Property propertyUSpeaker = null;
+    public USpeaker uSpeaker
+    {
+        get
+        {
+            if (propertyUSpeaker == null)
+            {
+                propertyUSpeaker = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == USpeaker.Instance_Class.FullName);
+                if (propertyUSpeaker == null)
+                    return default;
+            }
+
+            return propertyUSpeaker.GetGetMethod().Invoke(ptr)?.Unbox<USpeaker>();
+        }
+    }
+    
+
     private static IL2Property propertyVRCPlayerApi = null;
     public VRCPlayerApi vrcPlayerApi
     {
@@ -230,13 +280,13 @@ public class VRCPlayer : Component
                     return default;
             }
 
-            return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr).Unbox<VRCPlayerApi>();
+            return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr)?.Unbox<VRCPlayerApi>();
         }
     }
 
     public void TeleportRPC(Vector3 vector, Quaternion quaternion, VRC_SceneDescriptor.SpawnOrientation spawnOrientation)
     {
-        VRC.Network.RPC(VRCSDK2.VRC_EventHandler.VrcTargetType.TargetPlayer, gameObject, "TeleportRPC", new IntPtr[] {
+        Network.RPC(VRCSDK2.VRC_EventHandler.VrcTargetType.TargetPlayer, gameObject, "TeleportRPC", new IntPtr[] {
             IL2Import.CreateNewObject(vector, BlazeTools.IL2SystemClass.vector3),
             IL2Import.CreateNewObject(quaternion, BlazeTools.IL2SystemClass.vector3),
             IL2Import.CreateNewObject(spawnOrientation, BlazeTools.IL2SystemClass.spawnOrientation)

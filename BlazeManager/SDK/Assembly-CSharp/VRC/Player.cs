@@ -70,23 +70,20 @@ namespace VRC
             }
         }
 
+
         private static IL2Property propertyPlayerNet = null;
-        public IntPtr PlayerNet
+        public PlayerNet playerNet
         {
             get
             {
                 if (propertyPlayerNet == null)
                 {
-                    propertyPlayerNet = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == "PlayerNet");
+                    propertyPlayerNet = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName);
                     if (propertyPlayerNet == null)
-                        return IntPtr.Zero;
+                        return default;
                 }
 
-                IL2Object result = propertyPlayerNet.GetGetMethod().Invoke(ptr);
-                if (result == null)
-                    return IntPtr.Zero;
-
-                return result.ptr;
+                return propertyPlayerNet.GetGetMethod().Invoke(ptr)?.Unbox<PlayerNet>();
             }
         }
 
