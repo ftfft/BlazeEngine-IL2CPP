@@ -75,6 +75,7 @@ public class BlazeManager
         SetIfNullForPlayer("AntiKick", true);
         SetIfNullForPlayer("VoiceDotFade", false);
         SetIfNullForPlayer("Photon Serilize", false);
+        SetIfNullForPlayer("Force Mute Friend", false);
         SetIfNullForPlayer("More Portals", false);
         SetIfNullForPlayer("Invis API", false);
         SetIfNullForPlayer("No Portal Join", false);

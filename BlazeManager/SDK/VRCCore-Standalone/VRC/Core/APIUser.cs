@@ -22,6 +22,15 @@ namespace VRC.Core
             }
         }
 
+        private static IL2Method methodIsFriendsWith = null;
+        public static bool IsFriendsWith(string userId)
+        {
+            if (!IL2Get.Method("IsFriendsWith", Instance_Class, ref methodIsFriendsWith))
+                return default;
+
+            return methodIsFriendsWith.Invoke(IntPtr.Zero, new IntPtr[] { IL2Import.StringToIntPtr(userId) }).Unbox<bool>();
+        }
+
         private static IL2Method methodHasTag = null;
         public bool HasTag(string tag)
         {

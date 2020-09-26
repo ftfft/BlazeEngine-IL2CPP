@@ -259,7 +259,6 @@ namespace Addons
 
             if (Input.GetKey(KeyCode.T))
             {
-                Addons.Patch.patch_MorePortals.isFastCreate = true;
                 GameObject PortalGameObject = UserUtils.SpawnPortal(VRC.Player.Instance.transform);
 
                 PortalInternal portalInternal = PortalGameObject?.GetComponent<PortalInternal>();
@@ -267,7 +266,6 @@ namespace Addons
                 {
                     portalInternal.SetTimerRPC(float.NegativeInfinity, VRC.Player.Instance);
                 }
-                patch_MorePortals.isFastCreate = false;
                 return;
             }
 

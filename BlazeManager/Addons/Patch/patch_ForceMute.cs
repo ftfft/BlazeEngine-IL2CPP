@@ -39,6 +39,19 @@ namespace Addons.Patch
             BlazeManagerMenu.Main.togglerList["Force Mute"].btnOff.SetActive(!toggle);
         }
 
+        public static void Toggle_Enable_ForceMute()
+        {
+            BlazeManager.SetForPlayer("Force Mute Friend", !BlazeManager.GetForPlayer<bool>("Force Mute Friend"));
+            RefreshStatus_ForceMute_Friends();
+        }
+
+        public static void RefreshStatus_ForceMute_Friends()
+        {
+            bool toggle = BlazeManager.GetForPlayer<bool>("Force Mute Friend");
+            BlazeManagerMenu.Main.togglerList["Force Mute Friend"].btnOn.SetActive(toggle);
+            BlazeManagerMenu.Main.togglerList["Force Mute Friend"].btnOff.SetActive(!toggle);
+        }
+
         public static void Start()
         {
             try
@@ -55,13 +68,17 @@ namespace Addons.Patch
 
         public static bool IsPlayerForceMuted(IntPtr pPlayer)
         {
+            if (pPlayer == IntPtr.Zero) return true;
             VRC.Player player = new VRC.Player(pPlayer);
+            string userid = player?.apiuser?.id;
+            if (string.IsNullOrWhiteSpace(userid)) return true;
+            if (BlazeManager.GetForPlayer<bool>("Force Mute Friend"))
+            {
+                if (!APIUser.IsFriendsWith(userid)) return true;
+            }
             if (player?.uSpeaker == null) return true;
             if (player.uSpeaker.Mute) return true;
-            if (player.apiuser != null)
-            {
-                if (forceMuteList.Contains(player.apiuser.id)) return true;
-            }
+            if (forceMuteList.Contains(userid)) return true;
             return false;
         }
 

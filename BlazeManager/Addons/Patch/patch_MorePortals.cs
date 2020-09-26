@@ -51,18 +51,6 @@ namespace Addons.Patch
         public static bool ObjectInstantiator_ObjectInstantiator(IntPtr instance, IntPtr ptr1, IntPtr ptr2)
         {
             return false;
-            /*
-            if (isFastCreate)
-                return false;
-
-            IL2Object @object = pFastCreate.InvokeOriginal(instance, new IntPtr[] { ptr1, ptr2 });
-            if (@object == null)
-                return false;
-
-            return @object.pUnbox<bool>();
-            */
         }
-
-        public static bool isFastCreate = false;
     }
 }

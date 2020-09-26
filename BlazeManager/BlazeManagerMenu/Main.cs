@@ -53,6 +53,11 @@ namespace BlazeManagerMenu
             #endregion
 
             #region UIElement4
+            togglerList.Add("Force Mute Friend", new QMToggleButton("UIElementsMenu2", 1, 0, "Force Mute Friend\non", patch_ForceMute.Toggle_Enable_ForceMute, "off", "Toggle: Force Mute Friend"));
+            patch_ForceMute.RefreshStatus_ForceMute_Friends();
+            #endregion
+
+            #region UIElement4
             togglerList.Add("RPC Block", new QMToggleButton("UIElementsMenu4", 1, 0, "RPC Block\non", patch_EventManager.Toggle_Enable, "off", "Toggle: RPC Block"));
             patch_EventManager.RefreshStatus();
             togglerList.Add("Hide Pickup", new QMToggleButton("UIElementsMenu4", 2, 0, "Hide Pickup\non", NoLocalPickup.Toggle_Enable, "off", "Toggle: Hide all pickup objects"));
