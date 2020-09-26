@@ -70,6 +70,7 @@ namespace Addons.Patch
         {
             if (pPlayer == IntPtr.Zero) return true;
             VRC.Player player = new VRC.Player(pPlayer);
+            if (player == VRC.Player.Instance) return false;
             string userid = player?.apiuser?.id;
             if (string.IsNullOrWhiteSpace(userid)) return true;
             if (BlazeManager.GetForPlayer<bool>("Force Mute Friend"))
