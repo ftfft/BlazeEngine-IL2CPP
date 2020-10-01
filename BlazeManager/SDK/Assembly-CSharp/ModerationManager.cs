@@ -26,12 +26,13 @@ public class ModerationManager : Component
 
     
     public static IL2Method methodIsBlockedEitherWay = null;
-    public bool IsBlockedEitherWay(string userId)
+    public bool IsBlockedEitherWay(string userId) => IsBlockedEitherWay(IL2Import.StringToIntPtr(userId));
+    public bool IsBlockedEitherWay(IntPtr userId)
     {
         if (methodIsBlockedEitherWay == null)
             return false;
-
-        return methodIsBlockedEitherWay.Invoke(ptr, IL2Import.StringToIntPtr(userId)).Unbox<bool>();
+            
+        return methodIsBlockedEitherWay.Invoke(ptr, new IntPtr[] { userId }).Unbox<bool>();
     }
 
     

@@ -66,33 +66,19 @@ namespace Addons.Patch
             }
         }
 
-        public static bool IsPlayerForceMuted(IntPtr pPlayer)
+        public static bool USpeakPhotonSender_ForceMute(IntPtr instance, IntPtr pPlayer)
         {
             if (pPlayer == IntPtr.Zero) return true;
             VRC.Player player = new VRC.Player(pPlayer);
             if (player == VRC.Player.Instance) return false;
+            IntPtr userid = player.userId_Pointer;
+            if (userid == IntPtr.Zero) return true;
             if (BlazeManager.GetForPlayer<bool>("Force Mute Friend"))
             {
-                if (!player.IsFriend) return true;
+                if (!APIUser.IsFriendsWith(userid)) return true;
             }
-            string userid = player.userId;
-            if (string.IsNullOrWhiteSpace(userid)) return true;
             if (ModerationManager.Instance.IsBlockedEitherWay(userid)) return true;
-            if (player?.uSpeaker == null) return true;
-            if (player.uSpeaker.Mute) return true;
-            if (forceMuteList.Contains(userid)) return true;
-            return false;
-        }
-
-        public static bool USpeakPhotonSender_ForceMute(IntPtr instance, IntPtr pPlayer)
-        {
-            if (BlazeAttack.PhotonUtils.raise209_status)
-            {
-                BlazeAttack.PhotonUtils.Raise200();
-                return true;
-            }
-
-            return IsPlayerForceMuted(pPlayer);
+            return forceMuteList.Contains(IL2Import.IntPtrToString(userid));
         }
 
         public static List<string> forceMuteList = new List<string>();

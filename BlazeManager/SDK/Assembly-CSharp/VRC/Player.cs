@@ -171,27 +171,22 @@ namespace VRC
                             continue;
 
                         var disassembler = disasm.GetDisassembler(method);
-                        var instructions = disassembler.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
-
-                        foreach (var instruction in instructions)
+                        var instructions = disassembler.Disassemble();
+                        foreach(var @obj in ILCode.CastToILObject(instructions))
                         {
-                            if (!ILCode.IsCall(instruction))
+                            if (@obj.Type != ILType.method)
                                 continue;
-                            try
+
+                            if (*(IntPtr*)methodAPI.ptr == @obj.ptr)
                             {
-                                var addr = ILCode.GetPointer(instruction);
-                                if (*(IntPtr*)methodAPI.ptr == addr)
-                                {
-                                    propertyIsFriend = prop;
-                                    break;
-                                }
+                                propertyIsFriend = prop;
+                                break;
                             }
-                            catch { }
                         }
                         if (propertyIsFriend != null) break;
                     }
                     if (propertyIsFriend == null)
-                        return default;
+                        return false;
                 }
                 return propertyIsFriend.GetGetMethod().Invoke(ptr).Unbox<bool>();
             }
@@ -209,6 +204,23 @@ namespace VRC
                         return default;
                 }
                 return propertyUserId.GetGetMethod().Invoke(ptr)?.Unbox<string>();
+            }
+        }
+        public IntPtr userId_Pointer
+        {
+            get
+            {
+                if (propertyUserId == null)
+                {
+                    propertyUserId = Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName).First(x => x.GetSetMethod() == null);
+                    if (propertyUserId == null)
+                        return IntPtr.Zero;
+                }
+                IL2Object @object = propertyUserId.GetGetMethod().Invoke(ptr);
+                if (@object == null)
+                    return IntPtr.Zero;
+
+                return @object.ptr;
             }
         }
 

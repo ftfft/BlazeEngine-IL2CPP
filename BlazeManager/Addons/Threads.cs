@@ -11,6 +11,10 @@ using Addons.Patch;
 using Addons.Utils;
 using VRCSDK2;
 using Photon.Pun.UtilityScripts;
+using SharpDisasm;
+using SharpDisasm.Udis86;
+using BlazeIL.cpp2il;
+using BlazeIL.cpp2il.IL;
 
 namespace Addons
 {
@@ -231,7 +235,6 @@ namespace Addons
             }
             if (Input.GetKeyDown(KeyCode.F))
                 FlyMode.Toggle_Enable();
-
 
             if (Input.GetKeyDown(KeyCode.Mouse2))
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
