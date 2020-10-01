@@ -6,6 +6,10 @@ using BlazeIL.il2reflection;
 using UnityEngine;
 using VRC.Core;
 using VRC.SDKBase;
+using SharpDisasm;
+using SharpDisasm.Udis86;
+using BlazeIL.cpp2il;
+using BlazeIL.cpp2il.IL;
 
 namespace VRC
 {
@@ -148,6 +152,63 @@ namespace VRC
                 }
 
                 return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr).Unbox<VRCPlayerApi>();
+            }
+        }
+
+        private static IL2Property propertyIsFriend = null;
+        unsafe public bool IsFriend
+        {
+            get
+            {
+                if (propertyIsFriend == null)
+                {
+                    var properties = Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName);
+                    var methodAPI = APIUser.Instance_Class.GetProperty("friendIDs").GetGetMethod();
+                    foreach (var prop in properties)
+                    {
+                        var method = prop.GetGetMethod();
+                        if (method == null)
+                            continue;
+
+                        var disassembler = disasm.GetDisassembler(method);
+                        var instructions = disassembler.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
+
+                        foreach (var instruction in instructions)
+                        {
+                            if (!ILCode.IsCall(instruction))
+                                continue;
+                            try
+                            {
+                                var addr = ILCode.GetPointer(instruction);
+                                if (*(IntPtr*)methodAPI.ptr == addr)
+                                {
+                                    propertyIsFriend = prop;
+                                    break;
+                                }
+                            }
+                            catch { }
+                        }
+                        if (propertyIsFriend != null) break;
+                    }
+                    if (propertyIsFriend == null)
+                        return default;
+                }
+                return propertyIsFriend.GetGetMethod().Invoke(ptr).Unbox<bool>();
+            }
+        }
+
+        private static IL2Property propertyUserId = null;
+        public string userId
+        {
+            get
+            {
+                if (propertyUserId == null)
+                {
+                    propertyUserId = Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName).First(x => x.GetSetMethod() == null);
+                    if (propertyUserId == null)
+                        return default;
+                }
+                return propertyUserId.GetGetMethod().Invoke(ptr)?.Unbox<string>();
             }
         }
 

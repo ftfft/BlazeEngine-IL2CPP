@@ -329,6 +329,23 @@ namespace Addons.Patch
                     isBan = true;
                 }
             }
+            if (operationCode == 7)
+            {
+                Console.WriteLine("OP: " + operationCode);
+                if (raiseEventOptions == IntPtr.Zero)
+                    return true;
+
+                RaiseEventOptions raiseEvent = new RaiseEventOptions(raiseEventOptions);
+                Console.WriteLine("Raise Cache: " + raiseEvent.CachingOption.ToString());
+                foreach (var target in raiseEvent.TargetActorts_Pointer)
+                {
+                    Console.WriteLine("Raise Target: " + target.pUnbox<int>().ToString());
+                }
+                Console.WriteLine("Raise Receivers: " + raiseEvent.Receivers.ToString());
+                Console.WriteLine("Raise InterestGroup: " + raiseEvent.InterestGroup);
+                Console.WriteLine("sendOptions: " + sendOptions.Channel.ToString());
+                Console.WriteLine("sendOptions: " + sendOptions.Encrypt.ToString());
+            }
             if (operationCode == 6)
             {
                 if (isBan)

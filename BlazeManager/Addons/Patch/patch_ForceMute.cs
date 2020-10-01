@@ -71,12 +71,12 @@ namespace Addons.Patch
             if (pPlayer == IntPtr.Zero) return true;
             VRC.Player player = new VRC.Player(pPlayer);
             if (player == VRC.Player.Instance) return false;
-            string userid = player?.apiuser?.id;
-            if (string.IsNullOrWhiteSpace(userid)) return true;
             if (BlazeManager.GetForPlayer<bool>("Force Mute Friend"))
             {
-                if (!APIUser.IsFriendsWith(userid)) return true;
+                if (!player.IsFriend) return true;
             }
+            string userid = player.userId;
+            if (string.IsNullOrWhiteSpace(userid)) return true;
             if (ModerationManager.Instance.IsBlockedEitherWay(userid)) return true;
             if (player?.uSpeaker == null) return true;
             if (player.uSpeaker.Mute) return true;

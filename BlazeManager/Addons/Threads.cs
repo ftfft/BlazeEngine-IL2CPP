@@ -232,6 +232,7 @@ namespace Addons
             if (Input.GetKeyDown(KeyCode.F))
                 FlyMode.Toggle_Enable();
 
+
             if (Input.GetKeyDown(KeyCode.Mouse2))
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
                     UserUtils.TeleportTo(hit.point);

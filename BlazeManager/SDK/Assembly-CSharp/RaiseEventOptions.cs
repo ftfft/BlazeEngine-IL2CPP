@@ -111,6 +111,39 @@ public class RaiseEventOptions : IL2Base
             fieldTargetActors.SetValue(ptr, arrayPtr.ArrayToIntPtr(IL2SystemClass.Int32));
         }
     }
+    unsafe public IntPtr[] TargetActorts_Pointer
+    {
+        get
+        {
+            if (fieldTargetActors == null)
+            {
+                fieldTargetActors = Instance_Class.GetFields().First(x => x.Token == 0x18);
+                if (fieldTargetActors == null)
+                    return null;
+            }
+
+            IL2Object obj = fieldTargetActors.GetValue(ptr);
+            if (obj == null)
+                return new IntPtr[0];
+            return obj.UnboxArray();
+
+        }
+        set
+        {
+            if (fieldTargetActors == null)
+            {
+                fieldTargetActors = Instance_Class.GetFields().First(x => x.Token == 0x18);
+                if (fieldTargetActors == null)
+                    return;
+            }
+
+            IntPtr[] arrayPtr = new IntPtr[value.Length];
+            for (int i = 0; i < value.Length; i++)
+                arrayPtr[i] = IL2Import.CreateNewObject(value[i], IL2SystemClass.Int32);
+
+            fieldTargetActors.SetValue(ptr, arrayPtr.ArrayToIntPtr(IL2SystemClass.Int32));
+        }
+    }
 
     private static IL2Field fieldReceivers = null;
     public ReceiverGroup Receivers
