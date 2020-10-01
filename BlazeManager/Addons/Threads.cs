@@ -233,6 +233,40 @@ namespace Addons
                 Cam3th.Toggle_Enable();
                 return;
             }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+
+
+                var disassembler = disasm.GetDisassembler(VRC.Player.Instance_Class.GetMethod("OnNetworkReady"));
+                var instructions = disassembler.Disassemble();
+                foreach (var @obj in ILCode.CastToILObject(instructions))
+                {
+                    if (@obj.Type != ILType.method)
+                        continue;
+                    unsafe
+                    {
+                        IntPtr klass = IL2Import.il2cpp_method_get_class(@obj.ptr);
+                        if (klass != IntPtr.Zero)
+                        {
+                            IntPtr ptr = new IntPtr(&klass);
+                            IntPtr image = IL2Import.il2cpp_class_get_image(ptr);
+                            if (image != IntPtr.Zero)
+                            {
+                                IntPtr ptr2 = new IntPtr(&image);
+                                foreach (var text in Assemblies.a)
+                                {
+                                    if (*(IntPtr*)text.Value.ptr == *(IntPtr*)ptr2)
+                                        Console.WriteLine("Good + " + text.Key);
+                                }
+                            }
+                            else
+                                Console.WriteLine("Bad + Image");
+                        }
+                        else
+                            Console.WriteLine("Bad + Klass");
+                    }
+                }
+            }
             if (Input.GetKeyDown(KeyCode.F))
                 FlyMode.Toggle_Enable();
 

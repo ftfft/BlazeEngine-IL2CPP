@@ -50,6 +50,8 @@ namespace BlazeIL
         
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static IntPtr il2cpp_class_from_system_type(IntPtr type);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static IntPtr il2cpp_class_get_image(IntPtr klass);
 
 
         // ---------------------- [ IL2CPP Method ] ---------------------- //
@@ -69,6 +71,8 @@ namespace BlazeIL
         public extern static int il2cpp_method_get_token(IntPtr method);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static int il2cpp_class_get_type_token(IntPtr method);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static IntPtr il2cpp_method_get_class(IntPtr method);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         unsafe public extern static IntPtr il2cpp_runtime_invoke(IntPtr method, IntPtr obj, void** param, IntPtr exc);
 

@@ -7,7 +7,15 @@ using BlazeTools;
 using BlazeIL.il2cpp;
 using Addons;
 using Addons.Patch;
-using Addons.Mods;
+using BlazeIL;
+using BlazeIL.il2ch;
+using Addons.Utils;
+using VRCSDK2;
+using Photon.Pun.UtilityScripts;
+using SharpDisasm;
+using SharpDisasm.Udis86;
+using BlazeIL.cpp2il;
+using BlazeIL.cpp2il.IL;
 
 public class BlazeManager
 {
