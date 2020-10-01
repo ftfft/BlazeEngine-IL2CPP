@@ -15,9 +15,7 @@ namespace Addons.Patch
     {
         public static void OnPlayerToggleForceMute()
         {
-            UserInteractMenu[] userInteractMenu = UnityEngine.Object.FindObjectsOfType<UserInteractMenu>();
-            if (userInteractMenu == null || userInteractMenu.Length < 1) return;
-            APIUser apiUser = userInteractMenu[0].menuController?.activeUser;
+            APIUser apiUser = UnityEngine.Object.FindObjectOfType<UserInteractMenu>()?.menuController?.activeUser;
             if (apiUser == null) return;
 
             if (forceMuteList.Contains(apiUser.id))
@@ -29,9 +27,7 @@ namespace Addons.Patch
 
         public static void OnUpdateToggleForceMute()
         {
-            UserInteractMenu[] userInteractMenu = UnityEngine.Object.FindObjectsOfType<UserInteractMenu>();
-            if (userInteractMenu == null || userInteractMenu.Length < 1) return;
-            APIUser apiUser = userInteractMenu[0].menuController?.activeUser;
+            APIUser apiUser = UnityEngine.Object.FindObjectOfType<UserInteractMenu>()?.menuController?.activeUser;
             if (apiUser == null) return;
 
             bool toggle = forceMuteList.Contains(apiUser.id);

@@ -29,7 +29,7 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = IL2Cmds.GetAssembly("VRCSDKBase").GetClass("VRC_EventHandler", "VRC.SDKBase").GetMethod("InternalTriggerEvent");
+                IL2Method method = VRC.SDKBase.VRC_EventHandler.Instance_Class.GetMethod("InternalTriggerEvent");
                 if (method == null)
                     throw new Exception();
 

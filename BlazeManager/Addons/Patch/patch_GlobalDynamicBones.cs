@@ -37,7 +37,7 @@ namespace Addons.Patch
             {
                 method = VRC.Player.Instance_Class.GetMethod("Update");
                 if (method == null)
-                    new Exception();
+                    throw new Exception();
 
                 pVRC_Player_Update = IL2Ch.Patch(method, (_VRC_Player_Update)VRC_Player_Update);
                 ConSole.Success("Patch: Global Dynamic Bones");

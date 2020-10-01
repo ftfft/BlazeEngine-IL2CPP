@@ -98,7 +98,6 @@ namespace BlazeAttack
         }
 
         private static NetworkingPeer networkingPeer = PhotonNetwork.networkingPeer;
-        private static Random random = new Random();
     }
 }
 

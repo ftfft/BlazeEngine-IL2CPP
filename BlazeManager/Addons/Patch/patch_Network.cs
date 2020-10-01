@@ -166,8 +166,11 @@ namespace Addons.Patch
 
         public static SteamId fakeSteamId = 0U;
         public static SteamId? realSteamId = null;
-        unsafe public static SteamId Steamworks_SteamClient_Get_SteamId()
+        public static SteamId Steamworks_SteamClient_Get_SteamId()
         {
+            if (BlazeManager.GetForPlayer<bool>("Steam Spoof"))
+                return fakeSteamId;
+
             if (realSteamId is null)
             {
                 IL2Object iL2Object = pPatch[1].InvokeOriginal();
@@ -176,11 +179,8 @@ namespace Addons.Patch
                     if (realSteamId is null)
                         realSteamId = 0U;
                 }
-                realSteamId = (ulong)iL2Object.ptr;
+                realSteamId = iL2Object.pUnbox<ulong>();
             }
-            if (BlazeManager.GetForPlayer<bool>("Steam Spoof"))
-                return fakeSteamId;
-
             return realSteamId.Value;
         }
 
