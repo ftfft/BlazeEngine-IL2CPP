@@ -31,7 +31,16 @@ namespace UnityEngine
         }
 
         private static IL2Method methodFindObjectsOfType = null;
-        public static T FindObjectOfType<T>() => FindObjectsOfType<T>()[0];
+        public static T FindObjectOfType<T>() where T : Object
+        {
+            var result = FindObjectsOfType<T>();
+            if (result != null)
+                if (result.Length > 0)
+                    return result[0];
+
+            return null;
+        }
+
         public static T[] FindObjectsOfType<T>()
         {
             Object[] result = FindObjectsOfType(typeof(T));
@@ -43,7 +52,15 @@ namespace UnityEngine
             return new T[0];
         }
 
-        public static Object FindObjectOfType(Type type) => FindObjectsOfType(type)[0];
+        public static Object FindObjectOfType(Type type)
+        {
+            var result = FindObjectsOfType(type);
+            if (result != null)
+                if (result.Length > 0)
+                    return result[0];
+
+            return null;
+        }
         public static Object[] FindObjectsOfType(Type type)
         {
             if (methodFindObjectsOfType == null)

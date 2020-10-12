@@ -10,7 +10,7 @@ namespace ExitGames.Client.Photon
         public Hashtable(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
         private static IL2Property propertyItem = null;
-        public object this[object key]
+        public IntPtr this[IntPtr key]
         {
             get
             {
@@ -18,10 +18,14 @@ namespace ExitGames.Client.Photon
                 {
                     propertyItem = Instance_Class.GetProperty("Item");
                     if (propertyItem == null)
-                        return null;
+                        return IntPtr.Zero;
                 }
 
-                return propertyItem.GetGetMethod().Invoke(ptr, new IntPtr[] { IL2Import.il2cpp_string_new_len((string)key, ((string)key).Length) }).ptr;
+                IL2Object @object = propertyItem.GetGetMethod().Invoke(ptr, new IntPtr[] { key });
+                if (@object == null)
+                    return IntPtr.Zero;
+
+                return @object.ptr;
             }
             set
             {
@@ -32,12 +36,7 @@ namespace ExitGames.Client.Photon
                         return;
                 }
 
-                if (value.GetType() == typeof(string))
-                    propertyItem.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.il2cpp_string_new_len((string)key, ((string)key).Length), IL2Import.il2cpp_string_new_len((string)value, ((string)value).Length) });
-                else if(value.GetType() == typeof(bool))
-                    propertyItem.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.il2cpp_string_new_len((string)key, ((string)key).Length), IL2Import.CreateNewObject((bool)value, BlazeTools.IL2SystemClass.Boolean)});
-                else if(value.GetType() == typeof(IntPtr))
-                    propertyItem.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.il2cpp_string_new_len((string)key, ((string)key).Length), (IntPtr)value });
+                propertyItem.GetSetMethod().Invoke(ptr, new IntPtr[] { key, value });
             }
         }
 
@@ -49,10 +48,22 @@ namespace ExitGames.Client.Photon
         static IL2Method methodToString = null;
         public override string ToString()
         {
+            IntPtr ptr = ToString_Pointer();
+            if (ptr == IntPtr.Zero)
+                return null;
+
+            return ptr.MonoCast<string>();
+        }
+        public IntPtr ToString_Pointer()
+        {
             if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
                 return default;
 
-            return methodToString.Invoke(ptr)?.Unbox<string>();
+            IL2Object @object = methodToString.Invoke(ptr);
+            if (@object == null)
+                return IntPtr.Zero;
+            
+            return @object.ptr;
         }
 
         //        public object Clone()

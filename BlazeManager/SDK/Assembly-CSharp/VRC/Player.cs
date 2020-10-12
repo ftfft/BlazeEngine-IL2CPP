@@ -228,7 +228,11 @@ namespace VRC
         {
             get
             {
-                return Convert.ToUInt64(((IntPtr)photonPlayer.hashtable["steamUserID"]).MonoCast<string>());
+                PhotonPlayer photon = photonPlayer;
+                if (photon == null) return 0U;
+                IntPtr ptr = photon.hashtable[IL2Import.StringToIntPtr("steamUserID")];
+                if (ptr == IntPtr.Zero) return 0U;
+                return Convert.ToUInt64(ptr.MonoCast<string>());
             }
         }
 
@@ -250,22 +254,24 @@ namespace VRC
             methodApplyBlock.Invoke(ptr, status.MonoCast());
         }
 
-        private static IL2Method methodToString = null;
+        static IL2Method methodToString = null;
         public override string ToString()
         {
-            if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
-                return default;
+            IntPtr ptr = ToString_Pointer();
+            if (ptr == IntPtr.Zero)
+                return null;
 
-            return methodToString.Invoke(ptr)?.MonoCast<string>();
+            return ptr.MonoCast<string>();
         }
-
-        public IntPtr ToStringPointer()
+        public IntPtr ToString_Pointer()
         {
             if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
                 return default;
 
             IL2Object @object = methodToString.Invoke(ptr);
-            if (@object == null) return IntPtr.Zero;
+            if (@object == null)
+                return IntPtr.Zero;
+
             return @object.ptr;
         }
 

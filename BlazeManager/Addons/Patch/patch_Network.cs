@@ -32,6 +32,7 @@ namespace Addons.Patch
     public delegate void _PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer);
     public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
     public delegate bool _delegateFastJoin();
+    public delegate void _methodUdonSyncRunProgramAsRPC(IntPtr str, IntPtr pPlayer);
 
     public static class patch_Network
     {
@@ -114,6 +115,10 @@ namespace Addons.Patch
 
                 method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == "System.Boolean" && x.GetGetMethod().HasFlag(IL2BindingFlags.METHOD_STATIC)).GetGetMethod();
                 pPatch[3] = IL2Ch.Patch(method, (_delegateFastJoin)methodFastJoin);
+                
+
+                method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
+                IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
 
                 //IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
                 //pPatch[0] = IL2Ch.Patch(method, (_USpeakPhotonSender3D_OnEvent)USpeakPhotonSender3D_OnEvent);
@@ -403,6 +408,10 @@ namespace Addons.Patch
                 return false;
 
             return @object.pUnbox<bool>();
+        }
+        
+        private static void methodUdonSyncRunProgramAsRPC(IntPtr str, IntPtr pPlayer)
+        {
         }
 
         public static bool isBan = false;
