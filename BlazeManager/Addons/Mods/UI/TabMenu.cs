@@ -44,7 +44,7 @@ namespace Addons.Mods.UI
                 }
                 iPlayer++;
                 if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), "<b><color=" + (iSelectUser == playerId ? "red>" : "white>") + playerId + "</color></b>")
-                || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.ToStringPointer()))
+                || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.ToString_Pointer()))
                 {
                     iSelectUser = playerId;
                     uSelectSteam = player.steamId;
