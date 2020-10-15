@@ -336,10 +336,11 @@ namespace Addons.Patch
             }
             if (operationCode == 7)
             {
+                /*
                 Console.WriteLine("OP: " + operationCode);
                 if (raiseEventOptions == IntPtr.Zero)
                     return true;
-
+                
                 RaiseEventOptions raiseEvent = new RaiseEventOptions(raiseEventOptions);
                 Console.WriteLine("Raise Cache: " + raiseEvent.CachingOption.ToString());
                 foreach (var target in raiseEvent.TargetActorts_Pointer)
@@ -350,6 +351,7 @@ namespace Addons.Patch
                 Console.WriteLine("Raise InterestGroup: " + raiseEvent.InterestGroup);
                 Console.WriteLine("sendOptions: " + sendOptions.Channel.ToString());
                 Console.WriteLine("sendOptions: " + sendOptions.Encrypt.ToString());
+                */
             }
             if (operationCode == 6)
             {

@@ -115,12 +115,14 @@ namespace Addons.Patch
             if (Player.Instance.ptr == instance) return;
             Player player = new Player(instance);
             IntPtr userid = player.apiuser.id_Pointer;
+            string useridPl = player.apiuser.id;
             Transform selectRegion = player.transform.Find("SelectRegion");
             if (selectRegion == null)
                 return;
 
             int photonId = player.photonPlayer.ID;
-            bool result = IsUserBlockOrBlocked(ModerationManager.Instance.ptr, userid);
+            bool result = IsUserBlockOrBlocked(ModerationManager.Instance.ptr, userid) || UserUtils.kos_list.Contains(useridPl);
+
             if (result && !patch_Network.playerInfo.ContainsKey(photonId))
             {
                 patch_Network.playerInfo.Add(photonId, 1);

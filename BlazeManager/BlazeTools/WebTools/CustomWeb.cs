@@ -28,7 +28,7 @@ namespace WebTools
                 resource.Remove(0, 1);
             return resource;
         }
-        public string _Get(string uri) => webClient.DownloadString(new Uri(uri));
+        public string _Get(string uri) => webClient.DownloadString(uri);
         public string _Get(Uri uri) => webClient.DownloadString(uri);
 
         public void AddHeader(string name, string value) => webClient.Headers.Add(name, value);

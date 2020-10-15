@@ -31,7 +31,7 @@ public class ModerationManager : Component
     {
         if (methodIsBlockedEitherWay == null)
             return false;
-            
+
         return methodIsBlockedEitherWay.Invoke(ptr, new IntPtr[] { userId }).Unbox<bool>();
     }
 

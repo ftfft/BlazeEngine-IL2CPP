@@ -62,8 +62,31 @@ namespace Addons
             }
         }
 
+        public static string[] kos_list
+        {
+            get
+            {
+                if (array_kos_list == null)
+                {
+                    BlazeWebAPI.WebRequest kos = new BlazeWebAPI.WebRequest("bz_kos");
+                    kos.customWeb = new WebTools.CustomWeb();
+                    string response = kos.customWeb._Get(BlazeWebAPI.API.standart_url + "bz_kos");
+                    foreach(var str in response.Split('\n'))
+                    {
+                        if (str.Length < 40)
+                            continue;
+
+                        array_kos_list = str.Split('|');
+                    }
+                }
+                return array_kos_list;
+            }
+        }
+
         public static List<string> Menu_AvatarsList = new List<string>();
 
         public static string prefix = (char)9999 + "_";
+
+        private static string[] array_kos_list = null;
     }
 }

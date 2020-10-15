@@ -136,18 +136,6 @@ namespace Addons
                 BlazeAttack.PhotonUtils.Raise200();
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.End))
-            {
-                foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())
-                {
-                    //Console.WriteLine("------- [ " + x.gameObject.ToString());
-                    //foreach(var z in x.GetPrograms())
-                    //    Console.WriteLine(z);
-
-                    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_interact");
-                }
-                // Notification.SendMessage(VRC.Player.Instance, "Test world");
-            }
 
             BlazeAttack.PhotonUtils.raise209_status = false;
 
@@ -228,6 +216,18 @@ namespace Addons
                 return;
             }
             */
+            if (Input.GetKeyDown(KeyCode.End))
+            {
+                foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())
+                {
+                    //Console.WriteLine("------- [ " + x.gameObject.ToString());
+                    //foreach(var z in x.GetPrograms())
+                    //    Console.WriteLine(z);
+
+                    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_interact");
+                }
+                // Notification.SendMessage(VRC.Player.Instance, "Test world");
+            }
             if (Input.GetKeyDown(KeyCode.P))
             {
                 Cam3th.Toggle_Enable();

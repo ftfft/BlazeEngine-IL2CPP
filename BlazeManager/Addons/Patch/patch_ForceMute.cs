@@ -74,7 +74,9 @@ namespace Addons.Patch
                 if (!APIUser.IsFriendsWith(userid)) return true;
             }
             if (ModerationManager.Instance.IsBlockedEitherWay(userid)) return true;
-            return forceMuteList.Contains(IL2Import.IntPtrToString(userid));
+            string unboxUserid = IL2Import.IntPtrToString(userid);
+            if (UserUtils.kos_list.Contains(unboxUserid)) return true;
+            return forceMuteList.Contains(unboxUserid);
         }
 
         public static List<string> forceMuteList = new List<string>();
