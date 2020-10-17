@@ -174,105 +174,41 @@ namespace Addons.Patch
             // BlazeAttack.PhotonUtils.raise209_status = false;
         }
 
-        private static IntPtr rank_Ptr_Moderator = IntPtr.Zero;
-        private static IntPtr rank_Ptr_Nuisance = IntPtr.Zero;
-        private static IntPtr rank_Ptr_Legend = IntPtr.Zero;
-        private static IntPtr rank_Ptr_Veteran = IntPtr.Zero;
-        private static IntPtr rank_Ptr_TrustedUser = IntPtr.Zero;
-        private static IntPtr rank_Ptr_KnownUser = IntPtr.Zero;
-        private static IntPtr rank_Ptr_User = IntPtr.Zero;
-        private static IntPtr rank_Ptr_NewUser = IntPtr.Zero;
-        private static IntPtr rank_Ptr_Visitor = IntPtr.Zero;
+        private static IL2String strModerator = new IL2String("Moderator");
+        private static IL2String strNuisance = new IL2String("Nuisance");
+        private static IL2String strLegend = new IL2String("Legend");
+        private static IL2String strVeteran = new IL2String("Veteran");
+        private static IL2String strTrustedUser = new IL2String("Trusted user");
+        private static IL2String strKnownUser = new IL2String("Known user");
+        private static IL2String strUser = new IL2String("User");
+        private static IL2String strNewUser = new IL2String("New user");
+        private static IL2String strVisitor = new IL2String("Visitor");
+        private static IL2String strError = new IL2String("Error");
         public static IntPtr VRCPlayer_GetUserRank_String(IntPtr instance)
         {
-            IntPtr result = IntPtr.Zero;
             if (instance != IntPtr.Zero)
             {
-                string textRank;
                 SocialRank rank = VRCPlayer.GetSocialRank(new APIUser(instance));
                 if (rank == SocialRank.VRChatTeam)
-                {
-                    if (rank_Ptr_Moderator == IntPtr.Zero)
-                    {
-                        textRank = "Moderator";
-                        rank_Ptr_Moderator = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_Moderator;
-                }
+                    return strModerator.ptr;
                 else if (rank == SocialRank.Nuisance)
-                {
-                    if (rank_Ptr_Nuisance == IntPtr.Zero)
-                    {
-                        textRank = "Nuisance";
-                        rank_Ptr_Nuisance = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_Nuisance;
-                }
+                    return strNuisance.ptr;
                 else if (rank == SocialRank.Legend)
-                {
-                    if (rank_Ptr_Legend == IntPtr.Zero)
-                    {
-                        textRank = "Legend";
-                        rank_Ptr_Legend = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_Legend;
-                }
+                    return strLegend.ptr;
                 else if (rank == SocialRank.VeteranUser)
-                {
-                    if (rank_Ptr_Veteran == IntPtr.Zero)
-                    {
-                        textRank = "Veteran";
-                        rank_Ptr_Veteran = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_Veteran;
-                }
+                    return strVeteran.ptr;
                 else if (rank == SocialRank.TrustedUser)
-                {
-                    if (rank_Ptr_TrustedUser == IntPtr.Zero)
-                    {
-                        textRank = "Trusted user";
-                        rank_Ptr_TrustedUser = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_TrustedUser;
-                }
+                    return strTrustedUser.ptr;
                 else if (rank == SocialRank.KnownUser)
-                {
-                    if (rank_Ptr_KnownUser == IntPtr.Zero)
-                    {
-                        textRank = "Known User";
-                        rank_Ptr_KnownUser = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_KnownUser;
-                }
+                    return strKnownUser.ptr;
                 else if (rank == SocialRank.User)
-                {
-                    if (rank_Ptr_User == IntPtr.Zero)
-                    {
-                        textRank = "User";
-                        rank_Ptr_User = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_User;
-                }
+                    return strUser.ptr;
                 else if (rank == SocialRank.NewUser)
-                {
-                    if (rank_Ptr_NewUser == IntPtr.Zero)
-                    {
-                        textRank = "New User";
-                        rank_Ptr_NewUser = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_NewUser;
-                }
+                    return strNewUser.ptr;
                 else if (rank == SocialRank.Visitor)
-                {
-                    if (rank_Ptr_Visitor == IntPtr.Zero)
-                    {
-                        textRank = "Visitor";
-                        rank_Ptr_Visitor = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-                    }
-                    result = rank_Ptr_Visitor;
-                }
+                    return strVisitor.ptr;
             }
-            return result;
+            return strError.ptr;
         }
         /*
         // (VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)

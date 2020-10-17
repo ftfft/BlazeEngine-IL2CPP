@@ -146,6 +146,7 @@
     <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\BlazeIL\cpp2il\disasm.cs" />
     <Compile Include="SDK\BlazeIL\cpp2il\IL\ILCode.cs" />
+    <Compile Include="SDK\BlazeIL\il2cpp\IL2String.cs" />
     <Compile Include="SDK\Facepunch.Steamworks.Win64\Steamworks\SteamClient.cs" />
     <Compile Include="SDK\Facepunch.Steamworks.Win64\Steamworks\SteamId.cs" />
     <Compile Include="SDK\mscorlib\System\Reflection\IL2MethodInfo.cs" />

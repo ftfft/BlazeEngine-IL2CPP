@@ -37,52 +37,38 @@ public class VRCPlayer : Component
     }
     */
 
-    private static IntPtr msg_system_probable_troll = IntPtr.Zero;
-    private static IntPtr msg_system_legend = IntPtr.Zero;
-    private static IntPtr msg_system_trust_legend = IntPtr.Zero;
-    private static IntPtr msg_system_trust_veteran = IntPtr.Zero;
-    private static IntPtr msg_system_trust_trusted = IntPtr.Zero;
-    private static IntPtr msg_system_trust_known = IntPtr.Zero;
-    private static IntPtr msg_system_trust_basic = IntPtr.Zero;
+    private static IL2String msg_system_probable_troll = new IL2String("system_probable_troll");
+    private static IL2String msg_system_legend = new IL2String("system_legend");
+    private static IL2String msg_system_trust_legend = new IL2String("system_trust_legend");
+    private static IL2String msg_system_trust_veteran = new IL2String("system_trust_veteran");
+    private static IL2String msg_system_trust_trusted = new IL2String("system_trust_trusted");
+    private static IL2String msg_system_trust_known = new IL2String("system_trust_known");
+    private static IL2String msg_system_trust_basic = new IL2String("system_trust_basic");
     public static SocialRank GetSocialRank(APIUser apiuser)
     {
         if (apiuser == null) return SocialRank.None;
         if (apiuser.hasVIPAccess || apiuser.hasModerationPowers)
             return SocialRank.VRChatTeam;
 
-        if (msg_system_probable_troll == IntPtr.Zero)
-            msg_system_probable_troll = IL2Import.StringToIntPtr("system_probable_troll");
-        if (apiuser.HasTag(msg_system_probable_troll))
+        if (apiuser.HasTag(msg_system_probable_troll.ptr))
             return SocialRank.Nuisance;
 
-        if (msg_system_legend == IntPtr.Zero)
-            msg_system_legend = IL2Import.StringToIntPtr("system_legend");
-        if (apiuser.HasTag(msg_system_legend))
+        if (apiuser.HasTag(msg_system_legend.ptr))
             return SocialRank.Legend;
 
-        if (msg_system_trust_legend == IntPtr.Zero)
-            msg_system_trust_legend = IL2Import.StringToIntPtr("system_trust_legend");
-        if (apiuser.HasTag(msg_system_trust_legend))
+        if (apiuser.HasTag(msg_system_trust_legend.ptr))
             return SocialRank.VeteranUser;
 
-        if (msg_system_trust_veteran == IntPtr.Zero)
-            msg_system_trust_veteran = IL2Import.StringToIntPtr("system_trust_veteran");
-        if (apiuser.HasTag(msg_system_trust_veteran))
+        if (apiuser.HasTag(msg_system_trust_veteran.ptr))
             return SocialRank.TrustedUser;
 
-        if (msg_system_trust_trusted == IntPtr.Zero)
-            msg_system_trust_trusted = IL2Import.StringToIntPtr("system_trust_trusted");
-        if (apiuser.HasTag(msg_system_trust_trusted))
+        if (apiuser.HasTag(msg_system_trust_trusted.ptr))
             return SocialRank.KnownUser;
 
-        if (msg_system_trust_known == IntPtr.Zero)
-            msg_system_trust_known = IL2Import.StringToIntPtr("system_trust_known");
-        if (apiuser.HasTag(msg_system_trust_known))
+        if (apiuser.HasTag(msg_system_trust_known.ptr))
             return SocialRank.User;
 
-        if (msg_system_trust_basic == IntPtr.Zero)
-            msg_system_trust_basic = IL2Import.StringToIntPtr("system_trust_basic");
-        if (apiuser.HasTag(msg_system_trust_basic))
+        if (apiuser.HasTag(msg_system_trust_basic.ptr))
             return SocialRank.NewUser;
 
         return SocialRank.Visitor;
