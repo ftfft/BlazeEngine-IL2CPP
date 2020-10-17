@@ -174,8 +174,106 @@ namespace Addons.Patch
             // BlazeAttack.PhotonUtils.raise209_status = false;
         }
 
+        private static IntPtr rank_Ptr_Moderator = IntPtr.Zero;
+        private static IntPtr rank_Ptr_Nuisance = IntPtr.Zero;
+        private static IntPtr rank_Ptr_Legend = IntPtr.Zero;
+        private static IntPtr rank_Ptr_Veteran = IntPtr.Zero;
+        private static IntPtr rank_Ptr_TrustedUser = IntPtr.Zero;
+        private static IntPtr rank_Ptr_KnownUser = IntPtr.Zero;
+        private static IntPtr rank_Ptr_User = IntPtr.Zero;
+        private static IntPtr rank_Ptr_NewUser = IntPtr.Zero;
+        private static IntPtr rank_Ptr_Visitor = IntPtr.Zero;
         public static IntPtr VRCPlayer_GetUserRank_String(IntPtr instance)
         {
+            IntPtr result = IntPtr.Zero;
+            if (instance != IntPtr.Zero)
+            {
+                string textRank;
+                SocialRank rank = VRCPlayer.GetSocialRank(new APIUser(instance));
+                if (rank == SocialRank.VRChatTeam)
+                {
+                    if (rank_Ptr_Moderator == IntPtr.Zero)
+                    {
+                        textRank = "Moderator";
+                        rank_Ptr_Moderator = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_Moderator;
+                }
+                else if (rank == SocialRank.Nuisance)
+                {
+                    if (rank_Ptr_Nuisance == IntPtr.Zero)
+                    {
+                        textRank = "Nuisance";
+                        rank_Ptr_Nuisance = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_Nuisance;
+                }
+                else if (rank == SocialRank.Legend)
+                {
+                    if (rank_Ptr_Legend == IntPtr.Zero)
+                    {
+                        textRank = "Legend";
+                        rank_Ptr_Legend = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_Legend;
+                }
+                else if (rank == SocialRank.VeteranUser)
+                {
+                    if (rank_Ptr_Veteran == IntPtr.Zero)
+                    {
+                        textRank = "Veteran";
+                        rank_Ptr_Veteran = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_Veteran;
+                }
+                else if (rank == SocialRank.TrustedUser)
+                {
+                    if (rank_Ptr_TrustedUser == IntPtr.Zero)
+                    {
+                        textRank = "Trusted user";
+                        rank_Ptr_TrustedUser = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_TrustedUser;
+                }
+                else if (rank == SocialRank.KnownUser)
+                {
+                    if (rank_Ptr_KnownUser == IntPtr.Zero)
+                    {
+                        textRank = "Known User";
+                        rank_Ptr_KnownUser = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_KnownUser;
+                }
+                else if (rank == SocialRank.User)
+                {
+                    if (rank_Ptr_User == IntPtr.Zero)
+                    {
+                        textRank = "User";
+                        rank_Ptr_User = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_User;
+                }
+                else if (rank == SocialRank.NewUser)
+                {
+                    if (rank_Ptr_NewUser == IntPtr.Zero)
+                    {
+                        textRank = "New User";
+                        rank_Ptr_NewUser = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_NewUser;
+                }
+                else if (rank == SocialRank.Visitor)
+                {
+                    if (rank_Ptr_Visitor == IntPtr.Zero)
+                    {
+                        textRank = "Visitor";
+                        rank_Ptr_Visitor = IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+                    }
+                    result = rank_Ptr_Visitor;
+                }
+            }
+            return result;
+            /*
             string textRank = ":: N/A ::";
             if (instance != IntPtr.Zero)
             {
@@ -200,6 +298,7 @@ namespace Addons.Patch
                     textRank = "Visitor";
             }
             return IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
+            */
         }
         /*
         // (VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)
