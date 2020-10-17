@@ -221,7 +221,9 @@ namespace Addons.Patch
                     }
                 case 7:
                     {
-                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("NoMove") || isPhotonBlock(eventData.Sender)))
+                        if (isSelf)
+                            return;
+                        if ((BlazeManager.GetForPlayer<bool>("NoMove") || isPhotonBlock(eventData.Sender)))
                             return;
 
                         break;
