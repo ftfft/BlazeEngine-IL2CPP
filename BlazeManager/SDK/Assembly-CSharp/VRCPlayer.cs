@@ -190,7 +190,7 @@ public class VRCPlayer : Component
             if (!IL2Get.Field("vipPlate", Instance_Class, ref fieldVipPlate))
                 return default;
 
-            return fieldVipPlate.GetValue(ptr).Unbox<VRCUiShadowPlate>();
+            return fieldVipPlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
         }
     }
 

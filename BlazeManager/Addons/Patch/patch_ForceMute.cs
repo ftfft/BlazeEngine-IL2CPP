@@ -67,16 +67,15 @@ namespace Addons.Patch
             if (pPlayer == IntPtr.Zero) return true;
             VRC.Player player = new VRC.Player(pPlayer);
             if (player == VRC.Player.Instance) return false;
-            IntPtr userid = player.userId_Pointer;
-            if (userid == IntPtr.Zero) return true;
+            IL2String userid = new IL2String(player.userId_Pointer);
+            if (userid.ptr == IntPtr.Zero) return true;
             if (BlazeManager.GetForPlayer<bool>("Force Mute Friend"))
             {
-                if (!APIUser.IsFriendsWith(userid)) return true;
+                if (!APIUser.IsFriendsWith(userid.ptr)) return true;
             }
-            if (ModerationManager.Instance.IsBlockedEitherWay(userid)) return true;
-            string unboxUserid = IL2Import.IntPtrToString(userid);
-            if (UserUtils.kos_list.Contains(unboxUserid)) return true;
-            return forceMuteList.Contains(unboxUserid);
+            if (ModerationManager.Instance.IsBlockedEitherWay(userid.ptr)) return true;
+            if (UserUtils.kos_list.Contains(userid.ToString())) return true;
+            return forceMuteList.Contains(userid.ToString());
         }
 
         public static List<string> forceMuteList = new List<string>();

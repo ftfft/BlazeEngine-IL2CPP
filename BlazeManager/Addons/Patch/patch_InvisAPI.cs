@@ -42,7 +42,7 @@ namespace Addons.Patch
 
         private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, IntPtr authenticationRequired, IntPtr disableCache, IntPtr cacheLifetime, IntPtr retryCount, IntPtr credentials)
         {
-            string point = endpoint.MonoCast<string>();
+            string point = new IL2String(endpoint).ToString();
             new WebRequest(point);
 
             if ((point == "visits" || point == "joins" || (point.StartsWith("avatars/avtr_") && point.EndsWith("/select"))) && BlazeManager.GetForPlayer<bool>("Invis API"))

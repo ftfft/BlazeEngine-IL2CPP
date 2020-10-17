@@ -10,7 +10,10 @@ namespace UnityEngine
 	{
 
 		private static IL2Method m1_Box;
-		public static void Box(Rect position, string text, bool isRusText = false)
+		public static void Box(Rect position, string text) => Box(position.MonoCast(), new IL2String(text).ptr);
+		public static void Box(Rect position, IntPtr text) => Box(position.MonoCast(), text);
+		public static void Box(IntPtr position, string text) => Box(position, new IL2String(text).ptr);
+		public static void Box(IntPtr position, IntPtr text)
 		{
 			if (m1_Box == null)
 			{
@@ -18,7 +21,7 @@ namespace UnityEngine
 				if (m1_Box == null)
 					return;
 			}
-			m1_Box.Invoke(new IntPtr[] { position.MonoCast(), isRusText ? IL2Import.StringToIntPtrRU(text) : IL2Import.StringToIntPtr(text) });
+			m1_Box.Invoke(new IntPtr[] { position, text });
 		}
 		/*
 
@@ -30,13 +33,19 @@ namespace UnityEngine
 		{
 		}
 		*/
-		public static void Label(Rect position, string text, bool isRusText = false)
-		{
-			Label(position, text, s_Skin.label, isRusText);
-		}
 
 		private static IL2Method m1_Label;
-		public static void Label(Rect position, string text, GUIStyle style, bool isRusText = false)
+		public static void Label(Rect position, string text) => Label(position.MonoCast(), new IL2String(text).ptr, s_Skin.label.ptr);
+		public static void Label(Rect position, IntPtr text) => Label(position.MonoCast(), text, s_Skin.label.ptr);
+		public static void Label(IntPtr position, string text) => Label(position, new IL2String(text).ptr, s_Skin.label.ptr);
+		public static void Label(IntPtr position, IntPtr text) => Label(position, text, s_Skin.label.ptr);
+		public static void Label(Rect position, IntPtr text, IntPtr style) => Label(position.MonoCast(), text, style);
+		public static void Label(Rect position, string text, IntPtr style) => Label(position.MonoCast(), new IL2String(text).ptr, style);
+		public static void Label(Rect position, string text, GUIStyle style) => Label(position.MonoCast(), new IL2String(text).ptr, style.ptr);
+		public static void Label(IntPtr position, string text, IntPtr style) => Label(position, new IL2String(text).ptr, style);
+		public static void Label(IntPtr position, string text, GUIStyle style) => Label(position, new IL2String(text).ptr, style.ptr);
+		public static void Label(IntPtr position, IntPtr text, GUIStyle style) => Label(position, new IL2String(text).ptr, style.ptr);
+		public static void Label(IntPtr position, IntPtr text, IntPtr style)
 		{
 
 			if (m1_Label == null)
@@ -45,7 +54,7 @@ namespace UnityEngine
 				if (m1_Label == null)
 					return;
 			}
-			m1_Label.Invoke(new IntPtr[] { position.MonoCast(), isRusText ? IL2Import.StringToIntPtrRU(text) : IL2Import.StringToIntPtr(text), style.ptr });
+			m1_Label.Invoke(new IntPtr[] { position, text, style });
 		}
 		/*
 		public static void Label(Rect position, GUIContent content, GUIStyle style)
@@ -53,7 +62,10 @@ namespace UnityEngine
 		}
 		*/
 		private static IL2Method m1_Button;
-		public static bool Button(Rect position, IntPtr text)
+		public static bool Button(Rect position, string text) => Button(position.MonoCast(), new IL2String(text).ptr);
+		public static bool Button(Rect position, IntPtr text) => Button(position.MonoCast(), text);
+		public static bool Button(IntPtr position, string text) => Button(position, new IL2String(text).ptr);
+		public static bool Button(IntPtr position, IntPtr text)
 		{
 			if (m1_Button == null)
 			{
@@ -61,18 +73,7 @@ namespace UnityEngine
 				if (m1_Button == null)
 					return false;
 			}
-			return m1_Button.Invoke(new IntPtr[] { position.MonoCast(), text }).MonoCast<bool>();
-		}
-
-		public static bool Button(Rect position, string text, bool isRusText = false)
-		{
-			if (m1_Button == null)
-			{
-				m1_Button = Instance_Class.GetMethod("Button", m => m.GetParameters().Length == 2);
-				if (m1_Button == null)
-					return false;
-			}
-			return m1_Button.Invoke(new IntPtr[] { position.MonoCast(), isRusText ? IL2Import.StringToIntPtrRU(text) : IL2Import.StringToIntPtr(text) }).MonoCast<bool>();
+			return m1_Button.Invoke(new IntPtr[] { position, text }).MonoCast<bool>();
 		}
 
 		/*

@@ -11,13 +11,19 @@ namespace Addons.Mods.UI
 {
     public static class TabMenu
     {
+        // private static IL2String strTabMenuBold = new IL2String("<b><color=white>Tab-menu</color></b>");
+        private static IL2String strHashBold = new IL2String("<b>#</b>");
+        private static IL2String strDisplayNameBold = new IL2String("<b>displayName</b>");
+        private static IL2String strTeleport = new IL2String("Teleport");
+        private static IntPtr ptrSteamIdButton_Rect = new Rect(180, 112, 150, 17).MonoCast();
+        private static IL2String strTempText = null;
         public static void ShowMenu()
         {
 
             int SizeX1 = Screen.width - (iLeftMargin * 2);
-            GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), "<b><color=white>Tab-menu</color></b>");
-            GUI.Label(new Rect(120, iTopMargin, 40, 20), "<b>#</b>");
-            GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), "<b>displayName</b>");
+            // GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), strTabMenuBold.ptr);
+            GUI.Label(new Rect(120, iTopMargin, 40, 20), strHashBold.ptr);
+            GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.ptr);
 
             int iPlayer = 0;
             foreach (var player in VRC.PlayerManager.Instance.AllPlayers)
@@ -26,18 +32,15 @@ namespace Addons.Mods.UI
                 if (playerId == null) continue;
                 if (iSelectUser == playerId)
                 {
-                    string text = "<b>Selected player:</b>";
-                    text += "\n<b>ID:</b>\t" + playerId;
                     if (uSelectSteam != 0U)
                     {
-                        text += "\n<b>Steam:</b>\t" + uSelectSteam;
-                        if (GUI.Button(new Rect(180, 112, 150, 17), string.Empty))
+                        if (GUI.Button(ptrSteamIdButton_Rect, IntPtr.Zero))
                         {
                             Avatars.AvatarStatus.OpenUrlBrowser("https://steamcommunity.com/profiles/" + uSelectSteam);
                         }
                     }
-                    GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), text);
-                    if (GUI.Button(new Rect(400, 100, 120, 20), "Teleport"))
+                    GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), strTempText.ptr);
+                    if (GUI.Button(new Rect(400, 100, 120, 20), strTeleport.ptr))
                     {
                         UserUtils.TeleportTo(player);
                     }
@@ -48,6 +51,13 @@ namespace Addons.Mods.UI
                 {
                     iSelectUser = playerId;
                     uSelectSteam = player.steamId;
+                    string text = "<b>Selected player:</b>";
+                    text += "\n<b>ID:</b>\t" + playerId;
+                    if (uSelectSteam != 0U)
+                    {
+                        text += "\n<b>Steam:</b>\t" + uSelectSteam;
+                    }
+                    strTempText = new IL2String(text);
                 }
             }
         }
