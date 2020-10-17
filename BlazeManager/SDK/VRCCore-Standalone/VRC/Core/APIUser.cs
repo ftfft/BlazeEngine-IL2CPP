@@ -33,12 +33,13 @@ namespace VRC.Core
         }
 
         private static IL2Method methodHasTag = null;
-        public bool HasTag(string tag)
+        public bool HasTag(string tag) => HasTag(IL2Import.StringToIntPtr(tag));
+        public bool HasTag(IntPtr tag)
         {
             if (!IL2Get.Method("HasTag", Instance_Class, ref methodHasTag))
                 return default;
 
-            return methodHasTag.Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(tag) }).Unbox<bool>();
+            return methodHasTag.Invoke(ptr, new IntPtr[] { tag }).Unbox<bool>();
         }
 
         private static IL2Property propertyDisplayName = null;

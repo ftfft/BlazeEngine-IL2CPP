@@ -273,32 +273,6 @@ namespace Addons.Patch
                 }
             }
             return result;
-            /*
-            string textRank = ":: N/A ::";
-            if (instance != IntPtr.Zero)
-            {
-                SocialRank rank = VRCPlayer.GetSocialRank(new APIUser(instance));
-                if (rank == SocialRank.VRChatTeam)
-                    textRank = "Moderator";
-                else if (rank == SocialRank.Nuisance)
-                    textRank = "Nuisance";
-                else if (rank == SocialRank.Legend)
-                    textRank = "Legend";
-                else if (rank == SocialRank.VeteranUser)
-                    textRank = "Veteran";
-                else if (rank == SocialRank.TrustedUser)
-                    textRank = "Trusted user";
-                else if (rank == SocialRank.KnownUser)
-                    textRank = "Known User";
-                else if (rank == SocialRank.User)
-                    textRank = "User";
-                else if (rank == SocialRank.NewUser)
-                    textRank = "New User";
-                else if (rank == SocialRank.Visitor)
-                    textRank = "Visitor";
-            }
-            return IL2Import.il2cpp_string_new_len(textRank, textRank.Length);
-            */
         }
         /*
         // (VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)

@@ -36,31 +36,53 @@ public class VRCPlayer : Component
         return !string.IsNullOrEmpty(tag) && this.tags != null && this.tags.Contains(tag);
     }
     */
+
+    private static IntPtr msg_system_probable_troll = IntPtr.Zero;
+    private static IntPtr msg_system_legend = IntPtr.Zero;
+    private static IntPtr msg_system_trust_legend = IntPtr.Zero;
+    private static IntPtr msg_system_trust_veteran = IntPtr.Zero;
+    private static IntPtr msg_system_trust_trusted = IntPtr.Zero;
+    private static IntPtr msg_system_trust_known = IntPtr.Zero;
+    private static IntPtr msg_system_trust_basic = IntPtr.Zero;
     public static SocialRank GetSocialRank(APIUser apiuser)
     {
         if (apiuser == null) return SocialRank.None;
         if (apiuser.hasVIPAccess || apiuser.hasModerationPowers)
             return SocialRank.VRChatTeam;
 
-        if (apiuser.HasTag("system_probable_troll"))
+        if (msg_system_probable_troll == IntPtr.Zero)
+            msg_system_probable_troll = IL2Import.StringToIntPtr("system_probable_troll");
+        if (apiuser.HasTag(msg_system_probable_troll))
             return SocialRank.Nuisance;
 
-        if (apiuser.HasTag("system_legend"))
+        if (msg_system_legend == IntPtr.Zero)
+            msg_system_legend = IL2Import.StringToIntPtr("system_legend");
+        if (apiuser.HasTag(msg_system_legend))
             return SocialRank.Legend;
 
-        if (apiuser.HasTag("system_trust_legend"))
+        if (msg_system_trust_legend == IntPtr.Zero)
+            msg_system_trust_legend = IL2Import.StringToIntPtr("system_trust_legend");
+        if (apiuser.HasTag(msg_system_trust_legend))
             return SocialRank.VeteranUser;
 
-        if (apiuser.HasTag("system_trust_veteran"))
+        if (msg_system_trust_veteran == IntPtr.Zero)
+            msg_system_trust_veteran = IL2Import.StringToIntPtr("system_trust_veteran");
+        if (apiuser.HasTag(msg_system_trust_veteran))
             return SocialRank.TrustedUser;
 
-        if (apiuser.HasTag("system_trust_trusted"))
+        if (msg_system_trust_trusted == IntPtr.Zero)
+            msg_system_trust_trusted = IL2Import.StringToIntPtr("system_trust_trusted");
+        if (apiuser.HasTag(msg_system_trust_trusted))
             return SocialRank.KnownUser;
 
-        if (apiuser.HasTag("system_trust_known"))
+        if (msg_system_trust_known == IntPtr.Zero)
+            msg_system_trust_known = IL2Import.StringToIntPtr("system_trust_known");
+        if (apiuser.HasTag(msg_system_trust_known))
             return SocialRank.User;
 
-        if (apiuser.HasTag("system_trust_basic"))
+        if (msg_system_trust_basic == IntPtr.Zero)
+            msg_system_trust_basic = IL2Import.StringToIntPtr("system_trust_basic");
+        if (apiuser.HasTag(msg_system_trust_basic))
             return SocialRank.NewUser;
 
         return SocialRank.Visitor;
