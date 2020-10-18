@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using BlazeIL;
 using BlazeIL.il2cpp;
+using BlazeIL.il2reflection;
 using UnityEngine;
 using VRCSDK2;
 
@@ -12,25 +13,18 @@ namespace VRC
     {
         public static int? GetOwnerId(GameObject obj)
         {
-            if (methodGetOwnerId == null)
-            {
-                methodGetOwnerId = Instance_Class.GetMethods().First(x => x.ReturnType.Name == "System.Nullable<System.Int32>");
-                if (methodGetOwnerId == null)
-                    return null;
-            }
+            if (!IL2Get.Method(typeof(int?).FullName, Instance_Class, ref methodGetOwnerId, false))
+                return null;
 
-            return methodGetOwnerId.Invoke(IntPtr.Zero, new IntPtr[] { obj.ptr })?.Unbox<int>();
+            return methodGetOwnerId.Invoke(new IntPtr[] { obj.ptr })?.unbox_Unmanaged<int>();
         }
 
         public static DateTime GetNetworkDateTime()
         {
-            if (methodGetNetworkDateTime == null)
-            {
-                methodGetNetworkDateTime = Instance_Class.GetMethods().First(x => x.ReturnType.Name == "System.DateTime");
-                if (methodGetNetworkDateTime == null)
-                    return DateTime.Now;
-            }
-            return methodGetNetworkDateTime.Invoke().Unbox<DateTime>();
+            if (!IL2Get.Method(typeof(DateTime).FullName, Instance_Class, ref methodGetNetworkDateTime, false))
+                return DateTime.Now;
+
+            return methodGetNetworkDateTime.Invoke().unbox_Unmanaged<DateTime>();
         }
 
         public static double CalculateServerDeltaTime(double timeInSeconds, double previousTimeInSeconds)
@@ -183,9 +177,9 @@ namespace VRC
                         x.GetParameters()[0].ReturnType.Name == Player.Instance_Class.FullName &&
                         x.GetParameters()[1].ReturnType.Name == "VRCSDK2.VRC_EventHandler.VrcTargetType" &&
                         x.GetParameters()[2].ReturnType.Name == GameObject.Instance_Class.FullName &&
-                        x.GetParameters()[3].ReturnType.Name == "System.String" &&
-                        x.GetParameters()[4].ReturnType.Name == "System.Object[]" &&
-                        x.ReturnType.Name == "System.Boolean" &&
+                        x.GetParameters()[3].ReturnType.Name == typeof(string).FullName &&
+                        x.GetParameters()[4].ReturnType.Name == typeof(object[]).FullName &&
+                        x.ReturnType.Name == typeof(bool).FullName &&
                         x.HasFlag(IL2BindingFlags.METHOD_PRIVATE)
                 );
                 if (methodRPCToTarget == null)
@@ -201,23 +195,16 @@ namespace VRC
         {
             get
             {
-                if (fieldObjectInstantiator == null)
-                {
-                    fieldObjectInstantiator = Instance_Class.GetFields().First(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName);
-                    if (fieldObjectInstantiator == null)
-                        return null;
-                }
+                if (!IL2Get.Field(ObjectInstantiator.Instance_Class.FullName, Instance_Class, ref fieldObjectInstantiator, false))
+                    return null;
 
-                return fieldObjectInstantiator.GetValue()?.MonoCast<ObjectInstantiator>();
+                return fieldObjectInstantiator.GetValue()?.unbox<ObjectInstantiator>();
             }
             set
             {
-                if (fieldObjectInstantiator == null)
-                {
-                    fieldObjectInstantiator = Instance_Class.GetFields().First(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName);
-                    if (fieldObjectInstantiator == null)
-                        return;
-                }
+                if (!IL2Get.Field(ObjectInstantiator.Instance_Class.FullName, Instance_Class, ref fieldObjectInstantiator, false))
+                    return;
+
                 fieldObjectInstantiator.SetValue(value.ptr);
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
@@ -17,60 +18,56 @@ namespace VRC
     {
         public Player(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyGetInstance = null;
         public static Player Instance
         {
             get
             {
-                if (propertyGetInstance == null)
+                if (!properties.ContainsKey(nameof(Instance)))
                 {
-                    propertyGetInstance = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Instance_Class.FullName);
-                    if (propertyGetInstance == null)
+                    properties.Add(nameof(Instance), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(Instance)))
                         return null;
                 }
 
-                return propertyGetInstance.GetGetMethod().Invoke()?.Unbox<Player>();
+                return properties[nameof(Instance)].GetGetMethod().Invoke()?.unbox<Player>();
             }
         }
 
-        internal static IL2Method methodUpdateModeration = null;
         public void UpdateModeration()
         {
-            if (methodUpdateModeration == null)
+            if (!methods.ContainsKey(nameof(UpdateModeration)))
                 return;
 
-            methodUpdateModeration.Invoke(ptr);
+            methods[nameof(UpdateModeration)].Invoke(ptr);
         }
 
-        private static IL2Property propertyApiPlayer = null;
         public VRCSDK2.VRC_PlayerApi apiPlayer
         {
             get
             {
-                if (propertyApiPlayer == null)
+                if (!properties.ContainsKey(nameof(apiPlayer)))
                 {
-                    propertyApiPlayer = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == VRCSDK2.VRC_PlayerApi.Instance_Class.FullName);
-                    if (propertyApiPlayer == null)
+                    properties.Add(nameof(apiPlayer), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRCSDK2.VRC_PlayerApi.Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(apiPlayer)))
                         return null;
                 }
 
-                return propertyApiPlayer.GetGetMethod().Invoke(ptr)?.Unbox<VRCSDK2.VRC_PlayerApi>();
+                return properties[nameof(apiPlayer)].GetGetMethod().Invoke(ptr)?.unbox<VRCSDK2.VRC_PlayerApi>();
             }
         }
 
-        private static IL2Property propertyApiuser = null;
         public APIUser apiuser
         {
             get
             {
-                if (propertyApiuser == null)
+                if (!properties.ContainsKey(nameof(apiPlayer)))
                 {
-                    propertyApiuser = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName);
-                    if (propertyApiuser == null)
+                    properties.Add(nameof(apiPlayer), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(apiPlayer)))
                         return null;
                 }
 
-                return propertyApiuser.GetGetMethod().Invoke(ptr)?.Unbox<APIUser>();
+                return properties[nameof(apiuser)].GetGetMethod().Invoke(ptr)?.unbox<APIUser>();
             }
         }
 
@@ -80,14 +77,10 @@ namespace VRC
         {
             get
             {
-                if (propertyPlayerNet == null)
-                {
-                    propertyPlayerNet = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName);
-                    if (propertyPlayerNet == null)
-                        return default;
-                }
+                if (!IL2Get.Property(PlayerNet.Instance_Class.FullName, Instance_Class, ref propertyPlayerNet, false))
+                    return null;
 
-                return propertyPlayerNet.GetGetMethod().Invoke(ptr)?.Unbox<PlayerNet>();
+                return propertyPlayerNet.GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
             }
         }
 
@@ -96,14 +89,10 @@ namespace VRC
         {
             get
             {
-                if (fieldPhotonPlayer == null)
-                {
-                    fieldPhotonPlayer = Instance_Class.GetFields().First(x => x.ReturnType.Name == PhotonPlayer.Instance_Class.FullName);
-                    if (fieldPhotonPlayer == null)
-                        return null;
-                }
+                if (!IL2Get.Field(PhotonPlayer.Instance_Class.FullName, Instance_Class, ref fieldPhotonPlayer, false))
+                    return null;
 
-                return fieldPhotonPlayer.GetValue(ptr)?.Unbox<PhotonPlayer>();
+                return fieldPhotonPlayer.GetValue(ptr)?.unbox<PhotonPlayer>();
             }
         }
 
@@ -112,14 +101,10 @@ namespace VRC
         {
             get
             {
-                if (fieldVrcPlayer == null)
-                {
-                    fieldVrcPlayer = Instance_Class.GetFields().First(x => x.ReturnType.Name == VRCPlayer.Instance_Class.FullName);
-                    if (fieldVrcPlayer == null)
-                        return null;
-                }
+                if (!IL2Get.Field(VRCPlayer.Instance_Class.FullName, Instance_Class, ref fieldVrcPlayer, false))
+                    return null;
 
-                return fieldVrcPlayer.GetValue(ptr)?.Unbox<VRCPlayer>();
+                return fieldVrcPlayer.GetValue(ptr)?.unbox<VRCPlayer>();
             }
         }
 
@@ -128,14 +113,10 @@ namespace VRC
         {
             get
             {
-                if (fieldUSpeaker == null)
-                {
-                    fieldUSpeaker = Instance_Class.GetFields().First(x => x.ReturnType.Name == USpeaker.Instance_Class.FullName);
-                    if (fieldUSpeaker == null)
-                        return null;
-                }
+                if (!IL2Get.Field(USpeaker.Instance_Class.FullName, Instance_Class, ref fieldUSpeaker, false))
+                    return null;
 
-                return fieldUSpeaker.GetValue(ptr)?.Unbox<USpeaker>();
+                return fieldUSpeaker.GetValue(ptr)?.unbox<USpeaker>();
             }
         }
 
@@ -144,14 +125,10 @@ namespace VRC
         {
             get
             {
-                if (propertyVRCPlayerApi == null)
-                {
-                    propertyVRCPlayerApi = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == VRCPlayerApi.Instance_Class.FullName);
-                    if (propertyVRCPlayerApi == null)
-                        return default;
-                }
+                if (!IL2Get.Property(VRCPlayerApi.Instance_Class.FullName, Instance_Class, ref propertyVRCPlayerApi, false))
+                    return null;
 
-                return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr).Unbox<VRCPlayerApi>();
+                return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr).unbox<VRCPlayerApi>();
             }
         }
 
@@ -188,7 +165,7 @@ namespace VRC
                     if (propertyIsFriend == null)
                         return false;
                 }
-                return propertyIsFriend.GetGetMethod().Invoke(ptr).Unbox<bool>();
+                return propertyIsFriend.GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
             }
         }
 
@@ -230,9 +207,9 @@ namespace VRC
             {
                 PhotonPlayer photon = photonPlayer;
                 if (photon == null) return 0U;
-                IntPtr ptr = photon.hashtable[IL2Import.StringToIntPtr("steamUserID")];
+                IntPtr ptr = photon.hashtable[new IL2String("steamUserID").ptr];
                 if (ptr == IntPtr.Zero) return 0U;
-                return Convert.ToUInt64(ptr.MonoCast<string>());
+                return Convert.ToUInt64(new IL2String(ptr).ToString());
             }
         }
 
@@ -255,25 +232,22 @@ namespace VRC
         }
 
         static IL2Method methodToString = null;
-        public override string ToString()
-        {
-            IntPtr ptr = ToString_Pointer();
-            if (ptr == IntPtr.Zero)
-                return null;
-
-            return ptr.MonoCast<string>();
-        }
-        public IntPtr ToString_Pointer()
+        public override string ToString() => ToIL2String()?.ToString();
+        public IL2String ToIL2String()
         {
             if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
                 return default;
 
             IL2Object @object = methodToString.Invoke(ptr);
             if (@object == null)
-                return IntPtr.Zero;
+                return null;
 
-            return @object.ptr;
+            return @object.unbox_ToString();
         }
+
+        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
+        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
+        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
 
         public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("Player", "VRC");
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
@@ -13,21 +14,31 @@ namespace VRC.UI
         {
             get
             {
-                if (!IL2Get.Field("avatar", Instance_Class, ref f_avatar))
-                    return default;
+                if (!fields.ContainsKey(nameof(avatar)))
+                {
+                    fields.Add(nameof(avatar), Instance_Class.GetField("avatar"));
+                    if (!fields.ContainsKey(nameof(avatar)))
+                        return default;
+                }
 
-                return f_avatar.GetValue(ptr)?.Unbox<SimpleAvatarPedestal>();
+                return fields[nameof(avatar)].GetValue(ptr)?.unbox<SimpleAvatarPedestal>();
             }
             set
             {
-                if (!IL2Get.Field("avatar", Instance_Class, ref f_avatar))
-                    return;
+                if (!fields.ContainsKey(nameof(avatar)))
+                {
+                    fields.Add(nameof(avatar), Instance_Class.GetField("avatar"));
+                    if (!fields.ContainsKey(nameof(avatar)))
+                        return;
+                }
 
-                f_avatar.SetValue(ptr, value.ptr);
+                fields[nameof(avatar)].SetValue(ptr, value.ptr);
             }
         }
 
-        private static IL2Field f_avatar;
+        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
+        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
+        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
 
         public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PageAvatar", "VRC.UI");
     }

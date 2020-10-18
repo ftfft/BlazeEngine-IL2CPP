@@ -21,7 +21,7 @@ public class ObjectInstantiator : Component
                 if (fieldSpawnBlockedList == null)
                     return new string[0];
             }
-            return fieldSpawnBlockedList.GetValue().UnboxArray<string>();
+            return fieldSpawnBlockedList.GetValue().unbox_ToArray_String();
         }
         set
         {

@@ -118,6 +118,7 @@ namespace BlazeIL.il2cpp
         public IL2Field[] GetFields(IL2BindingFlags flags) => GetFields(flags, null);
         public IL2Field[] GetFields(Func<IL2Field, bool> func) => GetFields().Where(x => func(x)).ToArray();
         public IL2Field[] GetFields(IL2BindingFlags flags, Func<IL2Field, bool> func) => GetFields().Where(x => (x.HasFlag(flags) && func(x))).ToArray();
+        public IL2Field GetField(Func<IL2Field, bool> func) => GetFields().First(x => func(x));
         public IL2Field GetField(string name) => GetField(name, null);
         public IL2Field GetField(string name, IL2BindingFlags flags) => GetField(name, flags, null);
         public IL2Field GetField(string name, Func<IL2Field, bool> func)
@@ -155,6 +156,7 @@ namespace BlazeIL.il2cpp
         // Properties
         public IL2Property[] GetProperties() => PropertyList.ToArray();
         public IL2Property[] GetProperties(IL2BindingFlags flags) => GetProperties().Where(x => x.HasFlag(flags)).ToArray();
+        public IL2Property GetProperty(Func<IL2Property, bool> func) => GetProperties().First(x => func(x));
         public IL2Property GetProperty(string name)
         {
             IL2Property returnval = null;

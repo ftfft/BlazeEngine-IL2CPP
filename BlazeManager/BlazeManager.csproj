@@ -99,6 +99,7 @@
     <Compile Include="BlazeManagerMenu\Main.cs" />
     <Compile Include="BlazeManagerMenu\QuickTools.cs" />
     <Compile Include="BlazeTools\BlazeAttack\PortalSploit.cs" />
+    <Compile Include="BlazeTools\BlazeUtils.cs" />
     <Compile Include="BlazeTools\BlazeWebAPI\API.cs" />
     <Compile Include="BlazeTools\BlazeWebAPI\WebRequest.cs" />
     <Compile Include="CustomQuickMenu\QMLineButton.cs" />

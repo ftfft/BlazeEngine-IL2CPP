@@ -36,7 +36,7 @@ namespace VRCSDK2
                         return -1;
                 }
 
-                return propertyNetworkID.GetGetMethod().Invoke(ptr, new IntPtr[0]).Unbox<int>();
+                return propertyNetworkID.GetGetMethod().Invoke(ptr, new IntPtr[0]).unbox_Unmanaged<int>();
             }
             set
             {
@@ -81,7 +81,7 @@ namespace VRCSDK2
                             return null;
                     }
 
-                    return fieldName.GetValue(ptr).Unbox<string>();
+                    return fieldName.GetValue(ptr)?.unbox_ToString().ToString();
                 }
                 set
                 {
@@ -92,7 +92,7 @@ namespace VRCSDK2
                             return;
                     }
 
-                    fieldName.SetValue(ptr, IL2Import.StringToIntPtr(value));
+                    fieldName.SetValue(ptr, new IL2String(value).ptr);
                 }
             }
 
@@ -105,10 +105,10 @@ namespace VRCSDK2
                     {
                         fieldEventType = Instance_Class.GetField("EventType");
                         if (fieldEventType == null)
-                            return VrcEventType.ActivateCustomTrigger;
+                            return VrcEventType.MeshVisibility;
                     }
 
-                    return fieldEventType.GetValue(ptr).Unbox<VrcEventType>();
+                    return (VrcEventType)fieldEventType.GetValue(ptr).unbox_Unmanaged<int>();
                 }
                 set
                 {
@@ -272,7 +272,11 @@ namespace VRCSDK2
                             return null;
                     }
 
-                    return fieldParameterObject.GetValue(ptr).ptr.MonoCast<GameObject>();
+                    IL2Object result = fieldParameterObject.GetValue(ptr);
+                    if (result == null)
+                        return null;
+
+                    return result.unbox<GameObject>();
                 }
                 set
                 {

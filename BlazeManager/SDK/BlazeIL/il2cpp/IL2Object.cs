@@ -36,5 +36,79 @@ namespace BlazeIL.il2cpp
             }
             return b;
         }
+
+        public T unbox<T>()
+        {
+            InvocationDelegate fastInvoke = IL2Tools.GetMethodInvoker(typeof(T).GetConstructors().First(x => x.GetParameters().Length == 1));
+            return (T)fastInvoke(null, new object[] { ptr });
+        }
+
+        unsafe public T unbox_Unmanaged<T>() where T : unmanaged
+        {
+            return *(T*)(ptr + 0x10).ToPointer();
+        }
+
+        unsafe public T unbox_Dis_Unmanaged<T>() where T : unmanaged
+        {
+            IntPtr @int = ptr;
+            return *(T*)&@int;
+        }
+        unsafe public IL2Object[] unbox_ToArray()
+        {
+            long length = *((long*)ptr + 3);
+            IL2Object[] result = new IL2Object[length];
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i * IntPtr.Size), null);
+            }
+            return result;
+        }
+
+        public T[] unbox_ToArray<T>()
+        {
+            IL2Object[] @objects = unbox_ToArray();
+            T[] result = new T[@objects.Length];
+            for (int i = 0; i < @objects.Length; i++)
+                result[i] = @objects[i].unbox<T>();
+            return result;
+        }
+
+        public string[] unbox_ToArray_String()
+        {
+            IL2Object[] @objects = unbox_ToArray();
+            string[] result = new string[@objects.Length];
+            for (int i = 0; i < @objects.Length; i++)
+                result[i] = @objects[i].unbox_ToString().ToString();
+            return result;
+        }
+
+        public IL2String[] unbox_ToArray_IL2String()
+        {
+            IL2Object[] @objects = unbox_ToArray();
+            IL2String[] result = new IL2String[@objects.Length];
+            for (int i = 0; i < @objects.Length; i++)
+                result[i] = @objects[i].unbox_ToString();
+            return result;
+        }
+
+        public T[] unbox_ToArray_Unmanaged<T>() where T : unmanaged
+        {
+            IL2Object[] @objects = unbox_ToArray();
+            T[] result = new T[@objects.Length];
+            for (int i = 0; i < @objects.Length; i++)
+                result[i] = @objects[i].unbox_Unmanaged<T>();
+            return result;
+        }
+
+        public T[] unbox_ToArray_Dis_Unmanaged<T>() where T : unmanaged
+        {
+            IL2Object[] @objects = unbox_ToArray();
+            T[] result = new T[@objects.Length];
+            for (int i = 0; i < @objects.Length; i++)
+                result[i] = @objects[i].unbox_Dis_Unmanaged<T>();
+            return result;
+        }
+
+        public IL2String unbox_ToString() => new IL2String(ptr);
     }
 }

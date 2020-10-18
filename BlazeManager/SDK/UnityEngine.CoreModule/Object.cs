@@ -22,7 +22,7 @@ namespace UnityEngine
                     .Where(x => x.Name == "Instantiate"
                         && x.GetParameters().Length == 3
                         && x.ReturnType.Name == Instance_Class.FullName)
-                    .First(x => x.GetParameters()[2].ReturnType.Name == "System.Boolean");
+                    .First(x => x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName);
                 if (methodGetInstantiate == null)
                     return null;
             }
@@ -78,7 +78,7 @@ namespace UnityEngine
         }
 
         private static IL2Method methodDestroy = null;
-        public void Destroy() => Destroy(0f);
+        public void Destroy() => Destroy(this, 0f);
         public void Destroy(float time) => Destroy(this, time);
         public static void Destroy(Object obj) => Destroy(obj, 0f);
         public static void Destroy(Object obj, float time)
@@ -96,7 +96,8 @@ namespace UnityEngine
         }
 
         private static IL2Method methodFindObjectFromInstanceID = null;
-        public static Object FindObjectFromInstanceID(int instanceID)
+        public static Object FindObjectFromInstanceID(int instanceID) => FindObjectFromInstanceID(instanceID.MonoCast());
+        public static Object FindObjectFromInstanceID(IntPtr instanceID)
         {
             if (methodFindObjectFromInstanceID == null)
             {
@@ -105,7 +106,7 @@ namespace UnityEngine
                     return null;
             }
 
-            return methodFindObjectFromInstanceID.Invoke(new IntPtr[] { instanceID.MonoCast() })?.MonoCast<Object>();
+            return methodFindObjectFromInstanceID.Invoke(new IntPtr[] { instanceID })?.MonoCast<Object>();
         }
 
         private static IL2Method methodDontDestroyOnLoad = null;
@@ -144,7 +145,7 @@ namespace UnityEngine
                         return;
                 }
 
-                propertyName.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
+                propertyName.GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
             }
         }
 

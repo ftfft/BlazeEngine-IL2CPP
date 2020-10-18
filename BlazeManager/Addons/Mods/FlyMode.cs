@@ -43,17 +43,18 @@ namespace Addons.Mods
                 player.GetComponent<Collider>().enabled = false;
                 float MultiSpeed = Input.GetKey(KeyCode.LeftShift) ? 2.5F : 1F;
                 float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed;
+                Vector3 moveControl = Player.Instance.transform.position;
+                Vector3 moveControl2 = moveControl;
                 // NoClipMode
                 if (Input.GetKey(KeyCode.E))
                 {
-                    player.transform.position += Vector3.up * calcTimes;
+                    moveControl += Vector3.up * calcTimes;
                 }
                 else if (Input.GetKey(KeyCode.Q))
                 {
-                    player.transform.position -= Vector3.up * calcTimes;
+                    moveControl -= Vector3.up * calcTimes;
                 }
 
-                Vector3 moveControl = Player.Instance.transform.position;
                 #region Vertical
                 float fVertical = Input.GetAxis("Vertical");
                 if (Math.Abs(fVertical) > 0f) moveControl += calcTimes * transform.forward * fVertical;
@@ -62,7 +63,8 @@ namespace Addons.Mods
                 float fHorizontal = Input.GetAxis("Horizontal");
                 if (Math.Abs(fHorizontal) > 0f) moveControl += calcTimes * transform.right * fHorizontal;
                 #endregion
-                UserUtils.TeleportTo(moveControl);
+                if (moveControl != moveControl2)
+                    UserUtils.TeleportTo(moveControl);
             }
             else
             {

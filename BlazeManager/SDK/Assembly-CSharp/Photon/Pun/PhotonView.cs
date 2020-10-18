@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL.il2cpp;
 
@@ -13,17 +13,20 @@ namespace Photon.Pun
         {
             get
             {
-                if (f_viewIdField == null)
+                if (!fields.ContainsKey(nameof(viewIdField)))
                 {
-                    f_viewIdField = Instance_Class.GetField("viewIdField");
-                    if (f_viewIdField == null)
+                    fields.Add(nameof(viewIdField), Instance_Class.GetField("viewIdField"));
+                    if (!fields.ContainsKey(nameof(viewIdField)))
                         return default;
                 }
-                return f_viewIdField.GetValue(ptr).Unbox<int>();
+
+                return fields[nameof(viewIdField)].GetValue(ptr).unbox_Unmanaged<int>();
             }
         }
 
-        private static IL2Field f_viewIdField;
+        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
+        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
+        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
 
         public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PhotonView", "Photon.Pun");
     }

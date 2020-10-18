@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazeIL.il2cpp;
 
 namespace Addons.Locale
 {
@@ -11,20 +12,20 @@ namespace Addons.Locale
         {
             if (lang == Lang.en)
             {
-                en = word;
+                en = new IL2String(word);
                 return;
             }
-            ru = word;
+            ru = new IL2String(word);
         }
         public string Get(Lang lang)
         {
             if (lang == Lang.en)
-                return en;
+                return en.ToString();
 
-            return ru;
+            return ru.ToString();
         }
-        public string en;
-        public string ru;
+        public IL2String en;
+        public IL2String ru;
     }
 
     public static class Base

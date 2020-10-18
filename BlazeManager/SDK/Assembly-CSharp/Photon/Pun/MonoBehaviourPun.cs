@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL.il2cpp;
 
@@ -9,22 +9,24 @@ namespace Photon.Pun
     {
         public MonoBehaviourPun(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyPhotonView = null;
         public PhotonView photonView
 		{
 			get
             {
-                if (propertyPhotonView == null)
+                if (!properties.ContainsKey(nameof(photonView)))
                 {
-                    propertyPhotonView = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == PhotonView.Instance_Class.FullName);
-                    if (propertyPhotonView == null)
-                        return default;
+                    properties.Add(nameof(photonView), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PhotonView.Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(photonView)))
+                        return null;
                 }
-
-                return propertyPhotonView.GetGetMethod().Invoke(ptr)?.Unbox<PhotonView>();
+                return properties[nameof(photonView)].GetGetMethod().Invoke(ptr)?.unbox<PhotonView>();
             }
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("MonoBehaviourPun", "Photon.Pun");
+        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
+        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
+        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
+
+        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("MonoBehaviourPun", "Photon.Pun");
     }
 }

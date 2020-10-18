@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazeIL.il2cpp;
 
 namespace Addons.Locale
 {
     public static class Locale_Data
     {
-        public static void Start()
+        public static Dictionary<string, string> data = new Dictionary<string, string>
         {
-            LangSource source = new LangSource();
-            source.en = "";
-            Base.pairs.Add("", source);
-        }
+            {"Teleport", "Телепорт"},
+            {"Франция", "Париж"}
+        };
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using BlazeIL.il2cpp;
-using BlazeIL.il2generic;
-using BlazeIL.il2reflection;
 
 namespace VRC.Networking
 {

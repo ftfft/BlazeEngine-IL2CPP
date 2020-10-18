@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using VRC.Core;
 
 namespace VRC.UI
@@ -15,16 +14,19 @@ namespace VRC.UI
         {
             get
             {
-                if (f_apiWorld == null)
+                if (!fields.ContainsKey(nameof(apiWorld)))
                 {
-                    f_apiWorld = Instance_Class.GetFields().First(x => x.ReturnType.Name == ApiWorld.Instance_Class.FullName);
-                    if (f_apiWorld == null)
+                    fields.Add(nameof(apiWorld), Instance_Class.GetField(x => x.ReturnType.Name == ApiWorld.Instance_Class.FullName));
+                    if (!fields.ContainsKey(nameof(apiWorld)))
                         return null;
                 }
-                return f_apiWorld.GetValue(ptr)?.MonoCast<ApiWorld>();
+                return fields[nameof(apiWorld)].GetValue(ptr)?.unbox<ApiWorld>();
             }
         }
-        private static IL2Field f_apiWorld;
+
+        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
+        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
+        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
 
         public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PageWorldInfo", "VRC.UI");
     }

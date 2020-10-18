@@ -64,14 +64,14 @@ namespace Addons.Patch
                     var instruction = disassembler.Disassemble().First(x => ILCode.IsJump(x));
                     IntPtr addr = ILCode.GetPointer(instruction);
 
-                    Player.methodUpdateModeration = Player.Instance_Class.GetMethods().First(x => *(IntPtr*)x.ptr == addr);
-                    if (Player.methodUpdateModeration == null)
+                    Player.methods.Add(nameof(Player.UpdateModeration), Player.Instance_Class.GetMethods().First(x => *(IntPtr*)x.ptr == addr));
+                    if (Player.methods[nameof(Player.UpdateModeration)] == null)
                         throw new Exception();
 
                     // UpdateModeration()
                     pUpdateModeration = IL2Ch.Patch(method, (_VRC_Player_UpdateModeration)VRC_Player_UpdateModeration);
 
-                    disassembler = disasm.GetDisassembler(Player.methodUpdateModeration);
+                    disassembler = disasm.GetDisassembler(Player.methods[nameof(Player.UpdateModeration)]);
                     var instructions = disassembler.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
 
                     foreach (var instruction1 in instructions)

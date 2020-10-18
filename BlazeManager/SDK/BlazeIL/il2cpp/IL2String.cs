@@ -14,6 +14,12 @@ namespace BlazeIL.il2cpp
                 *(char*)(ptr + 0x14 + (0x2 * i)) = str[i];
             }
         }
+        internal IL2String(IL2Object @object) : base(IntPtr.Zero)
+        {
+            ptr = IntPtr.Zero;
+            if (@object != null)
+                ptr = @object.ptr;
+        }
 
         public override string ToString()
         {

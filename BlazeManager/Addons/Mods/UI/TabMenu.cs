@@ -12,9 +12,9 @@ namespace Addons.Mods.UI
     public static class TabMenu
     {
         // private static IL2String strTabMenuBold = new IL2String("<b><color=white>Tab-menu</color></b>");
-        private static IL2String strHashBold = new IL2String("<b>#</b>");
-        private static IL2String strDisplayNameBold = new IL2String("<b>displayName</b>");
-        private static IL2String strTeleport = new IL2String("Teleport");
+        private static IL2String strHashBold = "<b>#</b>".IL2String();
+        private static IL2String strDisplayNameBold = "<b>displayName</b>".IL2String();
+        private static IL2String strTeleport = "Teleport".IL2String();
         private static IntPtr ptrSteamIdButton_Rect = new Rect(180, 112, 150, 17).MonoCast();
         private static IL2String strTempText = null;
         public static void ShowMenu()
@@ -47,7 +47,7 @@ namespace Addons.Mods.UI
                 }
                 iPlayer++;
                 if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), "<b><color=" + (iSelectUser == playerId ? "red>" : "white>") + playerId + "</color></b>")
-                || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.ToString_Pointer()))
+                || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.ToIL2String().ptr))
                 {
                     iSelectUser = playerId;
                     uSelectSteam = player.steamId;
@@ -57,7 +57,7 @@ namespace Addons.Mods.UI
                     {
                         text += "\n<b>Steam:</b>\t" + uSelectSteam;
                     }
-                    strTempText = new IL2String(text);
+                    strTempText = text.IL2String();
                 }
             }
         }
