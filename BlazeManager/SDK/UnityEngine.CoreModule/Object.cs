@@ -11,9 +11,15 @@ namespace UnityEngine
         public Object(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
         private static IL2Method methodGetInstantiate = null;
-        public static T Instantiate<T>(T original, Transform parent) where T : IL2Base => Instantiate(original.MonoCast<Object>(), parent, false).MonoCast<T>();
+        public static T Instantiate<T>(T original, Transform parent) where T : Object
+        {
+            return Instantiate(original.MonoCast<Object>(), parent, false)?.MonoCast<T>();
+        }
         public static Object Instantiate(Object original, Transform parent) => Instantiate(original, parent, false);
-        public static T Instantiate<T>(Object original, Transform parent, bool instantiateInWorldSpace) => Instantiate(original, parent, instantiateInWorldSpace).MonoCast<T>();
+        public static T Instantiate<T>(Object original, Transform parent, bool instantiateInWorldSpace) where T : Object
+        {
+            return Instantiate(original, parent, instantiateInWorldSpace)?.MonoCast<T>();
+        }
         public static Object Instantiate(Object original, Transform parent, bool instantiateInWorldSpace)
         {
             if (methodGetInstantiate == null)
@@ -22,10 +28,16 @@ namespace UnityEngine
                     .Where(x => x.Name == "Instantiate"
                         && x.GetParameters().Length == 3
                         && x.ReturnType.Name == Instance_Class.FullName)
-                    .First(x => x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName);
+                    .First(x => x.GetParameters()[2].ReturnType.Name == "System.Boolean");
                 if (methodGetInstantiate == null)
                     return null;
             }
+
+            if (original == null)
+                throw new Exception("Instantiate original null");
+
+            if (parent == null)
+                throw new Exception("Instantiate parent null");
 
             return methodGetInstantiate.Invoke(new IntPtr[] { original.ptr, parent.ptr, instantiateInWorldSpace.MonoCast() })?.MonoCast<Object>();
         }
