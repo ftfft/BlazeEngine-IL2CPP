@@ -37,7 +37,7 @@ namespace BlazeIL.il2cpp
         }
 
         private bool isStatic = false;
-        private int? handleStatic = null;
+        private IntPtr handleStatic = IntPtr.Zero;
         public bool Static
         {
             get => isStatic;
@@ -46,13 +46,18 @@ namespace BlazeIL.il2cpp
                 isStatic = value;
                 if (value)
                 {
-                    if (handleStatic != null)
-                        IL2Import.il2cpp_gchandle_free(handleStatic.Value);
+                    if (handleStatic == IntPtr.Zero)
+                    {
+                        handleStatic = IL2Import.il2cpp_gchandle_new(ptr, true);
+                    }
                 }
                 else
                 {
-                    if (handleStatic == null)
-                        handleStatic = IL2Import.il2cpp_gchandle_new(ptr, true);
+                    if (handleStatic != IntPtr.Zero)
+                    {
+                        IL2Import.il2cpp_gchandle_free(handleStatic);
+                        handleStatic = IntPtr.Zero;
+                    }
                 }
             }
         }

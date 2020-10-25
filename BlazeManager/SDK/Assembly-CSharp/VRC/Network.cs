@@ -93,19 +93,36 @@ namespace VRC
 
         public static GameObject Instantiate(VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)
         {
-            if (methodInstantiate == null)
-            {
-                methodInstantiate = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 4 && x.ReturnType.Name == GameObject.Instance_Class.FullName).First();
-                if (methodInstantiate == null)
-                    return null;
-            }
-
-            return methodInstantiate.Invoke(IntPtr.Zero, new IntPtr[] {
+            IntPtr result = Instantiate(
                 broadcast.MonoCast(),
                 IL2Import.StringToIntPtr(prefabPathOrDynamicPrefabName),
                 position.MonoCast(),
                 rotation.MonoCast()
-            })?.MonoCast<GameObject>();
+            );
+            if (result == IntPtr.Zero)
+                return null;
+            
+            return result.MonoCast<GameObject>();
+        }
+        public static IntPtr Instantiate(IntPtr broadcast, IntPtr prefabPathOrDynamicPrefabName, IntPtr position, IntPtr rotation)
+        {
+            if (methodInstantiate == null)
+            {
+                methodInstantiate = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 4 && x.ReturnType.Name == GameObject.Instance_Class.FullName).First();
+                if (methodInstantiate == null)
+                    return IntPtr.Zero;
+            }
+
+            IL2Object result = methodInstantiate.Invoke(IntPtr.Zero, new IntPtr[] {
+                broadcast,
+                prefabPathOrDynamicPrefabName,
+                position,
+                rotation
+            });
+            if (result == null)
+                return IntPtr.Zero;
+
+            return result.ptr;
         }
 
         public static void RPC(VRC_EventHandler.VrcTargetType targetClients, GameObject targetObject, string methodName, IntPtr[] parameters)

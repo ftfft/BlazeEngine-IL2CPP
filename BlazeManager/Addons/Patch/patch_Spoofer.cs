@@ -50,24 +50,25 @@ namespace Addons.Patch
         {
         }
 
-        public static string _fakeDeviceId = null;
+        public static IL2String _fakeDeviceId = null;
         private static IntPtr UnityEngine_SystemInfo()
         {
-            if (string.IsNullOrWhiteSpace(_fakeDeviceId))
+            if (_fakeDeviceId == null)
             {
                 string src = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
                 src += "\\spoof-id.json";
                 if (File.Exists(src))
                 {
-                    _fakeDeviceId = File.ReadAllText(src);
+                    _fakeDeviceId = new IL2String(File.ReadAllText(src));
                 }
-                if (string.IsNullOrWhiteSpace(_fakeDeviceId))
+                if (string.IsNullOrWhiteSpace(_fakeDeviceId.ToString()))
                 {
-                    _fakeDeviceId = CalculateHash<SHA1>(Guid.NewGuid().ToString());
-                    File.WriteAllText(src, _fakeDeviceId, Encoding.UTF8);
+                    _fakeDeviceId = new IL2String(CalculateHash<SHA1>(Guid.NewGuid().ToString()));
+                    File.WriteAllText(src, _fakeDeviceId.ToString(), Encoding.UTF8);
                 }
+                _fakeDeviceId.Static = true;
             }
-            return IL2Import.StringToIntPtr(_fakeDeviceId);
+            return _fakeDeviceId.ptr;
         }
 
 

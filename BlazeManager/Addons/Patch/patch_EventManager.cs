@@ -180,35 +180,60 @@ namespace Addons.Patch
         private static IL2String strVeteran = new IL2String("Veteran");
         private static IL2String strTrustedUser = new IL2String("Trusted user");
         private static IL2String strKnownUser = new IL2String("Known user");
-        private static IL2String strUser = new IL2String("User");
-        private static IL2String strNewUser = new IL2String("New user");
-        private static IL2String strVisitor = new IL2String("Visitor");
-        private static IL2String strError = new IL2String("Error");
+        private static IL2String strUser;
+        private static IL2String strNewUser;
+        private static IL2String strVisitor;
+        private static IL2String strError;
+        static patch_EventManager()
+        {
+            dictUserRank.Add("Error", new IL2String("Error"));
+            dictUserRank["Error"].Static = true;
+            dictUserRank.Add("Moderator", new IL2String("Moderator"));
+            dictUserRank["Moderator"].Static = true;
+            dictUserRank.Add("Nuisance", new IL2String("Nuisance"));
+            dictUserRank["Nuisance"].Static = true;
+            dictUserRank.Add("Legend", new IL2String("Legend"));
+            dictUserRank["Legend"].Static = true;
+            dictUserRank.Add("Veteran", new IL2String("Veteran"));
+            dictUserRank["Veteran"].Static = true;
+            dictUserRank.Add("Trusted user", new IL2String("Trusted user"));
+            dictUserRank["Trusted user"].Static = true;
+            dictUserRank.Add("Known user", new IL2String("Known user"));
+            dictUserRank["Known user"].Static = true;
+            dictUserRank.Add("User", new IL2String("User"));
+            dictUserRank["User"].Static = true;
+            dictUserRank.Add("New user", new IL2String("New user"));
+            dictUserRank["New user"].Static = true;
+            dictUserRank.Add("Visitor", new IL2String("Visitor"));
+            dictUserRank["Visitor"].Static = true;
+        }
+
+        private static Dictionary<string, IL2String> dictUserRank = new Dictionary<string, IL2String>();
         public static IntPtr VRCPlayer_GetUserRank_String(IntPtr instance)
         {
             if (instance != IntPtr.Zero)
             {
                 SocialRank rank = VRCPlayer.GetSocialRank(new APIUser(instance));
                 if (rank == SocialRank.VRChatTeam)
-                    return strModerator.ptr;
+                    return dictUserRank["Moderator"].ptr;
                 else if (rank == SocialRank.Nuisance)
-                    return strNuisance.ptr;
+                    return dictUserRank["Nuisance"].ptr;
                 else if (rank == SocialRank.Legend)
-                    return strLegend.ptr;
+                    return dictUserRank["Legend"].ptr;
                 else if (rank == SocialRank.VeteranUser)
-                    return strVeteran.ptr;
+                    return dictUserRank["Veteran"].ptr;
                 else if (rank == SocialRank.TrustedUser)
-                    return strTrustedUser.ptr;
+                    return dictUserRank["Trusted user"].ptr;
                 else if (rank == SocialRank.KnownUser)
-                    return strKnownUser.ptr;
+                    return dictUserRank["Known user"].ptr;
                 else if (rank == SocialRank.User)
-                    return strUser.ptr;
+                    return dictUserRank["User"].ptr;
                 else if (rank == SocialRank.NewUser)
-                    return strNewUser.ptr;
+                    return dictUserRank["New user"].ptr;
                 else if (rank == SocialRank.Visitor)
-                    return strVisitor.ptr;
+                    return dictUserRank["Visitor"].ptr;
             }
-            return strError.ptr;
+            return dictUserRank["Error"].ptr;
         }
         /*
         // (VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)

@@ -43,10 +43,29 @@ namespace BlazeAttack
         public static long raise200_num = -1;
         public static int raise209_num = 0;
         public static bool raise209_status = false;
+
+        public static bool isInstalled = false;
+        public static IntPtr raise200_broadcast;
+        public static IntPtr raise200_prefabName;
+        public static IntPtr raise200_position;
+        public static IntPtr raise200_rotation;
         public static void Raise200()
         {
-            for(int i=0;i<5;i++)
-                VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", Vector3.zero, new Quaternion(0, 0, 0, 0));
+            if (!isInstalled)
+            {
+                raise200_broadcast = VRC_EventHandler.VrcBroadcastType.Always.MonoCast();
+                IL2Import.il2cpp_gchandle_new(raise200_broadcast, true);
+                raise200_prefabName = new IL2String("Portals/PortalInternalDynamic").ptr;
+                IL2Import.il2cpp_gchandle_new(raise200_prefabName, true);
+                raise200_position = Vector3.zero.MonoCast();
+                IL2Import.il2cpp_gchandle_new(raise200_position, true);
+                raise200_rotation = new Quaternion(0, 0, 0, 0).MonoCast();
+                IL2Import.il2cpp_gchandle_new(raise200_rotation, true);
+            }
+
+
+            for (int i=0;i<5;i++)
+                VRC.Network.Instantiate(raise200_broadcast, raise200_prefabName, raise200_position, raise200_rotation);
         }
 
         public static readonly object nObj = new object();

@@ -19,15 +19,15 @@ namespace Addons.Mods.UI
             strDisplayNameBold.Static = true;
             strTeleport = "Teleport".IL2String();
             strTeleport.Static = true;
-            ptrSteamIdButton_Rect = new Rect(180, 112, 150, 17).MonoCast();
-            IL2Import.il2cpp_gchandle_new(ptrSteamIdButton_Rect, true);
+            strEmpty = string.Empty.IL2String();
+            strEmpty.Static = true;
         }
 
         // private static IL2String strTabMenuBold = new IL2String("<b><color=white>Tab-menu</color></b>");
         private static IL2String strHashBold;
         private static IL2String strDisplayNameBold;
         private static IL2String strTeleport;
-        private static IntPtr ptrSteamIdButton_Rect;
+        private static IL2String strEmpty;
         private static IL2String strTempText = null;
         public static void ShowMenu()
         {
@@ -46,7 +46,7 @@ namespace Addons.Mods.UI
                 {
                     if (uSelectSteam != 0U)
                     {
-                        if (GUI.Button(ptrSteamIdButton_Rect, IntPtr.Zero))
+                        if (GUI.Button(new Rect(180, 112, 150, 17).MonoCast(), strEmpty.ptr))
                         {
                             Avatars.AvatarStatus.OpenUrlBrowser("https://steamcommunity.com/profiles/" + uSelectSteam);
                         }
