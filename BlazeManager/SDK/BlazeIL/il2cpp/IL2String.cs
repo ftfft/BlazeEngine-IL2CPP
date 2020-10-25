@@ -35,5 +35,26 @@ namespace BlazeIL.il2cpp
 
             return new string((char*)ptr.ToPointer() + 10);
         }
+
+        private bool isStatic = false;
+        private int? handleStatic = null;
+        public bool Static
+        {
+            get => isStatic;
+            set
+            {
+                isStatic = value;
+                if (value)
+                {
+                    if (handleStatic != null)
+                        IL2Import.il2cpp_gchandle_free(handleStatic.Value);
+                }
+                else
+                {
+                    if (handleStatic == null)
+                        handleStatic = IL2Import.il2cpp_gchandle_new(ptr, true);
+                }
+            }
+        }
     }
 }

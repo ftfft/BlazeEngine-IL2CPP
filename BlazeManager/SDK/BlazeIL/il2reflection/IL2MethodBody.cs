@@ -22,6 +22,7 @@ namespace BlazeIL.il2reflection
         private string sName = null;
 
         public int Token => IL2Import.il2cpp_method_get_token(ptr);
+        public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
 
         public IL2ReturnType ReturnType => new IL2ReturnType(IL2Import.il2cpp_method_get_return_type(ptr));
         public IL2Param[] GetParameters()

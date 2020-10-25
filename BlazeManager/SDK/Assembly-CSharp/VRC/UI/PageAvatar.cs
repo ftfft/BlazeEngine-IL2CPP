@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 
 namespace VRC.UI
 {

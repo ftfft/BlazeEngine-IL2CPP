@@ -60,10 +60,10 @@ namespace VRC
         {
             get
             {
-                if (!properties.ContainsKey(nameof(apiPlayer)))
+                if (!properties.ContainsKey(nameof(apiuser)))
                 {
-                    properties.Add(nameof(apiPlayer), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName));
-                    if (!properties.ContainsKey(nameof(apiPlayer)))
+                    properties.Add(nameof(apiuser), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(apiuser)))
                         return null;
                 }
 
@@ -71,73 +71,85 @@ namespace VRC
             }
         }
 
-
-        private static IL2Property propertyPlayerNet = null;
         public PlayerNet playerNet
         {
             get
             {
-                if (!IL2Get.Property(PlayerNet.Instance_Class.FullName, Instance_Class, ref propertyPlayerNet, false))
-                    return null;
+                if (!properties.ContainsKey(nameof(playerNet)))
+                {
+                    properties.Add(nameof(playerNet), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(playerNet)))
+                        return null;
+                }
 
-                return propertyPlayerNet.GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
+                return properties[nameof(playerNet)].GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
             }
         }
 
-        private static IL2Field fieldPhotonPlayer = null;
         public PhotonPlayer photonPlayer
         {
             get
             {
-                if (!IL2Get.Field(PhotonPlayer.Instance_Class.FullName, Instance_Class, ref fieldPhotonPlayer, false))
-                    return null;
+                if (!fields.ContainsKey(nameof(photonPlayer)))
+                {
+                    fields.Add(nameof(photonPlayer), Instance_Class.GetField(x => x.ReturnType.Name == PhotonPlayer.Instance_Class.FullName));
+                    if (!fields.ContainsKey(nameof(photonPlayer)))
+                        return null;
+                }
 
-                return fieldPhotonPlayer.GetValue(ptr)?.unbox<PhotonPlayer>();
+                return fields[nameof(photonPlayer)].GetValue(ptr)?.unbox<PhotonPlayer>();
             }
         }
 
-        private static IL2Field fieldVrcPlayer = null;
         public VRCPlayer vrcPlayer
         {
             get
             {
-                if (!IL2Get.Field(VRCPlayer.Instance_Class.FullName, Instance_Class, ref fieldVrcPlayer, false))
-                    return null;
+                if (!fields.ContainsKey(nameof(vrcPlayer)))
+                {
+                    fields.Add(nameof(vrcPlayer), Instance_Class.GetField(x => x.ReturnType.Name == VRCPlayer.Instance_Class.FullName));
+                    if (!fields.ContainsKey(nameof(vrcPlayer)))
+                        return null;
+                }
 
-                return fieldVrcPlayer.GetValue(ptr)?.unbox<VRCPlayer>();
+                return fields[nameof(vrcPlayer)].GetValue(ptr)?.unbox<VRCPlayer>();
             }
         }
 
-        private static IL2Field fieldUSpeaker = null;
         public USpeaker uSpeaker
         {
             get
             {
-                if (!IL2Get.Field(USpeaker.Instance_Class.FullName, Instance_Class, ref fieldUSpeaker, false))
-                    return null;
-
-                return fieldUSpeaker.GetValue(ptr)?.unbox<USpeaker>();
+                if (!fields.ContainsKey(nameof(uSpeaker)))
+                {
+                    fields.Add(nameof(uSpeaker), Instance_Class.GetField(x => x.ReturnType.Name == USpeaker.Instance_Class.FullName));
+                    if (!fields.ContainsKey(nameof(uSpeaker)))
+                        return null;
+                }
+                return fields[nameof(uSpeaker)].GetValue(ptr)?.unbox<USpeaker>();
             }
         }
 
-        private static IL2Property propertyVRCPlayerApi = null;
         public VRCPlayerApi vrcPlayerApi
         {
             get
             {
-                if (!IL2Get.Property(VRCPlayerApi.Instance_Class.FullName, Instance_Class, ref propertyVRCPlayerApi, false))
-                    return null;
+                if (!properties.ContainsKey(nameof(vrcPlayerApi)))
+                {
+                    properties.Add(nameof(vrcPlayerApi), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRCPlayerApi.Instance_Class.FullName));
+                    if (!properties.ContainsKey(nameof(vrcPlayerApi)))
+                        return null;
+                }
 
-                return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr).unbox<VRCPlayerApi>();
+                return properties[nameof(vrcPlayerApi)].GetGetMethod().Invoke(ptr)?.unbox<VRCPlayerApi>();
             }
         }
 
-        private static IL2Property propertyIsFriend = null;
         unsafe public bool IsFriend
         {
             get
             {
-                if (propertyIsFriend == null)
+                if (!properties.ContainsKey(nameof(IsFriend)))
                 {
                     var properties = Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName);
                     var methodAPI = APIUser.Instance_Class.GetProperty("friendIDs").GetGetMethod();
@@ -156,44 +168,31 @@ namespace VRC
 
                             if (*(IntPtr*)methodAPI.ptr == @obj.ptr)
                             {
-                                propertyIsFriend = prop;
+                                Player.properties.Add(nameof(IsFriend), prop);
                                 break;
                             }
                         }
-                        if (propertyIsFriend != null) break;
+                        if (Player.properties.ContainsKey(nameof(IsFriend))) break;
                     }
-                    if (propertyIsFriend == null)
+                    if (!Player.properties.ContainsKey(nameof(IsFriend)))
                         return false;
                 }
-                return propertyIsFriend.GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+                return !properties[nameof(IsFriend)].GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
             }
         }
 
-        private static IL2Property propertyUserId = null;
-        public string userId
-        {
-            get
-            {
-                if (propertyUserId == null)
-                {
-                    propertyUserId = Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName).First(x => x.GetSetMethod() == null);
-                    if (propertyUserId == null)
-                        return default;
-                }
-                return propertyUserId.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-        }
+        public string userId => IL2Import.IntPtrToString(userId_Pointer);
         public IntPtr userId_Pointer
         {
             get
             {
-                if (propertyUserId == null)
+                if (!properties.ContainsKey(nameof(userId)))
                 {
-                    propertyUserId = Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName).First(x => x.GetSetMethod() == null);
-                    if (propertyUserId == null)
+                    properties.Add(nameof(userId), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName));
+                    if (!properties.ContainsKey(nameof(userId)))
                         return IntPtr.Zero;
                 }
-                IL2Object @object = propertyUserId.GetGetMethod().Invoke(ptr);
+                IL2Object @object = properties[nameof(userId)].GetGetMethod().Invoke(ptr);
                 if (@object == null)
                     return IntPtr.Zero;
 
@@ -211,24 +210,6 @@ namespace VRC
                 if (ptr == IntPtr.Zero) return 0U;
                 return Convert.ToUInt64(new IL2String(ptr).ToString());
             }
-        }
-
-        public static IL2Method methodApplyMute = null;
-        public void ApplyMute(bool status)
-        {
-            if (methodApplyMute == null)
-                return;
-
-            methodApplyMute.Invoke(ptr, status.MonoCast());
-        }
-
-        public static IL2Method methodApplyBlock = null;
-        public void ApplyBlock(bool status)
-        {
-            if (methodApplyBlock == null)
-                return;
-
-            methodApplyBlock.Invoke(ptr, status.MonoCast());
         }
 
         static IL2Method methodToString = null;

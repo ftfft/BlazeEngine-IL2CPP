@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Runtime.ExceptionServices;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using BlazeIL;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
 using BlazeTools;
-using SharpDisasm;
-using SharpDisasm.Udis86;
 using ExitGames.Client.Photon;
-using Photon.Pun;
-using UnityEngine;
 using Steamworks;
 using VRC;
 

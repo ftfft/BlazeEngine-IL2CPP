@@ -102,6 +102,12 @@ namespace BlazeIL
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static IntPtr il2cpp_property_get_set_method(IntPtr property);
 
+        // ---------------------- [ Handlers ] ---------------------- //
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static int il2cpp_gchandle_new(IntPtr obj, bool pinned);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static void il2cpp_gchandle_free(int handle);
+
         // ---------------------- [ Other's ] ---------------------- //
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static string il2cpp_type_get_name(IntPtr type);

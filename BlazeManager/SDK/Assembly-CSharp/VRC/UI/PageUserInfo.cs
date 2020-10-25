@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using UnityEngine;
 using VRC.Core;
 namespace VRC.UI

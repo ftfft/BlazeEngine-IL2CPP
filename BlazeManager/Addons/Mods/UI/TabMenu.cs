@@ -11,11 +11,23 @@ namespace Addons.Mods.UI
 {
     public static class TabMenu
     {
+        static TabMenu()
+        {
+            strHashBold = "<b>#</b>".IL2String();
+            strHashBold.Static = true;
+            strDisplayNameBold = "<b>displayName</b>".IL2String();
+            strDisplayNameBold.Static = true;
+            strTeleport = "Teleport".IL2String();
+            strTeleport.Static = true;
+            ptrSteamIdButton_Rect = new Rect(180, 112, 150, 17).MonoCast();
+            IL2Import.il2cpp_gchandle_new(ptrSteamIdButton_Rect, true);
+        }
+
         // private static IL2String strTabMenuBold = new IL2String("<b><color=white>Tab-menu</color></b>");
-        private static IL2String strHashBold = "<b>#</b>".IL2String();
-        private static IL2String strDisplayNameBold = "<b>displayName</b>".IL2String();
-        private static IL2String strTeleport = "Teleport".IL2String();
-        private static IntPtr ptrSteamIdButton_Rect = new Rect(180, 112, 150, 17).MonoCast();
+        private static IL2String strHashBold;
+        private static IL2String strDisplayNameBold;
+        private static IL2String strTeleport;
+        private static IntPtr ptrSteamIdButton_Rect;
         private static IL2String strTempText = null;
         public static void ShowMenu()
         {
@@ -57,7 +69,10 @@ namespace Addons.Mods.UI
                     {
                         text += "\n<b>Steam:</b>\t" + uSelectSteam;
                     }
+                    if (strTempText != null)
+                        strTempText.Static = false;
                     strTempText = text.IL2String();
+                    strTempText.Static = true;
                 }
             }
         }

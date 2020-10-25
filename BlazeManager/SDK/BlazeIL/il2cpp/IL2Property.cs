@@ -43,5 +43,7 @@ namespace BlazeIL.il2cpp
             return setMethod;
         }
         private IL2Method setMethod;
+
+        public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
     }
 }
