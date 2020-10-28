@@ -44,7 +44,7 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = RoomManagerBase.Instance_Class.GetMethod("OnConnectedToMaster");
+                IL2Method method = RoomManager.Instance_Class.GetMethod("OnConnectedToMaster");
 
                 if (method == null)
                     throw new Exception();
@@ -169,21 +169,12 @@ namespace Addons.Patch
             patch_GlobalDynamicBones.currentPlayer = null;
             patch_GlobalDynamicBones.timeToUpdate = 10f;
             BlazeManager.SetForPlayer("DeathMap", false);
+            BlazeManager.SetForPlayer("Photon Serilize", false);
             PortableMirror.OnDestroy();
             Cam3th.OnDestroy();
             // BlazeAttack.PhotonUtils.raise209_status = false;
         }
 
-        private static IL2String strModerator = new IL2String("Moderator");
-        private static IL2String strNuisance = new IL2String("Nuisance");
-        private static IL2String strLegend = new IL2String("Legend");
-        private static IL2String strVeteran = new IL2String("Veteran");
-        private static IL2String strTrustedUser = new IL2String("Trusted user");
-        private static IL2String strKnownUser = new IL2String("Known user");
-        private static IL2String strUser;
-        private static IL2String strNewUser;
-        private static IL2String strVisitor;
-        private static IL2String strError;
         static patch_EventManager()
         {
             dictUserRank.Add("Error", new IL2String("Error"));

@@ -24,7 +24,7 @@ namespace VRC
             {
                 if (!properties.ContainsKey(nameof(Instance)))
                 {
-                    properties.Add(nameof(Instance), Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Instance_Class.FullName));
+                    properties.Add(nameof(Instance), Instance_Class.GetProperty(x => x.Instance));
                     if (!properties.ContainsKey(nameof(Instance)))
                         return null;
                 }

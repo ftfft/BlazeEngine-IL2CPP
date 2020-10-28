@@ -16,7 +16,7 @@ public class VRCApplicationSetup : Component
         {
             if (propertyInstance == null)
             {
-                propertyInstance = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Instance_Class.FullName);
+                propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
                 if (propertyInstance == null)
                     return null;
             }

@@ -11,19 +11,6 @@ namespace VRC
     {
         public PlayerManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Method methodGetAllPlayers;
-        public static Player[] GetAllPlayers()
-        {
-            if(methodGetAllPlayers == null)
-            {
-                methodGetAllPlayers = Instance_Class.GetMethods().First(x => x.ReturnType.Name == Player.Instance_Class.FullName + "[]" && x.HasFlag(IL2BindingFlags.METHOD_STATIC));
-                if (methodGetAllPlayers == null)
-                    return null;
-            }
-
-            return methodGetAllPlayers.Invoke().UnboxArray<Player>();
-        }
-
         private static IL2Method methodGetPlayer;
         public static Player GetPlayer(int photonId)
         {
@@ -41,6 +28,7 @@ namespace VRC
 
 
         private static IL2Property propertyAllPlayers;
+        public static Player[] GetAllPlayers() => Instance.AllPlayers;
         public Player[] AllPlayers
         {
             get
@@ -62,7 +50,7 @@ namespace VRC
             {
                 if (fieldInstance == null)
                 {
-                    fieldInstance = Instance_Class.GetFields().First(x => x.ReturnType.Name == Instance_Class.FullName);
+                    fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
                     if (fieldInstance == null)
                         return null;
                 }

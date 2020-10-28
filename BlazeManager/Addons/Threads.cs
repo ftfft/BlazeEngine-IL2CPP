@@ -172,6 +172,7 @@ namespace Addons
                     gameObject.GetOrAddComponent<PhotonLagSimulationGui>();
                 }
                 patch_Network.RefreshStatus_DeathMap();
+                patch_Network.RefreshStatus_Serilize();
                 return;
             }
             Avatars.UIAvatar.resfresh = 3;

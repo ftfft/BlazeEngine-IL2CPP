@@ -37,10 +37,13 @@ namespace Addons.Mods
             GameObject.Find(objName)?.Destroy();
             if (updateStatus)
             {
+                Cam3thPerson?.gameObject?.Destroy();
                 Cam3thPerson = null;
                 _isEnable = false;
                 // UpdateStatus();
             }
+            if (CamOnHead != null)
+                CamOnHead.enabled = true;
         }
 
         public static void Update()

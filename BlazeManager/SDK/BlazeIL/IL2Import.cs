@@ -84,6 +84,8 @@ namespace BlazeIL
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static IntPtr il2cpp_field_get_type(IntPtr field);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static IntPtr il2cpp_field_get_parent(IntPtr field);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         unsafe public extern static IntPtr il2cpp_field_get_value_object(IntPtr field, IntPtr obj);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         unsafe public extern static void il2cpp_field_static_set_value(IntPtr field, IntPtr value);

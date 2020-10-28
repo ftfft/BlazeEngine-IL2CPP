@@ -21,6 +21,8 @@ namespace BlazeIL.il2cpp
 
         public IL2BindingFlags Flags => (IL2BindingFlags)IL2Import.il2cpp_property_get_flags(ptr);
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
+        public bool Instance => GetGetMethod() != null && GetGetMethod().Instance;
+
         public IL2Method GetGetMethod()
         {
             if(getMethod == null)

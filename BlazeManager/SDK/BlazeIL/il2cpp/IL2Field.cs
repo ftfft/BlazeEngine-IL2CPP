@@ -21,6 +21,12 @@ namespace BlazeIL.il2cpp
         }
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
 
+        public bool IsStatic => HasFlag(IL2BindingFlags.FIELD_STATIC);
+
+        public bool Instance => IsStatic && ReturnType.Name == ReflectedType.FullName;
+        public IL2Type ReflectedType => new IL2Type(IL2Import.il2cpp_field_get_parent(ptr));
+
+
         public IL2Object GetValue() => GetValue(IntPtr.Zero);
         public IL2Object GetValue(IntPtr obj)
         {

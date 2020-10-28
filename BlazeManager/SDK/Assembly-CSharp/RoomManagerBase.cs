@@ -5,9 +5,9 @@ using BlazeIL.il2generic;
 using VRC.Core;
 using UnityEngine;
 
-public class RoomManagerBase : MonoBehaviour
+public class RoomManager : MonoBehaviour
 {
-    public RoomManagerBase(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+    public RoomManager(IntPtr ptr) : base(ptr) => this.ptr = ptr;
 
     public static string GetPhotonRoomIDForWorldInstance(ApiWorldInstance apiWorldInstance)
     {
@@ -84,5 +84,5 @@ public class RoomManagerBase : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("RoomManagerBase");
+    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("RoomManager");
 }

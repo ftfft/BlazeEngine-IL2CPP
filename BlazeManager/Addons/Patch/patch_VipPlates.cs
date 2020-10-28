@@ -44,8 +44,6 @@ namespace Addons.Patch
             VRCPlayer vrcPlayer = new VRCPlayer(ptrInstance);
             VRC.Core.APIUser apiuser = vrcPlayer?.player.apiuser;
             if (apiuser == null) return;
-            if (ModerationManager.Instance.IsBlockedEitherWay(apiuser.id))
-                return;
 
             SocialRank rank = VRCPlayer.GetSocialRank(apiuser);
             string textRank = string.Empty;

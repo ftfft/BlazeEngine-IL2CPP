@@ -83,7 +83,6 @@
     <Compile Include="Addons\Patch\patch_NoPortal.cs" />
     <Compile Include="Addons\Patch\patch_NoUdon.cs" />
     <Compile Include="Addons\Patch\patch_NoUdonJump.cs" />
-    <Compile Include="Addons\Patch\patch_PhotonSerilize.cs" />
     <Compile Include="Addons\Patch\patch_Spoofer.cs" />
     <Compile Include="Addons\Patch\patch_UpdateYoutube-dl.cs" />
     <Compile Include="Addons\Patch\patch_QuitFix.cs" />

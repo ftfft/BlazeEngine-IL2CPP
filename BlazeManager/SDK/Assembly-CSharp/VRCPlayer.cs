@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
@@ -21,7 +22,7 @@ public class VRCPlayer : Component
         {
             if (fieldInstance == null)
             {
-                fieldInstance = Instance_Class.GetFields().First(x => x.ReturnType.Name == Instance_Class.FullName && x.HasFlag(IL2BindingFlags.FIELD_STATIC));
+                fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
                 if (fieldInstance == null)
                     return null;
             }
@@ -37,38 +38,49 @@ public class VRCPlayer : Component
     }
     */
 
-    private static IL2String msg_system_probable_troll = new IL2String("system_probable_troll");
-    private static IL2String msg_system_legend = new IL2String("system_legend");
-    private static IL2String msg_system_trust_legend = new IL2String("system_trust_legend");
-    private static IL2String msg_system_trust_veteran = new IL2String("system_trust_veteran");
-    private static IL2String msg_system_trust_trusted = new IL2String("system_trust_trusted");
-    private static IL2String msg_system_trust_known = new IL2String("system_trust_known");
-    private static IL2String msg_system_trust_basic = new IL2String("system_trust_basic");
+    static VRCPlayer()
+    {
+        dictUserRank.Add("Nuisance", new IL2String("system_probable_troll"));
+        dictUserRank["Nuisance"].Static = true;
+        dictUserRank.Add("Legend", new IL2String("system_legend"));
+        dictUserRank["Legend"].Static = true;
+        dictUserRank.Add("Veteran", new IL2String("system_trust_legend"));
+        dictUserRank["Veteran"].Static = true;
+        dictUserRank.Add("Trusted user", new IL2String("system_trust_veteran"));
+        dictUserRank["Trusted user"].Static = true;
+        dictUserRank.Add("Known user", new IL2String("system_trust_trusted"));
+        dictUserRank["Known user"].Static = true;
+        dictUserRank.Add("User", new IL2String("system_trust_known"));
+        dictUserRank["User"].Static = true;
+        dictUserRank.Add("New user", new IL2String("system_trust_basic"));
+        dictUserRank["New user"].Static = true;
+    }
+    private static Dictionary<string, IL2String> dictUserRank = new Dictionary<string, IL2String>();
     public static SocialRank GetSocialRank(APIUser apiuser)
     {
         if (apiuser == null) return SocialRank.None;
         if (apiuser.hasVIPAccess || apiuser.hasModerationPowers)
             return SocialRank.VRChatTeam;
 
-        if (apiuser.HasTag(msg_system_probable_troll.ptr))
+        if (apiuser.HasTag(dictUserRank["Nuisance"].ptr))
             return SocialRank.Nuisance;
 
-        if (apiuser.HasTag(msg_system_legend.ptr))
+        if (apiuser.HasTag(dictUserRank["Legend"].ptr))
             return SocialRank.Legend;
 
-        if (apiuser.HasTag(msg_system_trust_legend.ptr))
+        if (apiuser.HasTag(dictUserRank["Veteran"].ptr))
             return SocialRank.VeteranUser;
 
-        if (apiuser.HasTag(msg_system_trust_veteran.ptr))
+        if (apiuser.HasTag(dictUserRank["Trusted user"].ptr))
             return SocialRank.TrustedUser;
 
-        if (apiuser.HasTag(msg_system_trust_trusted.ptr))
+        if (apiuser.HasTag(dictUserRank["Known user"].ptr))
             return SocialRank.KnownUser;
 
-        if (apiuser.HasTag(msg_system_trust_known.ptr))
+        if (apiuser.HasTag(dictUserRank["User"].ptr))
             return SocialRank.User;
 
-        if (apiuser.HasTag(msg_system_trust_basic.ptr))
+        if (apiuser.HasTag(dictUserRank["New user"].ptr))
             return SocialRank.NewUser;
 
         return SocialRank.Visitor;
@@ -191,6 +203,30 @@ public class VRCPlayer : Component
                 return default;
 
             return fieldVipPlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
+        }
+    }
+
+    private static IL2Field fieldNamePlate = null;
+    public VRCUiShadowPlate namePlate
+    {
+        get
+        {
+            if (!IL2Get.Field("namePlate", Instance_Class, ref fieldNamePlate))
+                return default;
+
+            return fieldNamePlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
+        }
+    }
+
+    private static IL2Field fieldStatusPlate = null;
+    public VRCUiShadowPlate statusPlate
+    {
+        get
+        {
+            if (!IL2Get.Field("statusPlate", Instance_Class, ref fieldStatusPlate))
+                return default;
+
+            return fieldStatusPlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
         }
     }
 

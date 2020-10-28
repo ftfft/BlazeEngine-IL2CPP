@@ -4,7 +4,7 @@ using UnityEngine;
 using BlazeIL;
 using BlazeIL.il2cpp;
 
-public class ModerationManager : Component
+public class ModerationManager : IL2Base
 {
     public ModerationManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -15,7 +15,7 @@ public class ModerationManager : Component
         {
             if (propertyInstance == null)
             {
-                propertyInstance = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Instance_Class.FullName);
+                propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
                 if (propertyInstance == null)
                     return null;
             }
@@ -24,18 +24,5 @@ public class ModerationManager : Component
         }
     }
 
-    
-    public static IL2Method methodIsBlockedEitherWay = null;
-    public bool IsBlockedEitherWay(string userId) => IsBlockedEitherWay(IL2Import.StringToIntPtr(userId));
-    public bool IsBlockedEitherWay(IntPtr userId)
-    {
-        if (methodIsBlockedEitherWay == null)
-            return false;
-
-        return methodIsBlockedEitherWay.Invoke(ptr, new IntPtr[] { userId }).Unbox<bool>();
-    }
-
-    
-
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("ModerationManager");
+    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == "System.Collections.Generic.List<VRC.Core.ApiPlayerModeration>").Count() == 1);
 }

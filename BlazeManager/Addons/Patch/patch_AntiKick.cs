@@ -11,7 +11,7 @@ namespace Addons.Patch
 {
     public delegate AnalyticsResult _patch_method_3();
     public delegate void _patch_method_4(IntPtr arg1, IntPtr arg2, IntPtr arg3);
-    public delegate void _patch_method_5();
+    public delegate void _patch_method_5(IntPtr instance, IntPtr eventType, IntPtr eventProperties, IntPtr timestamp, IntPtr options);
     public delegate bool _patch_method_6();
     public delegate bool _patch_method_7(IntPtr instance);
     public static class patch_AntiKick
@@ -47,18 +47,16 @@ namespace Addons.Patch
                 ConSole.Error("Patch: AntiKick [3]");
                 iError++;
             }
-            /*
             try
             {
                 method = Assemblies.a["VRCCore-Standalone"].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
-                pAnalytics[2] = IL2Ch.Patch(method, typeof(patch_AntiKick).GetMethod("patch_method_5", BindingFlags.Static | BindingFlags.NonPublic));
+                pAnalytics[2] = IL2Ch.Patch(method, (_patch_method_5)patch_method_5);
             }
             catch
             {
                 ConSole.Error("Patch: AntiKick [4]");
                 iError++;
             }
-            */
             try
             {
                 foreach (var m in ModerationManager.Instance_Class.GetMethods()
@@ -86,19 +84,6 @@ namespace Addons.Patch
                 ConSole.Error("Patch: AntiKick [6]");
                 iError++;
             }
-            try
-            {
-                method = ModerationManager.Instance_Class.GetMethod("KickUserRPC");
-                IL2Ch.Patch(method, (_patch_method_5)patch_method_5);
-                method = ModerationManager.Instance_Class.GetMethod("WarnUserRPC");
-                IL2Ch.Patch(method, (_patch_method_5)patch_method_5);
-            }
-            catch
-            {
-                ConSole.Error("Patch: AntiKick [6]");
-                iError++;
-            }
-
             // Debug
             if (iError == 0)
                 ConSole.Success("Patch: AntiKick");
@@ -114,7 +99,7 @@ namespace Addons.Patch
         {
 
         }
-        private static void patch_method_5()
+        private static void patch_method_5(IntPtr instance, IntPtr eventType, IntPtr eventProperties, IntPtr timestamp, IntPtr options)
         {
 
         }

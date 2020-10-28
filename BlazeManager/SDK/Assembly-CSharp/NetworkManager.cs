@@ -15,7 +15,7 @@ public class NetworkManager : Component
         {
             if (fieldInstance == null)
             {
-                fieldInstance = Instance_Class.GetFields().First(x => x.ReturnType.Name == Instance_Class.FullName);
+                fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
                 if (fieldInstance == null)
                     return null;
             }

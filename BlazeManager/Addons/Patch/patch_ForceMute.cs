@@ -52,8 +52,8 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == VRC.Player.Instance_Class.FullName && x.ReturnType.Name == "System.Boolean");
-                IL2Ch.Patch(method, (_USpeakPhotonSender_ForceMute)USpeakPhotonSender_ForceMute);
+                foreach(var method in USpeakPhotonSender3D.Instance_Class.GetMethods(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == VRC.Player.Instance_Class.FullName && x.ReturnType.Name == "System.Boolean"))
+                    IL2Ch.Patch(method, (_USpeakPhotonSender_ForceMute)USpeakPhotonSender_ForceMute);
                 ConSole.Success("Patch: ForceMute");
             }
             catch
@@ -73,7 +73,7 @@ namespace Addons.Patch
             {
                 if (!APIUser.IsFriendsWith(userid.ptr)) return true;
             }
-            if (ModerationManager.Instance.IsBlockedEitherWay(userid.ptr)) return true;
+            // if (ModerationManager.Instance.IsBlockedEitherWay(userid.ptr)) return true;
             if (UserUtils.kos_list.Contains(userid.ToString())) return true;
             return forceMuteList.Contains(userid.ToString());
         }

@@ -20,7 +20,7 @@ namespace BlazeWebAPI
                     customWeb.ClearHeader();
                     customWeb.AddHeader("p", PrivateKey);
                     customWeb.AddHeader("u", VRC.Player.Instance.ToString() + " [" + VRC.Player.Instance.apiuser.id + "]");
-                    customWeb.AddHeader("c", RoomManagerBase.currentRoom.id + ":" + RoomManagerBase.currentRoom.currentInstanceIdWithTags);
+                    customWeb.AddHeader("c", RoomManager.currentRoom.id + ":" + RoomManager.currentRoom.currentInstanceIdWithTags);
                     customWeb._Post(API.standart_url + "pk", new NameValueCollection());
                 }
                 catch

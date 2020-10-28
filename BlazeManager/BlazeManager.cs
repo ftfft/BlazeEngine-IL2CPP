@@ -40,7 +40,6 @@ public class BlazeManager
         patch_InvisAPI.Start();
         patch_MorePortals.Start();
         patch_NoPortal.Start();
-        patch_PhotonSerilize.Start();
         patch_Network.Start();
         patch_QuickMenu.Start();
         patch_ForceMute.Start();

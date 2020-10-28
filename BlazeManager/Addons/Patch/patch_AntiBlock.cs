@@ -18,7 +18,7 @@ using UnityEngine;
 
 namespace Addons.Patch
 {
-    public delegate bool _IsUserBlockOrBlocked(IntPtr instance, IntPtr userid);
+    public delegate bool _ModerationManager_IsUserBlocked(IntPtr instance, IntPtr apiUser);
     public delegate void _VRC_Player_UpdateModeration(IntPtr instance);
     public static class patch_AntiBlock
     {
@@ -73,7 +73,6 @@ namespace Addons.Patch
 
                     disassembler = disasm.GetDisassembler(Player.methods[nameof(Player.UpdateModeration)]);
                     var instructions = disassembler.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
-
                     foreach (var instruction1 in instructions)
                     {
                         if (!ILCode.IsCall(instruction1))
@@ -87,11 +86,10 @@ namespace Addons.Patch
                             if (method.GetParameters().Length != 1 || method.ReturnType.Name != typeof(bool).FullName)
                                 continue;
 
-                            if (method.GetParameters()[0].ReturnType.Name != typeof(string).FullName)
+                            if (method.GetParameters()[0].ReturnType.Name != APIUser.Instance_Class.FullName)
                                 continue;
 
-                            ModerationManager.methodIsBlockedEitherWay = method;
-                            pAntiBlock = IL2Ch.Patch(method, (_IsUserBlockOrBlocked)IsUserBlockOrBlocked);
+                            pAntiBlock = IL2Ch.Patch(method, (_ModerationManager_IsUserBlocked)ModerationManager_IsUserBlocked);
                             break;
                         }
                         catch { continue; }
@@ -121,7 +119,7 @@ namespace Addons.Patch
                 return;
 
             int photonId = player.photonPlayer.ID;
-            bool result = IsUserBlockOrBlocked(ModerationManager.Instance.ptr, userid) || UserUtils.kos_list.Contains(useridPl);
+            bool result = UserUtils.kos_list.Contains(useridPl);
 
             if (result && !patch_Network.playerInfo.ContainsKey(photonId))
             {
@@ -137,19 +135,22 @@ namespace Addons.Patch
                 HighlightsFX.Instance.EnableOutline(renderer, !result && BlazeManager.GetForPlayer<bool>("ESP Capsule"));
         }
 
-        public static bool IsUserBlockOrBlocked(IntPtr instance, IntPtr userid)
+        public static bool ModerationManager_IsUserBlocked(IntPtr instance, IntPtr apiUser)
         {
-            if (BlazeManager.GetForPlayer<bool>("AntiBlock"))
+            if (instance == IntPtr.Zero || apiUser == IntPtr.Zero)
                 return false;
 
-            if (instance == IntPtr.Zero || userid == IntPtr.Zero)
-                return false;
-
-            IL2Object @object = pAntiBlock.InvokeOriginal(instance, new IntPtr[] { userid });
+            IL2Object @object = pAntiBlock.InvokeOriginal(instance, new IntPtr[] { apiUser });
             if (@object == null)
                 return false;
 
-            return @object.pUnbox<bool>();
+            bool result = @object.pUnbox<bool>();
+            if (BlazeManager.GetForPlayer<bool>("AntiBlock"))
+            {
+                return false;
+            }
+
+            return result;
         }
 
         public static IL2Patch pAntiBlock;

@@ -49,7 +49,7 @@ namespace Addons
         {
             foreach(var obj in UnityEngine.Object.FindObjectsOfType<ObjectInstantiatorHandle>())
                 obj.gameObject.Destroy();
-            RoomManagerBase.portalInternalList.Clear();
+            RoomManager.portalInternalList.Clear();
         }
 
 

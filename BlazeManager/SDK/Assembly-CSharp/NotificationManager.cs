@@ -16,7 +16,7 @@ public class NotificationManager : MonoBehaviour
         {
             if (propertyInstance == null)
             {
-                propertyInstance = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Instance_Class.FullName && x.HasFlag(IL2BindingFlags.FIELD_STATIC));
+                propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
                 if (propertyInstance == null)
                     return null;
             }

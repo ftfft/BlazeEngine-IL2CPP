@@ -41,8 +41,8 @@ namespace BlazeManagerMenu
             patch_NoPortal.RefreshStatusJoin();
             togglerList.Add("AntiBlock", new QMToggleButton("UIElementsMenu", 3, 1, "AntiBlock\non", patch_AntiBlock.Toggle_Enable, "off", "Toggle: Show blocked players"));
             patch_AntiBlock.RefreshStatus();
-            togglerList.Add("Photon Serilize", new QMToggleButton("UIElementsMenu", 1, 2, "Serilize on", patch_PhotonSerilize.Toggle_Enable, "off", "Toggle: Photon Serilize"));
-            patch_PhotonSerilize.RefreshStatus();
+            togglerList.Add("Photon Serilize", new QMToggleButton("UIElementsMenu", 1, 2, "Serilize on", patch_Network.Toggle_Enable_Serilize, "off", "Toggle: Photon Serilize"));
+            patch_Network.RefreshStatus_Serilize();
             togglerList.Add("No Portal Spawn", new QMToggleButton("UIElementsMenu", 2, 2, "NoPortalSpawn\non", patch_NoPortal.Toggle_Enable_Spawn, "off", "Toggle: Auto-remove spawned portals"));
             patch_NoPortal.RefreshStatusSpawn();
             togglerList.Add("Fast Join", new QMToggleButton("UIElementsMenu", 3, 2, "Fast Join\non", patch_Network.Toggle_FastJoin, "off", "Toggle: Fast Join"));

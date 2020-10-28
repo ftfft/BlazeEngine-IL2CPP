@@ -15,7 +15,7 @@ namespace Addons.Patch
             IL2Method[] methods = null;
             try
             {
-                methods = RoomManagerBase.Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 1).Where(x => x.GetParameters()[0].ReturnType.Name == PortalInternal.Instance_Class.FullName).ToArray();
+                methods = RoomManager.Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 1).Where(x => x.GetParameters()[0].ReturnType.Name == PortalInternal.Instance_Class.FullName).ToArray();
                 if (methods == null)
                     throw new Exception();
 

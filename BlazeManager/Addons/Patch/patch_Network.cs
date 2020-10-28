@@ -53,6 +53,19 @@ namespace Addons.Patch
             RefreshStatus_DeathMap();
         }
 
+        public static void Toggle_Enable_Serilize()
+        {
+            BlazeManager.SetForPlayer("Photon Serilize", !BlazeManager.GetForPlayer<bool>("Photon Serilize"));
+            RefreshStatus_Serilize();
+        }
+
+        public static void RefreshStatus_Serilize()
+        {
+            bool toggle = BlazeManager.GetForPlayer<bool>("Photon Serilize");
+            BlazeManagerMenu.Main.togglerList["Photon Serilize"].btnOn.SetActive(toggle);
+            BlazeManagerMenu.Main.togglerList["Photon Serilize"].btnOff.SetActive(!toggle);
+        }
+
         public static void RefreshStatus_NoMove()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("NoMove");
@@ -220,6 +233,13 @@ namespace Addons.Patch
 
                         break;
                     }
+                case 209:
+                    {
+                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup") || isPhotonBlock(eventData.Sender)))
+                            return;
+
+                        break;
+                    }
                 case 210:
                     {
                         if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup") || isPhotonBlock(eventData.Sender)))
@@ -316,6 +336,13 @@ namespace Addons.Patch
 
         public static bool OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions)
         {
+            if (BlazeManager.GetForPlayer<bool>("Photon Serilize"))
+            {
+                if (operationCode != 1)
+                {
+                    return true;
+                }
+            }
             if (operationCode != 6 && operationCode != 7 && BlazeAttack.PhotonUtils.raise209_status)
             {
                 BlazeAttack.PhotonUtils.Raise200();
