@@ -61,7 +61,7 @@ namespace Addons.Patch
                 {
                     _fakeDeviceId = new IL2String(File.ReadAllText(src));
                 }
-                if (string.IsNullOrWhiteSpace(_fakeDeviceId.ToString()))
+                if (string.IsNullOrWhiteSpace(_fakeDeviceId?.ToString()))
                 {
                     _fakeDeviceId = new IL2String(CalculateHash<SHA1>(Guid.NewGuid().ToString()));
                     File.WriteAllText(src, _fakeDeviceId.ToString(), Encoding.UTF8);

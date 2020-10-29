@@ -337,5 +337,21 @@ public class VRCPlayer : Component
         });
     }
 
+
+    // Obfuscated:
+    // VRCPlayer.obfuscatedENUM
+    public enum ePlayerFlag
+    {
+        Visible = 1,
+        ModTag = 2,
+        VRMode = 4,
+        Status = 8,
+        StatusDesc = 16,
+        SteamId = 32,
+        ShowRank = 64,
+        Avatar = 128,
+        User = 256
+    }
+
     public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCPlayer");
 }

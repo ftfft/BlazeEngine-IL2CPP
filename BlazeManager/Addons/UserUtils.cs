@@ -52,6 +52,22 @@ namespace Addons
             RoomManager.portalInternalList.Clear();
         }
 
+        public static GameObject GlobalDisableColliders(Transform transform, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde", string instanceId = "Banned Instance\nTupper\0")
+        {
+            GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", new Vector3(float.NaN, float.NaN, float.NaN), new Quaternion(float.NaN, float.NaN, float.NaN, float.NaN)); ;
+            if (gameObject == null)
+                return null;
+
+            VRC.Network.RPC(VRC_EventHandler.VrcTargetType.AllBufferOne, gameObject, "ConfigurePortal", new IntPtr[]
+            {
+                IL2Import.il2cpp_string_new_len(worldId, worldId.Length),
+                IL2Import.il2cpp_string_new_len(instanceId, instanceId.Length),
+                IL2Import.CreateNewObject(0, BlazeTools.IL2SystemClass.Int32)
+            });
+            gameObject.GetComponent<PortalInternal>().enabled = false;
+
+            return gameObject;
+        }
 
         internal static APIUser current_User_UserInfo
         {

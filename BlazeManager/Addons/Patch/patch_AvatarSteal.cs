@@ -66,7 +66,7 @@ namespace Addons.Patch
                 BlazeManagerMenu.Main.singleList["ClonePublicAvatar"].setTextColor(Color.red);
             }
             BlazeManagerMenu.Main.singleList["ClonePublicAvatar"].gameObject.GetComponent<Button>().interactable = __instance.cloneAvatarButton.interactable;
-            patch_ForceMute.OnUpdateToggleForceMute();
+            // patch_ForceMute.OnUpdateToggleForceMute();
         }
 
         private static string sUserId = string.Empty;

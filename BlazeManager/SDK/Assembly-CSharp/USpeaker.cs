@@ -34,5 +34,32 @@ public class USpeaker : Component
         }
     }
 
+    private static IL2Field fieldLocalGain = null;
+    public static float LocalGain
+    {
+        get
+        {
+            if (fieldLocalGain == null)
+            {
+                fieldLocalGain = Instance_Class.GetField(x => x.Token == 0x4);
+                if (fieldLocalGain == null)
+                    return 0f;
+            }
+
+            return fieldLocalGain.GetValue().Unbox<float>();
+        }
+        set
+        {
+            if (fieldLocalGain == null)
+            {
+                fieldLocalGain = Instance_Class.GetField(x => x.Token == 0x4);
+                if (fieldLocalGain == null)
+                    return;
+            }
+
+            fieldLocalGain.SetValue(value.MonoCast());
+        }
+    }
+
     public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("USpeaker");
 }

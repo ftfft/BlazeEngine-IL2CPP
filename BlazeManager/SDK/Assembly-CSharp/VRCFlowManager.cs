@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using BlazeIL;
+using System.Collections.Generic;
 using BlazeIL.il2cpp;
 using UnityEngine;
 
@@ -8,54 +8,51 @@ public class VRCFlowManager : Component
 {
     public VRCFlowManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Property propertyInstance = null;
     public static VRCFlowManager Instance
     {
         get
         {
-            if (propertyInstance == null)
+            if (!properties.ContainsKey(nameof(Instance)))
             {
-                propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
-                if (propertyInstance == null)
+                properties.Add(nameof(Instance), Instance_Class.GetProperties().First(x => x.Instance));
+                if (!properties.ContainsKey(nameof(Instance)))
                     return null;
             }
 
-            return propertyInstance.GetGetMethod().Invoke()?.Unbox<VRCFlowManager>();
+            return properties[nameof(Instance)].GetGetMethod().Invoke()?.unbox<VRCFlowManager>();
         }
     }
-
-    private static IL2Method methodEnterWorld = null;
-    public void EnterWorld(string WorldId) => EnterWorld(WorldId, null);
-    public void EnterWorld(string WorldId, string InstanceID)
+    
+    public string WorldInstance
     {
-        if(methodEnterWorld == null)
+        get
         {
-            methodEnterWorld = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 5).First(x => x.GetParameters()[3].ReturnType.Name == "System.Action<System.String>");
-            if (methodEnterWorld == null)
-                return;
-        }
-
-        if(string.IsNullOrEmpty(InstanceID))
-        {
-            string[] array = WorldId.Split(new char[]
+            if (!properties.ContainsKey(nameof(WorldInstance)))
             {
-            ':'
-            });
-            if (array.Length != 2)
-                return;
+                properties.Add(nameof(WorldInstance), Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName));
+                if (!properties.ContainsKey(nameof(WorldInstance)))
+                    return null;
+            }
 
-            WorldId = array[0];
-            InstanceID = array[1];
+            return properties[nameof(WorldInstance)].GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
         }
+        set
+        {
 
-        methodEnterWorld.Invoke(ptr, new IntPtr[] {
-            IL2Import.StringToIntPtr(WorldId),
-            IL2Import.il2cpp_string_new_len(InstanceID, InstanceID.Length),
-            IL2Import.ObjectToIntPtr(null),
-            IL2Import.ObjectToIntPtr(null),
-            false.MonoCast()
-        });
+            if (!properties.ContainsKey(nameof(WorldInstance)))
+            {
+                properties.Add(nameof(WorldInstance), Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName));
+                if (!properties.ContainsKey(nameof(WorldInstance)))
+                    return;
+            }
+            properties[nameof(WorldInstance)].GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+        }
     }
+
+
+    public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
+    public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
+    public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
 
     public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCFlowManager");
 }

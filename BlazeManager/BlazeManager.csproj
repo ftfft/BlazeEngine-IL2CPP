@@ -62,6 +62,7 @@
     <Compile Include="Addons\Locale\Locale_Data.cs" />
     <Compile Include="Addons\Mods\Cam3th.cs" />
     <Compile Include="Addons\Mods\CoreMask.cs" />
+    <Compile Include="Addons\Mods\MultiHack.cs" />
     <Compile Include="Addons\Mods\InfinityJump.cs" />
     <Compile Include="Addons\Mods\NoLocalPickup.cs" />
     <Compile Include="Addons\Mods\Chair.cs" />
@@ -125,8 +126,10 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\PhotonLagSimulationGui.cs" />
     <Compile Include="SDK\Assembly-CSharp\HighlightsFX.cs" />
     <Compile Include="SDK\Assembly-CSharp\PlayerNet.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRCInputManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCNetworkBehaviour.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Networking\UdonSync.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\FeaturePermissionManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\UI\PageUserInfo.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCUiPage.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCUiManager.cs" />

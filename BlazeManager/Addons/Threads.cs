@@ -136,6 +136,25 @@ namespace Addons
                 BlazeAttack.PhotonUtils.Raise200();
                 return;
             }
+            
+            if (Input.GetKeyDown(KeyCode.PageUp))
+            {
+                GameObject PortalGameObject = UserUtils.GlobalDisableColliders(VRC.Player.Instance.transform);
+
+                PortalInternal portalInternal = PortalGameObject?.GetComponent<PortalInternal>();
+                if (portalInternal != null)
+                {
+                    portalInternal.SetTimerRPC(float.NegativeInfinity, VRC.Player.Instance);
+                }
+                return;
+            }
+            
+            
+            if (Input.GetKeyDown(KeyCode.PageDown))
+            {
+                UserUtils.TeleportTo(Vector3.zero);
+                return;
+            }
 
             BlazeAttack.PhotonUtils.raise209_status = false;
 
@@ -177,6 +196,7 @@ namespace Addons
             }
             Avatars.UIAvatar.resfresh = 3;
             FlyMode.Update();
+            MultiHack.Update();
             if (InfinityJump.isEnabled)
             {
                 if (Input.GetButtonDown("Jump"))
@@ -236,37 +256,10 @@ namespace Addons
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
-
-
-                var disassembler = disasm.GetDisassembler(VRC.Player.Instance_Class.GetMethod("OnNetworkReady"));
-                var instructions = disassembler.Disassemble();
-                foreach (var @obj in ILCode.CastToILObject(instructions))
-                {
-                    if (@obj.Type != ILType.method)
-                        continue;
-                    unsafe
-                    {
-                        IntPtr klass = IL2Import.il2cpp_method_get_class(@obj.ptr);
-                        if (klass != IntPtr.Zero)
-                        {
-                            IntPtr ptr = new IntPtr(&klass);
-                            IntPtr image = IL2Import.il2cpp_class_get_image(ptr);
-                            if (image != IntPtr.Zero)
-                            {
-                                IntPtr ptr2 = new IntPtr(&image);
-                                foreach (var text in Assemblies.a)
-                                {
-                                    if (*(IntPtr*)text.Value.ptr == *(IntPtr*)ptr2)
-                                        Console.WriteLine("Good + " + text.Key);
-                                }
-                            }
-                            else
-                                Console.WriteLine("Bad + Image");
-                        }
-                        else
-                            Console.WriteLine("Bad + Klass");
-                    }
-                }
+                MultiHack.Toggle_Enable_SpeedHack();
+                return;
+                // Vector3 vector = new Vector3(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
+                // UserUtils.TeleportTo(vector);
             }
             if (Input.GetKeyDown(KeyCode.F))
                 FlyMode.Toggle_Enable();

@@ -53,8 +53,12 @@ namespace BlazeManagerMenu
             #endregion
 
             #region UIElement4
-            togglerList.Add("Force Mute Friend", new QMToggleButton("UIElementsMenu2", 1, 0, "Force Mute Friend\non", patch_ForceMute.Toggle_Enable_ForceMute, "off", "Toggle: Force Mute Friend"));
-            patch_ForceMute.RefreshStatus_ForceMute_Friends();
+            // togglerList.Add("Force Mute Friend", new QMToggleButton("UIElementsMenu2", 1, 0, "Force Mute Friend\non", patch_ForceMute.Toggle_Enable_ForceMute, "off", "Toggle: Force Mute Friend"));
+            // patch_ForceMute.RefreshStatus_ForceMute_Friends();
+            togglerList.Add("SpeedHack", new QMToggleButton("UIElementsMenu2", 1, 0, "SpeedHack\non", MultiHack.Toggle_Enable_SpeedHack, "off", "Toggle: SpeedHack"));
+            MultiHack.RefreshStatus_SpeedHack();
+            togglerList.Add("JumpHack", new QMToggleButton("UIElementsMenu2", 1, 1, "JumpHack\non", MultiHack.Toggle_Enable_JumpHack, "off", "Toggle: JumpHack"));
+            MultiHack.RefreshStatus_JumpHack();
             #endregion
 
             #region UIElement4
@@ -77,8 +81,10 @@ namespace BlazeManagerMenu
                 Addons.UserUtils.RemoveInstiatorObjects();
             }, "");
 
+            togglerList.Add("High Vol", new QMToggleButton("ShortcutMenu", 0, -1, "High Vol.\non", Toggle_HighVol, "off", "Toggle: ESP Capsule"));
+            Refresh_HighVol();
             togglerList.Add("ESP Capsule", new QMToggleButton("ShortcutMenu", 0, 1, "ESP Capsule\non", patch_AntiBlock.Toggle_Enable_ESP_Capsule, "off", "Toggle: ESP Capsule"));
-
+            patch_AntiBlock.RefreshStatus_ESP_Capsule();
             singleList.Add("LocalMirror", new QMSingleButton("ShortcutMenu", 5, 0, "SpawnMirror", () =>
             {
                 if (PortableMirror._isEnable)
@@ -116,14 +122,32 @@ namespace BlazeManagerMenu
                     return;
                 }
             }, "Open browse for download .vrca");
-            togglerList.Add("Force Mute", new QMToggleButton("UserInteractMenu", 4, 2, "ForceMute\non", patch_ForceMute.OnPlayerToggleForceMute, "off", "Toggle: Force Mute"));
-
+            // togglerList.Add("Force Mute", new QMToggleButton("UserInteractMenu", 4, 2, "ForceMute\non", patch_ForceMute.OnPlayerToggleForceMute, "off", "Toggle: Force Mute"));
+            
             // new Quaternion(0, 0, 45, 0) - верх ногами
             // new QMLineButton("ShortcutMenu", -1.1f, -1, "Test Player", () => { Console.WriteLine("temp_player"); }, "Test", new Quaternion(0, -15, -5, 45));
             // new QMLineButton("ShortcutMenu", 6.1f, -1, "Test Player 2", () => { Console.WriteLine("temp_player"); }, "Test", new Quaternion(0, 15, 5, 45));
 
             QuickMenuStuff.ChangeColorMenu(Color.green, Color.white);
             QuickMenuStuff.ChangeColorButtons(Color.green, Color.green);
+        }
+
+        public static void Toggle_HighVol()
+        {
+            if (USpeaker.LocalGain > 1f)
+            {
+                USpeaker.LocalGain = 1f;
+            }
+            else
+                USpeaker.LocalGain = float.MaxValue;
+            Refresh_HighVol();
+        }
+
+        public static void Refresh_HighVol()
+        {
+            bool toggle = USpeaker.LocalGain > 1f;
+            togglerList["High Vol"].btnOn.SetActive(toggle);
+            togglerList["High Vol"].btnOff.SetActive(!toggle);
         }
 
         internal static Dictionary<string, QMToggleButton> togglerList = new Dictionary<string, QMToggleButton>();

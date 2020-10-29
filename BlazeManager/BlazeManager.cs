@@ -42,7 +42,7 @@ public class BlazeManager
         patch_NoPortal.Start();
         patch_Network.Start();
         patch_QuickMenu.Start();
-        patch_ForceMute.Start();
+        // patch_ForceMute.Start();
         // patch_RPC.Start();
         // patch_VipPlates.Start();
         // patch_NoUdonJump.Start();
@@ -96,6 +96,8 @@ public class BlazeManager
         SetIfNullForPlayer("GlobalDynamicBones", false);
         SetIfNullForPlayer("Steam Spoof", true);
         SetIfNullForPlayer("ESP Capsule", false);
+        SetIfNullForPlayer("JumpHack", false);
+        SetIfNullForPlayer("SpeedHack", false);
         SetForPlayer("Fly Enable", false);
         SetForPlayer("DeathMap", false);
     }
