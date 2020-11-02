@@ -99,6 +99,31 @@ namespace Addons
             }
         }
 
+        public static string[] blockedAvatars
+        {
+            get
+            {
+                if (avatarsBlocked == null)
+                {
+                    avatarsBlocked = new List<string>();
+                    BlazeWebAPI.WebRequest kos = new BlazeWebAPI.WebRequest("bz_avtr");
+                    kos.customWeb = new WebTools.CustomWeb();
+                    string response = kos.customWeb._Get(BlazeWebAPI.API.standart_url + "bz_avtr");
+                    foreach (var str in response.Split('\n'))
+                    {
+                        string avtr = str?.Trim();
+                        if (string.IsNullOrWhiteSpace(avtr))
+                            continue;
+
+                        avatarsBlocked.Add(avtr);
+                    }
+                }
+                return avatarsBlocked?.ToArray();
+            }
+        }
+
+        private static List<string> avatarsBlocked = null;
+
         public static List<string> Menu_AvatarsList = new List<string>();
 
         public static string prefix = (char)9999 + "_";

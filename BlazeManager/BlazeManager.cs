@@ -39,6 +39,7 @@ public class BlazeManager
         patch_GlobalDynamicBones.Start();
         patch_InvisAPI.Start();
         patch_MorePortals.Start();
+        patch_NoAvatars.Start();
         patch_NoPortal.Start();
         patch_Network.Start();
         patch_QuickMenu.Start();

@@ -68,6 +68,25 @@ namespace VRC.Core
             }
         }
 
+        private static IL2Property propertyName = null;
+        public string name
+        {
+            get
+            {
+                if (!IL2Get.Property("name", Instance_Class, ref propertyName))
+                    return default;
+
+                return propertyName.GetGetMethod().Invoke(ptr)?.Unbox<string>();
+            }
+            set
+            {
+                if (!IL2Get.Property("name", Instance_Class, ref propertyName))
+                    return;
+
+                propertyName.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
+            }
+        }
+
         private static IL2Method methodSaveReleaseStatus = null;
         public void SaveReleaseStatus(Action<ApiContainer> onSuccess = null, Action<ApiContainer> onFailure = null)
         {

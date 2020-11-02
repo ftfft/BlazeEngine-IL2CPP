@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using BlazeIL.il2cpp;
 
 namespace BlazeIL.il2ch
@@ -65,6 +66,12 @@ namespace BlazeIL.il2ch
 
             return null;
         }
+
+        public bool InvokeTest(IntPtr instance, IntPtr ptr1, IntPtr ptr2, float float1, IntPtr ptr3)
+        {
+            return ((Addons.Patch._VRCAvatarManager_SwitchAvatar)Marshal.GetDelegateForFunctionPointer(OriginalMethod, typeof(Addons.Patch._VRCAvatarManager_SwitchAvatar)))(instance, ptr1, ptr2, float1, ptr3);
+        }
+
         public IL2Object PInvokeOriginal(IntPtr arg1, IntPtr arg2, IntPtr arg3, IntPtr arg4, IntPtr arg5, IntPtr arg6, IntPtr arg7, IntPtr arg8, IntPtr arg9)
         {
             IntPtr result = IL2Import.VRC_PInvoke(OriginalMethod, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
