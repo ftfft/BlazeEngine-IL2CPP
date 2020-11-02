@@ -18,7 +18,7 @@ public class RaiseEventOptions : IL2Base
     {
         if (constructRaiseEventOptions == null)
         {
-            constructRaiseEventOptions = Instance_Class.GetConstructors()[0];
+            constructRaiseEventOptions = Instance_Class.GetMethod(".ctor");
             if (constructRaiseEventOptions == null)
                 return;
         }
@@ -169,5 +169,5 @@ public class RaiseEventOptions : IL2Base
             fieldReceivers.SetValue(ptr, value.MonoCast());
         }
     }
-    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(NetworkingPeer.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4).First(x => x.GetParameters()[0].ReturnType.Name == "System.Byte").GetParameters()[2].ReturnType.Name);
+    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(NetworkingPeer.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == "System.Byte").First().GetParameters()[2].ReturnType.Name);
 }

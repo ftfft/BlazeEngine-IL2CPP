@@ -38,7 +38,6 @@ namespace Addons.Mods
 			gameObject.transform.position = position;
 			gameObject.transform.rotation = transform.rotation;
 			gameObject.transform.localScale = new Vector3(_mirrorScaleX, _mirrorScaleY, 1f);
-			gameObject.name = objName;
 			gameObject.GetComponent<Collider>().Destroy();
 			#endregion
 			#region BoxCollider
@@ -78,21 +77,23 @@ namespace Addons.Mods
 			rigidbody.isKinematic = true;
 			#endregion
 
+			PortableMirror.gameObject = gameObject;
 			_isEnable = true;
 			UpdateStatus();
 		}
 
 		public static void OnDestroy(bool updateStatus = true)
         {
-            GameObject.Find(objName)?.Destroy();
+			gameObject?.gameObject?.Destroy();
 			if (updateStatus)
 			{
 				_isEnable = false;
+				gameObject = null;
 				UpdateStatus();
 			}
 		}
 
-		public static string objName = UserUtils.prefix + "PortableMirror";
+		private static GameObject gameObject = null;
 
 		private static float _mirrorScaleX = 5f;
 

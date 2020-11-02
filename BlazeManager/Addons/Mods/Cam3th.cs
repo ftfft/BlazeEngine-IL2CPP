@@ -27,17 +27,15 @@ namespace Addons.Mods
             transform1.position = transform.position;
             transform1.parent = transform;
 
-            gameObject.name = objName;
             Cam3thPerson = gameObject;
             _isEnable = true;
         }
 
         public static void OnDestroy(bool updateStatus = true)
         {
-            GameObject.Find(objName)?.Destroy();
+            Cam3thPerson?.gameObject?.Destroy();
             if (updateStatus)
             {
-                Cam3thPerson?.gameObject?.Destroy();
                 Cam3thPerson = null;
                 _isEnable = false;
                 // UpdateStatus();
@@ -56,8 +54,6 @@ namespace Addons.Mods
             Cam3thPerson.transform.localPosition = (Vector3.up / 4) + (Vector3.back * 3);
         }
 
-        public static string objName = UserUtils.prefix + "3thPerson";
-        
         private static GameObject Cam3thPerson = null;
         
         private static Camera CamOnHead = null;

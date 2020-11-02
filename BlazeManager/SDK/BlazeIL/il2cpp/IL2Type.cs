@@ -65,7 +65,18 @@ namespace BlazeIL.il2cpp
 
         public int Token => IL2Import.il2cpp_class_get_type_token(ptr);
 
-        public IL2BindingFlags Flags
+        public IL2Type DeclaringType
+        {
+            get
+            {
+                IntPtr pointer = IL2Import.il2cpp_class_get_declaring_type(ptr);
+                if (pointer != IntPtr.Zero)
+                    return new IL2Type(pointer);
+
+                return null;
+            }
+        }
+    public IL2BindingFlags Flags
         {
             get
             {
@@ -118,7 +129,7 @@ namespace BlazeIL.il2cpp
         public IL2Field[] GetFields(IL2BindingFlags flags) => GetFields(flags, null);
         public IL2Field[] GetFields(Func<IL2Field, bool> func) => GetFields().Where(x => func(x)).ToArray();
         public IL2Field[] GetFields(IL2BindingFlags flags, Func<IL2Field, bool> func) => GetFields().Where(x => (x.HasFlag(flags) && func(x))).ToArray();
-        public IL2Field GetField(Func<IL2Field, bool> func) => GetFields().First(x => func(x));
+        public IL2Field GetField(Func<IL2Field, bool> func) => GetFields().FirstOrDefault(x => func(x));
         public IL2Field GetField(string name) => GetField(name, null);
         public IL2Field GetField(string name, IL2BindingFlags flags) => GetField(name, flags, null);
         public IL2Field GetField(string name, Func<IL2Field, bool> func)

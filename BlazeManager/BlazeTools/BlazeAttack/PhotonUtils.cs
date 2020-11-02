@@ -69,14 +69,27 @@ namespace BlazeAttack
         }
 
         public static readonly object nObj = new object();
-        public static void FakeFlood(int viewId, int fromId)
+        public static void FakeFlood_210(int viewId, int fromId)
         {
             IntPtr intPtrs = new IntPtr[2]
             {
-                IL2Import.CreateNewObject(viewId, IL2SystemClass.Int32),
-                IL2Import.CreateNewObject(fromId, IL2SystemClass.Int32)
+                viewId.MonoCast(),
+                fromId.MonoCast()
             }.ArrayToIntPtr(IL2SystemClass.Int32);
-            networkingPeer.OpRaiseEvent(210, intPtrs, new RaiseEventOptions()
+            NetworkPeer.Instance.OpRaiseEvent(210, intPtrs, new RaiseEventOptions()
+            {
+                Receivers = ReceiverGroup.All
+            }, SendOptions.SendReliable);
+        }
+
+        public static void FakeFlood_209(int viewId, int fromId)
+        {
+            IntPtr intPtrs = new IntPtr[2]
+            {
+                viewId.MonoCast(),
+                fromId.MonoCast()
+            }.ArrayToIntPtr(IL2SystemClass.Int32);
+            NetworkPeer.Instance.OpRaiseEvent(209, intPtrs, new RaiseEventOptions()
             {
                 Receivers = ReceiverGroup.All
             }, SendOptions.SendReliable);

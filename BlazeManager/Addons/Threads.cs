@@ -149,12 +149,16 @@ namespace Addons
                 return;
             }
             
-            
-            if (Input.GetKeyDown(KeyCode.PageDown))
+            /*
+            if (Input.GetKey(KeyCode.PageDown))
             {
-                UserUtils.TeleportTo(Vector3.zero);
+                int randId = rand.Next(5, 100);
+                BlazeAttack.PhotonUtils.FakeFlood_210(randId, 0);
+                BlazeAttack.PhotonUtils.FakeFlood_209(randId, 0);
+                BlazeAttack.PhotonUtils.Raise200();
                 return;
             }
+            */
 
             BlazeAttack.PhotonUtils.raise209_status = false;
 
@@ -319,5 +323,6 @@ namespace Addons
         public static bool bFirstThreadInRoom = false;
 
         public static string currentTime = "0";
+        public static Random rand = new Random();
     }
 }

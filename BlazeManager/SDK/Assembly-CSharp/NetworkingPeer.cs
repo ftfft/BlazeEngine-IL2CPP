@@ -21,8 +21,7 @@ public class NetworkingPeer : IL2Base
                 return false;
         }
 
-        methodOpRaiseEvent.Invoke(ptr, new IntPtr[] { operationCode.MonoCast(), operationParameters, raiseEventOptions.ptr, sendOptions.MonoCast() });
-        return true;
+        return methodOpRaiseEvent.Invoke(ptr, new IntPtr[] { operationCode.MonoCast(), operationParameters, raiseEventOptions.ptr, sendOptions.MonoCast() }, isVirtual: true, ex: false).unbox_Unmanaged<bool>();
     }
 
     public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(PhotonNetwork.Instance_Class.GetFields().First(x => x.Token == 0x10).ReturnType.Name);

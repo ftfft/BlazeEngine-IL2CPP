@@ -71,6 +71,7 @@
     <Compile Include="Addons\Mods\VoiceDotFade.cs" />
     <Compile Include="Addons\Patch\patch_AntiBlock.cs" />
     <Compile Include="Addons\Patch\patch_AntiKick.cs" />
+    <Compile Include="Addons\Patch\patch_NoAvatars.cs" />
     <Compile Include="Addons\Patch\patch_QuickMenu.cs" />
     <Compile Include="Addons\Patch\patch_GlobalDynamicBones.cs" />
     <Compile Include="Addons\Patch\patch_AvatarSteal.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="SDK\Assembly-CSharp\EventCaching.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBoneCollider.cs" />
     <Compile Include="SDK\Assembly-CSharp\FadeCycleEffect.cs" />
+    <Compile Include="SDK\Assembly-CSharp\NetworkPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\NetworkManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\NetworkingPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\NotificationManager.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\PhotonLagSimulationGui.cs" />
     <Compile Include="SDK\Assembly-CSharp\HighlightsFX.cs" />
     <Compile Include="SDK\Assembly-CSharp\PlayerNet.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRCAvatarManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCInputManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCNetworkBehaviour.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Networking\UdonSync.cs" />

@@ -52,6 +52,9 @@ namespace BlazeIL
         public extern static IntPtr il2cpp_class_from_system_type(IntPtr type);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static IntPtr il2cpp_class_get_image(IntPtr klass);
+        
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static IntPtr il2cpp_class_get_declaring_type(IntPtr klass);
 
 
         // ---------------------- [ IL2CPP Method ] ---------------------- //
