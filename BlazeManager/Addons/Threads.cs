@@ -124,6 +124,8 @@ namespace Addons
         }
 
 
+        private static GameObject gameObjectOOO = null;
+
         private static IL2Patch update = null;
         public static void Control_Thread_Update(IntPtr instance)
         {
@@ -148,7 +150,26 @@ namespace Addons
                 }
                 return;
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.PageDown))
+            {
+
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+                {
+                    GameObject SelectColesion = hit.transform.gameObject;
+                    if (SelectColesion != null)
+                    {
+                        if (SelectColesion.GetComponent<VRC_Pickup>() != null || SelectColesion.GetComponent<VRC.SDK3.Components.VRCPickup>() != null)
+                        {
+                            PhotonNetwork.TransferOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.photonPlayer.ID);
+                            PhotonNetwork.RequestOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.photonPlayer.ID);
+                            SelectColesion.transform.position = new Vector3(float.NaN, float.NaN, float.NaN);
+                        }
+                    }
+                }
+                return;
+            }
+
             /*
             if (Input.GetKey(KeyCode.PageDown))
             {

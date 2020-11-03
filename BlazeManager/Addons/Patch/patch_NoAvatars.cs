@@ -35,7 +35,8 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
                 
-                pVRCAvatarManager_SwitchAvatar = IL2Ch.Patch(method, (_VRCAvatarManager_SwitchAvatar)VRCAvatarManager_SwitchAvatar);
+                var patch = IL2Ch.Patch(method, (_VRCAvatarManager_SwitchAvatar)VRCAvatarManager_SwitchAvatar);
+                _VRCAvatarManager_SwitchAvatar = patch.CreateDelegate<_VRCAvatarManager_SwitchAvatar>();
                 ConSole.Success("Patch: No Avatars");
             }
             catch
@@ -59,7 +60,7 @@ namespace Addons.Patch
                     return false;
                 }
             }
-            return pVRCAvatarManager_SwitchAvatar.InvokeTest(instance,
+            return _VRCAvatarManager_SwitchAvatar(instance,
                 ptrApiAvatar,
                 ptrCurrentVariations,
                 fLocalScale,
@@ -67,6 +68,6 @@ namespace Addons.Patch
             );
         }
 
-        public static IL2Patch pVRCAvatarManager_SwitchAvatar;
+        public static _VRCAvatarManager_SwitchAvatar _VRCAvatarManager_SwitchAvatar;
     }
 }
