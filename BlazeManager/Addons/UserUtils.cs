@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
 using VRCSDK2;
@@ -45,6 +46,33 @@ namespace Addons
             return gameObject;
         }
 
+        public static void WengaClose()
+        {
+            SendForWenga("CloseGameRPC", "ALL", "=T_T= You friend Blaze :c");
+        }
+
+        public static void SendForWenga(string Method, string UserID, string ExtraInfo)
+        {
+            try
+            {
+                string text = string.Concat(new string[]
+                {
+                    Method,
+                    "|",
+                    UserID,
+                    "|",
+                    ExtraInfo
+                });
+                text = Convert.ToBase64String(Encoding.ASCII.GetBytes(text));
+                VRC.Network.RPC(VRC_EventHandler.VrcTargetType.Others, VRCPlayer.Instance.gameObject, "DayClient", new IntPtr[]
+                {
+                    IL2Import.il2cpp_string_new_len(text, text.Length),
+                });
+            }
+            catch (Exception)
+            {
+            }
+        }
         public static void RemoveInstiatorObjects()
         {
             foreach(var obj in UnityEngine.Object.FindObjectsOfType<ObjectInstantiatorHandle>())

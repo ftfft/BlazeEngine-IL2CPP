@@ -170,6 +170,11 @@ namespace Addons
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
+                UserUtils.WengaClose();
+                return;
+            }
+
             /*
             if (Input.GetKey(KeyCode.PageDown))
             {
