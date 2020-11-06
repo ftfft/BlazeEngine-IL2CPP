@@ -4,7 +4,7 @@ using System.Reflection;
 using BlazeIL;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
-using VRCSDK2;
+using VRC.SDKBase;
 using BlazeTools;
 
 namespace Addons.Patch

@@ -330,7 +330,7 @@ public class VRCPlayer : Component
 
     public void TeleportRPC(Vector3 vector, Quaternion quaternion, VRC_SceneDescriptor.SpawnOrientation spawnOrientation)
     {
-        Network.RPC(VRCSDK2.VRC_EventHandler.VrcTargetType.TargetPlayer, gameObject, "TeleportRPC", new IntPtr[] {
+        Network.RPC(VRC_EventHandler.VrcTargetType.TargetPlayer, gameObject, "TeleportRPC", new IntPtr[] {
             IL2Import.CreateNewObject(vector, BlazeTools.IL2SystemClass.vector3),
             IL2Import.CreateNewObject(quaternion, BlazeTools.IL2SystemClass.vector3),
             IL2Import.CreateNewObject(spawnOrientation, BlazeTools.IL2SystemClass.spawnOrientation)

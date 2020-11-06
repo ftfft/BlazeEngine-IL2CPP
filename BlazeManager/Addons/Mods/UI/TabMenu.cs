@@ -19,6 +19,8 @@ namespace Addons.Mods.UI
             strDisplayNameBold.Static = true;
             strTeleport = "Teleport".IL2String();
             strTeleport.Static = true;
+            strTest = "Test".IL2String();
+            strTest.Static = true;
             strEmpty = string.Empty.IL2String();
             strEmpty.Static = true;
         }
@@ -27,6 +29,7 @@ namespace Addons.Mods.UI
         private static IL2String strHashBold;
         private static IL2String strDisplayNameBold;
         private static IL2String strTeleport;
+        private static IL2String strTest;
         private static IL2String strEmpty;
         private static IL2String strTempText = null;
         public static void ShowMenu()
@@ -40,6 +43,7 @@ namespace Addons.Mods.UI
             int iPlayer = 0;
             foreach (var player in VRC.PlayerManager.Instance.AllPlayers)
             {
+                playerPhoton = player.photonPlayer;
                 int? playerId = player?.photonPlayer?.ID;
                 if (playerId == null) continue;
                 if (iSelectUser == playerId)
@@ -80,6 +84,8 @@ namespace Addons.Mods.UI
         private static ulong uSelectSteam = 0U;
 
         private static int? iSelectUser = null;
+
+        public static PhotonPlayer playerPhoton = null;
 
         private static readonly int iTopMargin = 160;
 

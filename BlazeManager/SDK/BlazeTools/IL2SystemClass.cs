@@ -6,6 +6,7 @@ namespace BlazeTools
     class IL2SystemClass
     {
         public static IL2Type Int32 = Assemblies.a["mscorlib"].GetClass("Int32", "System");
+        public static IL2Type Byte = Assemblies.a["mscorlib"].GetClass("Byte", "System");
         public static IL2Type Boolean = Assemblies.a["mscorlib"].GetClass("Boolean", "System");
         public static IL2Type Single = Assemblies.a["mscorlib"].GetClass("Single", "System");
         public static IL2Type Object = Assemblies.a["mscorlib"].GetClass("Object", "System");

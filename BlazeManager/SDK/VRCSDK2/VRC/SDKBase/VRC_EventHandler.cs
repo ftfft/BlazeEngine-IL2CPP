@@ -13,7 +13,48 @@ namespace VRC.SDKBase
 	{
 		public VRC_EventHandler(IntPtr ptr) : base(ptr) => this.ptr = ptr;
 
-		/*
+        private static IL2Method methodBooleanOp = null;
+        public static bool BooleanOp(VRC_EventHandler.VrcBooleanOp Op, bool Current)
+        {
+            if (methodBooleanOp == null)
+            {
+                methodBooleanOp = Instance_Class.GetMethod("BooleanOp");
+                if (methodBooleanOp == null)
+                    return default;
+            }
+            return methodBooleanOp.Invoke(IntPtr.Zero, new IntPtr[] { Op.MonoCast(), Current.MonoCast() }).Unbox<bool>();
+        }
+
+
+        private static IL2Property propertyNetworkID = null;
+        public int NetworkID
+        {
+            get
+            {
+                if (propertyNetworkID == null)
+                {
+                    propertyNetworkID = Instance_Class.GetProperty("NetworkID");
+                    if (propertyNetworkID == null)
+                        return -1;
+                }
+
+                return propertyNetworkID.GetGetMethod().Invoke(ptr, new IntPtr[0]).unbox_Unmanaged<int>();
+            }
+            set
+            {
+                if (propertyNetworkID == null)
+                {
+                    propertyNetworkID = Instance_Class.GetProperty("NetworkID");
+                    if (propertyNetworkID == null)
+                        return;
+                }
+
+                propertyNetworkID.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            }
+        }
+
+
+        /*
 		public static bool BooleanOp(VRC_EventHandler.VrcBooleanOp Op, bool Current)
 		{
 		}
@@ -180,7 +221,7 @@ namespace VRC.SDKBase
 		private Coroutine DeferredEventProcessor;
 		*/
 
-		public enum VrcEventType
+        public enum VrcEventType
 		{
 			MeshVisibility,
 			AnimationFloat,
@@ -256,82 +297,387 @@ namespace VRC.SDKBase
 
 		public class VrcEvent : IL2Base
 		{
-			public VrcEvent(IntPtr ptrNew) : base(ptrNew) =>
-				ptr = ptrNew;
+            public VrcEvent(IntPtr ptr) : base(ptr) => this.ptr = ptr;
 
-			public static IL2Method constructVrcEvent = null;
+			private static IL2Method constructVrcEvent = null;
 			public VrcEvent() : base(IntPtr.Zero)
 			{
 				if (constructVrcEvent == null)
 				{
 					constructVrcEvent = Instance_Class.GetMethod(".ctor");
 					if (constructVrcEvent == null)
-						return;
-				}
+                        return;
+                }
 
 				ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
 				constructVrcEvent.Invoke(ptr);
-			}
+            }
 
-			private static IL2Field fieldName = null;
-			public string Name
-			{
-				get
-				{
-					if (!IL2Get.Field("Name", Instance_Class, ref fieldName))
-						return null;
+            private static IL2Field fieldName = null;
+            public string Name
+            {
+                get
+                {
+                    if (fieldName == null)
+                    {
+                        fieldName = Instance_Class.GetField("Name");
+                        if (fieldName == null)
+                            return null;
+                    }
 
-					return fieldName.GetValue(ptr)?.Unbox<string>();
-				}
-				set
-				{
-					if (!IL2Get.Field("Name", Instance_Class, ref fieldName))
-						return;
+                    return fieldName.GetValue(ptr)?.unbox_ToString().ToString();
+                }
+                set
+                {
+                    if (fieldName == null)
+                    {
+                        fieldName = Instance_Class.GetField("Name");
+                        if (fieldName == null)
+                            return;
+                    }
 
-					fieldName.SetValue(ptr, IL2Import.StringToIntPtr(value));
-				}
-			}
+                    fieldName.SetValue(ptr, new IL2String(value).ptr);
+                }
+            }
 
-			public VrcEventType EventType;
+            private static IL2Field fieldEventType = null;
+            public VrcEventType EventType
+            {
+                get
+                {
+                    if (fieldEventType == null)
+                    {
+                        fieldEventType = Instance_Class.GetField("EventType");
+                        if (fieldEventType == null)
+                            return VrcEventType.MeshVisibility;
+                    }
 
-			private static IL2Field fieldParameterString = null;
-			public string ParameterString
-			{
-				get
-				{
-					if (!IL2Get.Field("ParameterString", Instance_Class, ref fieldParameterString))
-						return null;
+                    return (VrcEventType)fieldEventType.GetValue(ptr).unbox_Unmanaged<int>();
+                }
+                set
+                {
+                    if (fieldEventType == null)
+                    {
+                        fieldEventType = Instance_Class.GetField("EventType");
+                        if (fieldEventType == null)
+                            return;
+                    }
 
-					return fieldParameterString.GetValue(ptr)?.Unbox<string>();
-				}
-				set
-				{
-					if (!IL2Get.Field("ParameterString", Instance_Class, ref fieldParameterString))
-						return;
+                    fieldEventType.SetValue(ptr, value.MonoCast());
+                }
+            }
 
-					fieldParameterString.SetValue(ptr, IL2Import.StringToIntPtr(value));
-				}
-			}
+            private static IL2Field fieldParameterString = null;
+            public string ParameterString
+            {
+                get
+                {
+                    if (fieldParameterString == null)
+                    {
+                        fieldParameterString = Instance_Class.GetField("ParameterString");
+                        if (fieldParameterString == null)
+                            return null;
+                    }
 
-			public VrcBooleanOp ParameterBoolOp;
+                    return fieldParameterString.GetValue(ptr).Unbox<string>();
+                }
+                set
+                {
+                    if (fieldParameterString == null)
+                    {
+                        fieldParameterString = Instance_Class.GetField("ParameterString");
+                        if (fieldParameterString == null)
+                            return;
+                    }
 
-			public bool ParameterBool;
+                    fieldParameterString.SetValue(ptr, IL2Import.StringToIntPtr(value));
+                }
+            }
 
-			public float ParameterFloat;
+            private static IL2Field fieldParameterBoolOp = null;
+            public VrcBooleanOp ParameterBoolOp
+            {
+                get
+                {
+                    if (fieldParameterBoolOp == null)
+                    {
+                        fieldParameterBoolOp = Instance_Class.GetField("ParameterBoolOp");
+                        if (fieldParameterBoolOp == null)
+                            return VrcBooleanOp.False;
+                    }
 
-			public int ParameterInt;
+                    return fieldParameterBoolOp.GetValue(ptr).Unbox<VrcBooleanOp>();
+                }
+                set
+                {
+                    if (fieldParameterBoolOp == null)
+                    {
+                        fieldParameterBoolOp = Instance_Class.GetField("ParameterBoolOp");
+                        if (fieldParameterBoolOp == null)
+                            return;
+                    }
 
-			public GameObject ParameterObject;
+                    fieldParameterBoolOp.SetValue(ptr, value.MonoCast());
+                }
+            }
 
-			public GameObject[] ParameterObjects;
+            private static IL2Field fieldParameterBool = null;
+            public bool ParameterBool
+            {
+                get
+                {
+                    if (fieldParameterBool == null)
+                    {
+                        fieldParameterBool = Instance_Class.GetField("ParameterBool");
+                        if (fieldParameterBool == null)
+                            return default;
+                    }
 
-			public byte[] ParameterBytes;
+                    return fieldParameterBool.GetValue(ptr).Unbox<bool>();
+                }
+                set
+                {
+                    if (fieldParameterBool == null)
+                    {
+                        fieldParameterBool = Instance_Class.GetField("ParameterBool");
+                        if (fieldParameterBool == null)
+                            return;
+                    }
+                    if (this == null)
+                        return;
 
-			public int? ParameterBytesVersion;
+                    fieldParameterBool.SetValue(ptr, value.MonoCast());
+                }
+            }
 
-			public bool TakeOwnershipOfTarget;
+            private static IL2Field fieldParameterFloat = null;
+            public float ParameterFloat
+            {
+                get
+                {
+                    if (fieldParameterFloat == null)
+                    {
+                        fieldParameterFloat = Instance_Class.GetField("ParameterFloat");
+                        if (fieldParameterFloat == null)
+                            return default;
+                    }
 
-			public static IL2Type Instance_Class = VRC_EventHandler.Instance_Class.GetNestedType("VrcEvent");
+                    return fieldParameterFloat.GetValue(ptr).Unbox<float>();
+                }
+                set
+                {
+                    if (fieldParameterFloat == null)
+                    {
+                        fieldParameterFloat = Instance_Class.GetField("ParameterFloat");
+                        if (fieldParameterFloat == null)
+                            return;
+                    }
+
+                    fieldParameterFloat.SetValue(ptr, value.MonoCast());
+                }
+            }
+
+            private static IL2Field fieldParameterInt = null;
+            public int ParameterInt
+            {
+                get
+                {
+                    if (fieldParameterInt == null)
+                    {
+                        fieldParameterInt = Instance_Class.GetField("ParameterInt");
+                        if (fieldParameterInt == null)
+                            return default;
+                    }
+
+                    return fieldParameterInt.GetValue(ptr).Unbox<int>();
+                }
+                set
+                {
+                    if (fieldParameterInt == null)
+                    {
+                        fieldParameterInt = Instance_Class.GetField("ParameterInt");
+                        if (fieldParameterInt == null)
+                            return;
+                    }
+
+                    fieldParameterInt.SetValue(ptr, value.MonoCast());
+                }
+            }
+
+            private static IL2Field fieldParameterObject = null;
+            public GameObject ParameterObject
+            {
+                get
+                {
+                    if (fieldParameterObject == null)
+                    {
+                        fieldParameterObject = Instance_Class.GetField("ParameterObject");
+                        if (fieldParameterObject == null)
+                            return null;
+                    }
+
+                    return fieldParameterObject.GetValue(ptr)?.unbox<GameObject>();
+                }
+                set
+                {
+                    if (fieldParameterObject == null)
+                    {
+                        fieldParameterObject = Instance_Class.GetField("ParameterObject");
+                        if (fieldParameterObject == null)
+                            return;
+                    }
+
+                    fieldParameterObject.SetValue(ptr, value == null ? IntPtr.Zero : value.ptr);
+                }
+            }
+
+            private static IL2Field fieldParameterObjects = null;
+            public GameObject[] ParameterObjects
+            {
+                get
+                {
+                    if (fieldParameterObjects == null)
+                    {
+                        fieldParameterObjects = Instance_Class.GetField("ParameterObjects");
+                        if (fieldParameterObjects == null)
+                            return null;
+                    }
+
+                    IL2Object result = fieldParameterObjects.GetValue(ptr);
+                    if (result == null)
+                        return null;
+
+                    return result.UnboxArray<GameObject>();
+                }
+                set
+                {
+                    if (fieldParameterObjects == null)
+                    {
+                        fieldParameterObjects = Instance_Class.GetField("ParameterObjects");
+                        if (fieldParameterObjects == null)
+                            return;
+                    }
+
+                    List<IntPtr> intPtrs = new List<IntPtr>();
+                    for (int i = 0; i < value.Length; i++)
+                        intPtrs.Add(value[i].ptr);
+
+                    fieldParameterObjects.SetValue(ptr, intPtrs.ToArray().ArrayToIntPtr(GameObject.Instance_Class));
+                }
+            }
+
+            private static IL2Field fieldParameterBytes = null;
+            public byte[] ParameterBytes
+            {
+                get
+                {
+                    if (fieldParameterBytes == null)
+                    {
+                        fieldParameterBytes = Instance_Class.GetField("ParameterBytes");
+                        if (fieldParameterBytes == null)
+                            return null;
+                    }
+
+                    IL2Object result = fieldParameterBytes.GetValue(ptr);
+                    if (result == null)
+                        return null;
+
+                    return result.UnboxArray<byte>();
+                }
+                set
+                {
+                    if (fieldParameterBytes == null)
+                    {
+                        fieldParameterBytes = Instance_Class.GetField("ParameterBytes");
+                        if (fieldParameterBytes == null)
+                            return;
+                    }
+                    if (this == null)
+                        return;
+
+
+                    IntPtr[] pointerArray = new IntPtr[value.Length];
+                    unsafe
+                    {
+                        for (int i = 0; i < value.Length; i++)
+                        {
+                            fixed (byte* pointer = &value[i])
+                            {
+                                pointerArray[i] = new IntPtr(pointer);
+                            }
+                        }
+                        fieldParameterBytes.SetValue(ptr, pointerArray.ArrayToIntPtr(BlazeTools.IL2SystemClass.Byte));
+                    }
+                }
+            }
+
+            private static IL2Field fieldParameterBytesVersion = null;
+            public int? ParameterBytesVersion
+            {
+                get
+                {
+                    if (fieldParameterBytesVersion == null)
+                    {
+                        fieldParameterBytesVersion = Instance_Class.GetField("ParameterBytesVersion");
+                        if (fieldParameterBytesVersion == null)
+                            return null;
+                    }
+                    if (this == null)
+                        return null;
+
+                    var result = fieldParameterBytesVersion.GetValue(ptr);
+                    if (result == null)
+                        return null;
+
+                    return result.Unbox<int>();
+                }
+                set
+                {
+                    if (fieldParameterBytesVersion == null)
+                    {
+                        fieldParameterBytesVersion = Instance_Class.GetField("ParameterBytesVersion");
+                        if (fieldParameterBytesVersion == null)
+                            return;
+                    }
+                    if (this == null)
+                        return;
+
+                    var temp = (int)value;
+                    fieldParameterBytesVersion.SetValue(ptr, value == null ? IntPtr.Zero : temp.MonoCast());
+                }
+            }
+
+            private static IL2Field fieldTakeOwnershipOfTarget = null;
+            public bool TakeOwnershipOfTarget
+            {
+                get
+                {
+                    if (fieldTakeOwnershipOfTarget == null)
+                    {
+                        fieldTakeOwnershipOfTarget = Instance_Class.GetField("TakeOwnershipOfTarget");
+                        if (fieldTakeOwnershipOfTarget == null)
+                            return false;
+                    }
+                    if (this == null)
+                        return false;
+
+                    return fieldTakeOwnershipOfTarget.GetValue(ptr).Unbox<bool>();
+                }
+                set
+                {
+                    if (fieldTakeOwnershipOfTarget == null)
+                    {
+                        fieldTakeOwnershipOfTarget = Instance_Class.GetField("TakeOwnershipOfTarget");
+                        if (fieldTakeOwnershipOfTarget == null)
+                            return;
+                    }
+                    if (this == null)
+                        return;
+
+                    fieldTakeOwnershipOfTarget.SetValue(ptr, value.MonoCast());
+                }
+            }
+            public static IL2Type Instance_Class = VRC_EventHandler.Instance_Class.GetNestedType("VrcEvent");
 		}
 
 		/*

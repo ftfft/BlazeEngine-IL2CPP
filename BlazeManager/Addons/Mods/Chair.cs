@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using VRCSDK2;
 using UnityEngine;
+using VRC.SDKBase;
 
 namespace Addons.Mods
 {

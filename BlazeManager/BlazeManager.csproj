@@ -113,6 +113,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDK\Assemblies.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBone.cs" />
+    <Compile Include="SDK\Assembly-CSharp\TargetType.cs" />
     <Compile Include="SDK\Assembly-CSharp\EventCaching.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBoneCollider.cs" />
     <Compile Include="SDK\Assembly-CSharp\FadeCycleEffect.cs" />

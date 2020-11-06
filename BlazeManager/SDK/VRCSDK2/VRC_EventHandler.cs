@@ -5,11 +5,11 @@ using UnityEngine;
 using BlazeIL;
 using BlazeIL.il2cpp;
 
-namespace VRCSDK2
+namespace VRC.SDKBase
 {
-    public class VRC_EventHandler : Component
+    public class VRC_EventHandler001 : Component
     {
-        public VRC_EventHandler(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public VRC_EventHandler001(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
         private static IL2Method methodBooleanOp = null;
         public static bool BooleanOp(VRC_EventHandler.VrcBooleanOp Op, bool Current)
@@ -439,7 +439,7 @@ namespace VRCSDK2
                 }
             }
 
-            private static IL2Type Instance = Assemblies.a["VRCSDK2"].GetClass("VRCSDK2.VRC_EventHandler.VrcEvent");
+            public static IL2Type Instance_Class = VRC_EventHandler.Instance_Class.GetNestedType("VrcEvent");
         }
 
         public enum VrcEventType
@@ -516,6 +516,6 @@ namespace VRCSDK2
             Toggle
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["VRCSDK2"].GetClass("VRC_EventHandler", "VRCSDK2");
+        public static new IL2Type Instance_Class = Assemblies.a["VRCSDKBase"].GetClass("VRC_EventHandler", "VRC.SDKBase");
     }
 }

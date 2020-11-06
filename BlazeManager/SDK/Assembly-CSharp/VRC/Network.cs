@@ -5,7 +5,7 @@ using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
 using UnityEngine;
-using VRCSDK2;
+using VRC.SDKBase;
 
 namespace VRC
 {

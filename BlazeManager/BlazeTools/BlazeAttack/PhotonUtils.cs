@@ -7,7 +7,7 @@ using BlazeIL.il2cpp;
 using BlazeTools;
 using ExitGames.Client.Photon;
 using UnityEngine;
-using VRCSDK2;
+using VRC.SDKBase;
 
 
 namespace BlazeAttack

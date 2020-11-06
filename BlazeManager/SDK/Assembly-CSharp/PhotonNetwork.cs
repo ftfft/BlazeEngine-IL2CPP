@@ -6,6 +6,7 @@ using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
 using ExitGames.Client.Photon;
+using Photon.Pun;
 
 public static class PhotonNetwork
 {
@@ -21,6 +22,20 @@ public static class PhotonNetwork
                     return null;
             }
             return fieldPhotonPeer.GetValue()?.unbox<NetworkingPeer>();
+        }
+    }
+    private static IL2Property propertyPhotonTime = null;
+    public static double photonTime
+    {
+        get
+        {
+            if (propertyPhotonTime == null)
+            {
+                propertyPhotonTime = Instance_Class.GetProperty(x => x.IsStatic && x.GetGetMethod().ReturnType.Name == typeof(double).FullName);
+                if (propertyPhotonTime == null)
+                    return default;
+            }
+            return propertyPhotonTime.GetGetMethod().Invoke().unbox_Unmanaged<double>();
         }
     }
 
@@ -47,6 +62,42 @@ public static class PhotonNetwork
         }
         methodRequestOwnership.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
     }
+
+    private static IL2Method methodRPCSecure = null;
+    public static void RPCSecure(PhotonView photonView, string command, TargetType target, bool encrypt, IntPtr[] objects)
+    {
+        if (methodRPCSecure == null)
+        {
+            methodRPCSecure = Instance_Class.GetMethods(x => x.GetParameters().Length == 5).First(x =>
+            x.GetParameters()[0].ReturnType.Name == PhotonView.Instance_Class.FullName &&
+            x.GetParameters()[1].ReturnType.Name == typeof(string).FullName &&
+            x.GetParameters()[2].ReturnType.Name != PhotonPlayer.Instance_Class.FullName &&
+            x.GetParameters()[3].ReturnType.Name == typeof(bool).FullName &&
+            x.GetParameters()[4].ReturnType.Name == typeof(object[]).FullName);
+            if (methodRPCSecure == null)
+                return;
+        }
+
+        methodRPCSecure.Invoke(new IntPtr[] { photonView.ptr, new IL2String(command).ptr, target.MonoCast(), encrypt.MonoCast(), objects.ArrayToIntPtr() });
+    }
+    private static IL2Method methodRPCSecure2 = null;
+    public static void RPCSecure(PhotonView photonView, string command, PhotonPlayer target, bool encrypt, IntPtr[] objects)
+    {
+        if (methodRPCSecure2 == null)
+        {
+            methodRPCSecure2 = Instance_Class.GetMethods(x => x.GetParameters().Length == 5).First(x =>
+            x.GetParameters()[0].ReturnType.Name == PhotonView.Instance_Class.FullName &&
+            x.GetParameters()[1].ReturnType.Name == typeof(string).FullName &&
+            x.GetParameters()[2].ReturnType.Name == PhotonPlayer.Instance_Class.FullName &&
+            x.GetParameters()[3].ReturnType.Name == typeof(bool).FullName &&
+            x.GetParameters()[4].ReturnType.Name == typeof(object[]).FullName);
+            if (methodRPCSecure2 == null)
+                return;
+        }
+
+        methodRPCSecure2.Invoke(IntPtr.Zero, new IntPtr[] { photonView.ptr, new IL2String(command).ptr, target.ptr, encrypt.MonoCast(), objects.ArrayToIntPtr() });
+    }
+
 
     private static IL2Method methodOpRaiseEvent = null;
     public static bool OpRaiseEvent(byte operationCode, IntPtr operationParameters, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)

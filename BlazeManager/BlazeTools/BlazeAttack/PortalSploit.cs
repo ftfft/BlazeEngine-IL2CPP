@@ -2,7 +2,7 @@
 using System.Runtime.ExceptionServices;
 using UnityEngine;
 using Addons;
-using VRCSDK2;
+using VRC.SDKBase;
 using BlazeIL;
 
 namespace BlazeAttack

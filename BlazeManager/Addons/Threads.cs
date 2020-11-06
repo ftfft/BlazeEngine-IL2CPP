@@ -124,7 +124,6 @@ namespace Addons
         }
 
 
-        private static GameObject gameObjectOOO = null;
 
         private static IL2Patch update = null;
         public static void Control_Thread_Update(IntPtr instance)
@@ -174,7 +173,15 @@ namespace Addons
                 UserUtils.WengaClose();
                 return;
             }
-
+            /*
+            if (Input.GetKey(KeyCode.KeypadMinus)) {
+                if (Mods.UI.TabMenu.playerPhoton != null)
+                {
+                    UserUtils.Gen15(Mods.UI.TabMenu.playerPhoton);
+                }
+                return;
+            }
+            */
             /*
             if (Input.GetKey(KeyCode.PageDown))
             {
