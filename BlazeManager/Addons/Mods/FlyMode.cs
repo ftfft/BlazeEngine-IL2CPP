@@ -24,12 +24,10 @@ namespace Addons.Mods
         public static void RefreshStatus()
         {
             bool toggle1 = BlazeManager.GetForPlayer<bool>("Fly Enable");
-            BlazeManagerMenu.Main.togglerList["Fly Enabled"].btnOn.SetActive(toggle1);
-            BlazeManagerMenu.Main.togglerList["Fly Enabled"].btnOff.SetActive(!toggle1);
+            BlazeManagerMenu.Main.togglerList["Fly Enabled"].SetToggleToOn(toggle1, false);
 
             bool toggle2 = BlazeManager.GetForPlayer<bool>("Fly Type");
-            BlazeManagerMenu.Main.togglerList["Fly Mode"].btnOn.SetActive(toggle2);
-            BlazeManagerMenu.Main.togglerList["Fly Mode"].btnOff.SetActive(!toggle2);
+            BlazeManagerMenu.Main.togglerList["Fly Mode"].SetToggleToOn(toggle2, false);
         }
 
         public static void Update()

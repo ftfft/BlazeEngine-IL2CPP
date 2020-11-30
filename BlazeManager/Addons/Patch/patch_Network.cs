@@ -5,9 +5,12 @@ using BlazeIL;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
 using BlazeTools;
+using UnityEngine;
 using ExitGames.Client.Photon;
 using Steamworks;
 using VRC;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Addons.Patch
 {
@@ -23,8 +26,10 @@ namespace Addons.Patch
     public delegate void _USpeakPhotonSender3D_OnEventBytes(IntPtr instance, IntPtr pBytes, int Int32_1, IntPtr pInt32_2);
     public delegate void _PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer);
     public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
-    public delegate bool _delegateFastJoin();
+    public delegate bool _methodFastJoin();
     public delegate void _methodUdonSyncRunProgramAsRPC(IntPtr str, IntPtr pPlayer);
+    public delegate void _methodTimerBloop(IntPtr pPlayer);
+    public delegate void _SendMessage(IntPtr instance, IntPtr methodName, SendMessageOptions options);
 
     public static class patch_Network
     {
@@ -62,35 +67,29 @@ namespace Addons.Patch
         public static void RefreshStatus_Serilize()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Photon Serilize");
-            BlazeManagerMenu.Main.togglerList["Photon Serilize"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Photon Serilize"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Photon Serilize"].SetToggleToOn(toggle, false);
         }
-
         public static void RefreshStatus_NoMove()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("NoMove");
-            BlazeManagerMenu.Main.togglerList["NoMove"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["NoMove"].btnOff.SetActive(!toggle);
-        }
+            BlazeManagerMenu.Main.togglerList["NoMove"].SetToggleToOn(toggle, false);
+            }
 
         public static void RefreshStatus_FastJoin()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Fast Join");
-            BlazeManagerMenu.Main.togglerList["Fast Join"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Fast Join"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Fast Join"].SetToggleToOn(toggle, false);
         }
         public static void RefreshStatus_SteamSpoof()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Steam Spoof");
-            BlazeManagerMenu.Main.togglerList["Steam Spoof"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Steam Spoof"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Steam Spoof"].SetToggleToOn(toggle, false);
         }
 
         public static void RefreshStatus_DeathMap()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("DeathMap");
-            BlazeManagerMenu.Main.togglerList["DeathMap"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["DeathMap"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["DeathMap"].SetToggleToOn(toggle, false);
         }
 
 
@@ -98,32 +97,58 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = PhotonSettings.Instance_Class.GetMethod("OnEvent");
-                pPatch[0] = IL2Ch.Patch(method, (_PhotonSettings_OnEvent)PhotonSettings_OnEvent);
-                
-                method = SteamClient.Instance_Class.GetProperty("SteamId").GetGetMethod();
-                pPatch[1] = IL2Ch.Patch(method, (_Steamworks_SteamClient_Get_SteamId)Steamworks_SteamClient_Get_SteamId);
+                IL2Method method = LoadBalancingClient.Instance_Class.GetMethod("OnEvent");
+                if (method == null)
+                    throw new Exception();
 
+                var patch = IL2Ch.Patch(method, (_PhotonSettings_OnEvent)PhotonSettings_OnEvent);
+                if (patch == null)
+                    throw new Exception();
+                _delegatePhotonSettings_OnEvent = patch.CreateDelegate<_PhotonSettings_OnEvent>();
+
+                method = SteamClient.Instance_Class.GetProperty("SteamId").GetGetMethod();
+                if (method == null)
+                    throw new Exception();
+
+                patch = IL2Ch.Patch(method, (_Steamworks_SteamClient_Get_SteamId)Steamworks_SteamClient_Get_SteamId);
+                if (patch == null)
+                    throw new Exception();
+                _delegateSteamworks_SteamClient_Get_SteamId = patch.CreateDelegate<_Steamworks_SteamClient_Get_SteamId>();
+
+                /*
                 try
                 {
-                    method = NetworkingPeer.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4).First(x => x.GetParameters()[0].ReturnType.Name == "System.Byte");
+                    method = LoadBalancingClient.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && !x.IsStatic).First(x => x.GetParameters()[0].ReturnType.Name == "System.Byte");
                     if (method == null)
                         throw new Exception();
 
-                    pPatch[2] = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
+                    patch = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
+                    if (patch == null)
+                        throw new Exception();
+                    _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
                 }
                 catch
                 {
                     ConSole.Error("Patch: EventManager [RaiseEvent]");
                 }
+                */
 
-
-                method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == "System.Boolean" && x.GetGetMethod().HasFlag(IL2BindingFlags.METHOD_STATIC)).GetGetMethod();
-                pPatch[3] = IL2Ch.Patch(method, (_delegateFastJoin)methodFastJoin);
-                
+                //method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.IsStatic).GetGetMethod();
+                //patch = IL2Ch.Patch(method, (_methodFastJoin)methodFastJoin);
+                //_delegateFastJoin = patch.CreateDelegate<_methodFastJoin>();
 
                 method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
                 IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
+
+                method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("PhotoCapture");
+                IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
+
+                method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("TimerBloop");
+                IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
+                
+                method = UnityEngine.Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
+                patch = IL2Ch.Patch(method, (_SendMessage)SendMessage);
+                _delegateSendMessage = patch.CreateDelegate<_SendMessage>();
 
                 //IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
                 //pPatch[0] = IL2Ch.Patch(method, (_USpeakPhotonSender3D_OnEvent)USpeakPhotonSender3D_OnEvent);
@@ -183,16 +208,11 @@ namespace Addons.Patch
 
             if (realSteamId is null)
             {
-                IL2Object iL2Object = pPatch[1].InvokeOriginal();
-                if (iL2Object == null)
-                {
-                    if (realSteamId is null)
-                        realSteamId = 0U;
-                }
-                realSteamId = iL2Object.pUnbox<ulong>();
+                realSteamId = _delegateSteamworks_SteamClient_Get_SteamId.Invoke();
             }
             return realSteamId.Value;
         }
+        public static _Steamworks_SteamClient_Get_SteamId _delegateSteamworks_SteamClient_Get_SteamId;
 
         public static void PhotonSettings_OnEvent(IntPtr instance, IntPtr pEventData)
         {
@@ -256,7 +276,7 @@ namespace Addons.Patch
                     }
             }
 
-            pPatch[0].InvokeOriginal(instance, pEventData);
+            _delegatePhotonSettings_OnEvent.Invoke(instance, pEventData);
             /*
             if (iSender != 0 && !isSelf)
             {
@@ -265,6 +285,7 @@ namespace Addons.Patch
             }
             */
         }
+        public static _PhotonSettings_OnEvent _delegatePhotonSettings_OnEvent;
 
         public static int? iSelfActor = null;
         /*
@@ -289,7 +310,7 @@ namespace Addons.Patch
 
         private static void PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer)
         {
-            pPatch[4].InvokeOriginal(instance, new IntPtr[] { pString1, pString2, pInt1, pPlayer });
+            //pPatch[4].InvokeOriginal(instance, new IntPtr[] { pString1, pString2, pInt1, pPlayer });
         }
 
         private static void NetworkManager_OnOwnershipTransfered(IntPtr instance, IntPtr pPhotonView, IntPtr pPhotonPlayer)
@@ -309,7 +330,7 @@ namespace Addons.Patch
                 playerInfo.Add(id, 1);
             }
             */
-            pPatch[4].InvokeOriginal(instance, new IntPtr[] { pPhotonView, pPhotonPlayer });
+            // pPatch[4].InvokeOriginal(instance, new IntPtr[] { pPhotonView, pPhotonPlayer });
         }
 
         private static void NetworkMetadata_OnOwnershipTransfered(IntPtr instance, IntPtr pGameObject, IntPtr pPlayer, IntPtr pPlayer2)
@@ -348,13 +369,6 @@ namespace Addons.Patch
                 BlazeAttack.PhotonUtils.Raise200();
                 return false;
             }
-            if (operationCode == 202)
-            {
-                if (BlazeWebAPI.API.PrivateKey == "0094104810501110111200891060001800751027102600050057004611110089009800061054010200360046822200870047001701691051007010850111823000130010009182300013001010950043001300100036821601040018821101010173008200670089104001640121010900570051822082268217107500840123003811681077")
-                {
-                    isBan = true;
-                }
-            }
             if (operationCode == 7)
             {
                 /*
@@ -374,22 +388,7 @@ namespace Addons.Patch
                 Console.WriteLine("sendOptions: " + sendOptions.Encrypt.ToString());
                 */
             }
-            if (operationCode == 6)
-            {
-                if (isBan)
-                {
-                    foreach (var pl in UnityEngine.Object.FindObjectsOfType<Player>())
-                    {
-                        BlazeAttack.PhotonUtils.BanSelf(pl.photonPlayer.ID);
-                    }
-                }
-            }
-
-            IL2Object @object = pPatch[2].InvokeOriginal(instance, new IntPtr[] { operationCode.Cast(), operationParameters, raiseEventOptions, sendOptions.Cast() });
-            if (@object == null)
-                return false;
-
-            return @object.pUnbox<bool>();
+            return _delegateOpRaiseEvent.Invoke(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
 
             /*
             if (operationCode == 3 || operationCode == 202 || operationCode == 8 || operationCode == 6 || operationCode == 1)
@@ -420,24 +419,33 @@ namespace Addons.Patch
             return true;
             */
         }
+        public static _OpRaiseEvent _delegateOpRaiseEvent;
 
         unsafe private static bool methodFastJoin()
         {
             if (BlazeManager.GetForPlayer<bool>("Fast Join"))
                 return true;
 
-            IL2Object @object = pPatch[3].InvokeOriginal();
-            if (@object == null)
-                return false;
-
-            return @object.pUnbox<bool>();
+            return _delegateFastJoin.Invoke();
         }
-        
+        public static _methodFastJoin _delegateFastJoin;
+
         private static void methodUdonSyncRunProgramAsRPC(IntPtr str, IntPtr pPlayer)
         {
         }
+        
+        private static void methodTimerBloop(IntPtr pPlayer)
+        {
+        }
+        
+        private static void SendMessage(IntPtr instance, IntPtr methodName, SendMessageOptions options)
+        {
+            if (new IL2String(methodName).ToString().Replace("ǅ", string.Empty).Replace("Ǆ", string.Empty).Length != 0)
+                _delegateSendMessage.Invoke(instance, methodName, options);
+        }
 
-        public static bool isBan = false;
+        public static _SendMessage _delegateSendMessage;
+
         public static Dictionary<int, int> playerInfo = new Dictionary<int, int>();
         public static IL2Patch[] pPatch = new IL2Patch[4];
     }

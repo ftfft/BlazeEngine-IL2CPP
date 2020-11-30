@@ -67,7 +67,7 @@ bool CLRHost::HostCLR()
 #if (DEBUG)
 	ConsoleUtils::Log("Setting custom AppDomain manager...");
 #endif
-	if (clrControl->SetAppDomainManagerType(L"BlazeSDK", L"BlazeSDK.Domain.DomainManager") != S_OK)
+	if (clrControl->SetAppDomainManagerType(L"VRCLoader", L"VRCLoader.Domain.DomainManager") != S_OK)
 	{
 #if (DEBUG)
 		ConsoleUtils::Log("Failed to set custom AppDomain manager!");

@@ -21,4 +21,6 @@ public class Assemblies
     }
 
     private static Dictionary<string, IL2Assembly> b;
+
+    public static string isObfuscated = "fa";
 }

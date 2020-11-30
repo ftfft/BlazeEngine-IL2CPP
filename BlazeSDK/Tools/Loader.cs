@@ -118,7 +118,7 @@ namespace BlazeSDK.Tools
 
         internal string url = Path.GetTempPath();
 
-        internal string username = "Lordii";
+        internal string username = "CIGAN";
         internal string PrivateKey = string.Empty;
     }
 }

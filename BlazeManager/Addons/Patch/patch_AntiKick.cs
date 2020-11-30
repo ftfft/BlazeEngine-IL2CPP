@@ -37,8 +37,7 @@ namespace Addons.Patch
             try
             {
                 method = Assemblies.a["Assembly-CSharp"].GetClass("Analytics").GetMethods()
-                .Where(x => x.ReturnType.Name == "System.Void" && x.GetParameters().Length == 3)
-                .Where(x => x.GetParameters()[0].ReturnType.Name[0] == 'A')
+                .Where(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 3)
                 .First(x => x.HasFlag(IL2BindingFlags.METHOD_STATIC));
                 pAnalytics[1] = IL2Ch.Patch(method, (_patch_method_4)patch_method_4);
             }
@@ -57,6 +56,7 @@ namespace Addons.Patch
                 ConSole.Error("Patch: AntiKick [4]");
                 iError++;
             }
+            /*
             try
             {
                 foreach (var m in ModerationManager.Instance_Class.GetMethods()
@@ -84,6 +84,7 @@ namespace Addons.Patch
                 ConSole.Error("Patch: AntiKick [6]");
                 iError++;
             }
+            */
             // Debug
             if (iError == 0)
                 ConSole.Success("Patch: AntiKick");

@@ -33,7 +33,7 @@ namespace CustomQuickMenu
 
             btnTag = "(" + buttonXLoc + "," + buttonYLoc + ")";
             button.name = btnQMLoc + "/" + btnType + btnTag;
-            button.GetComponent<Button>().name = btnType + btnTag;
+            button.GetComponent<Button>().gameObject.name = btnType + btnTag;
         }
 
         public void setAction(UnityAction buttonAction, bool newEvent = false)

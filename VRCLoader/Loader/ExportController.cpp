@@ -10,11 +10,6 @@ IL2CPPDomain* vrcloader_get_domain()
 	return VRCLoader::mdIL2CPPDomain;
 }
 
-void* VRC_PInvoke(void* orig, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6, void* arg7, void* arg8, void* arg9)
-{
-    return ((void* (*) (void*, void*, void*, void*, void*, void*, void*, void*, void*))orig)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-}
-
 void VRC_CreateHook(LPVOID pTarget, LPVOID pDetour, LPVOID *ppOrig)
 {
 #if (DEBUG)

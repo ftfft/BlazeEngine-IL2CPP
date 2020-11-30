@@ -25,15 +25,13 @@ namespace Addons.Patch
         public static void RefreshStatusJoin()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("No Portal Join");
-            BlazeManagerMenu.Main.togglerList["No Portal Join"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["No Portal Join"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["No Portal Join"].SetToggleToOn(toggle, false);
         }
 
         public static void RefreshStatusSpawn()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("No Portal Spawn");
-            BlazeManagerMenu.Main.togglerList["No Portal Spawn"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["No Portal Spawn"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["No Portal Spawn"].SetToggleToOn(toggle, false);
         }
 
         public static void Start()
@@ -44,7 +42,8 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
-                pPortalJoin = IL2Ch.Patch(method, (_PortalTrigger_OnTriggerEnter)PortalTrigger_OnTriggerEnter);
+                var patch = IL2Ch.Patch(method, (_PortalTrigger_OnTriggerEnter)PortalTrigger_OnTriggerEnter);
+                _delegatePortalTrigger_OnTriggerEnter = patch.CreateDelegate<_PortalTrigger_OnTriggerEnter>();
                 ConSole.Success("Patch: No Portal Join");
             }
             catch
@@ -61,10 +60,10 @@ namespace Addons.Patch
             if (BlazeManager.GetForPlayer<bool>("No Portal Join"))
                 return;
 
-            pPortalJoin.InvokeOriginal(instance, new IntPtr[] { collider });
+            _delegatePortalTrigger_OnTriggerEnter.Invoke(instance, collider);
         }
 
-        public static IL2Patch pPortalJoin;
+        public static _PortalTrigger_OnTriggerEnter _delegatePortalTrigger_OnTriggerEnter;
 
     }
 }

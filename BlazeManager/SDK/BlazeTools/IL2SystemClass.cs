@@ -16,5 +16,7 @@ namespace BlazeTools
         public static IL2Type vector3 = Assemblies.a["UnityEngine.CoreModule"].GetClass("Vector3", "UnityEngine");
         public static IL2Type quaternion = Assemblies.a["UnityEngine.CoreModule"].GetClass("Quaternion", "UnityEngine");
         public static IL2Type spawnOrientation = Assemblies.a["VRCSDKBase"].GetClass("SpawnOrientation", "VRC.SDKBase.VRC_SceneDescriptor");
+        // <-- Attr's --> //
+        public static IL2Type compilerGenerated = Assemblies.a["mscorlib"].GetClass("CompilerGeneratedAttribute", "System.Runtime.CompilerServices");
     }
 }

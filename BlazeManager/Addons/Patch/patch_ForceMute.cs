@@ -31,8 +31,7 @@ namespace Addons.Patch
             if (apiUser == null) return;
 
             bool toggle = forceMuteList.Contains(apiUser.id);
-            BlazeManagerMenu.Main.togglerList["Force Mute"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Force Mute"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Force Mute"].SetToggleToOn(toggle, false);
         }
 
         public static void Toggle_Enable_ForceMute()
@@ -44,8 +43,7 @@ namespace Addons.Patch
         public static void RefreshStatus_ForceMute_Friends()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Force Mute Friend");
-            BlazeManagerMenu.Main.togglerList["Force Mute Friend"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Force Mute Friend"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Force Mute Friend"].SetToggleToOn(toggle, false);
         }
 
         public static void Start()

@@ -23,7 +23,8 @@ namespace Addons.Patch
                 if (method == null)
                     new Exception();
 
-                pVRC_Player_DispatchedUpdate = IL2Ch.Patch(method, (_VRC_Player_DispatchedUpdate)VRC_Player_DispatchedUpdate);
+                var patch = IL2Ch.Patch(method, (_VRC_Player_DispatchedUpdate)VRC_Player_DispatchedUpdate);
+                patch.CreateDelegate<_VRC_Player_DispatchedUpdate>();
                 ConSole.Success("Patch: VipPlates");
 
             }
@@ -34,14 +35,14 @@ namespace Addons.Patch
         }
 
 
-        public static void VRC_Player_DispatchedUpdate(IntPtr ptrInstance, IntPtr fTimer)
+        public static void VRC_Player_DispatchedUpdate(IntPtr instance, IntPtr fTimer)
         {
-            if (ptrInstance == IntPtr.Zero || fTimer == IntPtr.Zero)
+            if (instance == IntPtr.Zero || fTimer == IntPtr.Zero)
                 return;
 
-            pVRC_Player_DispatchedUpdate.InvokeOriginal(ptrInstance, new IntPtr[] { fTimer });
+            _delegateVRC_Player_DispatchedUpdate.Invoke(instance, fTimer);
 
-            VRCPlayer vrcPlayer = new VRCPlayer(ptrInstance);
+            VRCPlayer vrcPlayer = new VRCPlayer(instance);
             VRC.Core.APIUser apiuser = vrcPlayer?.player.apiuser;
             if (apiuser == null) return;
 
@@ -66,6 +67,6 @@ namespace Addons.Patch
         }
 
 
-        public static IL2Patch pVRC_Player_DispatchedUpdate;
+        public static _VRC_Player_DispatchedUpdate _delegateVRC_Player_DispatchedUpdate;
     }
 }

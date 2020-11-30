@@ -10,8 +10,7 @@ using VRC.SDKBase;
 using SharpDisasm;
 using SharpDisasm.Udis86;
 
-// PostEffectsBase -> MonoBehaviour
-public class HighlightsFX : MonoBehaviour
+public class HighlightsFX : PostEffectsBase
 {
     public HighlightsFX(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -27,7 +26,7 @@ public class HighlightsFX : MonoBehaviour
                     return null;
             }
 
-            return propertyInstance.GetGetMethod().Invoke()?.Unbox<HighlightsFX>();
+            return propertyInstance.GetGetMethod().Invoke()?.unbox<HighlightsFX>();
         }
     }
 
@@ -42,6 +41,33 @@ public class HighlightsFX : MonoBehaviour
         }
 
         methodEnableOutline.Invoke(ptr, new IntPtr[] { renderer.ptr, isEnabled.MonoCast() });
+    }
+
+    private static IL2Field fieldm_Material = null;
+    public Material m_Material
+    {
+        get
+        {
+            if (fieldm_Material == null)
+            {
+                fieldm_Material = Instance_Class.GetField(x => x.ReflectedType.FullName == Material.Instance_Class.FullName);
+                if (fieldm_Material == null)
+                    return null;
+            }
+
+            return fieldm_Material.GetValue(ptr)?.unbox<Material>();
+        }
+        set
+        {
+            if (fieldm_Material == null)
+            {
+                fieldm_Material = Instance_Class.GetField(x => x.ReflectedType.FullName == Material.Instance_Class.FullName);
+                if (fieldm_Material == null)
+                    return;
+            }
+
+            fieldm_Material.SetValue(ptr, value.ptr);
+        }
     }
 
     public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("HighlightsFX");

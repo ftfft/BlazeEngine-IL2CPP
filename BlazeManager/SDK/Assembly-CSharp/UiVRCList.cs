@@ -19,26 +19,11 @@ public class UiVRCList : Component
     {
         if (methodRefresh == null)
         {
-            foreach (IL2Method method in Instance_Class.GetMethods())
-            {
-                if (method.HasFlag(IL2BindingFlags.METHOD_STATIC))
-                    continue;
-
-                if (method.HasFlag(IL2BindingFlags.METHOD_ABSTRACT))
-                {
-                    if (method.ReturnType.Name != "System.Void")
-                        continue;
-
-                    if (method.GetParameters().Length != 1)
-                        continue;
-
-                    if (IL2Import.il2cpp_type_get_name(method.GetParameters()[0].ptr) != "System.Int32")
-                        continue;
-
-                    methodRefresh = method;
-                    break;
-                }
-            }
+            methodRefresh = Instance_Class.GetMethods().First(x =>
+                x.HasFlag(IL2BindingFlags.METHOD_ABSTRACT) &&
+                x.GetParameters().Length == 1 &&
+                x.GetParameters()[0].ReturnType.Name == typeof(int).FullName
+            );
             if (methodRefresh == null)
                 return;
         }

@@ -35,8 +35,7 @@ namespace Addons.Patch
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("RPC Block");
-            BlazeManagerMenu.Main.togglerList["RPC Block"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["RPC Block"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["RPC Block"].SetToggleToOn(toggle, false);
         }
 
 
@@ -49,9 +48,9 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
-                pOnConnectToMaster = IL2Ch.Patch(method, (_RoomManagerBase_OnConnectedToMaster)RoomManagerBase_OnConnectedToMaster);
+                var patch = IL2Ch.Patch(method, (_RoomManagerBase_OnConnectedToMaster)RoomManagerBase_OnConnectedToMaster);
+                _delegateRoomManagerBase_OnConnectedToMaster = patch.CreateDelegate<_RoomManagerBase_OnConnectedToMaster>();
                 ConSole.Success("Patch: EventManager [JoinRoom]");
-
             }
             catch
             {
@@ -116,7 +115,8 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
-                pVRC_UI_PageUserInfo_SetUserRelationshipState = IL2Ch.Patch(method, (_VRC_UI_PageUserInfo_SetUserRelationshipState)VRC_UI_PageUserInfo_SetUserRelationshipState);
+                var patch = IL2Ch.Patch(method, (_VRC_UI_PageUserInfo_SetUserRelationshipState)VRC_UI_PageUserInfo_SetUserRelationshipState);
+                _delegateVRC_UI_PageUserInfo_SetUserRelationshipState = patch.CreateDelegate<_VRC_UI_PageUserInfo_SetUserRelationshipState>();
             }
             catch
             {
@@ -153,7 +153,7 @@ namespace Addons.Patch
 
         public static void VRC_UI_PageUserInfo_SetUserRelationshipState(IntPtr instance, IntPtr friendType)
         {
-            pVRC_UI_PageUserInfo_SetUserRelationshipState.InvokeOriginal(instance, new IntPtr[] { friendType });
+            _delegateVRC_UI_PageUserInfo_SetUserRelationshipState.Invoke(instance, friendType);
             BlazeManagerMenu.Edit_UserPanel.OnEnter_ShowProfile();
         }
 
@@ -163,7 +163,7 @@ namespace Addons.Patch
         }
         public static void RoomManagerBase_OnConnectedToMaster(IntPtr instance)
         {
-            pOnConnectToMaster.InvokeOriginal(instance);
+            _delegateRoomManagerBase_OnConnectedToMaster.Invoke(instance);
             Threads.bFirstThreadInRoom = false;
             patch_Network.iSelfActor = null;
             patch_GlobalDynamicBones.currentPlayer = null;
@@ -262,10 +262,9 @@ namespace Addons.Patch
         */
 
 
-        public static IL2Patch pOnConnectToMaster;
+        public static _RoomManagerBase_OnConnectedToMaster _delegateRoomManagerBase_OnConnectedToMaster;
+        public static _VRC_UI_PageUserInfo_SetUserRelationshipState _delegateVRC_UI_PageUserInfo_SetUserRelationshipState;
         public static IL2Patch pInitalize;
         public static IL2Patch pRPCSend;
-        public static IL2Patch pOpRaiseEvent;
-        public static IL2Patch pVRC_UI_PageUserInfo_SetUserRelationshipState;
     }
 }

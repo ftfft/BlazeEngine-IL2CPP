@@ -1,5 +1,4 @@
 ﻿using System;
-using BlazeSDK.Tools;
 
 namespace BlazeTools
 {
@@ -20,9 +19,6 @@ namespace BlazeTools
 
         internal static bool Print(ConSoleStatus status, string message)
         {
-            if (!ConsoleManager.IL2Console)
-                return false;
-
             ConsoleColor consoleColor = default;
             string prefix = null;
             switch(status)
@@ -57,9 +53,6 @@ namespace BlazeTools
 
         internal static bool Print(ConsoleColor color, string coloredText, string text)
         {
-            if (!ConsoleManager.IL2Console)
-                return false;
-
             Console.ForegroundColor = color;
             Console.Write(coloredText + " ");
             Print(text);
@@ -68,9 +61,6 @@ namespace BlazeTools
 
         internal static bool Print(ConsoleColor color, string text)
         {
-            if (!ConsoleManager.IL2Console)
-                return false;
-
             Console.ForegroundColor = color;
             Console.WriteLine(text);
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -79,9 +69,6 @@ namespace BlazeTools
 
         internal static bool Print(string text)
         {
-            if (!ConsoleManager.IL2Console)
-                return false;
-
             Console.ResetColor();
             Console.WriteLine(text);
             Console.ForegroundColor = ConsoleColor.Gray;

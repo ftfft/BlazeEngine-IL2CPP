@@ -1,24 +1,16 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.ExceptionServices;
 using System.Collections.Generic;
-using BlazeSDK.Tools;
-using BlazeSDK.Tools.JsonMini;
 using BlazeTools;
+using BlazeTools.Json;
 using BlazeIL.il2cpp;
 using Addons;
 using Addons.Patch;
-using BlazeIL;
-using BlazeIL.il2ch;
-using Addons.Utils;
-using VRCSDK2;
-using Photon.Pun.UtilityScripts;
-using SharpDisasm;
-using SharpDisasm.Udis86;
-using BlazeIL.cpp2il;
-using BlazeIL.cpp2il.IL;
 
 public class BlazeManager
 {
+    [HandleProcessCorruptedStateExceptions]
     public static void Start()
     {
         Assemblies.a = new Dictionary<string, IL2Assembly>();
@@ -77,8 +69,10 @@ public class BlazeManager
         return null;
     }
 
-    public static void LoadDefaultSettings()
+    public static void LoadDefaultSettings(bool ret = true)
     {
+        if (ret == false)
+            return;
         SetIfNullForPlayer("Fly Type", false);
         SetIfNullForPlayer("AntiKick", true);
         SetIfNullForPlayer("VoiceDotFade", false);
@@ -103,8 +97,10 @@ public class BlazeManager
         SetForPlayer("DeathMap", false);
     }
 
-    public static void SaveSettings()
+    public static void SaveSettings(bool ret = true)
     {
+        if (ret == false)
+            return;
         string src = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
         src += "\\data.json";
 
@@ -112,8 +108,10 @@ public class BlazeManager
         JsonManager.Create(src, settings);
     }
 
-    public static void LoadSettings()
+    public static void LoadSettings(bool ret = true)
     {
+        if (ret == false)
+            return;
         string src = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
         src += "\\data.json";
         if (!File.Exists(src))

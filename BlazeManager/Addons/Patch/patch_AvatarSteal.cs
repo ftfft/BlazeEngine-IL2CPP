@@ -21,7 +21,7 @@ namespace Addons.Patch
                 if (method == null)
                     new Exception();
 
-                pAvatarStealer = IL2Ch.Patch(method, (_UserInteractMenu_Update)UserInteractMenu_Update);
+                IL2Ch.Patch(method, (_UserInteractMenu_Update)UserInteractMenu_Update);
                 ConSole.Success("Patch: Avatar Stealer");
 
             }
@@ -70,6 +70,5 @@ namespace Addons.Patch
         }
 
         private static string sUserId = string.Empty;
-        public static IL2Patch pAvatarStealer;
     }
 }

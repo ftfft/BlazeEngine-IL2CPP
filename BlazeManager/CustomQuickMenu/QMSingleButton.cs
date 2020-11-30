@@ -16,8 +16,7 @@ namespace CustomQuickMenu
 
         private void initButton(int btnXLocation, int btnYLocation, string btnText, UnityAction btnAction, string btnToolTip, Color? btnBackgroundColor = null, Color? btnTextColor = null)
         {
-            Transform btnTemplate = null;
-            btnTemplate = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton");
+            Transform btnTemplate = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton");
             
             button = UnityEngine.Object.Instantiate<GameObject>(btnTemplate.gameObject, QuickMenu.Instance.transform.Find(btnQMLoc), true);
 

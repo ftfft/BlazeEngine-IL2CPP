@@ -207,6 +207,10 @@ namespace VRC
             // methodRPCToTarget.Invoke(IntPtr.Zero, new IntPtr[] { targetPlayer.ptr, new IntPtr(&targetClients), targetObject.ptr, IL2Import.StringToIntPtr(methodName), Execute.IntPtrArrayToIntPtr(IL2Import.ObjectArrayToIntPtrArray(parameters)) }).Unbox<bool>();
         }
 
+        public static void sendEventTrigger(VRC_EventHandler.VrcEvent @event, VRC_EventHandler.VrcBroadcastType broadcastType, int iInt, float fFloat = 0f)
+        {
+        }
+
         private static IL2Field fieldObjectInstantiator;
         public static ObjectInstantiator Instantiator
         {

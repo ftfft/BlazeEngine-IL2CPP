@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using BlazeIL;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
 using BlazeTools;
@@ -19,7 +17,8 @@ namespace Addons.Patch
                 if (method == null)
                     new Exception();
 
-                pUpdate = IL2Ch.Patch(method, (_UiAvatarList_Update)UiAvatarList_Update);
+                var patch = IL2Ch.Patch(method, (_UiAvatarList_Update)UiAvatarList_Update);
+                _delegateUiAvatarList_Update = patch.CreateDelegate<_UiAvatarList_Update>();
                 ConSole.Success("Patch: Avatar Tools");
 
             }
@@ -34,10 +33,10 @@ namespace Addons.Patch
             if (instance == IntPtr.Zero)
                 return;
 
-            pUpdate.InvokeOriginal(instance);
+            _delegateUiAvatarList_Update.Invoke(instance);
             Avatars.UIAvatar.Update();
         }
 
-        public static IL2Patch pUpdate;
+        public static _UiAvatarList_Update _delegateUiAvatarList_Update;
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics.Contracts;
+using BlazeIL.il2cpp;
 
 namespace UnityEngine
 {
@@ -562,5 +564,7 @@ namespace UnityEngine
         ///   <para>Alpha component of the color (0 is transparent, 1 is opaque).</para>
         /// </summary>
         public float a;
+
+        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Color", "UnityEngine");
     }
 }

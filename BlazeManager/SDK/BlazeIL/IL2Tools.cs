@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 
 namespace BlazeIL
@@ -300,6 +302,25 @@ namespace BlazeIL
             {
                 il.Emit(OpCodes.Ldc_I4, value);
             }
+        }
+        public static string GetMD5(this string input)
+        {
+            if (!input.Contains("<") && !input.Contains(">"))
+                if (input.StartsWith("System."))
+                    return input;
+
+            if (input.Length < 3)
+                return input;
+
+            byte[] hash = Encoding.ASCII.GetBytes(input);
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] hashenc = md5.ComputeHash(hash);
+            string result = string.Empty;
+            foreach (var b in hashenc)
+            {
+                result += b.ToString("x2");
+            }
+            return result;
         }
 
         public static bool IL2CPPSave = true;

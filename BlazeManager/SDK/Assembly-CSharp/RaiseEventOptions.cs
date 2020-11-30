@@ -7,7 +7,7 @@ using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
 using ExitGames.Client.Photon;
-
+using Photon.Realtime;
 
 public class RaiseEventOptions : IL2Base
 {
@@ -169,5 +169,5 @@ public class RaiseEventOptions : IL2Base
             fieldReceivers.SetValue(ptr, value.MonoCast());
         }
     }
-    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(NetworkingPeer.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == "System.Byte").First().GetParameters()[2].ReturnType.Name);
+    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(LoadBalancingClient.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == "System.Byte").First().GetParameters()[2].ReturnType.Name);
 }

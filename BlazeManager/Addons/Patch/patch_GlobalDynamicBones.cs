@@ -24,8 +24,7 @@ namespace Addons.Patch
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("GlobalDynamicBones");
-            BlazeManagerMenu.Main.togglerList["GlobalDynamicBones"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["GlobalDynamicBones"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["GlobalDynamicBones"].SetToggleToOn(toggle, false);
             currentPlayer = VRC.Player.Instance;
             timeToUpdate = 5f;
         }
@@ -39,7 +38,8 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
-                pVRC_Player_Update = IL2Ch.Patch(method, (_VRC_Player_Update)VRC_Player_Update);
+                var patch = IL2Ch.Patch(method, (_VRC_Player_Update)VRC_Player_Update);
+                _delegateVRC_Player_Update = patch.CreateDelegate<_VRC_Player_Update>();
                 ConSole.Success("Patch: Global Dynamic Bones");
 
             }
@@ -50,15 +50,15 @@ namespace Addons.Patch
         }
 
         public static int iLastPlayer = 0;
-        public static void VRC_Player_Update(IntPtr ptrInstance)
+        public static void VRC_Player_Update(IntPtr instance)
         {
             if (BlazeAttack.PhotonUtils.raise209_status)
                 return;
 
-            if (ptrInstance == IntPtr.Zero)
+            if (instance == IntPtr.Zero)
                 return;
 
-            pVRC_Player_Update.InvokeOriginal(ptrInstance);
+            _delegateVRC_Player_Update.Invoke(instance);
 
             if (!BlazeManager.GetForPlayer<bool>("GlobalDynamicBones"))
                 return;
@@ -78,7 +78,7 @@ namespace Addons.Patch
                 return;
             }
 
-            VRC.Player pPlayer = new VRC.Player(ptrInstance);
+            VRC.Player pPlayer = new VRC.Player(instance);
             PhotonPlayer photon = pPlayer?.photonPlayer;
             if (photon == null)
                 return;
@@ -88,7 +88,7 @@ namespace Addons.Patch
 
             iLastPlayer = photon.ID;
 
-            if (currentPlayer.ptr == ptrInstance)
+            if (currentPlayer.ptr == instance)
             {
                 myColliders = GetHandColliders(currentPlayer.vrcPlayer);
                 myBones = currentPlayer.vrcPlayer.GetComponentsInChildren<DynamicBone>(true);
@@ -103,21 +103,21 @@ namespace Addons.Patch
 
             if ((pPlayer.transform.position - position).sqrMagnitude < num)
             {
-                if (!activePlayers.ContainsKey(ptrInstance))
+                if (!activePlayers.ContainsKey(instance))
                 {
                     globalSyncInfo gsi = new globalSyncInfo();
                     gsi.bones = pPlayer.vrcPlayer.GetComponentsInChildren<DynamicBone>(true);
                     gsi.colliders = GetHandColliders(pPlayer.vrcPlayer);
-                    activePlayers.Add(ptrInstance, gsi);
+                    activePlayers.Add(instance, gsi);
                     
                     ApplyColliders(gsi.bones, myColliders);
                     ApplyColliders(myBones, gsi.colliders);
                 }
             }
-            else if (activePlayers.ContainsKey(ptrInstance))
+            else if (activePlayers.ContainsKey(instance))
             {
-                globalSyncInfo gsi = activePlayers[ptrInstance];
-                activePlayers.Remove(ptrInstance);
+                globalSyncInfo gsi = activePlayers[instance];
+                activePlayers.Remove(instance);
                 RemoveColliders(gsi.bones, myColliders);
                 RemoveColliders(myBones, gsi.colliders);
             }
@@ -186,6 +186,6 @@ namespace Addons.Patch
 
         internal static float maxDistance = 2f;
 
-        public static IL2Patch pVRC_Player_Update;
+        public static _VRC_Player_Update _delegateVRC_Player_Update;
     }
 }

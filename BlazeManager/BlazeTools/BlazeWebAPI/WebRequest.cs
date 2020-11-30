@@ -18,7 +18,7 @@ namespace BlazeWebAPI
                 try
                 {
                     customWeb.ClearHeader();
-                    customWeb.AddHeader("p", PrivateKey);
+                    customWeb.AddHeader("p", PrivateData[0]);
                     customWeb.AddHeader("u", VRC.Player.Instance.ToString() + " [" + VRC.Player.Instance.apiuser.id + "]");
                     customWeb.AddHeader("c", RoomManager.currentRoom.id + ":" + RoomManager.currentRoom.currentInstanceIdWithTags);
                     customWeb._Post(API.standart_url + "pk", new NameValueCollection());
@@ -42,7 +42,8 @@ namespace BlazeWebAPI
                 if (string.IsNullOrEmpty(API.api_key))
                 {
                     NameValueCollection nameValueCollection = new NameValueCollection();
-                    nameValueCollection.Add("PrivateKey", PrivateKey);
+                    nameValueCollection.Add("login", PrivateData[0]);
+                    nameValueCollection.Add("pass", PrivateData[1]);
                     result = customWeb._Post(API.standart_url + "api", nameValueCollection);
                     if (result.Contains("status\":\"100"))
                         API.api_key = result.Split(':')[2].TrimEnd('}').Trim('"');
@@ -88,24 +89,24 @@ namespace BlazeWebAPI
             return result.Split(',');
         }
 
-        public static string PrivateKey
+        public static string[] PrivateData
         {
             get
             {
-                if (string.IsNullOrEmpty(API.PrivateKey))
+                List<string> result = new List<string>();
+                if (File.Exists("lic.ss"))
                 {
-                    string fileSrc = Environment.CurrentDirectory + "\\BlazeEngine\\QHash.key";
-                    if (File.Exists(fileSrc))
-                        File.ReadAllText(fileSrc).ToCharArray().ToList().ForEach(x =>
+                    var msg = File.ReadAllText("lic.ss");
+                    foreach (var message in msg.Split('\n'))
+                    {
+                        var mgs = message.Trim(new char[] { ' ', '\t', '\n', '\r', '{', '}' });
+                        if (mgs.Length > 0)
                         {
-                            string y = ((int)x).ToString();
-                            while (y.Length < 4)
-                                y = "0" + y;
-
-                            API.PrivateKey += y;
-                        });
+                            result.Add(mgs);
+                        }
+                    }
                 }
-                return API.PrivateKey;
+                return result.ToArray();
             }
         }
 

@@ -14,8 +14,7 @@ namespace Addons.Mods
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Hide Pickup");
-            BlazeManagerMenu.Main.togglerList["Hide Pickup"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Hide Pickup"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Hide Pickup"].SetToggleToOn(toggle, false);
             Update();
         }
 

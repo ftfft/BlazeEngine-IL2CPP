@@ -13,13 +13,13 @@ namespace BlazeIL.il2reflection
         {
             get
             {
-                if (sName == null)
-                    sName = Marshal.PtrToStringAnsi(IL2Import.il2cpp_method_get_name(ptr));
+                var result = Marshal.PtrToStringAnsi(IL2Import.il2cpp_method_get_name(ptr));
+                if (Assemblies.isObfuscated == "tr")
+                    result = result.GetMD5();
 
-                return sName;
+                return result;
             }
         }
-        private string sName = null;
 
         public int Token => IL2Import.il2cpp_method_get_token(ptr);
         public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
@@ -42,6 +42,12 @@ namespace BlazeIL.il2reflection
             return Parameters.ToArray();
         }
         private List<IL2Param> Parameters = null;
+
+        public bool HasAttribute(IL2Type klass)
+        {
+            if (klass == null) return false;
+            return IL2Import.il2cpp_method_has_attribute(ptr, klass.ptr);
+        }
 
         public IL2BindingFlags Flags
         {

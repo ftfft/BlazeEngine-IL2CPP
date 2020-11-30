@@ -4,14 +4,14 @@
 #include <cstdio>
 #include <atlfile.h>
 
-std::string FileManager::ModsDir = ".\\Mods";
+//std::string FileManager::ModsDir = ".\\Mods";
 //std::vector<std::experimental::filesystem::path> FileManager::CPPMods;
 //std::vector<std::string> FileManager::NETMods;
 
 void FileManager::Initialize()
 {
-	if (!FileUtils::dirExists(ModsDir.c_str()))
-		CreateDirectoryA(ModsDir.c_str(), NULL);
+	//if (!FileUtils::dirExists(ModsDir.c_str()))
+	//	CreateDirectoryA(ModsDir.c_str(), NULL);
 
 	MH_Initialize();
 	/*

@@ -11,10 +11,9 @@ using Addons.Patch;
 using Addons.Utils;
 using VRCSDK2;
 using Photon.Pun.UtilityScripts;
-using SharpDisasm;
-using SharpDisasm.Udis86;
-using BlazeIL.cpp2il;
-using BlazeIL.cpp2il.IL;
+using Photon.Pun;
+using VRC.UserCamera;
+using Addons.Mods.UI;
 
 namespace Addons
 {
@@ -89,8 +88,9 @@ namespace Addons
                 if (method == null)
                     throw new Exception();
 
-                update = IL2Ch.Patch(method, (_Control_Thread_Update)Control_Thread_Update);
-                if (update == null)
+                var patch = IL2Ch.Patch(method, (_Control_Thread_Update)Control_Thread_Update);
+                _delegateControl_Thread_Update = patch.CreateDelegate<_Control_Thread_Update>();
+                if (_delegateControl_Thread_Update == null)
                     throw new Exception();
             }
             catch
@@ -102,14 +102,14 @@ namespace Addons
         public static void Nulled(IntPtr instance) { }
         public static IntPtr Nulled2(IntPtr instance) { return IntPtr.Zero; }
 
-
+        /*
         private static IL2Patch pUdonSync = null;
         public static void udonSync(IntPtr instance, IntPtr ptrString, IntPtr ptrPlayer)
         {
             Console.WriteLine(IL2Import.IntPtrToString(ptrString));
             pUdonSync.InvokeOriginal(instance, new IntPtr[] { ptrString, ptrPlayer });
         }
-
+        */
         public static void Control_Thread_GUI(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
@@ -125,7 +125,7 @@ namespace Addons
 
 
 
-        private static IL2Patch update = null;
+        private static _Control_Thread_Update _delegateControl_Thread_Update;
         public static void Control_Thread_Update(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
@@ -169,19 +169,17 @@ namespace Addons
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
+            if (Input.GetKeyDown(KeyCode.KeypadPlus))
+            {
                 UserUtils.WengaClose();
                 return;
             }
-            /*
-            if (Input.GetKey(KeyCode.KeypadMinus)) {
-                if (Mods.UI.TabMenu.playerPhoton != null)
-                {
-                    UserUtils.Gen15(Mods.UI.TabMenu.playerPhoton);
-                }
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                // FileDebug.debugGameObject("actionDriver.json", ActionMenuDriver.Instance.gameObject);
+                Notification.SendMessage(TabMenu.playerPhoton, "Test");
                 return;
             }
-            */
             /*
             if (Input.GetKey(KeyCode.PageDown))
             {
@@ -198,7 +196,7 @@ namespace Addons
             if (Cam3th._isEnable)
                 Cam3th.Update();
 
-            update.InvokeOriginal(instance);
+            _delegateControl_Thread_Update.Invoke(instance);
 
             if (Cam3th._isEnable)
                 Cam3th.LateUpdate();
@@ -241,6 +239,10 @@ namespace Addons
                     InfinityJump.EventJump();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                UserCameraController.Instance.cameraMode = CameraMode.Off;
+            }
             if (!Input.GetKey(KeyCode.LeftControl)) return;
 
 
@@ -256,9 +258,24 @@ namespace Addons
                     Camera.main.transform.localPosition = Camera.main.transform.localPosition - (Vector3.up * 0.1f);
                 }
             }
-            /*
-            if (Input.GetKey(KeyCode.Y))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
+                var mm = QuickMenu.Instance_Class.GetMethods().First(x=> !x.IsStatic && x.HasFlag(IL2BindingFlags.METHOD_PRIVATE)
+                && x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2
+                && x.GetParameters()[0].ReturnType.Name == typeof(bool).FullName
+                && x.GetParameters()[1].ReturnType.Name == typeof(bool).FullName);
+                Console.WriteLine(mm.GetParameters()[0].MonoCast<bool>().ToString());
+                Console.WriteLine(mm.GetParameters()[1].MonoCast<bool>().ToString());
+                /*
+                Name = "DisableGravity",
+					EventType = VRC_EventHandler.VrcEventType.SendRPC,
+					ParameterInt = 0,
+					ParameterString = "DisableGravity",
+					ParameterObjects = new GameObject[]
+                    {
+                        base.gameObject
+                    }
+                /*
                 VRC.Player[] players = UnityEngine.Object.FindObjectsOfType<VRC.Player>();
                 if (++BlazeAttack.PhotonUtils.raise209_num >= players.Length)
                     BlazeAttack.PhotonUtils.raise209_num = 0;
@@ -271,9 +288,20 @@ namespace Addons
                     if (photonView == null) continue;
                     BlazeAttack.PhotonUtils.FakeFlood(photonView.viewIdField, plId);
                 }
+                */
                 return;
             }
-            */
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                GameObject gameObject = UserCameraController.Instance.userCameraIndicator.gameObject;
+                gameObject.transform.position = new Vector3(float.NaN, float.NaN, float.NaN);
+                gameObject.transform.localPosition = new Vector3(float.NaN, float.NaN, float.NaN);
+                UserCameraController.Instance.cameraMode = CameraMode.Photo;
+                VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "PhotoCapture", new IntPtr[0]);
+                for (int i = 0; i < 7; i++)
+                    VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "TimerBloop", new IntPtr[0]);
+                VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "PhotoCapture", new IntPtr[0]);
+            }
             if (Input.GetKeyDown(KeyCode.End))
             {
                 foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())

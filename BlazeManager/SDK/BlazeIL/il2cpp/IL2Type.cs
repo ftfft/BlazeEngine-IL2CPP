@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using BlazeIL.il2reflection;
+using System.Security.Cryptography;
 
 namespace BlazeIL.il2cpp
 {
@@ -29,7 +30,13 @@ namespace BlazeIL.il2cpp
         {
             base.ptr = ptr;
             Name = Marshal.PtrToStringAnsi(IL2Import.il2cpp_class_get_name(ptr));
+            if (Assemblies.isObfuscated == "tr")
+                Name = Name.GetMD5();
+
             Namespace = Marshal.PtrToStringAnsi(IL2Import.il2cpp_class_get_namespace(ptr));
+            if (Assemblies.isObfuscated == "tr")
+                Namespace = Namespace.GetMD5();
+
             // Find Methods
             IntPtr method_iter = IntPtr.Zero;
             IntPtr method = IntPtr.Zero;
@@ -76,7 +83,16 @@ namespace BlazeIL.il2cpp
                 return null;
             }
         }
-    public IL2BindingFlags Flags
+
+        public bool HasAttribute(IL2Type klass)
+        {
+            if (klass == null) return false;
+            return IL2Import.il2cpp_class_has_attribute(ptr, klass.ptr);
+        }
+
+        public bool IsEnum => IL2Import.il2cpp_class_is_enum(ptr);
+
+        public IL2BindingFlags Flags
         {
             get
             {

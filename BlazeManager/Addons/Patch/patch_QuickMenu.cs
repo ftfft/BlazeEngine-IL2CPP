@@ -30,8 +30,7 @@ namespace Addons.Patch
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("QuickMenu Close");
-            BlazeManagerMenu.Main.togglerList["QuickMenu Close"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["QuickMenu Close"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["QuickMenu Close"].SetToggleToOn(toggle, false);
         }
 
 
@@ -86,11 +85,12 @@ namespace Addons.Patch
 
                 foreach (var m in methods.GroupBy(x => x.Name).Where(x => x.Count() > 1).Select(x => x.First()))
                 {
-                    pQuickMenu_Close = IL2Ch.Patch(m, (_QuickMenu_CloseMenu)QuickMenu_CloseMenu);
+                    var patch = IL2Ch.Patch(m, (_QuickMenu_CloseMenu)QuickMenu_CloseMenu);
+                    _delegateQuickMenu_CloseMenu = patch.CreateDelegate<_QuickMenu_CloseMenu>();
                     break;
                 }
 
-                if (pQuickMenu_Close == null)
+                if (_delegateQuickMenu_CloseMenu == null)
                     throw new Exception();
 
                 ConSole.Success("Patch: CloseQuickMenu");
@@ -104,9 +104,9 @@ namespace Addons.Patch
 
         public static void QuickMenu_CloseMenu(IntPtr instance)
         {
-            pQuickMenu_Close.InvokeOriginal(instance);
+            _delegateQuickMenu_CloseMenu.Invoke(instance);
         }
 
-        public static IL2Patch pQuickMenu_Close;
+        public static _QuickMenu_CloseMenu _delegateQuickMenu_CloseMenu;
     }
 }

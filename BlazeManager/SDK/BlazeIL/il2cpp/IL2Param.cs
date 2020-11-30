@@ -11,6 +11,8 @@ namespace BlazeIL.il2cpp
             base.ptr = ptr;
 
             Name = name;
+            if (Assemblies.isObfuscated == "tr")
+                Name = Name.GetMD5();
         }
 
         public IL2ReturnType ReturnType => new IL2ReturnType(ptr);

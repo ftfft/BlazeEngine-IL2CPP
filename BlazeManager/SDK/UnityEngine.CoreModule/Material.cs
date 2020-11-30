@@ -37,6 +37,37 @@ namespace UnityEngine
 				propertyShader.GetSetMethod().Invoke(ptr, new IntPtr[] { value == null ? IntPtr.Zero : value.ptr });
 			}
 		}
+		
+
+		private static IL2Property propertyColor = null;
+		public Color color
+		{
+			get
+			{
+				if (propertyColor == null)
+				{
+					propertyColor = Instance_Class.GetProperty("color");
+					if (propertyColor == null)
+						return default;
+				}
+				IL2Object result = propertyColor.GetGetMethod().Invoke(ptr);
+				if (result == null)
+					return default;
+
+				return result.unbox_Unmanaged<Color>();
+			}
+			set
+			{
+				if (propertyColor == null)
+				{
+					propertyColor = Instance_Class.GetProperty("color");
+					if (propertyColor == null)
+						return;
+				}
+
+				propertyColor.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			}
+		}
 
 		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Material", "UnityEngine");
 	}

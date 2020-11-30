@@ -10,12 +10,15 @@ namespace Addons.Utils
     {
         public static void SendMessage(VRC.Player Player, string Message)
         {
-            NotificationDetails notificationDetails = new NotificationDetails();
-            notificationDetails["worldId"] = "";
-            notificationDetails["worldName"] = "\n" + Message;
-            Console.WriteLine(notificationDetails["worldName"]);
+            if (Player == null)
+                return;
 
-            //NotificationManager.Instance.SendNotification(Player.apiuser.id, "invite", string.Empty, notificationDetails);
+            NotificationDetails notificationDetails = new NotificationDetails();
+            notificationDetails["worldId"] = RoomManager.currentRoom.id + ":" + RoomManager.currentRoom.currentInstanceIdWithTags;
+            notificationDetails["worldName"] = "\n" + Message;
+            notificationDetails["message"] = "\u0001";
+
+            NotificationManager.Instance.SendNotification(Player.apiuser.id, "invite", string.Empty, notificationDetails);
         }
     }
 }

@@ -16,8 +16,7 @@ namespace Addons.Mods
         public static void RefreshStatus_SpeedHack()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("SpeedHack");
-            BlazeManagerMenu.Main.togglerList["SpeedHack"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["SpeedHack"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["SpeedHack"].SetToggleToOn(toggle, false);
         }
         public static void Toggle_Enable_JumpHack()
         {
@@ -29,8 +28,7 @@ namespace Addons.Mods
         public static void RefreshStatus_JumpHack()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("JumpHack");
-            BlazeManagerMenu.Main.togglerList["JumpHack"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["JumpHack"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["JumpHack"].SetToggleToOn(toggle, false);
         }
 
         public static void Update()

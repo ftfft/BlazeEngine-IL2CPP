@@ -8,8 +8,7 @@ namespace Addons.Mods
         public static void Toggle_Enable()
         {
             isEnabled = !isEnabled;
-            BlazeManagerMenu.Main.togglerList["Infinity Jump"].btnOn.SetActive(isEnabled);
-            BlazeManagerMenu.Main.togglerList["Infinity Jump"].btnOff.SetActive(!isEnabled);
+            BlazeManagerMenu.Main.togglerList["Infinity Jump"].SetToggleToOn(isEnabled, false);
         }
 
         public static void EventJump()

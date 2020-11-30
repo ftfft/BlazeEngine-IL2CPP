@@ -11,13 +11,13 @@ namespace BlazeIL.il2cpp
         {
             get
             {
-                if (sName == null)
-                    sName = Marshal.PtrToStringAnsi(IL2Import.il2cpp_property_get_name(ptr));
+                var result = Marshal.PtrToStringAnsi(IL2Import.il2cpp_property_get_name(ptr));
+                if (Assemblies.isObfuscated == "tr")
+                    result = result.GetMD5();
 
-                return sName;
+                return result;
             }
         }
-        private string sName = null;
 
         public IL2BindingFlags Flags => (IL2BindingFlags)IL2Import.il2cpp_property_get_flags(ptr);
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);

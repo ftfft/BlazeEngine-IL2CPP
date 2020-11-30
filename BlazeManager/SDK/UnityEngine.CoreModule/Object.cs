@@ -146,7 +146,7 @@ namespace UnityEngine
                         return null;
                 }
 
-                return propertyName.GetGetMethod().Invoke(ptr)?.Unbox<string>();
+                return propertyName.GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
             }
             set
             {
@@ -168,7 +168,7 @@ namespace UnityEngine
             if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
                 return default;
 
-            return methodToString.Invoke(ptr)?.Unbox<string>();
+            return methodToString.Invoke(ptr)?.unbox_ToString().ToString();
         }
 
         public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Object", "UnityEngine");

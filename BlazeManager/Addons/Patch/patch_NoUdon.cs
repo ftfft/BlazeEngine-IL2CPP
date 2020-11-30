@@ -51,7 +51,7 @@ namespace Addons.Patch
             if (ptrInstance == IntPtr.Zero || Enabled)
                 return;
 
-            pList[0].InvokeOriginal(ptrInstance, new IntPtr[0]);
+            //pList[0].InvokeOriginal(ptrInstance, new IntPtr[0]);
         }
 
         private static void patch_method_1(IntPtr ptrInstance)
@@ -59,7 +59,7 @@ namespace Addons.Patch
             if (ptrInstance == IntPtr.Zero || Enabled)
                 return;
 
-            pList[1].InvokeOriginal(ptrInstance, new IntPtr[0]);
+            //pList[1].InvokeOriginal(ptrInstance, new IntPtr[0]);
         }
 
         private static void patch_method_2(IntPtr ptrInstance)
@@ -67,7 +67,7 @@ namespace Addons.Patch
             if (ptrInstance == IntPtr.Zero || Enabled)
                 return;
 
-            pList[2].InvokeOriginal(ptrInstance, new IntPtr[0]);
+            //pList[2].InvokeOriginal(ptrInstance, new IntPtr[0]);
         }
 
         // pList[0] - Update

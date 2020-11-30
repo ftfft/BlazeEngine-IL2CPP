@@ -17,8 +17,7 @@ namespace Addons.Mods
 		public static void RefreshStatus()
 		{
 			bool toggle = BlazeManager.GetForPlayer<bool>("VoiceDotFade");
-			BlazeManagerMenu.Main.togglerList["VoiceDotFade"].btnOn.SetActive(toggle);
-			BlazeManagerMenu.Main.togglerList["VoiceDotFade"].btnOff.SetActive(!toggle);
+			BlazeManagerMenu.Main.togglerList["VoiceDotFade"].SetToggleToOn(toggle, false);
 			if (toggle)
 				OnEnable();
 			else

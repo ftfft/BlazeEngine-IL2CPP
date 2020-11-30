@@ -55,6 +55,10 @@ namespace BlazeIL
         
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static IntPtr il2cpp_class_get_declaring_type(IntPtr klass);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static bool il2cpp_class_has_attribute(IntPtr klass, IntPtr attr_class);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static bool il2cpp_class_is_enum(IntPtr klass);
 
 
         // ---------------------- [ IL2CPP Method ] ---------------------- //
@@ -74,6 +78,8 @@ namespace BlazeIL
         public extern static int il2cpp_method_get_token(IntPtr method);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static int il2cpp_class_get_type_token(IntPtr method);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static bool il2cpp_method_has_attribute(IntPtr method, IntPtr attr_class);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static IntPtr il2cpp_method_get_class(IntPtr method);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
@@ -96,6 +102,8 @@ namespace BlazeIL
         unsafe public extern static void il2cpp_field_set_value(IntPtr obj, IntPtr field, IntPtr value);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static int il2cpp_field_get_offset(IntPtr field);
+        [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public extern static bool il2cpp_field_has_attribute(IntPtr field, IntPtr attr_class);
 
         // ---------------------- [ IL2CPP Property ] ---------------------- //
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
@@ -152,8 +160,6 @@ namespace BlazeIL
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static int il2cpp_array_get_byte_length(IntPtr pArray);
 
-        [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        public extern static IntPtr VRC_PInvoke(IntPtr orig, IntPtr arg1, IntPtr arg2, IntPtr arg3, IntPtr arg4, IntPtr arg5, IntPtr arg6, IntPtr arg7, IntPtr arg8, IntPtr arg9);
         [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public extern static void VRC_CreateHook(IntPtr pTarget, IntPtr pDetour, out IntPtr ppOrig);
         public static IntPtr StringToIntPtr(string str) => il2cpp_string_new(str);

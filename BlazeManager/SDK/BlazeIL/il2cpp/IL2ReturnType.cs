@@ -9,6 +9,16 @@ namespace BlazeIL.il2cpp
     {
         internal IL2ReturnType(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public string Name => IL2Import.il2cpp_type_get_name(ptr);
+        public string Name
+        {
+            get
+            {
+                var result = IL2Import.il2cpp_type_get_name(ptr);
+                if (Assemblies.isObfuscated == "tr")
+                    result = result.GetMD5();
+
+                return result;
+            }
+        }
     }
 }

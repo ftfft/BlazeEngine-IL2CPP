@@ -14,6 +14,7 @@ using BlazeIL.cpp2il;
 using BlazeIL.cpp2il.IL;
 using VRC;
 using VRC.Core;
+using VRC.Management;
 using UnityEngine;
 
 namespace Addons.Patch
@@ -31,8 +32,7 @@ namespace Addons.Patch
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("AntiBlock");
-            BlazeManagerMenu.Main.togglerList["AntiBlock"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["AntiBlock"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["AntiBlock"].SetToggleToOn(toggle, false);
             foreach (var player in UnityEngine.Object.FindObjectsOfType<Player>())
                 VRC_Player_UpdateModeration(player.ptr);
         }
@@ -46,21 +46,51 @@ namespace Addons.Patch
         public static void RefreshStatus_ESP_Capsule()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("ESP Capsule");
-            BlazeManagerMenu.Main.togglerList["ESP Capsule"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["ESP Capsule"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["ESP Capsule"].SetToggleToOn(toggle, false);
             foreach (var player in UnityEngine.Object.FindObjectsOfType<Player>())
                 VRC_Player_UpdateModeration(player.ptr);
         }
 
         public static void Start()
         {
-            IL2Method method = Player.Instance_Class.GetMethod("OnNetworkReady");
+            IL2Method resultMethod = null;
+            var methods = ModerationManager.Instance_Class.GetMethods(x => !x.IsStatic && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName);
+            var methods2 = VRCPlayer.Instance_Class.GetMethods().Where(x => !x.IsStatic && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 0);
+            foreach (var method in methods2)
+            {
+                unsafe
+                {
+                    var disassembler = disasm.GetDisassembler(method, 0x1000);
+                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsJump(x));
+                    foreach(var instruction in instructions)
+                    {
+                        try
+                        {
+                            IntPtr addr = ILCode.GetPointer(instruction);
+                            var temp = methods.Where(x => *(IntPtr*)x.ptr == addr);
+                            if (temp.Count() > 0)
+                                resultMethod = temp.First();
+
+                        }
+                        catch { }
+                        if (resultMethod != null)
+                            break;
+
+                    }
+                }
+                if (resultMethod != null)
+                    break;
+            }
+            var patch = IL2Ch.Patch(resultMethod, (_ModerationManager_IsUserBlocked)ModerationManager_IsUserBlocked);
+            _delegateModerationManager_IsUserBlocked = patch.CreateDelegate<_ModerationManager_IsUserBlocked>();
+            /*
             try
             {
+                
 
                 unsafe
                 {
-                    var disassembler = disasm.GetDisassembler(method, 16);
+                    var disassembler = disasm.GetDisassembler(method, 0x1000);
                     var instruction = disassembler.Disassemble().First(x => ILCode.IsJump(x));
                     IntPtr addr = ILCode.GetPointer(instruction);
 
@@ -105,14 +135,14 @@ namespace Addons.Patch
             {
                 ConSole.Error("Patch: Anti-Block");
             }
+            */
         }
 
         public static void VRC_Player_UpdateModeration(IntPtr instance)
         {
-            pUpdateModeration.InvokeOriginal(instance);
+            // pUpdateModeration.InvokeOriginal(instance);
             if (Player.Instance.ptr == instance) return;
             Player player = new Player(instance);
-            IntPtr userid = player.apiuser.id_Pointer;
             string useridPl = player.apiuser.id;
             Transform selectRegion = player.transform.Find("SelectRegion");
             if (selectRegion == null)
@@ -132,28 +162,50 @@ namespace Addons.Patch
             selectRegion.gameObject.SetActive(!result);
             Renderer renderer = selectRegion.GetComponent<Renderer>();
             if (renderer != null)
-                HighlightsFX.Instance.EnableOutline(renderer, !result && BlazeManager.GetForPlayer<bool>("ESP Capsule"));
+            {
+                // ConSole.Message("---------------");
+                // foreach (var comp in selectRegion.GetComponents(typeof(Component)))
+                //    ConSole.Debug(comp.ToString());
+                // RGBA(0, 000, 0, 573, 1, 000, 1, 000)
+                //Console.WriteLine(new HighlightsFXStandalone(HighlightsFX.Instance.ptr).highlightColor);
+                // HighlightsFX.Instance.m_Material.color = new Color()
+                if (highlightsYellow?.gameObject == null)
+                {
+                    highlightsYellow = HighlightsFX.Instance.gameObject.AddComponent<HighlightsFXStandalone>();
+                    highlightsYellow.highlightColor = Color.yellow;
+                }
+                if (APIUser.IsFriendsWith(useridPl))
+                {
+                    highlightsYellow.EnableOutline(renderer, !result && BlazeManager.GetForPlayer<bool>("ESP Capsule"));
+                }
+                else
+                {
+                    HighlightsFX.Instance.EnableOutline(renderer, !result && BlazeManager.GetForPlayer<bool>("ESP Capsule"));
+                }
+
+                //ConSole.Error("---------------");
+
+                //foreach (var comp in selectRegion.GetComponents(typeof(Component)))
+                //    ConSole.Debug(comp.ToString());
+            }
         }
+
+        public static HighlightsFXStandalone highlightsYellow;
 
         public static bool ModerationManager_IsUserBlocked(IntPtr instance, IntPtr apiUser)
         {
             if (instance == IntPtr.Zero || apiUser == IntPtr.Zero)
                 return false;
 
-            IL2Object @object = pAntiBlock.InvokeOriginal(instance, new IntPtr[] { apiUser });
-            if (@object == null)
-                return false;
-
-            bool result = @object.pUnbox<bool>();
             if (BlazeManager.GetForPlayer<bool>("AntiBlock"))
             {
                 return false;
             }
 
-            return result;
+            return _delegateModerationManager_IsUserBlocked.Invoke(instance, apiUser);
         }
 
-        public static IL2Patch pAntiBlock;
+        public static _ModerationManager_IsUserBlocked _delegateModerationManager_IsUserBlocked;
         public static IL2Patch pUpdateModeration;
     }
 }

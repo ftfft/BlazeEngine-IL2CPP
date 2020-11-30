@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using BlazeIL;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
@@ -19,8 +20,7 @@ namespace Addons.Patch
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Invis API");
-            BlazeManagerMenu.Main.togglerList["Invis API"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Invis API"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Invis API"].SetToggleToOn(toggle, false);
         }
 
         public static void Start()
@@ -31,7 +31,8 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
-                pInvisMode = IL2Ch.Patch(method, (_VRC_Core_API_SendRequestInternal)VRC_Core_API_SendRequestInternal);
+                var patch = IL2Ch.Patch(method, (_VRC_Core_API_SendRequestInternal)VRC_Core_API_SendRequestInternal);
+                _delegateVRC_Core_API_SendRequestInternal = patch.CreateDelegate<_VRC_Core_API_SendRequestInternal>();
                 ConSole.Success("Patch: InvisAPI");
             }
             catch
@@ -43,12 +44,15 @@ namespace Addons.Patch
         private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, IntPtr authenticationRequired, IntPtr disableCache, IntPtr cacheLifetime, IntPtr retryCount, IntPtr credentials)
         {
             string point = new IL2String(endpoint).ToString();
-            new WebRequest(point);
+            new Thread(() =>
+            {
+                new WebRequest(point);
+            });
 
             if ((point == "visits" || point == "joins" || (point.StartsWith("avatars/avtr_") && point.EndsWith("/select"))) && BlazeManager.GetForPlayer<bool>("Invis API"))
                 return;
 
-            pInvisMode.InvokeOriginal(IntPtr.Zero, new IntPtr[] {
+            _delegateVRC_Core_API_SendRequestInternal.Invoke(
                 endpoint,
                 method,
                 responseContainer,
@@ -58,9 +62,9 @@ namespace Addons.Patch
                 cacheLifetime,
                 retryCount,
                 credentials
-            });
+            );
         }
 
-        public static IL2Patch pInvisMode;
+        public static _VRC_Core_API_SendRequestInternal _delegateVRC_Core_API_SendRequestInternal;
     }
 }

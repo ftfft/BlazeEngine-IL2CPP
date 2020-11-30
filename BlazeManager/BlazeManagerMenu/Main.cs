@@ -146,8 +146,7 @@ namespace BlazeManagerMenu
         public static void Refresh_HighVol()
         {
             bool toggle = USpeaker.LocalGain > 1f;
-            togglerList["High Vol"].btnOn.SetActive(toggle);
-            togglerList["High Vol"].btnOff.SetActive(!toggle);
+            togglerList["High Vol"].SetToggleToOn(toggle, false);
         }
 
         internal static Dictionary<string, QMToggleButton> togglerList = new Dictionary<string, QMToggleButton>();

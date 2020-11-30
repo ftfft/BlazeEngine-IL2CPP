@@ -36,6 +36,17 @@ namespace BlazeIL.il2cpp
             }
             return b;
         }
+        
+        public T[] pUnboxArray<T>() where T : unmanaged
+        {
+            IntPtr[] a = UnboxArray();
+            T[] b = new T[a.Length];
+            for (int i = 0; i < a.Length; i++)
+            {
+                b[i] = a[i].pUnbox<T>();
+            }
+            return b;
+        }
 
         public T unbox<T>()
         {

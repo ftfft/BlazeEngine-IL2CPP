@@ -108,6 +108,7 @@ namespace Addons
             {
             }
         }
+
         public static void RemoveInstiatorObjects()
         {
             foreach(var obj in UnityEngine.Object.FindObjectsOfType<ObjectInstantiatorHandle>())

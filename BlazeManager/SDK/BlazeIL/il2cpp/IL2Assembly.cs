@@ -14,6 +14,8 @@ namespace BlazeIL.il2cpp
         {
             base.ptr = ptr;
             Name = Path.GetFileNameWithoutExtension(Marshal.PtrToStringAnsi(IL2Import.il2cpp_image_get_name(ptr)));
+            if (Assemblies.isObfuscated == "tr")
+                Name = Name.GetMD5();
 
             // Map out Classes
             uint count = IL2Import.il2cpp_image_get_class_count(ptr);

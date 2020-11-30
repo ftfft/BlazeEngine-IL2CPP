@@ -21,8 +21,7 @@ namespace Addons.Patch
         public static void RefreshStatus()
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("Global Events");
-            BlazeManagerMenu.Main.togglerList["Global Events"].btnOn.SetActive(toggle);
-            BlazeManagerMenu.Main.togglerList["Global Events"].btnOff.SetActive(!toggle);
+            BlazeManagerMenu.Main.togglerList["Global Events"].SetToggleToOn(toggle, false);
         }
 
         public static void Start()
@@ -33,7 +32,8 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
-                pGlobalEvents = IL2Ch.Patch(method, (_VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent)VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent);
+                var patch = IL2Ch.Patch(method, (_VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent)VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent);
+                _delegateVRC_SDKBase_VRC_EventHandler_InternalTriggerEvent = patch.CreateDelegate<_VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent>();
                 ConSole.Success("Patch: Global Events");
             }
             catch
@@ -47,9 +47,9 @@ namespace Addons.Patch
             if (BlazeManager.GetForPlayer<bool>("Global Events"))
                 broadcast = VRC_EventHandler.VrcBroadcastType.Always;
 
-            pGlobalEvents.InvokeOriginal(instance, new IntPtr[] { e, new IntPtr((int)broadcast), instagatorId, fastForward });
+            _delegateVRC_SDKBase_VRC_EventHandler_InternalTriggerEvent.Invoke(instance, e, broadcast, instagatorId, fastForward);
         }
 
-        public static IL2Patch pGlobalEvents;
+        public static _VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent _delegateVRC_SDKBase_VRC_EventHandler_InternalTriggerEvent;
     }
 }

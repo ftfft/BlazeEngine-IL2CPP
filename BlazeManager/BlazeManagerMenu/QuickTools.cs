@@ -10,7 +10,7 @@ namespace BlazeManagerMenu
         internal static void SelectUserAPI(APIUser user)
         {
             QuickMenu.Instance.SelectedUser = user;
-            QuickMenuStuff.ShowQuickmenuPage("UserInteractMenu");
+            QuickMenu.Instance.SetMenuIndex(3);
         }
 
         internal static Transform quickTransform { get; set; }

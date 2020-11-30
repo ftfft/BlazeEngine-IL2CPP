@@ -43,7 +43,6 @@ namespace Addons.Mods.UI
             int iPlayer = 0;
             foreach (var player in VRC.PlayerManager.Instance.AllPlayers)
             {
-                playerPhoton = player.photonPlayer;
                 int? playerId = player?.photonPlayer?.ID;
                 if (playerId == null) continue;
                 if (iSelectUser == playerId)
@@ -65,6 +64,7 @@ namespace Addons.Mods.UI
                 if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), "<b><color=" + (iSelectUser == playerId ? "red>" : "white>") + playerId + "</color></b>")
                 || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.ToIL2String().ptr))
                 {
+                    playerPhoton = player;
                     iSelectUser = playerId;
                     uSelectSteam = player.steamId;
                     string text = "<b>Selected player:</b>";
@@ -85,7 +85,7 @@ namespace Addons.Mods.UI
 
         private static int? iSelectUser = null;
 
-        public static PhotonPlayer playerPhoton = null;
+        public static VRC.Player playerPhoton = null;
 
         private static readonly int iTopMargin = 160;
 

@@ -8,6 +8,8 @@ using BlazeTools;
 using ExitGames.Client.Photon;
 using UnityEngine;
 using VRC.SDKBase;
+using Photon.Pun;
+using Photon.Realtime;
 
 
 namespace BlazeAttack
@@ -76,7 +78,7 @@ namespace BlazeAttack
                 viewId.MonoCast(),
                 fromId.MonoCast()
             }.ArrayToIntPtr(IL2SystemClass.Int32);
-            NetworkPeer.Instance.OpRaiseEvent(210, intPtrs, new RaiseEventOptions()
+            PhotonNetwork.NetworkingClient.OpRaiseEvent(210, intPtrs, new RaiseEventOptions()
             {
                 Receivers = ReceiverGroup.All
             }, SendOptions.SendReliable);
@@ -89,7 +91,7 @@ namespace BlazeAttack
                 viewId.MonoCast(),
                 fromId.MonoCast()
             }.ArrayToIntPtr(IL2SystemClass.Int32);
-            NetworkPeer.Instance.OpRaiseEvent(209, intPtrs, new RaiseEventOptions()
+            PhotonNetwork.NetworkingClient.OpRaiseEvent(209, intPtrs, new RaiseEventOptions()
             {
                 Receivers = ReceiverGroup.All
             }, SendOptions.SendReliable);
@@ -102,7 +104,7 @@ namespace BlazeAttack
                 IL2Import.CreateNewObject(viewId, IL2SystemClass.Int32),
                 IL2Import.CreateNewObject(fromId, IL2SystemClass.Int32)
             }.ArrayToIntPtr(IL2SystemClass.Int32);
-            networkingPeer.OpRaiseEvent(9, intPtrs, new RaiseEventOptions()
+            PhotonNetwork.NetworkingClient.OpRaiseEvent(9, intPtrs, new RaiseEventOptions()
             {
                 Receivers = ReceiverGroup.All
             }, SendOptions.SendReliable);
@@ -110,7 +112,7 @@ namespace BlazeAttack
 
         public static void RaiseSpam()
         {
-            networkingPeer.OpRaiseEvent(7, IntPtr.Zero, new RaiseEventOptions()
+            PhotonNetwork.NetworkingClient.OpRaiseEvent(7, IntPtr.Zero, new RaiseEventOptions()
             {
                 CachingOption = EventCaching.DoNotCache,
                 Receivers = ReceiverGroup.Others
@@ -120,7 +122,7 @@ namespace BlazeAttack
 
         public static void BanSelf(int userId)
         {
-            networkingPeer.OpRaiseEvent(203, IntPtr.Zero, new RaiseEventOptions()
+            PhotonNetwork.NetworkingClient.OpRaiseEvent(203, IntPtr.Zero, new RaiseEventOptions()
             {
                 TargetActors = new int[1]
                 {
@@ -128,8 +130,6 @@ namespace BlazeAttack
                 }
             }, SendOptions.SendReliable);
         }
-
-        private static NetworkingPeer networkingPeer = PhotonNetwork.networkingPeer;
     }
 }
 

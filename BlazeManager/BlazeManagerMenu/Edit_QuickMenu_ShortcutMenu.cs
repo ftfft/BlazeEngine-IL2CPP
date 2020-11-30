@@ -45,7 +45,6 @@ namespace BlazeManagerMenu
 
             var boxCollider = QuickTools.quickTransform.GetComponent<BoxCollider>();
             boxCollider.size = new Vector3(4200, 1671.2f, 1);
-
         }
     }
 }

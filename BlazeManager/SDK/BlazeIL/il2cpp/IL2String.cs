@@ -14,7 +14,7 @@ namespace BlazeIL.il2cpp
             }
             while(ptr == IntPtr.Zero || ToString() != str)
             {
-                ptr = IL2Import.il2cpp_string_new_len(string.Empty.PadRight(str.Length, 'a'), str.Length);
+                ptr = IL2Import.il2cpp_string_new(string.Empty.PadRight(str.Length, '\u0001'));
                 for (int i = 0; i < str.Length; i++)
                 {
                     *(char*)(ptr + 0x14 + (0x2 * i)) = str[i];
@@ -23,9 +23,7 @@ namespace BlazeIL.il2cpp
         }
         internal IL2String(IL2Object @object) : base(IntPtr.Zero)
         {
-            ptr = IntPtr.Zero;
-            if (@object != null)
-                ptr = @object.ptr;
+            ptr = (@object != null) ? @object.ptr : IntPtr.Zero;
         }
 
         public override string ToString()
