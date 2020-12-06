@@ -7,7 +7,7 @@ namespace BlazeIL.il2cpp
         internal IL2String(IntPtr ptr) : base(ptr) => base.ptr = ptr;
         internal IL2String(string str) : base(IntPtr.Zero)
         {
-            if (string.IsNullOrWhiteSpace(str))
+            if (str == null)
             {
                 ptr = IntPtr.Zero;
                 return;

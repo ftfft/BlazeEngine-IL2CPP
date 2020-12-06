@@ -25,6 +25,7 @@ namespace BlazeIL.il2cpp
         private List<IL2Field> FieldList = new List<IL2Field>();
         //private List<IL2CPP_Event> EventList = new List<IL2CPP_Event>();
         private List<IL2Type> NestedTypeList = new List<IL2Type>();
+        private List<IL2Type> InterfaceTypeList = new List<IL2Type>();
         private List<IL2Property> PropertyList = new List<IL2Property>();
         public IL2Type(IntPtr ptr) : base(ptr)
         {
@@ -63,6 +64,11 @@ namespace BlazeIL.il2cpp
             while ((nestedtype = IL2Import.il2cpp_class_get_nested_types(ptr, ref nestedtype_iter)) != IntPtr.Zero)
                 NestedTypeList.Add(new IL2Type(nestedtype));
 
+            IntPtr interfacetype_iter = IntPtr.Zero;
+            IntPtr interfacetype = IntPtr.Zero;
+            while ((interfacetype = IL2Import.il2cpp_class_get_interfaces(ptr, ref interfacetype_iter)) != IntPtr.Zero)
+                InterfaceTypeList.Add(new IL2Type(interfacetype));
+
             // Find Property
             IntPtr property_iter = IntPtr.Zero;
             IntPtr property = IntPtr.Zero;
@@ -77,6 +83,18 @@ namespace BlazeIL.il2cpp
             get
             {
                 IntPtr pointer = IL2Import.il2cpp_class_get_declaring_type(ptr);
+                if (pointer != IntPtr.Zero)
+                    return new IL2Type(pointer);
+
+                return null;
+            }
+        }
+        
+        public IL2Type BaseType
+        {
+            get
+            {
+                IntPtr pointer = IL2Import.il2cpp_class_get_parent(ptr);
                 if (pointer != IntPtr.Zero)
                     return new IL2Type(pointer);
 
@@ -102,15 +120,17 @@ namespace BlazeIL.il2cpp
         }
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
 
-        public IL2Constructor[] GetConstructors() => MethodList.Where(x => x.Name.StartsWith(".c")).Select(x => new IL2Constructor(x.ptr)).ToArray();
+        public IL2Constructor[] GetConstructors() => MethodList.Where(x => x.Name.Equals(".ctor")).Select(x => new IL2Constructor(x.ptr)).ToArray();
         public IL2Constructor[] GetConstructors(Func<IL2Constructor, bool> func) => GetConstructors().Where(x => func(x)).ToArray();
-        public IL2Constructor GetConstructor(Func<IL2Constructor, bool> func) => GetConstructors().First(x => func(x));
+        public IL2Constructor GetConstructor(Func<IL2Constructor, bool> func) => GetConstructors().FirstOrDefault(x => func(x));
+        public IL2Constructor GetConstructor() => GetConstructors().FirstOrDefault();
 
         // Methods
         public IL2Method[] GetMethods() => MethodList.ToArray();
         public IL2Method[] GetMethods(IL2BindingFlags flags) => GetMethods(flags, null);
         public IL2Method[] GetMethods(Func<IL2Method, bool> func) => GetMethods().Where(x => func(x)).ToArray();
         public IL2Method[] GetMethods(IL2BindingFlags flags, Func<IL2Method, bool> func) => GetMethods().Where(x => x.HasFlag(flags) && func(x)).ToArray();
+        public IL2Method GetMethod(Func<IL2Method, bool> func) => GetMethods().Where(x => func(x)).FirstOrDefault();
         public IL2Method GetMethod(string name) => GetMethod(name, null);
         public IL2Method GetMethod(string name, IL2BindingFlags flags) => GetMethod(name, flags, null);
         public IL2Method GetMethod(string name, Func<IL2Method, bool> func)
@@ -234,6 +254,38 @@ namespace BlazeIL.il2cpp
         {
             IL2Type returnval = null;
             foreach (IL2Type type in GetNestedTypes())
+            {
+                if (type.Name.Equals(name) && (string.IsNullOrEmpty(type.Namespace) || type.Namespace.Equals(name_space)) && type.HasFlag(flags))
+                {
+                    returnval = type;
+                    break;
+                }
+            }
+            return returnval;
+        }
+        
+        // Interface Types
+        public IL2Type[] GetInterfaceTypes() => InterfaceTypeList.ToArray();
+        public IL2Type[] GetInterfaceTypes(IL2BindingFlags flags) => GetInterfaceTypes().Where(x => x.HasFlag(flags)).ToArray();
+        public IL2Type GetInterfaceType(string name) => GetInterfaceType(name, null);
+        public IL2Type GetInterfaceType(string name, IL2BindingFlags flags) => GetInterfaceType(name, null, flags);
+        public IL2Type GetInterfaceType(string name, string name_space)
+        {
+            IL2Type returnval = null;
+            foreach (IL2Type type in GetNestedTypes())
+            {
+                if (type.Name.Equals(name) && (string.IsNullOrEmpty(type.Namespace) || type.Namespace.Equals(name_space)))
+                {
+                    returnval = type;
+                    break;
+                }
+            }
+            return returnval;
+        }
+        public IL2Type GetInterfaceType(string name, string name_space, IL2BindingFlags flags)
+        {
+            IL2Type returnval = null;
+            foreach (IL2Type type in GetInterfaceTypes())
             {
                 if (type.Name.Equals(name) && (string.IsNullOrEmpty(type.Namespace) || type.Namespace.Equals(name_space)) && type.HasFlag(flags))
                 {

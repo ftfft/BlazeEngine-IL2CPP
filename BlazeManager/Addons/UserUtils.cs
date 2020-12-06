@@ -11,7 +11,7 @@ namespace Addons
 {
     public static class UserUtils
     {
-        public static void Gen15(PhotonPlayer player)
+        public static void Gen15(Photon.Realtime.Player player)
         {
             byte[] array = new byte[17000];
             array[0] = 11;
@@ -37,7 +37,7 @@ namespace Addons
                 {
                     // vrcEvent = vrcEvent,
                     vrcBroadcastType = VRC_EventHandler.VrcBroadcastType.Always,
-                    vrcInt = VRC.Player.Instance.photonPlayer.ID,
+                    vrcInt = VRC.Player.Instance.PhotonPlayer.ActorNumber,
                     vrcLong = 0L,
                     vrcFloat = 0F,
                 };
@@ -74,10 +74,10 @@ namespace Addons
 
         public static GameObject SpawnDynLight(Transform transform)
         {
-            string[] arrayString = ObjectInstantiator.spawnBlockedList;
-            ObjectInstantiator.spawnBlockedList = new string[0];
+            string[] arrayString = ObjectInstantiator.adminOnlyPrefabs;
+            ObjectInstantiator.adminOnlyPrefabs = new string[0];
             GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Local, "DevProp_DynLight", transform.position + (transform.forward * 2), new Quaternion(0, 0, 0, 0));
-            ObjectInstantiator.spawnBlockedList = arrayString;
+            ObjectInstantiator.adminOnlyPrefabs = arrayString;
             return gameObject;
         }
 
@@ -113,7 +113,7 @@ namespace Addons
         {
             foreach(var obj in UnityEngine.Object.FindObjectsOfType<ObjectInstantiatorHandle>())
                 obj.gameObject.Destroy();
-            RoomManager.portalInternalList.Clear();
+            RoomManager.userPortals.Clear();
         }
 
         public static GameObject GlobalDisableColliders(Transform transform, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde", string instanceId = "Banned Instance\nTupper\0")

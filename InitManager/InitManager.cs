@@ -8,7 +8,7 @@ using System.Runtime.ExceptionServices;
 using System.Security.Cryptography.X509Certificates;
 using VRCLoader.Attributes;
 using VRCLoader.Modules;
-using VRCheat.SDK.IL2CPP;
+// using VRCheat.SDK.IL2CPP;
 
 namespace InitManager
 {

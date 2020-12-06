@@ -22,20 +22,12 @@ namespace VRC
         {
             get
             {
-                if (!properties.ContainsKey(nameof(Instance)))
-                {
-                    properties.Add(nameof(Instance), Instance_Class.GetProperty(x => x.Instance));
-                    if (!properties.ContainsKey(nameof(Instance)))
-                        return null;
-                }
-
-                return properties[nameof(Instance)].GetGetMethod().Invoke()?.unbox<FeaturePermissionManager>();
+                IL2Property property = Instance_Class.GetProperty(nameof(Instance));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
+                return property?.GetGetMethod().Invoke()?.unbox<FeaturePermissionManager>();
             }
         }
-
-        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
-        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
-        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
 
         public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("FeaturePermissionManager", "VRC");
     }

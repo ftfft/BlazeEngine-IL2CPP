@@ -13,18 +13,10 @@ public class RaiseEventOptions : IL2Base
 {
     public RaiseEventOptions(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static IL2Method constructRaiseEventOptions = null;
     public RaiseEventOptions() : base(IntPtr.Zero)
     {
-        if (constructRaiseEventOptions == null)
-        {
-            constructRaiseEventOptions = Instance_Class.GetMethod(".ctor");
-            if (constructRaiseEventOptions == null)
-                return;
-        }
-
         ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
-        constructRaiseEventOptions.Invoke(ptr);
+        Instance_Class.GetConstructor().Invoke(ptr);
     }
 
     private static IL2Field fieldCachingOption = null;

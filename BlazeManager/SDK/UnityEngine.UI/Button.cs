@@ -8,49 +8,20 @@ namespace UnityEngine.UI
     {
         public Button(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyOnClick = null;
         public ButtonClickedEvent onClick
         {
-            get
-            {
-                if (propertyOnClick == null)
-                {
-                    propertyOnClick = Instance_Class.GetProperty("onClick");
-                    if (propertyOnClick == null)
-                        return null;
-                }
-
-                return propertyOnClick.GetGetMethod().Invoke(ptr)?.Unbox<ButtonClickedEvent>();
-            }
-            set
-            {
-                if (propertyOnClick == null)
-                {
-                    propertyOnClick = Instance_Class.GetProperty("onClick");
-                    if (propertyOnClick == null)
-                        return;
-                }
-
-                propertyOnClick.GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
-            }
+            get => Instance_Class.GetProperty(nameof(onClick)).GetGetMethod().Invoke(ptr)?.unbox<ButtonClickedEvent>();
+            set => Instance_Class.GetProperty(nameof(onClick)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
         }
 
         public class ButtonClickedEvent : Events.UnityEvent
         {
             public ButtonClickedEvent(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-            public static IL2Method constructButtonClickEvent = null;
             public ButtonClickedEvent() : base(IntPtr.Zero)
             {
-                if (constructButtonClickEvent == null)
-                {
-                    constructButtonClickEvent = Instance_Class.GetMethod(".ctor");
-                    if (constructButtonClickEvent == null)
-                        return;
-                }
-
                 ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
-                constructButtonClickEvent.Invoke(ptr);
+                Instance_Class.GetConstructor().Invoke(ptr);
             }
 
             public static new IL2Type Instance_Class = Button.Instance_Class.GetNestedType("ButtonClickedEvent");

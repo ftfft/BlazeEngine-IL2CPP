@@ -19,8 +19,9 @@ using UnityEngine;
 
 namespace Addons.Patch
 {
-    public delegate bool _ModerationManager_IsUserBlocked(IntPtr instance, IntPtr apiUser);
-    public delegate void _VRC_Player_UpdateModeration(IntPtr instance);
+    public delegate IntPtr _VRC_Player_IsBlocked(IntPtr instance);
+    public delegate IntPtr _VRC_Player_IsBlockedBy(IntPtr instance);
+    public delegate void _VRCPlayer_RefreshState(IntPtr instance);
     public static class patch_AntiBlock
     {
         public static void Toggle_Enable()
@@ -33,8 +34,9 @@ namespace Addons.Patch
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("AntiBlock");
             BlazeManagerMenu.Main.togglerList["AntiBlock"].SetToggleToOn(toggle, false);
-            foreach (var player in UnityEngine.Object.FindObjectsOfType<Player>())
-                VRC_Player_UpdateModeration(player.ptr);
+            foreach (var player in UnityEngine.Object.FindObjectsOfType<VRCPlayer>())
+                if (player != null)
+                    VRCPlayer_RefreshState(player.ptr);
         }
         
         public static void Toggle_Enable_ESP_Capsule()
@@ -47,165 +49,127 @@ namespace Addons.Patch
         {
             bool toggle = BlazeManager.GetForPlayer<bool>("ESP Capsule");
             BlazeManagerMenu.Main.togglerList["ESP Capsule"].SetToggleToOn(toggle, false);
-            foreach (var player in UnityEngine.Object.FindObjectsOfType<Player>())
-                VRC_Player_UpdateModeration(player.ptr);
+            foreach (var player in UnityEngine.Object.FindObjectsOfType<VRCPlayer>())
+                if (player != null)
+                    VRCPlayer_RefreshState(player.ptr);
         }
 
         public static void Start()
         {
-            IL2Method resultMethod = null;
-            var methods = ModerationManager.Instance_Class.GetMethods(x => !x.IsStatic && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName);
-            var methods2 = VRCPlayer.Instance_Class.GetMethods().Where(x => !x.IsStatic && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 0);
-            foreach (var method in methods2)
+            /*
+            try
             {
+                var property = Player.Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.GetSetMethod() != null).First();
+                var patch = IL2Ch.Patch(property.GetGetMethod(), (_VRC_Player_IsBlocked)VRC_Player_IsBlocked);
+                _delegateVRC_Player_IsBlocked = patch.CreateDelegate<_VRC_Player_IsBlocked>();
+                ConSole.Success("Patch: Anti-Block [First]");
+            }
+            catch
+            {
+                ConSole.Error("Patch: Anti-Block [First]");
+            }
+            try
+            {
+                var property = Player.Instance_Class.GetProperties().Where(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.GetSetMethod() != null).Skip(1).First();
+                var patch = IL2Ch.Patch(property.GetGetMethod(), (_VRC_Player_IsBlockedBy)VRC_Player_IsBlockedBy);
+                _delegateVRC_Player_IsBlockedBy = patch.CreateDelegate<_VRC_Player_IsBlockedBy>();
+                ConSole.Success("Patch: Anti-Block [Second]");
+            }
+            catch
+            {
+                ConSole.Error("Patch: Anti-Block [Second]");
+            }
+            */
+            try
+            {
+                var method = Player.Instance_Class.GetMethod("OnNetworkReady");
                 unsafe
                 {
                     var disassembler = disasm.GetDisassembler(method, 0x1000);
                     var instructions = disassembler.Disassemble().Where(x => ILCode.IsJump(x));
-                    foreach(var instruction in instructions)
+                    foreach (var instruction in instructions)
                     {
-                        try
-                        {
-                            IntPtr addr = ILCode.GetPointer(instruction);
-                            var temp = methods.Where(x => *(IntPtr*)x.ptr == addr);
-                            if (temp.Count() > 0)
-                                resultMethod = temp.First();
+                        IntPtr addr = ILCode.GetPointer(instruction);
 
-                        }
-                        catch { }
-                        if (resultMethod != null)
+                        method = VRCPlayer.Instance_Class.GetMethods().FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
+                        if (method != null)
                             break;
-
                     }
+                    var patch = IL2Ch.Patch(method, (_VRCPlayer_RefreshState)VRCPlayer_RefreshState);
+                    _delegateVRCPlayer_RefreshState = patch.CreateDelegate<_VRCPlayer_RefreshState>();
                 }
-                if (resultMethod != null)
-                    break;
-            }
-            var patch = IL2Ch.Patch(resultMethod, (_ModerationManager_IsUserBlocked)ModerationManager_IsUserBlocked);
-            _delegateModerationManager_IsUserBlocked = patch.CreateDelegate<_ModerationManager_IsUserBlocked>();
-            /*
-            try
-            {
-                
-
-                unsafe
-                {
-                    var disassembler = disasm.GetDisassembler(method, 0x1000);
-                    var instruction = disassembler.Disassemble().First(x => ILCode.IsJump(x));
-                    IntPtr addr = ILCode.GetPointer(instruction);
-
-                    Player.methods.Add(nameof(Player.UpdateModeration), Player.Instance_Class.GetMethods().First(x => *(IntPtr*)x.ptr == addr));
-                    if (Player.methods[nameof(Player.UpdateModeration)] == null)
-                        throw new Exception();
-
-                    // UpdateModeration()
-                    pUpdateModeration = IL2Ch.Patch(method, (_VRC_Player_UpdateModeration)VRC_Player_UpdateModeration);
-
-                    disassembler = disasm.GetDisassembler(Player.methods[nameof(Player.UpdateModeration)]);
-                    var instructions = disassembler.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
-                    foreach (var instruction1 in instructions)
-                    {
-                        if (!ILCode.IsCall(instruction1))
-                            continue;
-
-                        try
-                        {
-                            addr = ILCode.GetPointer(instruction1);
-                            method = ModerationManager.Instance_Class.GetMethods().First(x => *(IntPtr*)x.ptr == addr);
-
-                            if (method.GetParameters().Length != 1 || method.ReturnType.Name != typeof(bool).FullName)
-                                continue;
-
-                            if (method.GetParameters()[0].ReturnType.Name != APIUser.Instance_Class.FullName)
-                                continue;
-
-                            pAntiBlock = IL2Ch.Patch(method, (_ModerationManager_IsUserBlocked)ModerationManager_IsUserBlocked);
-                            break;
-                        }
-                        catch { continue; }
-                    }
-                }
-
-                if (pAntiBlock == null)
-                    throw new Exception();
-
-                ConSole.Success("Patch: Anti-Block");
+                ConSole.Success("Patch: Player Refresh");
             }
             catch
             {
-                ConSole.Error("Patch: Anti-Block");
+                ConSole.Error("Patch: Player Refresh");
             }
-            */
         }
 
-        public static void VRC_Player_UpdateModeration(IntPtr instance)
+        public static void VRCPlayer_RefreshState(IntPtr instance)
         {
-            // pUpdateModeration.InvokeOriginal(instance);
-            if (Player.Instance.ptr == instance) return;
-            Player player = new Player(instance);
-            string useridPl = player.apiuser.id;
-            Transform selectRegion = player.transform.Find("SelectRegion");
-            if (selectRegion == null)
-                return;
+            if (instance == IntPtr.Zero) return;
+            _delegateVRCPlayer_RefreshState.Invoke(instance);
 
-            int photonId = player.photonPlayer.ID;
-            bool result = UserUtils.kos_list.Contains(useridPl);
+            if (VRCPlayer.Instance.ptr == instance) return;
+            VRCPlayer vrcPlayer = new VRCPlayer(instance);
 
-            if (result && !patch_Network.playerInfo.ContainsKey(photonId))
-            {
-                patch_Network.playerInfo.Add(photonId, 1);
-            }
-            else if (!result && patch_Network.playerInfo.ContainsKey(photonId))
-            {
-                patch_Network.playerInfo.Remove(photonId);
-            }
-            selectRegion.gameObject.SetActive(!result);
-            Renderer renderer = selectRegion.GetComponent<Renderer>();
+            Renderer renderer = vrcPlayer?.playerSelector?.GetComponent<Renderer>();
             if (renderer != null)
             {
-                // ConSole.Message("---------------");
-                // foreach (var comp in selectRegion.GetComponents(typeof(Component)))
-                //    ConSole.Debug(comp.ToString());
-                // RGBA(0, 000, 0, 573, 1, 000, 1, 000)
-                //Console.WriteLine(new HighlightsFXStandalone(HighlightsFX.Instance.ptr).highlightColor);
-                // HighlightsFX.Instance.m_Material.color = new Color()
+                string userid = vrcPlayer?.player?.user?.id;
+
                 if (highlightsYellow?.gameObject == null)
                 {
                     highlightsYellow = HighlightsFX.Instance.gameObject.AddComponent<HighlightsFXStandalone>();
                     highlightsYellow.highlightColor = Color.yellow;
                 }
-                if (APIUser.IsFriendsWith(useridPl))
+                highlightsYellow.EnableOutline(renderer, false);
+                HighlightsFX.Instance.EnableOutline(renderer, false);
+                if (APIUser.IsFriendsWith(userid))
                 {
-                    highlightsYellow.EnableOutline(renderer, !result && BlazeManager.GetForPlayer<bool>("ESP Capsule"));
+                    highlightsYellow.EnableOutline(renderer, BlazeManager.GetForPlayer<bool>("ESP Capsule"));
                 }
                 else
                 {
-                    HighlightsFX.Instance.EnableOutline(renderer, !result && BlazeManager.GetForPlayer<bool>("ESP Capsule"));
+                    HighlightsFX.Instance.EnableOutline(renderer, BlazeManager.GetForPlayer<bool>("ESP Capsule"));
                 }
-
-                //ConSole.Error("---------------");
-
-                //foreach (var comp in selectRegion.GetComponents(typeof(Component)))
-                //    ConSole.Debug(comp.ToString());
             }
         }
 
+        public static _VRCPlayer_RefreshState _delegateVRCPlayer_RefreshState;
+
         public static HighlightsFXStandalone highlightsYellow;
 
-        public static bool ModerationManager_IsUserBlocked(IntPtr instance, IntPtr apiUser)
+        public static IntPtr VRC_Player_IsBlocked(IntPtr instance)
         {
-            if (instance == IntPtr.Zero || apiUser == IntPtr.Zero)
-                return false;
+            /*
+            if (instance == IntPtr.Zero)
+                return default;
 
             if (BlazeManager.GetForPlayer<bool>("AntiBlock"))
             {
                 return false;
             }
+            */
 
-            return _delegateModerationManager_IsUserBlocked.Invoke(instance, apiUser);
+            return _delegateVRC_Player_IsBlocked.Invoke(instance);
         }
+        public static _VRC_Player_IsBlocked _delegateVRC_Player_IsBlocked;
 
-        public static _ModerationManager_IsUserBlocked _delegateModerationManager_IsUserBlocked;
-        public static IL2Patch pUpdateModeration;
+        public static IntPtr VRC_Player_IsBlockedBy(IntPtr instance)
+        {
+            /*
+            if (instance == IntPtr.Zero)
+                return default;
+
+            if (BlazeManager.GetForPlayer<bool>("AntiBlock"))
+            {
+                return false;
+            }
+            */
+            return _delegateVRC_Player_IsBlockedBy.Invoke(instance);
+        }
+        public static _VRC_Player_IsBlockedBy _delegateVRC_Player_IsBlockedBy;
     }
 }

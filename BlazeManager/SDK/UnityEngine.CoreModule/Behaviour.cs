@@ -12,35 +12,15 @@ namespace UnityEngine
 	{
 		public Behaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		private static IL2Property propertyEnabled = null;
 		public bool enabled
 		{
-			get
-			{
-				if (!IL2Get.Property("enabled", Instance_Class, ref propertyEnabled))
-					return false;
-
-				return propertyEnabled.GetGetMethod().Invoke(ptr).Unbox<bool>();
-			}
-			set
-			{
-				if (!IL2Get.Property("enabled", Instance_Class, ref propertyEnabled))
-					return;
-
-				propertyEnabled.GetGetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-			}
+			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
 		}
 
-		private static IL2Property propertyIsActiveAndEnabled = null;
 		public bool isActiveAndEnabled
 		{
-			get
-			{
-				if (!IL2Get.Property("propertyIsActiveAndEnabled", Instance_Class, ref propertyIsActiveAndEnabled))
-					return false;
-
-				return propertyIsActiveAndEnabled.GetGetMethod().Invoke(ptr).Unbox<bool>();
-			}
+			get => Instance_Class.GetProperty(nameof(isActiveAndEnabled)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
 		}
 
 		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Behaviour", "UnityEngine");

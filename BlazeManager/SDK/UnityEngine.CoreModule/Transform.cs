@@ -9,266 +9,75 @@ namespace UnityEngine
     {
         public Transform(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyForward = null;
         public Vector3 forward
         {
-            get
-            {
-                if (propertyForward == null)
-                {
-                    propertyForward = Instance_Class.GetProperty("forward");
-                    if (propertyForward == null)
-                        return default;
-                }
-
-                return propertyForward.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
+            get => Instance_Class.GetProperty(nameof(forward)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
         }
 
-        private static IL2Property propertyRight = null;
         public Vector3 right
         {
-            get
-            {
-                if (propertyRight == null)
-                {
-                    propertyRight = Instance_Class.GetProperty("right");
-                    if (propertyRight == null)
-                        return default;
-                }
-
-                return propertyRight.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
+            get => Instance_Class.GetProperty(nameof(right)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
         }
 
-        private static IL2Property propertyPosition = null;
         public Vector3 position
         {
-            get
-            {
-                if (propertyPosition == null)
-                {
-                    propertyPosition = Instance_Class.GetProperty("position");
-                    if (propertyPosition == null)
-                        return default;
-                }
-
-                return propertyPosition.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
-            set
-            {
-                if (propertyPosition == null)
-                {
-                    propertyPosition = Instance_Class.GetProperty("position");
-                    if (propertyPosition == null)
-                        return;
-                }
-
-                propertyPosition.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(position)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
+            set => Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyLocalPosition = null;
         public Vector3 localPosition
         {
-            get
-            {
-                if (propertyLocalPosition == null)
-                {
-                    propertyLocalPosition = Instance_Class.GetProperty("localPosition");
-                    if (propertyLocalPosition == null)
-                        return default;
-                }
-
-                return propertyLocalPosition.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
-            set
-            {
-                if (propertyLocalPosition == null)
-                {
-                    propertyLocalPosition = Instance_Class.GetProperty("localPosition");
-                    if (propertyLocalPosition == null)
-                        return;
-                }
-
-                propertyLocalPosition.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(localPosition)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
+            set => Instance_Class.GetProperty(nameof(localPosition)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyLocalEulerAngles = null;
         public Vector3 localEulerAngles
         {
-            get
-            {
-                if (propertyLocalEulerAngles == null)
-                {
-                    propertyLocalEulerAngles = Instance_Class.GetProperty("localEulerAngles");
-                    if (propertyLocalEulerAngles == null)
-                        return default;
-                }
-
-                return propertyLocalEulerAngles.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
-            set
-            {
-                if (propertyLocalEulerAngles == null)
-                {
-                    propertyLocalEulerAngles = Instance_Class.GetProperty("localEulerAngles");
-                    if (propertyLocalEulerAngles == null)
-                        return;
-                }
-
-                propertyLocalEulerAngles.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(localEulerAngles)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
+            set => Instance_Class.GetProperty(nameof(localEulerAngles)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyRotation = null;
         public Quaternion rotation
         {
-            get
-            {
-                if (propertyRotation == null)
-                {
-                    propertyRotation = Instance_Class.GetProperty("rotation");
-                    if (propertyRotation == null)
-                        return default;
-                }
-
-                return propertyRotation.GetGetMethod().Invoke(ptr).Unbox<Quaternion>();
-            }
-            set
-            {
-                if (propertyRotation == null)
-                {
-                    propertyRotation = Instance_Class.GetProperty("rotation");
-                    if (propertyRotation == null)
-                        return;
-                }
-
-                propertyRotation.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(rotation)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Quaternion>();
+            set => Instance_Class.GetProperty(nameof(rotation)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyLocalScale = null;
         public Vector3 localScale
         {
-            get
-            {
-                if (propertyLocalScale == null)
-                {
-                    propertyLocalScale = Instance_Class.GetProperty("localScale");
-                    if (propertyLocalScale == null)
-                        return default;
-                }
-
-                return propertyLocalScale.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
-            set
-            {
-                if (propertyLocalScale == null)
-                {
-                    propertyLocalScale = Instance_Class.GetProperty("localScale");
-                    if (propertyLocalScale == null)
-                        return;
-                }
-
-                propertyLocalScale.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(localScale)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
+            set => Instance_Class.GetProperty(nameof(localScale)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Method methodFind = null;
         public Transform Find(string name)
         {
-            if (methodFind == null)
-            {
-                methodFind = Instance_Class.GetMethod("Find");
-                if (methodFind == null)
-                    return null;
-            }
-
-            return methodFind.Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(name) } )?.Unbox<Transform>();
+            return Instance_Class.GetMethod(nameof(Find)).Invoke(ptr, new IntPtr[] { new IL2String(name).ptr })?.unbox<Transform>();
         }
 
-        private static IL2Method methodSetParent = null;
         public void SetParent(Transform transform)
         {
-            if (methodSetParent == null)
-            {
-                methodSetParent = Instance_Class.GetMethod("SetParent", x => x.GetParameters().Length == 1);
-                if (methodSetParent == null)
-                    return;
-            }
-
-            methodSetParent.Invoke(ptr, new IntPtr[] { transform.ptr });
+            Instance_Class.GetMethod(nameof(SetParent), x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { transform.ptr });
         }
 
-        private static IL2Property propertyChildCount = null;
         public int childCount
         {
-            get
-            {
-                if (propertyChildCount == null)
-                {
-                    propertyChildCount = Instance_Class.GetProperty("childCount");
-                    if (propertyChildCount == null)
-                        return default;
-                }
-
-                return propertyChildCount.GetGetMethod().Invoke(ptr).Unbox<int>();
-            }
+            get => Instance_Class.GetProperty(nameof(childCount)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<int>();
         }
 
-        private static IL2Property propertyParent = null;
         public Transform parent
         {
-            get
-            {
-                if (propertyParent == null)
-                {
-                    propertyParent = Instance_Class.GetProperty("parent");
-                    if (propertyParent == null)
-                        return null;
-                }
-
-                return propertyParent.GetGetMethod().Invoke(ptr)?.Unbox<Transform>();
-            }
-            set
-            {
-                if (propertyParent == null)
-                {
-                    propertyParent = Instance_Class.GetProperty("parent");
-                    if (propertyParent == null)
-                        return;
-                }
-
-                propertyParent.GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
-            }
+            get => Instance_Class.GetProperty(nameof(parent)).GetGetMethod().Invoke(ptr)?.unbox<Transform>();
+            set => Instance_Class.GetProperty(nameof(parent)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
         }
 
-        private static IL2Method methodGetChild = null;
         public Transform GetChild(int index)
         {
-            if (methodGetChild == null)
-            {
-                methodGetChild = Instance_Class.GetMethod("GetChild");
-                if (methodGetChild == null)
-                    return null;
-            }
-
-            return methodGetChild.Invoke(ptr, new IntPtr[] { index.MonoCast() })?.Unbox<Transform>();
+            return Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { index.MonoCast() })?.unbox<Transform>();
         }
 
-        private static IL2Method methodSetSiblingIndex = null;
         public void SetSiblingIndex(int index)
         {
-            if (methodSetSiblingIndex == null)
-            {
-                methodSetSiblingIndex = Instance_Class.GetMethod("SetSiblingIndex");
-                if (methodSetSiblingIndex == null)
-                    return;
-            }
-
-            methodSetSiblingIndex.Invoke(ptr, new IntPtr[] { index.MonoCast() });
+            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(ptr, new IntPtr[] { index.MonoCast() });
         }
 
         public IEnumerator GetEnumerator()

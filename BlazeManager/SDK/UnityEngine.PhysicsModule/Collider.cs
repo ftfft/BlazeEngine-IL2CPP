@@ -9,24 +9,11 @@ namespace UnityEngine
     {
         public Collider(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyEnabled = null;
-        public bool enabled
+		public bool enabled
 		{
-			get
-			{
-				if (!IL2Get.Property("enabled", Instance_Class, ref propertyEnabled))
-					return default;
-
-				return propertyEnabled.GetGetMethod().Invoke(ptr).Unbox<bool>();
-			}
-			set
-			{
-				if (!IL2Get.Property("enabled", Instance_Class, ref propertyEnabled))
-					return;
-
-				propertyEnabled.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-			}
-        }
+			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+		}
 
 		/*
 		public Rigidbody attachedRigidbody
@@ -37,43 +24,16 @@ namespace UnityEngine
 			}
 		}
 		*/
-
-		private static IL2Property propertyIsTrigger = null;
 		public bool isTrigger
 		{
-			get
-			{
-				if (!IL2Get.Property("isTrigger", Instance_Class, ref propertyIsTrigger))
-					return default;
-
-				return propertyIsTrigger.GetGetMethod().Invoke(ptr).Unbox<bool>();
-			}
-			set
-			{
-				if (!IL2Get.Property("isTrigger", Instance_Class, ref propertyIsTrigger))
-					return;
-
-				propertyIsTrigger.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-			}
+			get => Instance_Class.GetProperty(nameof(isTrigger)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+			set => Instance_Class.GetProperty(nameof(isTrigger)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
 		}
 
-		private static IL2Property propertyContactOffset = null;
 		public float contactOffset
 		{
-			get
-			{
-				if (!IL2Get.Property("contactOffset", Instance_Class, ref propertyContactOffset))
-					return default;
-
-				return propertyContactOffset.GetGetMethod().Invoke(ptr).Unbox<float>();
-			}
-			set
-			{
-				if (!IL2Get.Property("contactOffset", Instance_Class, ref propertyContactOffset))
-					return;
-
-				propertyContactOffset.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-			}
+			get => Instance_Class.GetProperty(nameof(contactOffset)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<float>();
+			set => Instance_Class.GetProperty(nameof(contactOffset)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
 		}
 
 		/*

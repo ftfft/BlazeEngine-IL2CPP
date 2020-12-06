@@ -9,20 +9,23 @@ namespace BlazeIL.il2reflection
     {
         internal IL2MethodBody(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
+        private string szName;
         public string Name
         {
             get
             {
-                var result = Marshal.PtrToStringAnsi(IL2Import.il2cpp_method_get_name(ptr));
-                if (Assemblies.isObfuscated == "tr")
-                    result = result.GetMD5();
-
-                return result;
+                if (string.IsNullOrEmpty(szName))
+                    szName = Marshal.PtrToStringAnsi(IL2Import.il2cpp_method_get_name(ptr));
+                return szName;
             }
+            set => szName = value;
         }
 
         public int Token => IL2Import.il2cpp_method_get_token(ptr);
+        public bool IsAbstract => HasFlag(IL2BindingFlags.METHOD_ABSTRACT);
         public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
+        public bool IsPrivate => HasFlag(IL2BindingFlags.METHOD_PRIVATE);
+        public bool IsPublic => HasFlag(IL2BindingFlags.METHOD_PUBLIC);
 
         public bool Instance => IsStatic && GetParameters().Length == 0 && ReturnType.Name == ReflectedType.FullName;
 

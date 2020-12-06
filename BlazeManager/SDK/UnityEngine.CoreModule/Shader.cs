@@ -12,17 +12,9 @@ namespace UnityEngine
 	{
 		public Shader(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-
-		private static IL2Method methodFind = null;
 		public static Shader Find(string name)
 		{
-			if (methodFind == null)
-			{
-				methodFind = Instance_Class.GetMethod("Find");
-				if (methodFind == null)
-					return null;
-			}
-			return methodFind.Invoke(new IntPtr[] { IL2Import.il2cpp_string_new_len(name, name.Length) }).MonoCast<Shader>();
+			return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).ptr })?.unbox<Shader>();
 		}
 
 		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Shader", "UnityEngine");

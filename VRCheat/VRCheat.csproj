@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="VRCheat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDK\IL2CPP\IL2Assembly.cs" />
     <Compile Include="SDK\IL2CPP\Engine_CPP2IL.cs" />

@@ -79,19 +79,19 @@ namespace Addons.Patch
             }
 
             VRC.Player pPlayer = new VRC.Player(instance);
-            PhotonPlayer photon = pPlayer?.photonPlayer;
+            Photon.Realtime.Player photon = pPlayer?.PhotonPlayer;
             if (photon == null)
                 return;
 
-            if (iLastPlayer == photon.ID)
+            if (iLastPlayer == photon.ActorNumber)
                 return;
 
-            iLastPlayer = photon.ID;
+            iLastPlayer = photon.ActorNumber;
 
             if (currentPlayer.ptr == instance)
             {
-                myColliders = GetHandColliders(currentPlayer.vrcPlayer);
-                myBones = currentPlayer.vrcPlayer.GetComponentsInChildren<DynamicBone>(true);
+                myColliders = GetHandColliders(currentPlayer.Components);
+                myBones = currentPlayer.Components.GetComponentsInChildren<DynamicBone>(true);
                 if (Input.GetKey(KeyCode.G))
                     Console.WriteLine(string.Format("DynamicBoneSync: MyDynamicBones: {0} + MyColliders: {1}", myBones.Length, myColliders.Length));
                 return;
@@ -99,15 +99,15 @@ namespace Addons.Patch
             if (myBones.Length == 0 && myColliders.Length == 0) return;
 
             float num = maxDistance * maxDistance;
-            Vector3 position = currentPlayer.vrcPlayer.avatarGameObject.transform.position;
+            Vector3 position = currentPlayer.Components.avatarGameObject.transform.position;
 
             if ((pPlayer.transform.position - position).sqrMagnitude < num)
             {
                 if (!activePlayers.ContainsKey(instance))
                 {
                     globalSyncInfo gsi = new globalSyncInfo();
-                    gsi.bones = pPlayer.vrcPlayer.GetComponentsInChildren<DynamicBone>(true);
-                    gsi.colliders = GetHandColliders(pPlayer.vrcPlayer);
+                    gsi.bones = pPlayer.Components.GetComponentsInChildren<DynamicBone>(true);
+                    gsi.colliders = GetHandColliders(pPlayer.Components);
                     activePlayers.Add(instance, gsi);
                     
                     ApplyColliders(gsi.bones, myColliders);

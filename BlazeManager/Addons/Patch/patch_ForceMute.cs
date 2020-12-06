@@ -62,6 +62,7 @@ namespace Addons.Patch
 
         public static bool USpeakPhotonSender_ForceMute(IntPtr instance, IntPtr pPlayer)
         {
+            /*
             if (pPlayer == IntPtr.Zero) return true;
             VRC.Player player = new VRC.Player(pPlayer);
             if (player == VRC.Player.Instance) return false;
@@ -74,6 +75,8 @@ namespace Addons.Patch
             // if (ModerationManager.Instance.IsBlockedEitherWay(userid.ptr)) return true;
             if (UserUtils.kos_list.Contains(userid.ToString())) return true;
             return forceMuteList.Contains(userid.ToString());
+            */
+            return false;
         }
 
         public static List<string> forceMuteList = new List<string>();

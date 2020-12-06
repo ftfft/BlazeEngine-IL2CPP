@@ -4,52 +4,29 @@ using UnityEngine;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
 
-public class VRCApplicationSetup : Component
+public class VRCApplicationSetup : MonoBehaviour
 {
     public VRCApplicationSetup(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-
-    private static IL2Property propertyInstance = null;
     public static VRCApplicationSetup Instance
     {
         get
         {
-            if (propertyInstance == null)
-            {
-                propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
-                if (propertyInstance == null)
-                    return null;
-            }
-
-            return propertyInstance.GetGetMethod().Invoke()?.Unbox<VRCApplicationSetup>();
+            IL2Property property = Instance_Class.GetProperty(nameof(Instance));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
+            return property?.GetGetMethod().Invoke()?.unbox<VRCApplicationSetup>();
         }
     }
 
-
-
-    private static IL2Field fieldAppVersion = null;
     public string appVersion
     {
-        get
-        {
-            if (!IL2Get.Field("appVersion", Instance_Class, ref fieldAppVersion))
-                return default;
-
-            return fieldAppVersion.GetValue(ptr)?.Unbox<string>();
-        }
+        get => Instance_Class.GetField(nameof(appVersion)).GetValue(ptr)?.unbox_ToString().ToString();
     }
     
-
-    private static IL2Field fieldBuildNumber = null;
     public int buildNumber
     {
-        get
-        {
-            if (!IL2Get.Field("buildNumber", Instance_Class, ref fieldBuildNumber))
-                return default;
-
-            return fieldBuildNumber.GetValue(ptr).Unbox<int>();
-        }
+        get => Instance_Class.GetField(nameof(buildNumber)).GetValue(ptr).unbox_Unmanaged<int>();
     }
 
     public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCApplicationSetup");

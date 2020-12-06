@@ -16,9 +16,10 @@ namespace VRCheat.SDK.IL2CPP
             uint count = 0;
             IntPtr assemblies = IL2Import.il2cpp_domain_get_assemblies(domain, ref count);
             IntPtr[] assembliesarr = IntPtrToStructureArray<IntPtr>(assemblies, count);
-            foreach (IntPtr assembly in assembliesarr)
+            /*foreach (IntPtr assembly in assembliesarr)
                 if (assembly != IntPtr.Zero)
                     listAssemblies.Add(new IL2Assembly(IL2Import.il2cpp_assembly_get_image(assembly)));
+            */
         }
 
         public static T[] IntPtrToStructureArray<T>(IntPtr ptr, uint len)

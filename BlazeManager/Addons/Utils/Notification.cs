@@ -18,7 +18,7 @@ namespace Addons.Utils
             notificationDetails["worldName"] = "\n" + Message;
             notificationDetails["message"] = "\u0001";
 
-            NotificationManager.Instance.SendNotification(Player.apiuser.id, "invite", string.Empty, notificationDetails);
+            NotificationManager.Instance.SendNotification(Player.user.id, "invite", string.Empty, notificationDetails);
         }
     }
 }

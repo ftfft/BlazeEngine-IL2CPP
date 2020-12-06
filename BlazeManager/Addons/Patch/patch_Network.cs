@@ -11,6 +11,12 @@ using Steamworks;
 using VRC;
 using Photon.Pun;
 using Photon.Realtime;
+using BlazeIL.cpp2il;
+using BlazeIL.cpp2il.IL;
+using VRC.Core;
+using SharpDisasm;
+using SharpDisasm.Udis86;
+using System.Globalization;
 
 namespace Addons.Patch
 {
@@ -30,6 +36,7 @@ namespace Addons.Patch
     public delegate void _methodUdonSyncRunProgramAsRPC(IntPtr str, IntPtr pPlayer);
     public delegate void _methodTimerBloop(IntPtr pPlayer);
     public delegate void _SendMessage(IntPtr instance, IntPtr methodName, SendMessageOptions options);
+    public delegate int _NetworkPing();
 
     public static class patch_Network
     {
@@ -58,9 +65,20 @@ namespace Addons.Patch
             RefreshStatus_DeathMap();
         }
 
+        public static void Toggle_FakePing()
+        {
+            BlazeManager.SetForPlayer("Fake Ping", !BlazeManager.GetForPlayer<bool>("Fake Ping"));
+            RefreshStatus_FakePing();
+        }
+
+        public static void RefreshStatus_FakePing()
+        {
+            bool toggle = BlazeManager.GetForPlayer<bool>("Fake Ping");
+            BlazeManagerMenu.Main.togglerList["Fake Ping"].SetToggleToOn(toggle, false);
+        }
         public static void Toggle_Enable_Serilize()
         {
-            BlazeManager.SetForPlayer("Photon Serilize", !BlazeManager.GetForPlayer<bool>("Photon Serilize"));
+            BlazeManager.SetForPlayer("Photon Serilize", !BlazeManager.GetForPlayer<bool>("Fake Ping"));
             RefreshStatus_Serilize();
         }
 
@@ -139,16 +157,35 @@ namespace Addons.Patch
 
                 method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
                 IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
-
+                /*
                 method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("PhotoCapture");
                 IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
 
                 method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("TimerBloop");
                 IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
-                
-                method = UnityEngine.Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
+                */
+
+                method = Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
                 patch = IL2Ch.Patch(method, (_SendMessage)SendMessage);
                 _delegateSendMessage = patch.CreateDelegate<_SendMessage>();
+
+                method = VRC.UI.DebugDisplayText.Instance_Class.GetMethod("Update");
+                var methods = PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
+
+                unsafe
+                {
+                    var disassembler = disasm.GetDisassembler(method, 0x512);
+                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
+                    foreach (var instruction in instructions)
+                    {
+                        IntPtr addr = ILCode.GetPointer(instruction);
+                        method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
+                        if (method != null)
+                            break;
+                    }
+                }
+                patch = IL2Ch.Patch(method, (_NetworkPing)methodNetworkPing);
+                _delegateNetworkPing = patch.CreateDelegate<_NetworkPing>();
 
                 //IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
                 //pPatch[0] = IL2Ch.Patch(method, (_USpeakPhotonSender3D_OnEvent)USpeakPhotonSender3D_OnEvent);
@@ -180,6 +217,7 @@ namespace Addons.Patch
             }
         }
 
+        /*
         public static bool isPhotonBlock(int playerId)
         {
             bool result = playerInfo.ContainsKey(playerId);
@@ -189,16 +227,17 @@ namespace Addons.Patch
                 if (iCount > 250)
                 {
                     playerInfo[playerId] = 1;
-                    Player player = PlayerManager.GetPlayer(playerId);
-                    if (player != null)
-                        patch_AntiBlock.VRC_Player_UpdateModeration(player.ptr);
+                    VRC.Player player = PlayerManager.GetPlayer(playerId);
+                    VRCPlayer vrcPlayer = player?.Components;
+                    if (vrcPlayer != null)
+                        patch_AntiBlock.VRCPlayer_RefreshState(vrcPlayer.ptr);
                 }
                 else
                     playerInfo[playerId] = iCount + 1;
             }
             return result;
         }
-
+        */
         public static SteamId fakeSteamId = 0U;
         public static SteamId? realSteamId = null;
         public static SteamId Steamworks_SteamClient_Get_SteamId()
@@ -216,6 +255,8 @@ namespace Addons.Patch
 
         public static void PhotonSettings_OnEvent(IntPtr instance, IntPtr pEventData)
         {
+            if (instance == null) return;
+            if (pEventData == null) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
             int iSender = eventData.Sender;
@@ -224,19 +265,13 @@ namespace Addons.Patch
             bool isSelf = false;
             if (!iSelfActor.HasValue)
             {
-                iSelfActor = Player.Instance?.photonPlayer?.ID;
+                iSelfActor = VRC.Player.Instance?.PhotonPlayer?.ActorNumber;
             }
             if (iSelfActor.HasValue && iSelfActor.Value == iSender)
                 isSelf = true;
 
             switch(a)
             {
-                case 1:
-                    {
-                        if (!isSelf && isPhotonBlock(eventData.Sender))
-                            return;
-                        break;
-                    }
                 case 6:
                     {
                         if (!isSelf && BlazeManager.GetForPlayer<bool>("RPC Block"))
@@ -248,21 +283,21 @@ namespace Addons.Patch
                     {
                         if (isSelf)
                             return;
-                        if ((BlazeManager.GetForPlayer<bool>("NoMove") || isPhotonBlock(eventData.Sender)))
+                        if ((BlazeManager.GetForPlayer<bool>("NoMove")))
                             return;
 
                         break;
                     }
                 case 209:
                     {
-                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup") || isPhotonBlock(eventData.Sender)))
+                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
                             return;
 
                         break;
                     }
                 case 210:
                     {
-                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup") || isPhotonBlock(eventData.Sender)))
+                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
                             return;
 
                         break;
@@ -438,6 +473,17 @@ namespace Addons.Patch
         {
         }
         
+        
+        private static int methodNetworkPing()
+        {
+            int result = 777;
+            if (!BlazeManager.GetForPlayer<bool>("Fake Ping"))
+                result = _delegateNetworkPing.Invoke();
+            return result;
+        }
+
+        public static _NetworkPing _delegateNetworkPing;
+
         private static void SendMessage(IntPtr instance, IntPtr methodName, SendMessageOptions options)
         {
             if (new IL2String(methodName).ToString().Replace("ǅ", string.Empty).Replace("Ǆ", string.Empty).Length != 0)

@@ -8,16 +8,9 @@ namespace UnityEngine
     {
         public Component(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyTransform = null;
         public Transform transform
         {
-            get
-            {
-                if (!IL2Get.Property("transform", Instance_Class, ref propertyTransform))
-                    return null;
-
-                return propertyTransform.GetGetMethod().Invoke(ptr)?.Unbox<Transform>();
-            }
+            get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(ptr)?.unbox<Transform>();
         }
 
         public T GetComponentInChildren<T>() => GetComponentInChildren(typeof(T)).MonoCast<T>();
@@ -40,16 +33,9 @@ namespace UnityEngine
             set => gameObject.tag = value;
         }
 
-        private static IL2Property propertyGameObject = null;
         public GameObject gameObject
         {
-            get
-            {
-                if (!IL2Get.Property("gameObject", Instance_Class, ref propertyGameObject))
-                    return null;
-
-                return propertyGameObject.GetGetMethod().Invoke(ptr)?.Unbox<GameObject>();
-            }
+            get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(ptr)?.unbox<GameObject>();
         }
 
         public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Component", "UnityEngine");

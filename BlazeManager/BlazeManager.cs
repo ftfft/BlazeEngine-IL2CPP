@@ -35,6 +35,7 @@ public class BlazeManager
         patch_NoPortal.Start();
         patch_Network.Start();
         patch_QuickMenu.Start();
+        
         // patch_ForceMute.Start();
         // patch_RPC.Start();
         // patch_VipPlates.Start();
@@ -93,6 +94,7 @@ public class BlazeManager
         SetIfNullForPlayer("ESP Capsule", false);
         SetIfNullForPlayer("JumpHack", false);
         SetIfNullForPlayer("SpeedHack", false);
+        SetIfNullForPlayer("Fake Ping", false);
         SetForPlayer("Fly Enable", false);
         SetForPlayer("DeathMap", false);
     }
@@ -101,26 +103,30 @@ public class BlazeManager
     {
         if (ret == false)
             return;
-        string src = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
-        src += "\\data.json";
+        string szFile = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
+        if (!Directory.Exists(szFile))
+        {
+            Directory.CreateDirectory(szFile);
+        }
+        szFile += "\\data.json";
 
         LoadDefaultSettings();
-        JsonManager.Create(src, settings);
+        JsonManager.Create(szFile, settings);
     }
 
     public static void LoadSettings(bool ret = true)
     {
         if (ret == false)
             return;
-        string src = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
-        src += "\\data.json";
-        if (!File.Exists(src))
+        string szFile = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
+        szFile += "\\data.json";
+        if (!File.Exists(szFile))
         {
             SaveSettings();
             ConSole.Print(ConsoleColor.Red, "[Config] Not found!", "Creating file!");
             return;
         }
-        settings = JsonManager.Reader(src);
+        settings = JsonManager.Reader(szFile);
         LoadDefaultSettings();
         ConSole.Print(ConsoleColor.Green, "[Config] Found! File loaded!");
     }

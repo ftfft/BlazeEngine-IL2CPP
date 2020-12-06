@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using UnityEngine;
 using VRC;
 using VRC.Core;
@@ -11,23 +10,84 @@ using VRC.SDKBase;
 using SharpDisasm;
 using SharpDisasm.Udis86;
 
-public class VRCPlayer : Component
+public class VRCPlayer : VRCNetworkBehaviour
 {
     public VRCPlayer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Field fieldInstance = null;
+    // <!---------- ---------- ---------->
+    // <!---------- PROPERTY'S ---------->
+    // <!---------- ---------- ---------->
+    public Player player
+    {
+        get
+        {
+            IL2Property property = Instance_Class.GetProperty(nameof(player));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName)).Name = nameof(player);
+            return property?.GetGetMethod().Invoke(ptr)?.unbox<Player>();
+        }
+    }
+
+    public ApiAvatar AvatarModel
+    {
+        get
+        {
+            IL2Property property = Instance_Class.GetProperty(nameof(AvatarModel));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == ApiAvatar.Instance_Class.FullName)).Name = nameof(AvatarModel);
+            return property?.GetGetMethod().Invoke(ptr)?.unbox<ApiAvatar>();
+        }
+    }
+
+    // * VRCAvatarManager
+    // * ulong (naverno steamid)
+    // * PlayerAudioManager
+
+    public PlayerNet playerNet
+    {
+        get
+        {
+            IL2Property property = Instance_Class.GetProperty(nameof(playerNet));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName)).Name = nameof(playerNet);
+            return property.GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
+        }
+    }
+
+    public USpeaker uSpeaker
+    {
+        get
+        {
+            IL2Property property = Instance_Class.GetProperty(nameof(uSpeaker));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == USpeaker.Instance_Class.FullName)).Name = nameof(uSpeaker);
+            return property?.GetGetMethod().Invoke(ptr)?.unbox<USpeaker>();
+        }
+    }
+
+    public VRCPlayerApi apiPlayer
+    {
+        get
+        {
+            IL2Property property = Instance_Class.GetProperty(nameof(apiPlayer));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRCPlayerApi.Instance_Class.FullName)).Name = nameof(apiPlayer);
+            return property?.GetGetMethod().Invoke(ptr)?.unbox<VRCPlayerApi>();
+        }
+    }
+
+
+    // <!---------- ------- ---------->
+    // <!---------- FIELD'S ---------->
+    // <!---------- ------- ---------->
     public static VRCPlayer Instance
     {
         get
         {
-            if (fieldInstance == null)
-            {
-                fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
-                if (fieldInstance == null)
-                    return null;
-            }
-
-            return fieldInstance.GetValue()?.Unbox<VRCPlayer>();
+            IL2Field field = Instance_Class.GetField(nameof(Instance));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.Instance)).Name = nameof(Instance);
+            return field?.GetValue()?.unbox<VRCPlayer>();
         }
     }
 
@@ -113,20 +173,31 @@ public class VRCPlayer : Component
         methodRefresh_Properties.Invoke();
     }
 
-    // For Safety mode
-    private static IL2Field fieldVRCInput = null;
-    public VRCInput vrcInput
+    public ulong SteamUserIDULong
     {
         get
         {
-            if (fieldVRCInput == null)
-            {
-                fieldVRCInput = Instance_Class.GetFields().First(x => x.ReturnType.Name == VRCInput.Instance_Class.FullName);
-                if (fieldVRCInput == null)
-                    return null;
-            }
+            IL2Property property = Instance_Class.GetProperty(nameof(SteamUserIDULong));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(ulong).FullName)).Name = nameof(SteamUserIDULong);
 
-            return fieldVRCInput.GetValue(ptr)?.Unbox<VRCInput>();
+            IL2Object result = property?.GetGetMethod().Invoke(ptr);
+            if (result == null)
+                return default;
+
+            return result.unbox_Unmanaged<ulong>();
+        }
+    }
+
+    public VRCInput inPanic
+    {
+        get
+        {
+            IL2Field field = Instance_Class.GetField(nameof(inPanic));
+            if (field == null)
+                (field = Instance_Class.GetFields().First(x => x.ReturnType.Name == VRCInput.Instance_Class.FullName)).Name = nameof(inPanic);
+
+            return field?.GetValue(ptr)?.unbox<VRCInput>();
         }
     }
     
@@ -146,88 +217,45 @@ public class VRCPlayer : Component
         }
     }
 
-    private static IL2Field fieldPlayerSelector = null;
     public PlayerSelector playerSelector
     {
         get
         {
-            if (fieldPlayerSelector == null)
-            {
-                fieldPlayerSelector = Instance_Class.GetFields().First(x => x.ReturnType.Name == PlayerSelector.Instance_Class.FullName);
-                if (fieldPlayerSelector == null)
-                    return null;
-            }
+            IL2Field field = Instance_Class.GetField(nameof(playerSelector));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == PlayerSelector.Instance_Class.FullName)).Name = nameof(playerSelector);
 
-            return fieldPlayerSelector.GetValue(ptr)?.Unbox<PlayerSelector>();
+            return field?.GetValue(ptr)?.unbox<PlayerSelector>();
         }
     }
     
-    private static IL2Field fieldAvatarGameObject = null;
     public GameObject avatarGameObject
     {
         get
         {
-            if (fieldAvatarGameObject == null)
-            {
-                fieldAvatarGameObject = Instance_Class.GetFields().First(x => x.ReturnType.Name == GameObject.Instance_Class.FullName);
-                if (fieldAvatarGameObject == null)
-                    return null;
-            }
+            IL2Field field = Instance_Class.GetField(nameof(avatarGameObject));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == GameObject.Instance_Class.FullName)).Name = nameof(avatarGameObject);
 
-            return fieldAvatarGameObject.GetValue(ptr)?.Unbox<GameObject>();
+            return field?.GetValue(ptr)?.unbox<GameObject>();
         }
     }
 
-    private static IL2Field fieldAvatarAnimator = null;
     public Animator avatarAnimator
     {
         get
         {
-            if (fieldAvatarAnimator == null)
-            {
-                fieldAvatarAnimator = Instance_Class.GetFields().First(x => x.ReturnType.Name == Animator.Instance_Class.FullName);
-                if (fieldAvatarAnimator == null)
-                    return null;
-            }
+            IL2Field field = Instance_Class.GetField(nameof(avatarAnimator));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == Animator.Instance_Class.FullName)).Name = nameof(avatarAnimator);
 
-            return fieldAvatarAnimator.GetValue(ptr)?.Unbox<Animator>();
+            return field.GetValue(ptr)?.Unbox<Animator>();
         }
     }
 
-    private static IL2Field fieldVipPlate = null;
-    public VRCUiShadowPlate vipPlate
-    {
-        get
-        {
-            if (!IL2Get.Field("vipPlate", Instance_Class, ref fieldVipPlate))
-                return default;
-
-            return fieldVipPlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
-        }
-    }
-
-    private static IL2Field fieldNamePlate = null;
     public VRCUiShadowPlate namePlate
     {
-        get
-        {
-            if (!IL2Get.Field("namePlate", Instance_Class, ref fieldNamePlate))
-                return default;
-
-            return fieldNamePlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
-        }
-    }
-
-    private static IL2Field fieldStatusPlate = null;
-    public VRCUiShadowPlate statusPlate
-    {
-        get
-        {
-            if (!IL2Get.Field("statusPlate", Instance_Class, ref fieldStatusPlate))
-                return default;
-
-            return fieldStatusPlate.GetValue(ptr)?.Unbox<VRCUiShadowPlate>();
-        }
+        get => Instance_Class.GetField(nameof(namePlate)).GetValue(ptr)?.unbox<VRCUiShadowPlate>();
     }
 
     /*
@@ -242,91 +270,6 @@ public class VRCPlayer : Component
      * VRC.SDKBase.VRCPlayerApi
      */
 
-    private static IL2Property propertyPlayer = null;
-    public Player player
-    {
-        get
-        {
-            if (propertyPlayer == null)
-            {
-                propertyPlayer = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName);
-                if (propertyPlayer == null)
-                    return default;
-            }
-
-            return propertyPlayer.GetGetMethod().Invoke(ptr)?.Unbox<Player>();
-        }
-    }
-    
-    private static IL2Property propertyApiAvatar = null;
-    public ApiAvatar apiAvatar
-    {
-        get
-        {
-            if (propertyApiAvatar == null)
-            {
-                propertyApiAvatar = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == ApiAvatar.Instance_Class.FullName);
-                if (propertyApiAvatar == null)
-                    return default;
-            }
-
-            return propertyApiAvatar.GetGetMethod().Invoke(ptr)?.Unbox<ApiAvatar>();
-        }
-    }
-
-    // * VRCAvatarManager
-    // * ulong (naverno steamid)
-    // * PlayerAudioManager
-
-    private static IL2Property propertyPlayerNet = null;
-    public PlayerNet playerNet
-    {
-        get
-        {
-            if (propertyPlayerNet == null)
-            {
-                propertyPlayerNet = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName);
-                if (propertyPlayerNet == null)
-                    return default;
-            }
-
-            return propertyPlayerNet.GetGetMethod().Invoke(ptr)?.Unbox<PlayerNet>();
-        }
-    }
-    
-
-    private static IL2Property propertyUSpeaker = null;
-    public USpeaker uSpeaker
-    {
-        get
-        {
-            if (propertyUSpeaker == null)
-            {
-                propertyUSpeaker = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == USpeaker.Instance_Class.FullName);
-                if (propertyUSpeaker == null)
-                    return default;
-            }
-
-            return propertyUSpeaker.GetGetMethod().Invoke(ptr)?.Unbox<USpeaker>();
-        }
-    }
-    
-
-    private static IL2Property propertyVRCPlayerApi = null;
-    public VRCPlayerApi vrcPlayerApi
-    {
-        get
-        {
-            if (propertyVRCPlayerApi == null)
-            {
-                propertyVRCPlayerApi = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == VRCPlayerApi.Instance_Class.FullName);
-                if (propertyVRCPlayerApi == null)
-                    return default;
-            }
-
-            return propertyVRCPlayerApi.GetGetMethod().Invoke(ptr)?.Unbox<VRCPlayerApi>();
-        }
-    }
 
     public void TeleportRPC(Vector3 vector, Quaternion quaternion, VRC_SceneDescriptor.SpawnOrientation spawnOrientation)
     {
@@ -337,10 +280,7 @@ public class VRCPlayer : Component
         });
     }
 
-
-    // Obfuscated:
-    // VRCPlayer.obfuscatedENUM
-    public enum ePlayerFlag
+    public enum NetworkChange
     {
         Visible = 1,
         ModTag = 2,

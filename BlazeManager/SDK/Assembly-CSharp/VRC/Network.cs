@@ -11,20 +11,25 @@ namespace VRC
 {
     public static class Network
     {
-        public static int? GetOwnerId(GameObject obj)
+        public static DateTime _networkDateTime
         {
-            if (!IL2Get.Method(typeof(int?).FullName, Instance_Class, ref methodGetOwnerId, false))
-                return null;
-
-            return methodGetOwnerId.Invoke(new IntPtr[] { obj.ptr })?.unbox_Unmanaged<int>();
-        }
-
-        public static DateTime GetNetworkDateTime()
-        {
-            if (!IL2Get.Method(typeof(DateTime).FullName, Instance_Class, ref methodGetNetworkDateTime, false))
-                return DateTime.Now;
-
-            return methodGetNetworkDateTime.Invoke().unbox_Unmanaged<DateTime>();
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(_networkDateTime));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(DateTime).FullName)).Name = nameof(_networkDateTime);
+                IL2Object result = field?.GetValue();
+                if (result == null)
+                    return default;
+                return result.unbox_Unmanaged<DateTime>();
+            }
+            set
+            {
+                IL2Field field = Instance_Class.GetField(nameof(_networkDateTime));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(DateTime).FullName)).Name = nameof(_networkDateTime);
+                field?.SetValue(value.MonoCast());
+            }
         }
 
         public static double CalculateServerDeltaTime(double timeInSeconds, double previousTimeInSeconds)
@@ -211,6 +216,22 @@ namespace VRC
         {
         }
 
+        private static IL2Method methodSetOwner = null;
+        public static bool SetOwner(Player player, GameObject obj, Network.OwnershipModificationType modificationType = Network.OwnershipModificationType.Request, bool skipOwnerTest = false)
+        {
+            if (methodSetOwner == null)
+            {
+                methodSetOwner = Instance_Class.GetMethods().FirstOrDefault(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == Player.Instance_Class.FullName && x.GetParameters()[1].ReturnType.Name == GameObject.Instance_Class.FullName);
+                if (methodSetOwner == null)
+                    return default;
+            }
+            IL2Object result = methodSetOwner.Invoke(new IntPtr[] { player.ptr, obj.ptr, modificationType.MonoCast(), skipOwnerTest.MonoCast() });
+            if (result == null)
+                return default;
+
+            return result.unbox_Unmanaged<bool>();
+        }
+
         private static IL2Field fieldObjectInstantiator;
         public static ObjectInstantiator Instantiator
         {
@@ -230,10 +251,18 @@ namespace VRC
             }
         }
 
+        // Token: 0x02000CA2 RID: 3234
+        public enum OwnershipModificationType
+        {
+            Request,
+            Collision,
+            Pickup,
+            Destroy,
+            Serialization
+        }
 
-        private static IL2Method methodGetOwnerId,
-                                 methodGetNetworkDateTime,
-                                 methodCalculateServerDeltaTime,
+
+        private static IL2Method methodCalculateServerDeltaTime,
                                  methodGetOwnershipTransferTime,
                                  methodTriggerEvent,
                                  methodSendMessageToChildren,

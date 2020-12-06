@@ -9,71 +9,21 @@ namespace UnityEngine
     {
         public CharacterController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyIsGrounded = null;
         public bool isGrounded
         {
-            get
-            {
-                if (propertyIsGrounded == null)
-                {
-                    propertyIsGrounded = Instance_Class.GetProperty("isGrounded");
-                    if (propertyIsGrounded == null)
-                        return default;
-                }
-
-                return propertyIsGrounded.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
-            set
-            {
-                if (propertyIsGrounded == null)
-                {
-                    propertyIsGrounded = Instance_Class.GetProperty("isGrounded");
-                    if (propertyIsGrounded == null)
-                        return;
-                }
-
-                propertyIsGrounded.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(isGrounded)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+            set => Instance_Class.GetProperty(nameof(isGrounded)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
         
-        private static IL2Property propertyVelocity = null;
         public Vector3 velocity
         {
-            get
-            {
-                if (propertyVelocity == null)
-                {
-                    propertyVelocity = Instance_Class.GetProperty("velocity");
-                    if (propertyVelocity == null)
-                        return default;
-                }
-
-                return propertyVelocity.GetGetMethod().Invoke(ptr).Unbox<Vector3>();
-            }
-            set
-            {
-                if (propertyVelocity == null)
-                {
-                    propertyVelocity = Instance_Class.GetProperty("velocity");
-                    if (propertyVelocity == null)
-                        return;
-                }
-
-                propertyVelocity.GetSetMethod().Invoke(ptr, new IntPtr[] {value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(velocity)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Vector3>();
+            set => Instance_Class.GetProperty(nameof(velocity)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Method methodMove = null;
         public CollisionFlags Move(Vector3 motion)
         {
-            if(methodMove == null)
-            {
-                methodMove = Instance_Class.GetMethod("Move");
-                if (methodMove == null)
-                    return CollisionFlags.None;
-            }
-
-            return methodMove.Invoke(ptr, new IntPtr[] { motion.MonoCast() }).Unbox<CollisionFlags>();
+            return Instance_Class.GetMethod(nameof(Move)).Invoke(ptr, new IntPtr[] { motion.MonoCast() }).unbox_Unmanaged<CollisionFlags>();
         }
 
         public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.PhysicsModule"].GetClass("CharacterController", "UnityEngine");

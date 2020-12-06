@@ -4,22 +4,18 @@ using System.Reflection;
 using UnityEngine;
 using BlazeIL.il2cpp;
 
-public class USpeakPhotonSender3D : Component
+public class USpeakPhotonSender3D : MonoBehaviour
 {
     public USpeakPhotonSender3D(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Field fieldUSpeaker = null;
-    public USpeaker uSpeaker
+    public USpeaker spk
     {
         get
         {
-            if (fieldUSpeaker == null)
-            {
-                fieldUSpeaker = Instance_Class.GetFields().First(x => x.ReturnType.Name == USpeaker.Instance_Class.FullName);
-                if (fieldUSpeaker == null)
-                    return null;
-            }
-            return fieldUSpeaker.GetValue(ptr)?.MonoCast<USpeaker>();
+            IL2Field field = Instance_Class.GetField(nameof(spk));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == USpeaker.Instance_Class.FullName)).Name = nameof(spk);
+            return field?.GetValue(ptr)?.unbox<USpeaker>();
         }
     }
 

@@ -7,34 +7,12 @@ namespace UnityEngine.UI
     // Graphic -> UIBehaviour -> MonoBehaviour -> Behaviour -> Component
     public class Graphic : MonoBehaviour
     {
-        public Graphic(IntPtr ptrONew) : base(ptrONew) =>
-            ptr = ptrONew;
+        public Graphic(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyColor = null;
         public Color color
         {
-            get
-            {
-                if (propertyColor == null)
-                {
-                    propertyColor = Instance_Class.GetProperty("color");
-                    if (propertyColor == null)
-                        return default;
-                }
-
-                return propertyColor.GetGetMethod().Invoke(ptr).Unbox<Color>();
-            }
-            set
-            {
-                if (propertyColor == null)
-                {
-                    propertyColor = Instance_Class.GetProperty("color");
-                    if (propertyColor == null)
-                        return;
-                }
-
-                propertyColor.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(color)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<Color>();
+            set => Instance_Class.GetProperty(nameof(color)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
         public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.UI"].GetClass("Graphic", "UnityEngine.UI");

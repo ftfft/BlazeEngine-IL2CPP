@@ -1,7 +1,5 @@
 ﻿using System;
-using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 
 namespace VRC.Core
 {
@@ -9,90 +7,32 @@ namespace VRC.Core
     {
         public ApiAvatar(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyReleaseStatus = null;
         public string releaseStatus
 		{
-			get
-            {
-                if (!IL2Get.Property("releaseStatus", Instance_Class, ref propertyReleaseStatus))
-                    return default;
-
-                return propertyReleaseStatus.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-			set
-            {
-                if (!IL2Get.Property("releaseStatus", Instance_Class, ref propertyReleaseStatus))
-                    return;
-
-                propertyReleaseStatus.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
-            }
+            get => Instance_Class.GetProperty(nameof(releaseStatus)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(releaseStatus)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
 		}
 
-        
-        private static IL2Property propertyAuthorId = null;
         public string authorId
         {
-            get
-            {
-                if (!IL2Get.Property("authorId", Instance_Class, ref propertyAuthorId))
-                    return default;
-
-                return propertyAuthorId.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-            set
-            {
-                if (!IL2Get.Property("authorId", Instance_Class, ref propertyAuthorId))
-                    return;
-
-                propertyAuthorId.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
-            }
+            get => Instance_Class.GetProperty(nameof(authorId)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
-
-        private static IL2Property propertyAssetUrl = null;
         public string assetUrl
         {
-            get
-            {
-                if (!IL2Get.Property("assetUrl", Instance_Class, ref propertyAssetUrl))
-                    return default;
-
-                return propertyAssetUrl.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-            set
-            {
-                if (!IL2Get.Property("assetUrl", Instance_Class, ref propertyAssetUrl))
-                    return;
-
-                propertyAssetUrl.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
-            }
+            get => Instance_Class.GetProperty(nameof(assetUrl)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(assetUrl)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
-        private static IL2Property propertyName = null;
         public string name
         {
-            get
-            {
-                if (!IL2Get.Property("name", Instance_Class, ref propertyName))
-                    return default;
-
-                return propertyName.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-            set
-            {
-                if (!IL2Get.Property("name", Instance_Class, ref propertyName))
-                    return;
-
-                propertyName.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
-            }
+            get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
-        private static IL2Method methodSaveReleaseStatus = null;
         public void SaveReleaseStatus(Action<ApiContainer> onSuccess = null, Action<ApiContainer> onFailure = null)
         {
-            if (!IL2Get.Method("SaveReleaseStatus", Instance_Class, ref methodSaveReleaseStatus))
-                return;
-
             IntPtr ptrSucc = IntPtr.Zero;
             if (onSuccess != null)
                 ptrSucc = UnityEngine.Events._UnityAction.CreateDelegate(onSuccess, IntPtr.Zero, BlazeTools.IL2SystemClass.action_1);
@@ -101,7 +41,7 @@ namespace VRC.Core
             if (onFailure != null)
                 ptrFail = UnityEngine.Events._UnityAction.CreateDelegate(onFailure, IntPtr.Zero, BlazeTools.IL2SystemClass.action_1);
 
-            methodSaveReleaseStatus.Invoke(ptr, new IntPtr[] { ptrSucc, ptrFail });
+            Instance_Class.GetMethod(nameof(SaveReleaseStatus)).Invoke(ptr, new IntPtr[] { ptrSucc, ptrFail });
         }
 
         public static new IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("ApiAvatar", "VRC.Core");

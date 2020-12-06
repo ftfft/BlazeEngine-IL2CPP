@@ -160,8 +160,8 @@ namespace Addons
                     {
                         if (SelectColesion.GetComponent<VRC_Pickup>() != null || SelectColesion.GetComponent<VRC.SDK3.Components.VRCPickup>() != null)
                         {
-                            PhotonNetwork.TransferOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.photonPlayer.ID);
-                            PhotonNetwork.RequestOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.photonPlayer.ID);
+                            PhotonNetwork.TransferOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.PhotonPlayer.ActorNumber);
+                            PhotonNetwork.RequestOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.PhotonPlayer.ActorNumber);
                             SelectColesion.transform.position = new Vector3(float.NaN, float.NaN, float.NaN);
                         }
                     }
@@ -169,17 +169,49 @@ namespace Addons
                 return;
             }
 
+            if (Input.GetKey(KeyCode.Space))
+            {
+                var jump = VRCPlayer.Instance?.GetComponent<GamelikeInputController>()?.inJump;
+                if (jump != null)
+                {
+                    if (!jump.bValue || jump.bValuePrev)
+                    {
+                        jump.bValue = true;
+                        jump.bValuePrev = false;
+                    }
+                    else if (!VRC.Player.Instance.GetComponent<CharacterController>().isGrounded)
+                    {
+                        jump.bValue = false;
+                        jump.bValuePrev = true;
+                    }
+
+                }
+            }
+            /*
             if (Input.GetKeyDown(KeyCode.KeypadPlus))
             {
                 UserUtils.WengaClose();
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKey(KeyCode.KeypadEnter))
             {
+                foreach(var player in VRC.PlayerManager.Instance.AllPlayers)
+                {
+                    foreach (var obj in NoLocalPickup.gameObjects)
+                    {
+                        VRC.Network.SetOwner(player, obj, VRC.Network.OwnershipModificationType.Pickup, false);
+                        VRC.Network.SetOwner(player, obj, VRC.Network.OwnershipModificationType.Collision, false);
+                        VRC.Network.SetOwner(player, obj, VRC.Network.OwnershipModificationType.Destroy, false);
+                        VRC.Network.SetOwner(player, obj, VRC.Network.OwnershipModificationType.Request, false);
+                        VRC.Network.SetOwner(player, obj, VRC.Network.OwnershipModificationType.Serialization, false);
+                    }
+                }
                 // FileDebug.debugGameObject("actionDriver.json", ActionMenuDriver.Instance.gameObject);
-                Notification.SendMessage(TabMenu.playerPhoton, "Test");
+                // Notification.SendMessage(TabMenu.playerPhoton, "Test");
+                // Console.WriteLine(VRC.User.CreateSessionIdForUser(TabMenu.playerPhoton.userId));
+                // Console.WriteLine(VRC.Player.Instance.photonPlayer.RoomReference.CustomProperties.ToString());
                 return;
-            }
+            }*/
             /*
             if (Input.GetKey(KeyCode.PageDown))
             {
@@ -239,10 +271,12 @@ namespace Addons
                     InfinityJump.EventJump();
                 }
             }
+            /*
             if (Input.GetKeyDown(KeyCode.Delete))
             {
-                UserCameraController.Instance.cameraMode = CameraMode.Off;
+                UserCameraController.Instance.mode = UserCameraMode.Off;
             }
+            */
             if (!Input.GetKey(KeyCode.LeftControl)) return;
 
 
@@ -291,17 +325,19 @@ namespace Addons
                 */
                 return;
             }
+            /*
             if (Input.GetKeyDown(KeyCode.Delete))
             {
                 GameObject gameObject = UserCameraController.Instance.userCameraIndicator.gameObject;
                 gameObject.transform.position = new Vector3(float.NaN, float.NaN, float.NaN);
                 gameObject.transform.localPosition = new Vector3(float.NaN, float.NaN, float.NaN);
-                UserCameraController.Instance.cameraMode = CameraMode.Photo;
+                UserCameraController.Instance.mode = UserCameraMode.Photo;
                 VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "PhotoCapture", new IntPtr[0]);
                 for (int i = 0; i < 7; i++)
                     VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "TimerBloop", new IntPtr[0]);
                 VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "PhotoCapture", new IntPtr[0]);
             }
+            */
             if (Input.GetKeyDown(KeyCode.End))
             {
                 foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())
@@ -342,7 +378,7 @@ namespace Addons
                     {
                         ConSole.Message(SelectColesion.ToString() + " | " + SelectColesion.transform.position);
                         foreach(var comp in SelectColesion.GetComponents(typeof(Component)))
-                            ConSole.Debug(comp.ToString());
+                            ConSole.Debug(comp.ToString().ToString());
                     }
                 }
                 return;

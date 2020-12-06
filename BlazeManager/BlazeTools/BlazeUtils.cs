@@ -19,10 +19,7 @@ public static class BlazeUtils
             Convert.FromBase64String(base64String);
             return true;
         }
-        catch (Exception exception)
-        {
-            // Handle the exception
-        }
+        catch { }
         return false;
     }
 }

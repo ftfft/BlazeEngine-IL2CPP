@@ -1,7 +1,6 @@
 ﻿using System;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using BlazeIL.il2generic;
 
 namespace VRC.Core
@@ -10,194 +9,87 @@ namespace VRC.Core
     {
         public APIUser(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyCurrentUser = null;
         public static APIUser CurrentUser
         {
-            get
-            {
-                if (!IL2Get.Property("CurrentUser", Instance_Class, ref propertyCurrentUser))
-                    return null;
-
-                return propertyCurrentUser.GetGetMethod().Invoke()?.MonoCast<APIUser>();
-            }
+            get => Instance_Class.GetProperty(nameof(CurrentUser)).GetGetMethod().Invoke()?.unbox<APIUser>();
         }
 
-        private static IL2Method methodIsFriendsWith = null;
-        public static bool IsFriendsWith(string userId) => IsFriendsWith(IL2Import.StringToIntPtr(userId));
+        public static bool IsFriendsWith(string userId) => IsFriendsWith(new IL2String(userId).ptr);
         public static bool IsFriendsWith(IntPtr userId)
         {
-            if (!IL2Get.Method("IsFriendsWith", Instance_Class, ref methodIsFriendsWith))
-                return default;
-
-            return methodIsFriendsWith.Invoke(IntPtr.Zero, new IntPtr[] { userId }).Unbox<bool>();
+            return Instance_Class.GetMethod(nameof(IsFriendsWith)).Invoke(new IntPtr[] { userId }).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Method methodHasTag = null;
-        public bool HasTag(string tag) => HasTag(IL2Import.StringToIntPtr(tag));
+        public bool HasTag(string tag) => HasTag(new IL2String(tag).ptr);
         public bool HasTag(IntPtr tag)
         {
-            if (!IL2Get.Method("HasTag", Instance_Class, ref methodHasTag))
-                return default;
-
-            return methodHasTag.Invoke(ptr, new IntPtr[] { tag }).Unbox<bool>();
+            return Instance_Class.GetMethod(nameof(HasTag)).Invoke(ptr, new IntPtr[] { tag }).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyDisplayName = null;
         public string displayName
         {
-            get
-            {
-                if (!IL2Get.Property("displayName", Instance_Class, ref propertyDisplayName))
-                    return null;
-
-                return propertyDisplayName.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
+            get => Instance_Class.GetProperty(nameof(displayName)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
         }
 
-        private static IL2Property propertyTags = null;
         public string[] tags
         {
             get
             {
-                if (!IL2Get.Property("tags", Instance_Class, ref propertyTags))
-                    return null;
-
-                return new IL2List<string>(propertyTags.GetGetMethod().Invoke(ptr).ptr).ToArray();
+                return new IL2List<string>(Instance_Class.GetProperty(nameof(tags)).GetGetMethod().Invoke(ptr).ptr).ToArray();
             }
         }
         
-
-        private static IL2Property propertyHasVIPAccess = null;
         public bool hasVIPAccess
         {
-            get
-            {
-                if (!IL2Get.Property("hasVIPAccess", Instance_Class, ref propertyHasVIPAccess))
-                    return default;
-
-                IL2Object obj = propertyHasVIPAccess.GetGetMethod().Invoke(ptr);
-                if (obj == null)
-                    return default;
-
-                return obj.Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasVIPAccess)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyAllowAvatarCopying = null;
         public bool allowAvatarCopying
         {
-            get
-            {
-                if (!IL2Get.Property("allowAvatarCopying", Instance_Class, ref propertyAllowAvatarCopying))
-                    return default;
-
-                return propertyAllowAvatarCopying.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
-            set
-            {
-                if (!IL2Get.Property("allowAvatarCopying", Instance_Class, ref propertyAllowAvatarCopying))
-                    return;
-
-                propertyAllowAvatarCopying.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(allowAvatarCopying)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+            set => Instance_Class.GetProperty(nameof(allowAvatarCopying)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyHasModerationPowers = null;
         public bool hasModerationPowers
         {
-            get
-            {
-                if (!IL2Get.Property("hasModerationPowers", Instance_Class, ref propertyHasModerationPowers))
-                    return default;
-
-                return propertyHasModerationPowers.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasModerationPowers)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
         
-
-        private static IL2Property propertyHasScriptingAccess = null;
         public bool hasScriptingAccess
         {
-            get
-            {
-                if (!IL2Get.Property("hasScriptingAccess", Instance_Class, ref propertyHasScriptingAccess))
-                    return default;
-
-                return propertyHasScriptingAccess.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasScriptingAccess)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyHasKnownTrustLevel = null;
         public bool hasKnownTrustLevel
         {
-            get
-            {
-                if (!IL2Get.Property("hasKnownTrustLevel", Instance_Class, ref propertyHasKnownTrustLevel))
-                    return default;
-
-                return propertyHasKnownTrustLevel.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasKnownTrustLevel)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyHasVeteranTrustLevel = null;
         public bool hasVeteranTrustLevel
         {
-            get
-            {
-                if (!IL2Get.Property("hasVeteranTrustLevel", Instance_Class, ref propertyHasVeteranTrustLevel))
-                    return default;
-
-                return propertyHasVeteranTrustLevel.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasVeteranTrustLevel)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyHasTrustedTrustLevel = null;
         public bool hasTrustedTrustLevel
         {
-            get
-            {
-                if (!IL2Get.Property("hasTrustedTrustLevel", Instance_Class, ref propertyHasTrustedTrustLevel))
-                    return default;
-
-                return propertyHasTrustedTrustLevel.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasTrustedTrustLevel)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyHasBasicTrustLevel = null;
         public bool hasBasicTrustLevel
         {
-            get
-            {
-                if (!IL2Get.Property("hasBasicTrustLevel", Instance_Class, ref propertyHasBasicTrustLevel))
-                    return default;
-
-                return propertyHasBasicTrustLevel.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasBasicTrustLevel)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyHasNegativeTrustLevel = null;
         public bool hasNegativeTrustLevel
         {
-            get
-            {
-                if (!IL2Get.Property("hasNegativeTrustLevel", Instance_Class, ref propertyHasNegativeTrustLevel))
-                    return default;
-
-                return propertyHasNegativeTrustLevel.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(hasNegativeTrustLevel)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyLocation = null;
         public string location
         {
-            get
-            {
-                if (!IL2Get.Property("location", Instance_Class, ref propertyLocation))
-                    return default;
-
-                return propertyLocation.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
+            get => Instance_Class.GetProperty(nameof(location)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
         }
+
         public static new IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("APIUser", "VRC.Core");
     }
 }

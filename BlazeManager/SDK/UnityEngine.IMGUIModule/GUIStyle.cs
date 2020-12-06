@@ -6,10 +6,10 @@ using BlazeIL.il2reflection;
 namespace UnityEngine
 {
 	// ScriptableObject -> Object
-	public sealed class GUIStyle : IL2Base
+	public sealed class GUIStyle : Object
 	{
 		public GUIStyle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		public static IL2Type Instance_Class = Assemblies.a["UnityEngine.IMGUIModule"].GetClass("GUIStyle", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.IMGUIModule"].GetClass("GUIStyle", "UnityEngine");
 	}
 }

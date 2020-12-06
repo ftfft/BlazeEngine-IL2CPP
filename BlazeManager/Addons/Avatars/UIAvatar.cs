@@ -102,7 +102,7 @@ namespace Addons.Avatars
             if (favList == null)
                 return;
 
-            favList.cacheSpecificList.Clear();
+            favList.specificListValues.Clear();
             favList.specificListIds = UserUtils.Menu_AvatarsList.ToArray();
             favList.expandedHeight = 850f;
             favList.extendRows = 4;

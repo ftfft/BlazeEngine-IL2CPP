@@ -1,7 +1,5 @@
 ﻿using System;
-using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 
 namespace ExitGames.Client.Photon
 {
@@ -9,61 +7,24 @@ namespace ExitGames.Client.Photon
     {
         public EventData(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertySender = null;
         public int Sender
         {
-            get
-            {
-                if (propertySender == null)
-                {
-                    propertySender = Instance_Class.GetProperty("Sender");
-                    if (propertySender == null)
-                        return default;
-                }
-
-                return propertySender.GetGetMethod().Invoke(ptr).MonoCast<int>();
-            }
+            get => Instance_Class.GetProperty(nameof(Sender)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<int>();
         }
         
-        private static IL2Property propertyCustomData = null;
         public IL2Object CustomData
         {
-            get
-            {
-                if (propertyCustomData == null)
-                {
-                    propertyCustomData = Instance_Class.GetProperty("CustomData");
-                    if (propertyCustomData == null)
-                        return null;
-                }
-
-                return propertyCustomData.GetGetMethod().Invoke(ptr);
-            }
+            get => Instance_Class.GetProperty(nameof(CustomData)).GetGetMethod().Invoke(ptr);
         }
         
-        private static IL2Field fieldCode = null;
         public byte Code
         {
-            get
-            {
-                if (fieldCode == null)
-                {
-                    fieldCode = Instance_Class.GetField("Code");
-                    if (fieldCode == null)
-                        return default;
-                }
-
-                return fieldCode.GetValue(ptr).MonoCast<byte>();
-            }
+            get => Instance_Class.GetField(nameof(Code)).GetValue(ptr).unbox_Unmanaged<byte>();
         }
 
-        static IL2Method methodToString = null;
-        public override string ToString()
+        public new IL2String ToString()
         {
-            if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
-                return default;
-
-            return methodToString.Invoke(ptr)?.Unbox<string>();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
         public static IL2Type Instance_Class = Assemblies.a["Photon3Unity3D"].GetClass("EventData", "ExitGames.Client.Photon");

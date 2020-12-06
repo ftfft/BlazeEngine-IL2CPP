@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 
@@ -12,109 +9,86 @@ namespace Photon.Pun
 {
     public static class PhotonNetwork
     {
-        private static IL2Field fieldNetworkingClient = null;
+        // <!---------- ---------- ---------->
+        // <!---------- PROPERTY'S ---------->
+        // <!---------- ---------- ---------->
+        public static double Time
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(Time));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(double).FullName)).Name = nameof(Time);
+
+                IL2Object result = property?.GetGetMethod().Invoke();
+                if (result == null)
+                    return default;
+                return result.unbox_Unmanaged<double>();
+            }
+        }
+
+        // <!---------- ------- ---------->
+        // <!---------- FIELD'S ---------->
+        // <!---------- ------- ---------->
         public static LoadBalancingClient NetworkingClient
         {
             get
             {
-                if (fieldNetworkingClient == null)
-                {
-                    fieldNetworkingClient = Instance_Class.GetFields().First(x => x.ReturnType.Name == LoadBalancingClient.Instance_Class.FullName);
-                    if (fieldNetworkingClient == null)
-                        return null;
-                }
-                return fieldNetworkingClient.GetValue()?.unbox<LoadBalancingClient>();
-            }
-        }
-        private static IL2Property propertyPhotonTime = null;
-        public static double photonTime
-        {
-            get
-            {
-                if (propertyPhotonTime == null)
-                {
-                    propertyPhotonTime = Instance_Class.GetProperty(x => x.IsStatic && x.GetGetMethod().ReturnType.Name == typeof(double).FullName);
-                    if (propertyPhotonTime == null)
-                        return default;
-                }
-                return propertyPhotonTime.GetGetMethod().Invoke().unbox_Unmanaged<double>();
+                IL2Field field = Instance_Class.GetField(nameof(NetworkingClient));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.ReturnType.Name == LoadBalancingClient.Instance_Class.FullName)).Name = nameof(NetworkingClient);
+                return field?.GetValue()?.unbox<LoadBalancingClient>();
             }
         }
 
-        private static IL2Method methodTransferOwnership = null;
-        public static void TransferOwnership(int viewId, int fromId)
-        {
-            if (methodTransferOwnership == null)
-            {
-                methodTransferOwnership = Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName && x.GetParameters()[1].ReturnType.Name == typeof(int).FullName).First();
-                if (methodTransferOwnership == null)
-                    return;
-            }
-            methodTransferOwnership.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
-        }
-
-        private static IL2Method methodRequestOwnership = null;
         public static void RequestOwnership(int viewId, int fromId)
         {
-            if (methodRequestOwnership == null)
-            {
-                methodRequestOwnership = Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName && x.GetParameters()[1].ReturnType.Name == typeof(int).FullName).Last();
-                if (methodRequestOwnership == null)
-                    return;
-            }
-            methodRequestOwnership.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
+            IL2Method method = Instance_Class.GetMethod(nameof(RequestOwnership));
+            if (method == null)
+                (method = Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName && x.GetParameters()[1].ReturnType.Name == typeof(int).FullName).First()).Name = nameof(RequestOwnership);
+            method?.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
         }
 
-        private static IL2Method methodRPCSecure = null;
-        public static void RPCSecure(PhotonView photonView, string command, TargetType target, bool encrypt, IntPtr[] objects)
+        public static void TransferOwnership(int viewId, int fromId)
         {
-            if (methodRPCSecure == null)
-            {
-                methodRPCSecure = Instance_Class.GetMethods(x => x.GetParameters().Length == 5).First(x =>
-                x.GetParameters()[0].ReturnType.Name == PhotonView.Instance_Class.FullName &&
-                x.GetParameters()[1].ReturnType.Name == typeof(string).FullName &&
-                x.GetParameters()[2].ReturnType.Name != PhotonPlayer.Instance_Class.FullName &&
-                x.GetParameters()[3].ReturnType.Name == typeof(bool).FullName &&
-                x.GetParameters()[4].ReturnType.Name == typeof(object[]).FullName);
-                if (methodRPCSecure == null)
-                    return;
-            }
-
-            methodRPCSecure.Invoke(new IntPtr[] { photonView.ptr, new IL2String(command).ptr, target.MonoCast(), encrypt.MonoCast(), objects.ArrayToIntPtr() });
-        }
-        private static IL2Method methodRPCSecure2 = null;
-        public static void RPCSecure(PhotonView photonView, string command, PhotonPlayer target, bool encrypt, IntPtr[] objects)
-        {
-            if (methodRPCSecure2 == null)
-            {
-                methodRPCSecure2 = Instance_Class.GetMethods(x => x.GetParameters().Length == 5).First(x =>
-                x.GetParameters()[0].ReturnType.Name == PhotonView.Instance_Class.FullName &&
-                x.GetParameters()[1].ReturnType.Name == typeof(string).FullName &&
-                x.GetParameters()[2].ReturnType.Name == PhotonPlayer.Instance_Class.FullName &&
-                x.GetParameters()[3].ReturnType.Name == typeof(bool).FullName &&
-                x.GetParameters()[4].ReturnType.Name == typeof(object[]).FullName);
-                if (methodRPCSecure2 == null)
-                    return;
-            }
-
-            methodRPCSecure2.Invoke(IntPtr.Zero, new IntPtr[] { photonView.ptr, new IL2String(command).ptr, target.ptr, encrypt.MonoCast(), objects.ArrayToIntPtr() });
+            IL2Method method = Instance_Class.GetMethod(nameof(TransferOwnership));
+            if (method == null)
+                (method = Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName && x.GetParameters()[1].ReturnType.Name == typeof(int).FullName).Last()).Name = nameof(TransferOwnership);
+            method?.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
         }
 
-
-        private static IL2Method methodOpRaiseEvent = null;
-        public static bool OpRaiseEvent(byte operationCode, IntPtr operationParameters, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
+        public static void RPC(PhotonView view, string methodName, RpcTarget target, bool encrypt, IntPtr[] parameters)
         {
-            if (methodOpRaiseEvent == null)
-            {
-                methodOpRaiseEvent = Instance_Class.GetMethods(x => x.GetParameters().Length == 4 && x.IsStatic).First(x => x.GetParameters()[0].ReturnType.Name == "System.Byte" && x.HasFlag(IL2BindingFlags.METHOD_PRIVATE));
-                if (methodOpRaiseEvent == null)
-                    return false;
-            }
+            IL2Method method = Instance_Class.GetMethod(nameof(RPC), x => x.GetParameters().Length == 5 && x.GetParameters()[2].ReturnType.Name != Photon.Realtime.Player.Instance_Class.FullName);
+            if (method == null)
+                (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 5 && x.GetParameters()[2].ReturnType.Name != Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(RPC);
+            method?.Invoke(new IntPtr[] { view.ptr, new IL2String(methodName).ptr, target.MonoCast(), encrypt.MonoCast(), parameters.ArrayToIntPtr() });
+        }
 
-            IL2Object result = methodOpRaiseEvent.Invoke(new IntPtr[] { operationCode.MonoCast(), operationParameters, raiseEventOptions.ptr, sendOptions.MonoCast() });
+        public static void RPC(PhotonView view, string methodName, Photon.Realtime.Player targetPlayer, bool encrypt, IntPtr[] parameters)
+        {
+            IL2Method method = Instance_Class.GetMethod(nameof(RPC), x => x.GetParameters().Length == 5 && x.GetParameters()[2].ReturnType.Name == Photon.Realtime.Player.Instance_Class.FullName);
+            if (method == null)
+                (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 5 && x.GetParameters()[2].ReturnType.Name == Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(RPC);
+            method?.Invoke(new IntPtr[] { view.ptr, new IL2String(methodName).ptr, targetPlayer.ptr, encrypt.MonoCast(), parameters.ArrayToIntPtr() });
+        }
+
+        public static void RPC(PhotonView view, string methodName, RpcTarget target, Photon.Realtime.Player player, bool encrypt, IntPtr[] parameters)
+        {
+            IL2Method method = Instance_Class.GetMethod(nameof(RPC), x => x.GetParameters().Length == 6);
+            if (method == null)
+                (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 6 && x.GetParameters()[3].ReturnType.Name == Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(RPC);
+            method?.Invoke(new IntPtr[] { view.ptr, new IL2String(methodName).ptr, target.MonoCast(), player.ptr, encrypt.MonoCast(), parameters.ArrayToIntPtr() });
+        }
+
+        public static bool RaiseEvent(byte operationCode, IntPtr operationParameters, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
+        {
+            IL2Method method = Instance_Class.GetMethod(nameof(RaiseEvent));
+            if (method == null)
+                (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName && x.IsPrivate)).Name = nameof(RaiseEvent);
+            IL2Object result = method?.Invoke(new IntPtr[] { operationCode.MonoCast(), operationParameters, raiseEventOptions.ptr, sendOptions.MonoCast() });
             if (result == null)
-                return false;
-
+                return default;
             return result.unbox_Unmanaged<bool>();
         }
 

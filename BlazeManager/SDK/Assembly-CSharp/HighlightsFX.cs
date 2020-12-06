@@ -14,59 +14,41 @@ public class HighlightsFX : PostEffectsBase
 {
     public HighlightsFX(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Property propertyInstance = null;
     public static HighlightsFX Instance
     {
         get
         {
-            if (propertyInstance == null)
-            {
-                propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
-                if (propertyInstance == null)
-                    return null;
-            }
-
-            return propertyInstance.GetGetMethod().Invoke()?.unbox<HighlightsFX>();
+            IL2Property property = Instance_Class.GetProperty(nameof(Instance));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
+            return property?.GetGetMethod().Invoke()?.unbox<HighlightsFX>();
         }
     }
 
-    private static IL2Method methodEnableOutline = null;
     public void EnableOutline(Renderer renderer, bool isEnabled)
     {
-        if (methodEnableOutline == null)
-        {
-            methodEnableOutline = Instance_Class.GetMethods().First(x => x.GetParameters().Length == 2 && !x.HasFlag(IL2BindingFlags.METHOD_STATIC));
-            if (methodEnableOutline == null)
-                return;
-        }
+        IL2Method method = Instance_Class.GetMethod(nameof(EnableOutline));
+        if (method == null)
+            (method = Instance_Class.GetMethod(x => !x.IsStatic && x.GetParameters().Length == 2)).Name = nameof(EnableOutline);
 
-        methodEnableOutline.Invoke(ptr, new IntPtr[] { renderer.ptr, isEnabled.MonoCast() });
+        method?.Invoke(ptr, new IntPtr[] { renderer.ptr, isEnabled.MonoCast() });
     }
 
-    private static IL2Field fieldm_Material = null;
     public Material m_Material
     {
         get
         {
-            if (fieldm_Material == null)
-            {
-                fieldm_Material = Instance_Class.GetField(x => x.ReflectedType.FullName == Material.Instance_Class.FullName);
-                if (fieldm_Material == null)
-                    return null;
-            }
-
-            return fieldm_Material.GetValue(ptr)?.unbox<Material>();
+            IL2Field field = Instance_Class.GetField(nameof(m_Material));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == Material.Instance_Class.FullName)).Name = nameof(m_Material);
+            return field?.GetValue(ptr)?.unbox<Material>();
         }
         set
         {
-            if (fieldm_Material == null)
-            {
-                fieldm_Material = Instance_Class.GetField(x => x.ReflectedType.FullName == Material.Instance_Class.FullName);
-                if (fieldm_Material == null)
-                    return;
-            }
-
-            fieldm_Material.SetValue(ptr, value.ptr);
+            IL2Field field = Instance_Class.GetField(nameof(m_Material));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == Material.Instance_Class.FullName)).Name = nameof(m_Material);
+            field?.SetValue(ptr, value.ptr);
         }
     }
 

@@ -7,15 +7,22 @@ namespace BlazeIL.il2cpp
     {
         internal IL2Property(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
+        private string szName;
         public string Name
         {
             get
             {
-                var result = Marshal.PtrToStringAnsi(IL2Import.il2cpp_property_get_name(ptr));
-                if (Assemblies.isObfuscated == "tr")
-                    result = result.GetMD5();
-
-                return result;
+                if (string.IsNullOrEmpty(szName))
+                    szName = Marshal.PtrToStringAnsi(IL2Import.il2cpp_property_get_name(ptr));
+                return szName;
+            }
+            set
+            {
+                szName = value;
+                if (GetGetMethod() != null)
+                    GetGetMethod().Name = "get_" + value;
+                if (GetSetMethod() != null)
+                    GetSetMethod().Name = "set_" + value;
             }
         }
 

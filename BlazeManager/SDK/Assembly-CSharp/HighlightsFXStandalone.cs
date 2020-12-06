@@ -9,45 +9,33 @@ public sealed class HighlightsFXStandalone : HighlightsFX
 {
     public HighlightsFXStandalone(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static IL2Method constructHighlightsFXStandalone;
     public HighlightsFXStandalone() : base(IntPtr.Zero)
     {
-
-        if (constructHighlightsFXStandalone == null)
-        {
-            constructHighlightsFXStandalone = Instance_Class.GetMethod(".ctor");
-            if (constructHighlightsFXStandalone == null)
-                return;
-        }
-
         ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
-        constructHighlightsFXStandalone.Invoke(ptr);
+        Instance_Class.GetConstructor().Invoke(ptr);
     }
 
-    private static IL2Field field_highlightColor = null;
     public Color highlightColor
     {
         get
         {
-            if (field_highlightColor == null)
-            {
-                field_highlightColor = Instance_Class.GetField(x => x.ReturnType.Name == Color.Instance_Class.FullName);
-                if (field_highlightColor == null)
-                    return default;
-            }
+            IL2Field field = Instance_Class.GetField(nameof(m_Material));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == Color.Instance_Class.FullName)).Name = nameof(m_Material);
 
-            return field_highlightColor.GetValue(ptr).unbox_Unmanaged<Color>();
+            IL2Object result = field.GetValue(ptr);
+            if (result == null)
+                return default;
+
+            return result.unbox_Unmanaged<Color>();
         }
         set
         {
-            if (field_highlightColor == null)
-            {
-                field_highlightColor = Instance_Class.GetField(x => x.ReturnType.Name == Color.Instance_Class.FullName);
-                if (field_highlightColor == null)
-                    return;
-            }
+            IL2Field field = Instance_Class.GetField(nameof(m_Material));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == Color.Instance_Class.FullName)).Name = nameof(m_Material);
 
-            field_highlightColor.SetValue(ptr, value.MonoCast());
+            field?.SetValue(ptr, value.MonoCast());
         }
     }
 

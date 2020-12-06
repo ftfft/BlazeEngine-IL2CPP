@@ -13,22 +13,9 @@ namespace System
     {
         public TypeIL(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static IL2Method methodToString;
-        public override string ToString()
+        public new IL2String ToString()
         {
-            if (methodToString == null)
-            {
-                methodToString = Instance_Class.GetMethod("ToString");
-                if (methodToString == null)
-                    return null;
-            }
-
-            IL2Object @object = null;
-            @object = methodToString.Invoke(ptr);
-            if (@object == null)
-                return null;
-
-            return new IL2String(@object.ptr).ToString();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
         public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("Type", "System");

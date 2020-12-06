@@ -7,31 +7,10 @@ namespace UnityEngine
 {
     public static class Physics
     {
-        private static IL2Property propertyGravity = null;
         public static Vector3 gravity
         {
-            get
-            {
-                if(propertyGravity == null)
-                {
-                    propertyGravity = Instance_Class.GetProperty("gravity");
-                    if (propertyGravity == null)
-                        return default;
-                }
-
-                return propertyGravity.GetGetMethod().Invoke().Unbox<Vector3>();
-            }
-            set
-            {
-                if (propertyGravity == null)
-                {
-                    propertyGravity = Instance_Class.GetProperty("gravity");
-                    if (propertyGravity == null)
-                        return;
-                }
-
-                propertyGravity.GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(gravity)).GetGetMethod().Invoke().unbox_Unmanaged<Vector3>();
+            set => Instance_Class.GetProperty(nameof(gravity)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
         }
 
         private static IL2Method RayCastMini = null;

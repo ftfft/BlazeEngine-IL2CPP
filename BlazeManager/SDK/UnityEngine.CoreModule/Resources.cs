@@ -8,7 +8,6 @@ namespace UnityEngine
 {
     public sealed class Resources
     {
-        private static IL2Method methodFindObjectsOfTypeAll = null;
         public static T[] FindObjectsOfTypeAll<T>()
         {
             Object[] objects = FindObjectsOfTypeAll(typeof(T));
@@ -21,20 +20,11 @@ namespace UnityEngine
         }
         public static Object[] FindObjectsOfTypeAll(Type type)
         {
-            if (methodFindObjectsOfTypeAll == null)
-            {
-                methodFindObjectsOfTypeAll = Instance_Class.GetMethods()
-                    .Where(x => x.Name == "FindObjectsOfTypeAll")
-                    .First(x => x.ReturnType.Name == "UnityEngine.Object[]");
-                if (methodFindObjectsOfTypeAll == null)
-                    return null;
-            }
-
             IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
             if (typeObject == null)
                 return null;
 
-            IL2Object @object = methodFindObjectsOfTypeAll.Invoke(new IntPtr[] { typeObject.ptr });
+            IL2Object @object = Instance_Class.GetMethod(nameof(FindObjectsOfTypeAll), x => x.ReturnType.Name == Object.Instance_Class.FullName + "[]").Invoke(new IntPtr[] { typeObject.ptr });
             if (@object == null)
                 return new Object[0];
 

@@ -15,7 +15,7 @@ namespace VRCheat.SDK.IL2CPP
             if (obj is IL2Base b) return b.ptr == ptr;
             return false;
         }
-        public T MonoCast<T>() => ptr.MonoCast<T>();
+        // public T MonoCast<T>() => ptr.MonoCast<T>();
         public override int GetHashCode() => ptr.GetHashCode();
         public static bool operator !=(IL2Base x, IL2Base y) => !(x == y);
         public static bool operator ==(IL2Base x, IL2Base y)

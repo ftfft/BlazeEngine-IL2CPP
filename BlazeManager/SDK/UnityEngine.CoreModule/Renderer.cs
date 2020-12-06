@@ -12,29 +12,10 @@ namespace UnityEngine
 	{
 		public Renderer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		private static IL2Property propertyMaterial = null;
 		public Material material
 		{
-			get
-			{
-				if (propertyMaterial == null)
-				{
-					propertyMaterial = Instance_Class.GetProperty("material");
-					if (propertyMaterial == null)
-						return null;
-				}
-				return propertyMaterial.GetGetMethod().Invoke(ptr)?.MonoCast<Material>();
-			}
-			set
-			{
-				if (propertyMaterial == null)
-				{
-					propertyMaterial = Instance_Class.GetProperty("material");
-					if (propertyMaterial == null)
-						return;
-				}
-				propertyMaterial.GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
-			}
+			get => Instance_Class.GetProperty(nameof(material)).GetGetMethod().Invoke(ptr)?.unbox<Material>();
+			set => Instance_Class.GetProperty(nameof(material)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
 		}
 
 		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Renderer", "UnityEngine");

@@ -7,18 +7,19 @@ namespace BlazeIL.il2cpp
     {
         internal IL2Field(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
+
+        private string szName;
         public string Name
         {
             get
             {
-                var result = Marshal.PtrToStringAnsi(IL2Import.il2cpp_field_get_name(ptr));
-                if (Assemblies.isObfuscated == "tr")
-                    result = result.GetMD5();
-
-                return result;
+                if (string.IsNullOrEmpty(szName))
+                    szName = Marshal.PtrToStringAnsi(IL2Import.il2cpp_field_get_name(ptr));
+                return szName;
             }
+            set => szName = value;
         }
-    public IL2ReturnType ReturnType => new IL2ReturnType(IL2Import.il2cpp_field_get_type(ptr));
+        public IL2ReturnType ReturnType => new IL2ReturnType(IL2Import.il2cpp_field_get_type(ptr));
         public int Token => IL2Import.il2cpp_field_get_offset(ptr);
 
         public IL2BindingFlags Flags
@@ -32,6 +33,8 @@ namespace BlazeIL.il2cpp
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
 
         public bool IsStatic => HasFlag(IL2BindingFlags.FIELD_STATIC);
+        public bool IsPrivate => HasFlag(IL2BindingFlags.FIELD_PRIVATE);
+        public bool IsPublic => HasFlag(IL2BindingFlags.FIELD_PUBLIC);
 
         public bool Instance => IsStatic && ReturnType.Name == ReflectedType.FullName;
         public IL2Type ReflectedType => new IL2Type(IL2Import.il2cpp_field_get_parent(ptr));

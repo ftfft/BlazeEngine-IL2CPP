@@ -10,7 +10,6 @@ namespace UnityEngine
     {
         public Object(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Method methodGetInstantiate = null;
         public static T Instantiate<T>(T original, Transform parent) where T : Object
         {
             return Instantiate(original.MonoCast<Object>(), parent, false)?.MonoCast<T>();
@@ -22,27 +21,12 @@ namespace UnityEngine
         }
         public static Object Instantiate(Object original, Transform parent, bool instantiateInWorldSpace)
         {
-            if (methodGetInstantiate == null)
-            {
-                methodGetInstantiate = Instance_Class.GetMethods()
-                    .Where(x => x.Name == "Instantiate"
-                        && x.GetParameters().Length == 3
-                        && x.ReturnType.Name == Instance_Class.FullName)
-                    .First(x => x.GetParameters()[2].ReturnType.Name == "System.Boolean");
-                if (methodGetInstantiate == null)
-                    return null;
-            }
-
-            if (original == null)
-                throw new Exception("Instantiate original null");
-
-            if (parent == null)
-                throw new Exception("Instantiate parent null");
-
-            return methodGetInstantiate.Invoke(new IntPtr[] { original.ptr, parent.ptr, instantiateInWorldSpace.MonoCast() })?.MonoCast<Object>();
+            return Instance_Class.GetMethod(nameof(Instantiate),
+                x => x.GetParameters().Length == 3
+                && x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName
+                && x.ReturnType.Name == Instance_Class.FullName).Invoke(new IntPtr[] { original.ptr, parent.ptr, instantiateInWorldSpace.MonoCast() })?.MonoCast<Object>();
         }
 
-        private static IL2Method methodFindObjectsOfType = null;
         public static T FindObjectOfType<T>() where T : Object
         {
             var result = FindObjectsOfType<T>();
@@ -75,100 +59,44 @@ namespace UnityEngine
         }
         public static Object[] FindObjectsOfType(Type type)
         {
-            if (methodFindObjectsOfType == null)
-            {
-                methodFindObjectsOfType = Instance_Class.GetMethod("FindObjectsOfType", x => x.GetParameters().Length == 1);
-                if (methodFindObjectsOfType == null)
-                    return null;
-            }
-
             IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
             if (typeObject == null)
                 return null;
 
-            return methodFindObjectsOfType.Invoke(new IntPtr[] { typeObject.ptr }).UnboxArray<Object>();
+            return Instance_Class.GetMethod(nameof(FindObjectsOfType), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { typeObject.ptr }).UnboxArray<Object>();
         }
 
-        private static IL2Method methodDestroy = null;
         public void Destroy() => Destroy(this, 0f);
         public void Destroy(float time) => Destroy(this, time);
         public static void Destroy(Object obj) => Destroy(obj, 0f);
         public static void Destroy(Object obj, float time)
         {
-            if (methodDestroy == null)
-            {
-                methodDestroy = Instance_Class.GetMethod("Destroy", m => m.GetParameters().Length == 2);
-                if (methodDestroy == null)
-                    return;
-            }
             if (obj == null || time < 0)
                 return;
 
-            methodDestroy.Invoke(new IntPtr[] { obj.ptr, time.MonoCast() });
+            Instance_Class.GetMethod(nameof(Destroy), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { obj.ptr, time.MonoCast() });
         }
 
-        private static IL2Method methodFindObjectFromInstanceID = null;
         public static Object FindObjectFromInstanceID(int instanceID) => FindObjectFromInstanceID(instanceID.MonoCast());
         public static Object FindObjectFromInstanceID(IntPtr instanceID)
         {
-            if (methodFindObjectFromInstanceID == null)
-            {
-                methodFindObjectFromInstanceID = Instance_Class.GetMethod("FindObjectFromInstanceID");
-                if (methodFindObjectFromInstanceID == null)
-                    return null;
-            }
-
-            return methodFindObjectFromInstanceID.Invoke(new IntPtr[] { instanceID })?.MonoCast<Object>();
+            return Instance_Class.GetMethod(nameof(FindObjectFromInstanceID)).Invoke(new IntPtr[] { instanceID })?.MonoCast<Object>();
         }
 
-        private static IL2Method methodDontDestroyOnLoad = null;
         public static void DontDestroyOnLoad(Object target)
         {
-            if (methodDontDestroyOnLoad == null)
-            {
-                methodDontDestroyOnLoad = Instance_Class.GetMethod("DontDestroyOnLoad");
-                if (methodDontDestroyOnLoad == null)
-                    return;
-            }
-
-            methodDontDestroyOnLoad.Invoke(new IntPtr[] { target.ptr });
+            Instance_Class.GetMethod(nameof(DontDestroyOnLoad)).Invoke(new IntPtr[] { target.ptr });
         }
 
-        private static IL2Property propertyName = null;
         public string name
         {
-            get
-            {
-                if(propertyName == null)
-                {
-                    propertyName = Instance_Class.GetProperty("name");
-                    if (propertyName == null)
-                        return null;
-                }
-
-                return propertyName.GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
-            }
-            set
-            {
-                if (propertyName == null)
-                {
-                    propertyName = Instance_Class.GetProperty("name");
-                    if (propertyName == null)
-                        return;
-                }
-
-                propertyName.GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
-            }
+            get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
-
-        private static IL2Method methodToString = null;
-        public override string ToString()
+        public new IL2String ToString()
         {
-            if (!IL2Get.Method("ToString", Instance_Class, ref methodToString))
-                return default;
-
-            return methodToString.Invoke(ptr)?.unbox_ToString().ToString();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
         public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Object", "UnityEngine");

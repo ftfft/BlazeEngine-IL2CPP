@@ -13,7 +13,6 @@ namespace UnityEngine
 		public MeshFilter(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
 
-
 		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("MeshFilter", "UnityEngine");
 	}
 }

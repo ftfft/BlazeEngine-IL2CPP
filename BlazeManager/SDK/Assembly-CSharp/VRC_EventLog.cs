@@ -6,7 +6,7 @@ using BlazeIL.il2cpp;
 using UnityEngine;
 using VRC.SDKBase;
 
-public class VRC_EventLog : MonoBehaviour
+public class VRC_EventLog : VRCNetworkBehaviour
 {
     public VRC_EventLog(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -22,18 +22,10 @@ public class VRC_EventLog : MonoBehaviour
     {
         public VrcEvent(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Method constructVrcEvent = null;
         public VrcEvent() : base(IntPtr.Zero)
         {
-            if (constructVrcEvent == null)
-            {
-                constructVrcEvent = Instance_Class.GetMethod(".ctor");
-                if (constructVrcEvent == null)
-                    return;
-            }
-
             ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
-            constructVrcEvent.Invoke(ptr);
+            Instance_Class.GetConstructor().Invoke(ptr);
         }
 
         public VRC_EventHandler.VrcEvent vrcEvent

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using BlazeIL;
 using BlazeIL.il2cpp;
 
 namespace UnityEngine.UI
@@ -8,34 +6,12 @@ namespace UnityEngine.UI
     // Text -> MaskableGraphic -> Graphic -> UIBehaviour -> MonoBehaviour -> Behaviour -> Component
     public class Text : Graphic
     {
-        public Text(IntPtr ptrONew) : base(ptrONew) =>
-            ptr = ptrONew;
+        public Text(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyText = null;
         public string text
         {
-            get
-            {
-                if (propertyText == null)
-                {
-                    propertyText = Instance_Class.GetProperty("text");
-                    if (propertyText == null)
-                        return null;
-                }
-
-                return propertyText.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-            set
-            {
-                if (propertyText == null)
-                {
-                    propertyText = Instance_Class.GetProperty("text");
-                    if (propertyText == null)
-                        return;
-                }
-
-                propertyText.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
-            }
+            get => Instance_Class.GetProperty(nameof(text)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
         public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.UI"].GetClass("Text", "UnityEngine.UI");

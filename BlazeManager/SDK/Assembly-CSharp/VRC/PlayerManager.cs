@@ -11,56 +11,27 @@ namespace VRC
     {
         public PlayerManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Method methodGetPlayer;
-        public static Player GetPlayer(int photonId)
-        {
-            if (methodGetPlayer == null)
-            {
-                methodGetPlayer = Instance_Class.GetMethods().First(x => x.ReturnType.Name == Player.Instance_Class.FullName && x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == "System.Int32");
-                if (methodGetPlayer == null)
-                    return null;
-            }
-
-            return methodGetPlayer.Invoke(new IntPtr[] { photonId.MonoCast() })?.Unbox<Player>();
-        }
-
-
-
-
-        private static IL2Property propertyAllPlayers;
-        public static Player[] GetAllPlayers() => Instance.AllPlayers;
-        public Player[] AllPlayers
-        {
-            get
-            {
-                if (propertyAllPlayers == null)
-                {
-                    propertyAllPlayers = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName + "[]");
-                    if (propertyAllPlayers == null)
-                        return null;
-                }
-                return propertyAllPlayers.GetGetMethod().Invoke(ptr)?.UnboxArray<Player>();
-            }
-        }
-
-        private static IL2Field fieldInstance;
         public static PlayerManager Instance
         {
             get
             {
-                if (fieldInstance == null)
-                {
-                    fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
-                    if (fieldInstance == null)
-                        return null;
-                }
-                return fieldInstance.GetValue()?.Unbox<PlayerManager>();
+                IL2Property property = Instance_Class.GetProperty(nameof(Instance));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
+                return property?.GetGetMethod().Invoke()?.unbox<PlayerManager>();
             }
         }
 
-        public static Dictionary<string, IL2Property> properties = new Dictionary<string, IL2Property>();
-        public static Dictionary<string, IL2Method> methods = new Dictionary<string, IL2Method>();
-        public static Dictionary<string, IL2Field> fields = new Dictionary<string, IL2Field>();
+        public Player[] PlayersCopy
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(PlayersCopy));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName + "[]")).Name = nameof(PlayersCopy);
+                return property?.GetGetMethod().Invoke(ptr)?.unbox_ToArray<Player>();
+            }
+        }
 
         public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PlayerManager", "VRC");
     }

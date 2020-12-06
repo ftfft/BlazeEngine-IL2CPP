@@ -3,61 +3,34 @@ using BlazeIL;
 using BlazeIL.il2cpp;
 using UnityEngine;
 
-public class USpeaker : Component
+public class USpeaker : MonoBehaviour
 {
     public USpeaker(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Field fieldMute = null;
     public bool Mute
     {
-        get
-        {
-            if (fieldMute == null)
-            {
-                fieldMute = Instance_Class.GetField("Mute");
-                if (fieldMute == null)
-                    return true;
-            }
-
-            return fieldMute.GetValue(ptr).Unbox<bool>();
-        }
-        set
-        {
-            if (fieldMute == null)
-            {
-                fieldMute = Instance_Class.GetField("Mute");
-                if (fieldMute == null)
-                    return;
-            }
-
-            fieldMute.SetValue(ptr, value.MonoCast());
-        }
+        get => Instance_Class.GetField(nameof(Mute)).GetValue(ptr).unbox_Unmanaged<bool>();
+        set => Instance_Class.GetField(nameof(Mute)).SetValue(ptr, value.MonoCast());
     }
 
-    private static IL2Field fieldLocalGain = null;
     public static float LocalGain
     {
         get
         {
-            if (fieldLocalGain == null)
-            {
-                fieldLocalGain = Instance_Class.GetField(x => x.Token == 0x4);
-                if (fieldLocalGain == null)
-                    return 0f;
-            }
-
-            return fieldLocalGain.GetValue().Unbox<float>();
+            IL2Field field = Instance_Class.GetField(nameof(LocalGain));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.Token == 0x4)).Name = nameof(LocalGain);
+            IL2Object result = field.GetValue();
+            if (result == null)
+                return default;
+            return result.unbox_Unmanaged<float>();
         }
         set
         {
-            if (fieldLocalGain == null)
-            {
-                fieldLocalGain = Instance_Class.GetField(x => x.Token == 0x4);
-                if (fieldLocalGain == null)
-                    return;
-            }
-
-            fieldLocalGain.SetValue(value.MonoCast());
+            IL2Field field = Instance_Class.GetField(nameof(LocalGain));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.Token == 0x4)).Name = nameof(LocalGain);
+            field?.SetValue(value.MonoCast());
         }
     }
 

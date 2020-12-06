@@ -4,32 +4,25 @@ using UnityEngine;
 using BlazeIL;
 using BlazeIL.il2cpp;
 
-public class ObjectInstantiatorHandle : Component
+public class ObjectInstantiatorHandle : MonoBehaviour
 {
     public ObjectInstantiatorHandle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-	private static IL2Field fieldInstantiator = null;
 	public ObjectInstantiator Instantiator
 	{
 		get
 		{
-			if (fieldInstantiator == null)
-			{
-				fieldInstantiator = Instance_Class.GetFields().First(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName);
-				if (fieldInstantiator == null)
-					return null;
-			}
-			return fieldInstantiator.GetValue(ptr).MonoCast<ObjectInstantiator>();
+			IL2Field field = Instance_Class.GetField(nameof(Instantiator));
+			if (field == null)
+				(field = Instance_Class.GetField(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName)).Name = nameof(Instantiator); ;
+			return field?.GetValue(ptr)?.unbox<ObjectInstantiator>();
 		}
 		set
 		{
-			if (fieldInstantiator == null)
-			{
-				fieldInstantiator = Instance_Class.GetFields().First(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName);
-				if (fieldInstantiator == null)
-					return;
-			}
-			fieldInstantiator.SetValue(ptr, value.ptr);
+			IL2Field field = Instance_Class.GetField(nameof(Instantiator));
+			if (field == null)
+				(field = Instance_Class.GetField(x => x.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName)).Name = nameof(Instantiator);
+			field?.SetValue(ptr, value.ptr);
 		}
 	}
 

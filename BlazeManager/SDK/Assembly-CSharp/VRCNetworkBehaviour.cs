@@ -9,35 +9,27 @@ public abstract class VRCNetworkBehaviour : MonoBehaviourPun
 {
     public VRCNetworkBehaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Property propertyPhotonView = null;
     public new PhotonView photonView
     {
         get
         {
-            if (propertyPhotonView == null)
-            {
-                propertyPhotonView = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == PhotonView.Instance_Class.FullName);
-                if (propertyPhotonView == null)
-                    return default;
-            }
+            IL2Property property = Instance_Class.GetProperty(nameof(photonView));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PhotonView.Instance_Class.FullName)).Name = nameof(photonView);
 
-            return propertyPhotonView.GetGetMethod().Invoke(ptr)?.Unbox<PhotonView>();
+            return property?.GetGetMethod().Invoke(ptr)?.unbox<PhotonView>();
         }
     }
 
-    private static IL2Property propertyVRC_EventHandler = null;
-    public VRC_EventHandler eventHandler
+    public VRC_EventHandler EventHandler
     {
         get
         {
-            if (propertyVRC_EventHandler == null)
-            {
-                propertyVRC_EventHandler = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == VRC_EventHandler.Instance_Class.FullName);
-                if (propertyVRC_EventHandler == null)
-                    return default;
-            }
+            IL2Property property = Instance_Class.GetProperty(nameof(EventHandler));
+            if (property == null)
+                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRC_EventHandler.Instance_Class.FullName)).Name = nameof(EventHandler);
 
-            return propertyVRC_EventHandler.GetGetMethod().Invoke(ptr)?.Unbox<VRC_EventHandler>();
+            return property?.GetGetMethod().Invoke(ptr)?.Unbox<VRC_EventHandler>();
         }
     }
 

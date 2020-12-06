@@ -43,7 +43,7 @@ namespace Addons.Patch
             _delegateVRC_Player_DispatchedUpdate.Invoke(instance, fTimer);
 
             VRCPlayer vrcPlayer = new VRCPlayer(instance);
-            VRC.Core.APIUser apiuser = vrcPlayer?.player.apiuser;
+            VRC.Core.APIUser apiuser = vrcPlayer?.player.user;
             if (apiuser == null) return;
 
             SocialRank rank = VRCPlayer.GetSocialRank(apiuser);
@@ -60,10 +60,6 @@ namespace Addons.Patch
                 textRank = "Known";
 
             if (string.IsNullOrWhiteSpace(textRank)) return;
-            VRCUiShadowPlate vipPlate = vrcPlayer.vipPlate;
-            vipPlate.Show();
-            vipPlate.mainText.text = textRank;
-            vipPlate.dropShadow.text = textRank;
         }
 
 

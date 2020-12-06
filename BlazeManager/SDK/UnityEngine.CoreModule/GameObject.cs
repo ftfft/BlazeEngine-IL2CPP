@@ -10,32 +10,20 @@ namespace UnityEngine
     {
         public GameObject(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Method methodAddComponent = null;
         public Component AddComponent(Type type)
         {
-            if (methodAddComponent == null)
-            {
-                methodAddComponent = Instance_Class.GetMethod("AddComponent", m => m.GetParameters().Length == 1);
-                if (methodAddComponent == null)
-                    return null;
-            }
-
             IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
             if (typeObject == null)
                 return null;
 
-            return methodAddComponent.Invoke(ptr, new IntPtr[] { typeObject.ptr })?.MonoCast<Component>();
+            return Instance_Class.GetMethod(nameof(AddComponent), m => m.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { typeObject.ptr })?.unbox<Component>();
         }
 
         public T AddComponent<T>() where T : Component => AddComponent(typeof(T))?.MonoCast<T>();
 
-        private static IL2Method methodCreatePremetive = null;
         public static GameObject CreatePrimitive(PrimitiveType type)
         {
-            if (!IL2Get.Method("CreatePrimitive", Instance_Class, ref methodCreatePremetive))
-                return null;
-
-            return methodCreatePremetive.Invoke(new IntPtr[] { type.MonoCast() })?.MonoCast<GameObject>();
+            return Instance_Class.GetMethod(nameof(CreatePrimitive)).Invoke(new IntPtr[] { type.MonoCast() })?.unbox<GameObject>();
         }
 
         public T GetOrAddComponent<T>() where T : Component
@@ -66,27 +54,18 @@ namespace UnityEngine
             return methodGetComponentByName.Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(type) })?.Unbox<Component>();
         }
 
-        private static IL2Method methodGetComponentInChildren = null;
         public T GetComponentInChildren<T>() => GetComponentInChildren(typeof(T)).MonoCast<T>();
         public T GetComponentInChildren<T>(bool includeInactive) => GetComponentInChildren(typeof(T), includeInactive).MonoCast<T>();
         public Component GetComponentInChildren(Type type) => GetComponentInChildren(type, false);
         public Component GetComponentInChildren(Type type, bool includeInactive)
         {
-            if (methodGetComponentInChildren == null)
-            {
-                methodGetComponentInChildren = Instance_Class.GetMethod("GetComponentInChildren", x => x.GetParameters().Length == 2);
-                if (methodGetComponentInChildren == null)
-                    return null;
-            }
-
             IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
             if (typeObject == null)
                 return null;
 
-            return methodGetComponentInChildren.Invoke(ptr, new IntPtr[] { typeObject.ptr, includeInactive.MonoCast() })?.MonoCast<Component>();
+            return Instance_Class.GetMethod(nameof(GetComponentInChildren), x => x.GetParameters().Length == 2).Invoke(ptr, new IntPtr[] { typeObject.ptr, includeInactive.MonoCast() })?.MonoCast<Component>();
         }
 
-        private static IL2Method methodGetComponentsByType = null;
         public T[] GetComponents<T>()
         {
             Component[] components = GetComponents(typeof(T));
@@ -102,26 +81,17 @@ namespace UnityEngine
         }
         public Component[] GetComponents(Type type)
         {
-            if (methodGetComponentsByType == null)
-            {
-                methodGetComponentsByType = Instance_Class.GetMethods(x => x.Name == "GetComponents")
-                    .First(x => x.GetParameters().Length == 1 && x.ReturnType.Name.EndsWith("[]"));
-                if (methodGetComponentsByType == null)
-                    return null;
-            }
-
             IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
             if (typeObject == null)
                 return null;
 
-            IL2Object result = methodGetComponentsByType.Invoke(ptr, new IntPtr[] { typeObject.ptr });
+            IL2Object result = Instance_Class.GetMethod(nameof(GetComponents), x => x.GetParameters().Length == 1 && x.ReturnType.Name.EndsWith("[]")).Invoke(ptr, new IntPtr[] { typeObject.ptr });
             if (result != null)
                 return result.UnboxArray<Component>();
 
             return new Component[0];
         }
 
-        private static IL2Method methodGetComponentsInChildren = null;
         public T[] GetComponentsInChildren<T>() => GetComponentsInChildren<T>(false);
         public T[] GetComponentsInChildren<T>(bool includeInactive)
         {
@@ -139,186 +109,80 @@ namespace UnityEngine
         public Component[] GetComponentsInChildren(Type type) => GetComponentsInChildren(type, false);
         public Component[] GetComponentsInChildren(Type type, bool includeInactive)
         {
-            if (methodGetComponentsInChildren == null)
-            {
-                methodGetComponentsInChildren = Instance_Class.GetMethods()
-                    .Where(x => x.Name == "GetComponentsInChildren")
-                    .Where(x => x.GetParameters().Length == 2)
-                    .First(x => x.ReturnType.Name.EndsWith("[]"));
-                if (methodGetComponentsInChildren == null)
-                    return null;
-            }
-
             IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
             if (typeObject == null)
                 return null;
 
-            IL2Object result = methodGetComponentsInChildren.Invoke(ptr, new IntPtr[] { typeObject.ptr, includeInactive.MonoCast() });
+            IL2Object result = Instance_Class.GetMethod(nameof(GetComponentsInChildren), x => x.GetParameters().Length == 2 && x.ReturnType.Name.EndsWith("[]")).Invoke(ptr, new IntPtr[] { typeObject.ptr, includeInactive.MonoCast() });
             if (result != null)
                 return result.UnboxArray<Component>();
 
             return new Component[0];
         }
 
-        private static IL2Method methodFindWithTag = null;
         public static GameObject FindWithTag(string tag)
         {
-            if (!IL2Get.Method("FindWithTag", Instance_Class, ref methodFindWithTag))
-                return null;
-
-            return methodFindWithTag.Invoke(new IntPtr[] { IL2Import.StringToIntPtr(tag) })?.MonoCast<GameObject>();
+            return Instance_Class.GetMethod(nameof(FindWithTag)).Invoke(new IntPtr[] { new IL2String(tag).ptr })?.unbox<GameObject>();
         }
         
 
-        private static IL2Method methodFind = null;
         public static GameObject Find(string name)
         {
-            if (!IL2Get.Method("Find", Instance_Class, ref methodFind))
-                return null;
-
-            return methodFind.Invoke(new IntPtr[] { IL2Import.StringToIntPtr(name) })?.MonoCast<GameObject>();
+            return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).ptr })?.unbox<GameObject>();
         }
 
-        private static IL2Property propertyTransform = null;
         public Transform transform
         {
-            get
-            {
-                if (!IL2Get.Property("transform", Instance_Class, ref propertyTransform))
-                    return null;
-
-                return propertyTransform.GetGetMethod().Invoke(ptr)?.Unbox<Transform>();
-            }
+            get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(ptr)?.unbox<Transform>();
         }
 
-        private static IL2Property propertyLayer = null;
         public int layer
         {
-            get
-            {
-                if (!IL2Get.Property("layer", Instance_Class, ref propertyLayer))
-                    return default;
-
-                return propertyLayer.GetGetMethod().Invoke(ptr).Unbox<int>();
-            }
-            set
-            {
-                if (!IL2Get.Property("layer", Instance_Class, ref propertyLayer))
-                    return;
-
-                propertyLayer.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(layer)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<int>();
+            set => Instance_Class.GetProperty(nameof(layer)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyActive = null;
         public bool active
         {
-            get
-            {
-                if (!IL2Get.Property("active", Instance_Class, ref propertyActive))
-                    return default;
-
-                return propertyActive.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
-            set
-            {
-                if (!IL2Get.Property("active", Instance_Class, ref propertyActive))
-                    return;
-
-                propertyActive.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(active)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+            set => Instance_Class.GetProperty(nameof(active)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Method methodSetActive = null;
         public void SetActive(bool value)
         {
-            if (!IL2Get.Method("SetActive", Instance_Class, ref methodSetActive))
-                return;
-
-            methodSetActive.Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            Instance_Class.GetMethod(nameof(SetActive)).Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyActiveSelf = null;
         public bool activeSelf
         {
-            get
-            {
-                if (!IL2Get.Property("activeSelf", Instance_Class, ref propertyActiveSelf))
-                    return default;
-
-                return propertyActiveSelf.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(activeSelf)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyActiveInHierarchy = null;
         public bool activeInHierarchy
         {
-            get
-            {
-                if (!IL2Get.Property("activeInHierarchy", Instance_Class, ref propertyActiveInHierarchy))
-                    return default;
-
-                return propertyActiveInHierarchy.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
+            get => Instance_Class.GetProperty(nameof(activeInHierarchy)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Method methodSetActiveRecursively = null;
         public void SetActiveRecursively(bool value)
         {
-            if (!IL2Get.Method("SetActiveRecursively", Instance_Class, ref methodSetActiveRecursively))
-                return;
-
-            methodSetActiveRecursively.Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            Instance_Class.GetMethod(nameof(SetActiveRecursively)).Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyIsStatic = null;
         public bool isStatic
         {
-            get
-            {
-                if (!IL2Get.Property("isStatic", Instance_Class, ref propertyIsStatic))
-                    return default;
-
-                return propertyIsStatic.GetGetMethod().Invoke(ptr).Unbox<bool>();
-            }
-            set
-            {
-                if (!IL2Get.Property("isStatic", Instance_Class, ref propertyIsStatic))
-                    return;
-
-                propertyIsStatic.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(isStatic)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
+            set => Instance_Class.GetProperty(nameof(isStatic)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyTag = null;
         public string tag
         {
-            get
-            {
-                if (!IL2Get.Property("tag", Instance_Class, ref propertyTag))
-                    return null;
-
-                return propertyTag.GetGetMethod().Invoke(ptr)?.Unbox<string>();
-            }
-            set
-            {
-                if (!IL2Get.Property("tag", Instance_Class, ref propertyTag))
-                    return;
-
-                propertyTag.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(value) });
-            }
+            get => Instance_Class.GetProperty(nameof(tag)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+            set => Instance_Class.GetProperty(nameof(tag)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
-        private static IL2Property propertyGameObject = null;
         public GameObject gameObject
         {
-            get
-            {
-                if (!IL2Get.Property("gameObject", Instance_Class, ref propertyGameObject))
-                    return null;
-
-                return propertyGameObject.GetGetMethod().Invoke(ptr)?.MonoCast<GameObject>();
-            }
+            get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(ptr)?.unbox<GameObject>();
         }
 
         public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("GameObject", "UnityEngine");

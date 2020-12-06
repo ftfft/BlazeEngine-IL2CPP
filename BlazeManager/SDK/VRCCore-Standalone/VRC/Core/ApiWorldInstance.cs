@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
+using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 
 namespace VRC.Core
 {
@@ -11,48 +10,25 @@ namespace VRC.Core
 
         public ApiWorldInstance(ApiWorld world, string _idWithTags, int _count) : base(IntPtr.Zero)
         {
-            if (!IL2Get.Constructor(x => x.GetParameters().Length == 3 && x.GetParameters()[2].Name == "_count",
-                Instance_Class, ref constructors[0]))
-                return;
-
-            ptr = constructors[0].Invoke().ptr;
+            ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
+            Instance_Class.GetConstructor(x => x.GetParameters().Length == 3 && x.GetParameters()[2].Name == "_count").Invoke(ptr, new IntPtr[] { world.ptr, new IL2String(_idWithTags).ptr, _count.MonoCast() });
         }
 
-        private static IL2Method methodGetInstanceCreator;
         public string GetInstanceCreator()
         {
-            if (!IL2Get.Method("GetInstanceCreator", Instance_Class, ref methodGetInstanceCreator))
-                return null;
-
-            return methodGetInstanceCreator.Invoke(ptr)?.Unbox<string>();
+            return Instance_Class.GetMethod(nameof(GetInstanceCreator)).Invoke(ptr)?.unbox_ToString().ToString();
         }
 
-        private static IL2Field fieldInstanceWorld;
         public ApiWorld instanceWorld
         {
-            get
-            {
-                if (!IL2Get.Field("instanceWorld", Instance_Class, ref fieldInstanceWorld))
-                    return null;
-
-                return fieldInstanceWorld.GetValue(ptr)?.Unbox<ApiWorld>();
-            }
+            get => Instance_Class.GetField(nameof(instanceWorld)).GetValue(ptr)?.unbox<ApiWorld>();
         }
 
-        private static IL2Field fieldIdWithTags;
         public string idWithTags
         {
-            get
-            {
-                if (!IL2Get.Field("idWithTags", Instance_Class, ref fieldIdWithTags))
-                    return null;
-
-                return fieldIdWithTags.GetValue(ptr)?.Unbox<string>();
-            }
+            get => Instance_Class.GetField(nameof(idWithTags)).GetValue(ptr)?.unbox_ToString().ToString();
         }
-
-        private static IL2Constructor[] constructors = new IL2Constructor[1];
-
+        
         public static IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("ApiWorldInstance", "VRC.Core");
     }
 }

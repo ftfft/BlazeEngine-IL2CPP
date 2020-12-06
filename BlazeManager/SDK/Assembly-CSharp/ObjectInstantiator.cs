@@ -6,36 +6,25 @@ using BlazeTools;
 using BlazeIL;
 using BlazeIL.il2cpp;
 
-public class ObjectInstantiator : Component
+public class ObjectInstantiator : MonoBehaviour
 {
     public ObjectInstantiator(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Field fieldSpawnBlockedList = null;
-    public static string[] spawnBlockedList
+    public static string[] adminOnlyPrefabs
     {
         get
         {
-            if (fieldSpawnBlockedList == null)
-            {
-                fieldSpawnBlockedList = Instance_Class.GetFields(x => x.ReturnType.Name == "System.String[]").First(x => IL2Import.il2cpp_array_length(x.GetValue().ptr) == 1);
-                if (fieldSpawnBlockedList == null)
-                    return new string[0];
-            }
-            return fieldSpawnBlockedList.GetValue().unbox_ToArray_String();
+            IL2Field field = Instance_Class.GetField(nameof(adminOnlyPrefabs));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string).FullName + "[]" && x.GetValue().unbox_ToArray().Length == 1)).Name = nameof(adminOnlyPrefabs);
+            return field?.GetValue().unbox_ToArray_String();
         }
         set
         {
-            if (fieldSpawnBlockedList == null)
-            {
-                fieldSpawnBlockedList = Instance_Class.GetFields(x => x.ReturnType.Name == "System.String[]").First(x => IL2Import.il2cpp_array_length(x.GetValue().ptr) == 1);
-                if (fieldSpawnBlockedList == null)
-                    return;
-            }
-            IntPtr[] intPtrs = new IntPtr[value.Length];
-            for (int i = 0; i < value.Length; i++)
-                intPtrs[i] = IL2Import.StringToIntPtr(value[i]);
-
-            fieldSpawnBlockedList.SetValue(IntPtr.Zero, intPtrs.ArrayToIntPtr(IL2SystemClass.String));
+            IL2Field field = Instance_Class.GetField(nameof(adminOnlyPrefabs));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string).FullName + "[]" && x.GetValue().unbox_ToArray().Length == 1)).Name = nameof(adminOnlyPrefabs);
+            field?.SetValue(IntPtr.Zero, value.Select(x => new IL2String(x).ptr).ToArray().ArrayToIntPtr(IL2SystemClass.String));
         }
     }
 

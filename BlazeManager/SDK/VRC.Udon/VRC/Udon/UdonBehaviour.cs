@@ -10,31 +10,14 @@ namespace VRC.Udon
     {
         public UdonBehaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Method methodSendCustomNetworkEvent = null;
         public void SendCustomNetworkEvent(NetworkEventTarget target, string eventName)
         {
-            if (methodSendCustomNetworkEvent == null)
-            {
-                methodSendCustomNetworkEvent = Instance_Class.GetMethod("SendCustomNetworkEvent");
-                if (methodSendCustomNetworkEvent == null)
-                    return;
-            }
-
-            methodSendCustomNetworkEvent.Invoke(ptr, new IntPtr[] { ((int)target).MonoCast(), IL2Import.StringToIntPtr(eventName) });
+            Instance_Class.GetMethod(nameof(SendCustomNetworkEvent)).Invoke(ptr, new IntPtr[] { ((int)target).MonoCast(), IL2Import.StringToIntPtr(eventName) });
         }
         
-
-        private static IL2Method methodGetPrograms = null;
         public string[] GetPrograms()
         {
-            if (methodGetPrograms == null)
-            {
-                methodGetPrograms = Instance_Class.GetMethod("GetPrograms");
-                if (methodGetPrograms == null)
-                    return null;
-            }
-
-            return methodGetPrograms.Invoke(ptr).UnboxArray<string>();
+            return Instance_Class.GetMethod(nameof(GetPrograms)).Invoke(ptr).unbox_ToArray_String();
         }
 
 

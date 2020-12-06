@@ -32,11 +32,6 @@ namespace BlazeManagerMenu
 
             #region UIElement
  
-            togglerList.Add("GlobalDynamicBones", new QMToggleButton("UIElementsMenu", 3, 0, "Global\nDynamic Bones\non", patch_GlobalDynamicBones.Toggle_Enable, "off", "Toggle: Global Dynamic Bones"));
-            patch_GlobalDynamicBones.RefreshStatus();
-            togglerList.Add("Fly Enabled", new QMToggleButton("UIElementsMenu", 4, 0, "Fly on", FlyMode.Toggle_Enable, "Fly off", "Toggle: Fly mode"));
-            togglerList.Add("Invis API", new QMToggleButton("UIElementsMenu", 1, 1, "InvisAPI on", patch_InvisAPI.Toggle_Enable, "off", "Toggle: Offline mode"));
-            patch_InvisAPI.RefreshStatus();
             togglerList.Add("No Portal Join", new QMToggleButton("UIElementsMenu", 2, 1, "NoPortalJoin\non", patch_NoPortal.Toggle_Enable_Join, "off", "Toggle: Block join in portal"));
             patch_NoPortal.RefreshStatusJoin();
             togglerList.Add("AntiBlock", new QMToggleButton("UIElementsMenu", 3, 1, "AntiBlock\non", patch_AntiBlock.Toggle_Enable, "off", "Toggle: Show blocked players"));
@@ -45,10 +40,10 @@ namespace BlazeManagerMenu
             patch_Network.RefreshStatus_Serilize();
             togglerList.Add("No Portal Spawn", new QMToggleButton("UIElementsMenu", 2, 2, "NoPortalSpawn\non", patch_NoPortal.Toggle_Enable_Spawn, "off", "Toggle: Auto-remove spawned portals"));
             patch_NoPortal.RefreshStatusSpawn();
-            togglerList.Add("Fast Join", new QMToggleButton("UIElementsMenu", 3, 2, "Fast Join\non", patch_Network.Toggle_FastJoin, "off", "Toggle: Fast Join"));
-            patch_Network.RefreshStatus_FastJoin();
-            togglerList.Add("Fly Mode", new QMToggleButton("UIElementsMenu", 4, 1, "Fly:\nDirectional", FlyMode.Toggle_Mode, "Fly: Default", "Toggle: NoClip / Fly"));
-            FlyMode.RefreshStatus();
+            togglerList.Add("GlobalDynamicBones", new QMToggleButton("UIElementsMenu", 3, 2, "Global\nDynamic Bones\non", patch_GlobalDynamicBones.Toggle_Enable, "off", "Toggle: Global Dynamic Bones"));
+            patch_GlobalDynamicBones.RefreshStatus();
+            //togglerList.Add("Fast Join", new QMToggleButton("UIElementsMenu", 3, 2, "Fast Join\non", patch_Network.Toggle_FastJoin, "off", "Toggle: Fast Join"));
+            //patch_Network.RefreshStatus_FastJoin();
             togglerList.Add("Infinity Jump", new QMToggleButton("UIElementsMenu", 4, 2, "Infinity\nJump", InfinityJump.Toggle_Enable, "disabled", "Toggle: Infinity jump"));
             #endregion
 
@@ -59,6 +54,13 @@ namespace BlazeManagerMenu
             MultiHack.RefreshStatus_SpeedHack();
             togglerList.Add("JumpHack", new QMToggleButton("UIElementsMenu2", 1, 1, "JumpHack\non", MultiHack.Toggle_Enable_JumpHack, "off", "Toggle: JumpHack"));
             MultiHack.RefreshStatus_JumpHack();
+            togglerList.Add("Fly Enabled", new QMToggleButton("UIElementsMenu2", 1, 2, "Fly on", FlyMode.Toggle_Enable, "Fly off", "Toggle: Fly mode"));
+            togglerList.Add("Fly Mode", new QMToggleButton("UIElementsMenu2", 2, 2, "Fly:\nDirectional", FlyMode.Toggle_Mode, "Fly: Default", "Toggle: NoClip / Fly"));
+            FlyMode.RefreshStatus();
+            togglerList.Add("Invis API", new QMToggleButton("UIElementsMenu2", 3, 2, "InvisAPI on", patch_InvisAPI.Toggle_Enable, "off", "Toggle: Offline mode"));
+            patch_InvisAPI.RefreshStatus();
+            togglerList.Add("Fake Ping", new QMToggleButton("UIElementsMenu2", 4, 2, "Fake Ping on", patch_Network.Toggle_FakePing, "off", "Toggle: Fake Ping"));
+            patch_Network.RefreshStatus_FakePing();
             #endregion
 
             #region UIElement4
@@ -85,7 +87,7 @@ namespace BlazeManagerMenu
             Refresh_HighVol();
             togglerList.Add("ESP Capsule", new QMToggleButton("ShortcutMenu", 0, 1, "ESP Capsule\non", patch_AntiBlock.Toggle_Enable_ESP_Capsule, "off", "Toggle: ESP Capsule"));
             patch_AntiBlock.RefreshStatus_ESP_Capsule();
-            singleList.Add("LocalMirror", new QMSingleButton("ShortcutMenu", 5, 0, "SpawnMirror", () =>
+            singleList.Add("LocalMirror", new QMSingleButton("ShortcutMenu", 5, -1, "SpawnMirror", () =>
             {
                 if (PortableMirror._isEnable)
                     PortableMirror.OnDestroy();
@@ -101,7 +103,7 @@ namespace BlazeManagerMenu
 
             new QMSingleButton("ShortcutMenu", 5, 2, "Select\nyourself", () =>
             {
-                QuickTools.SelectUserAPI(VRC.Player.Instance.apiuser);
+                QuickTools.SelectUserAPI(VRC.Player.Instance.user);
             }, "Select yourself.");
 
 

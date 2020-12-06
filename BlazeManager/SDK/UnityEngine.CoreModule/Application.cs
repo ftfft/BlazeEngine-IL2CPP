@@ -7,47 +7,20 @@ namespace UnityEngine
 {
     public static class Application
     {
-        private static IL2Property propertyTargetFrameRate = null;
         public static int targetFrameRate
         {
-            get
-            {
-                if (!IL2Get.Property("targetFrameRate", Instance_Class, ref propertyTargetFrameRate))
-                    return default;
-
-                return propertyTargetFrameRate.GetGetMethod().Invoke().Unbox<int>();
-            }
-            set
-            {
-                if (!IL2Get.Property("targetFrameRate", Instance_Class, ref propertyTargetFrameRate))
-                    return;
-
-                propertyTargetFrameRate.GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
-            }
+            get => Instance_Class.GetProperty(nameof(targetFrameRate)).GetGetMethod().Invoke().unbox_Unmanaged<int>();
+            set => Instance_Class.GetProperty(nameof(targetFrameRate)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
         }
 
-        private static IL2Property propertyUnityVersion = null;
         public static string unityVersion
         {
-            get
-            {
-                if (!IL2Get.Property("unityVersion", Instance_Class, ref propertyUnityVersion))
-                    return null;
-
-                return propertyUnityVersion.GetGetMethod().Invoke()?.Unbox<string>();
-            }
+            get => Instance_Class.GetProperty(nameof(unityVersion)).GetGetMethod().Invoke()?.unbox_ToString().ToString();
         }
 
-        private static IL2Property propertyStreamingAssetsPath = null;
         public static string streamingAssetsPath
         {
-            get
-            {
-                if (!IL2Get.Property("streamingAssetsPath", Instance_Class, ref propertyStreamingAssetsPath))
-                    return null;
-
-                return propertyStreamingAssetsPath.GetGetMethod().Invoke()?.Unbox<string>();
-            }
+            get => Instance_Class.GetProperty(nameof(streamingAssetsPath)).GetGetMethod().Invoke()?.unbox_ToString().ToString();
         }
 
         public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Application", "UnityEngine");

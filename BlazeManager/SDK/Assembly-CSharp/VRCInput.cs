@@ -7,19 +7,14 @@ public class VRCInput : IL2Base
 {
     public VRCInput(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Property propertyName = null;
     public string name
     {
         get
         {
-            if (propertyName == null)
-            {
-                propertyName = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == "System.String");
-                if (propertyName == null)
-                    return null;
-            }
-
-            return propertyName.GetGetMethod().Invoke(ptr)?.Unbox<string>();
+            IL2Property property = Instance_Class.GetProperty(nameof(name));
+            if (property == null)
+                (property = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName)).Name = nameof(name);
+            return property.GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
         }
     }
 
@@ -171,7 +166,7 @@ public class VRCInput : IL2Base
         {
             if (fieldValue == null)
             {
-                fieldValue = Instance_Class.GetFields().First(x => x.Token == 0x34);
+                fieldValue = Instance_Class.GetFields().First(x => x.ReturnType.Name == typeof(bool).FullName);
                 if (fieldValue == null)
                     return default;
             }
@@ -182,7 +177,7 @@ public class VRCInput : IL2Base
         {
             if (fieldValue == null)
             {
-                fieldValue = Instance_Class.GetFields().First(x => x.Token == 0x34);
+                fieldValue = Instance_Class.GetFields().First(x => x.ReturnType.Name == typeof(bool).FullName);
                 if (fieldValue == null)
                     return;
             }
@@ -197,7 +192,7 @@ public class VRCInput : IL2Base
         {
             if (fieldValuePrev == null)
             {
-                fieldValuePrev = Instance_Class.GetFields().First(x => x.Token == 0x35);
+                fieldValuePrev = Instance_Class.GetFields().Last(x => x.ReturnType.Name == typeof(bool).FullName);
                 if (fieldValuePrev == null)
                     return false;
             }
@@ -208,7 +203,7 @@ public class VRCInput : IL2Base
         {
             if (fieldValuePrev == null)
             {
-                fieldValuePrev = Instance_Class.GetFields().First(x => x.Token == 0x35);
+                fieldValuePrev = Instance_Class.GetFields().Last(x => x.ReturnType.Name == typeof(bool).FullName);
                 if (fieldValuePrev == null)
                     return;
             }
@@ -217,5 +212,5 @@ public class VRCInput : IL2Base
         }
     }
 
-    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(PlayerModComponentJump.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
+    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(LocomotionInputController.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
 }

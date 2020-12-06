@@ -6,87 +6,35 @@ namespace UnityEngine
 {
     public static class Input
     {
-        private static IL2Method methodGetAxis = null;
         public static float GetAxis(string axisName)
         {
-            if (methodGetAxis == null)
-            {
-                methodGetAxis = Instance_Class.GetMethod("GetAxis");
-                if (methodGetAxis == null)
-                    return default;
-            }
-
-            return methodGetAxis.Invoke(new IntPtr[] { IL2Import.StringToIntPtr(axisName) }).Unbox<float>();
+            return Instance_Class.GetMethod(nameof(GetAxis)).Invoke(new IntPtr[] { new IL2String(axisName).ptr }).unbox_Unmanaged<float>();
         }
 
-        private static IL2Method methodGetKey = null;
         public static bool GetKey(KeyCode key)
         {
-            if (methodGetKey == null)
-            {
-                methodGetKey = Instance_Class.GetMethod("GetKeyInt");
-                if (methodGetKey == null)
-                    return default;
-            }
-
-            return methodGetKey.Invoke(new IntPtr[] { key.MonoCast() }).Unbox<bool>();
+            return Instance_Class.GetMethod("GetKeyInt").Invoke(new IntPtr[] { key.MonoCast() }).unbox_Unmanaged<bool>();
         }
 
 
-        private static IL2Method methodGetKeyDown = null;
         public static bool GetKeyDown(KeyCode key)
         {
-            if (methodGetKeyDown == null)
-            {
-                methodGetKeyDown = Instance_Class.GetMethod("GetKeyDownInt");
-                if (methodGetKeyDown == null)
-                    return default;
-            }
-
-            return methodGetKeyDown.Invoke(new IntPtr[] { key.MonoCast() }).Unbox<bool>();
+            return Instance_Class.GetMethod("GetKeyDownInt").Invoke(new IntPtr[] { key.MonoCast() }).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Method methodGetKeyUp = null;
         public static bool GetKeyUp(KeyCode key)
         {
-            if (methodGetKeyUp == null)
-            {
-                methodGetKeyUp = Instance_Class.GetMethod("GetKeyUpInt");
-                if (methodGetKeyUp == null)
-                    return default;
-            }
-
-            return methodGetKeyUp.Invoke(new IntPtr[] { key.MonoCast() }).Unbox<bool>();
+            return Instance_Class.GetMethod("GetKeyUpInt").Invoke(new IntPtr[] { key.MonoCast() }).unbox_Unmanaged<bool>();
         }
         
-        private static IL2Method methodGetButtonDown = null;
         public static bool GetButtonDown(string buttonName)
         {
-            if (methodGetButtonDown == null)
-            {
-                methodGetButtonDown = Instance_Class.GetMethod("GetButtonDown");
-                if (methodGetButtonDown == null)
-                    return default;
-            }
-
-            return methodGetButtonDown.Invoke(new IntPtr[] { IL2Import.StringToIntPtr(buttonName) }).Unbox<bool>();
+            return Instance_Class.GetMethod(nameof(GetButtonDown)).Invoke(new IntPtr[] { new IL2String(buttonName).ptr }).unbox_Unmanaged<bool>();
         }
 
-        private static IL2Property propertyMousePosition = null;
         public static Vector3 mousePosition
         {
-            get
-            {
-
-                if (propertyMousePosition == null)
-                {
-                    propertyMousePosition = Instance_Class.GetProperty("mousePosition");
-                    if (propertyMousePosition == null)
-                        return default;
-                }
-
-                return propertyMousePosition.GetGetMethod().Invoke().Unbox<Vector3>();
-            }
+            get => Instance_Class.GetProperty(nameof(mousePosition)).GetGetMethod().Invoke().unbox_Unmanaged<Vector3>();
         }
 
         public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Input", "UnityEngine");

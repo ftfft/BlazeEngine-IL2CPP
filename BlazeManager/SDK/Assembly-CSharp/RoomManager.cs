@@ -53,34 +53,30 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private static IL2Field fieldCurrentRoom = null;
     public static ApiWorld currentRoom
     {
         get
         {
-            if (fieldCurrentRoom == null)
-            {
-                fieldCurrentRoom = Instance_Class.GetFields().First(x => x.ReturnType.Name == ApiWorld.Instance_Class.FullName);
-                if (fieldCurrentRoom == null)
-                    return null;
-            }
-            return fieldCurrentRoom.GetValue()?.Unbox<ApiWorld>();
+            IL2Field field = Instance_Class.GetField(nameof(currentRoom));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(currentRoom);
+            return field?.GetValue()?.Unbox<ApiWorld>();
         }
     }
     
-
-    private static IL2Field fieldPortalInternalList = null;
-    public static IL2Dictionary<int, PortalInternal> portalInternalList
+    public static IL2Dictionary<int, PortalInternal> userPortals
     {
         get
         {
-            if (fieldPortalInternalList == null)
-            {
-                fieldPortalInternalList = Instance_Class.GetFields().First(x => x.ReturnType.Name == "System.Collections.Generic.Dictionary<" +  typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">");
-                if (fieldPortalInternalList == null)
-                    return null;
-            }
-            return new IL2Dictionary<int, PortalInternal>(fieldPortalInternalList.GetValue().ptr);
+            IL2Field field = Instance_Class.GetField(nameof(userPortals));
+            if (field == null)
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == "System.Collections.Generic.Dictionary<" +  typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">")).Name = nameof(userPortals);
+
+            IL2Object result = field?.GetValue();
+            if (result == null)
+                return null;
+
+            return new IL2Dictionary<int, PortalInternal>(result.ptr);
         }
     }
 

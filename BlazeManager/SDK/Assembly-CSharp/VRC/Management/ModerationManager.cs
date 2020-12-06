@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using UnityEngine;
-using BlazeIL;
 using BlazeIL.il2cpp;
+using VRC.Core;
 
 namespace VRC.Management
 {
@@ -10,27 +9,21 @@ namespace VRC.Management
     {
         public ModerationManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        private static IL2Property propertyInstance = null;
         public static ModerationManager Instance
         {
             get
             {
-                if (propertyInstance == null)
-                {
-                    propertyInstance = Instance_Class.GetProperties().First(x => x.Instance);
-                    if (propertyInstance == null)
-                        return null;
-                }
-
-                return propertyInstance.GetGetMethod().Invoke()?.unbox<ModerationManager>();
+                IL2Property property = Instance_Class.GetProperty(nameof(Instance));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
+                return property?.GetGetMethod().Invoke()?.unbox<ModerationManager>();
             }
         }
 
         public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(
-            VRCApplication.Instance_Class.GetProperty(x =>
-            !x.IsStatic && x.GetGetMethod().ReturnType.Name != typeof(bool).FullName &&
-            Assemblies.a["Assembly-CSharp"].GetClass(x.GetGetMethod().ReturnType.Name).GetFields().Where(y => y.ReturnType.Name == "System.Collections.Generic.List<VRC.Core.ApiPlayerModeration>").Count() > 0
-        ).GetGetMethod().ReturnType.Name);
+            VRCApplication.Instance_Class.GetProperty(x => !x.IsStatic &&
+            Assemblies.a["Assembly-CSharp"].GetClass(x.GetGetMethod().ReturnType.Name).GetMethods(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName).Length > 10).GetGetMethod().ReturnType.Name
+        );
         //public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == "System.Collections.Generic.List<VRC.Core.ApiPlayerModeration>").Count() == 1);
     }
 }

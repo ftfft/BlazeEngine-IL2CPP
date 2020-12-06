@@ -2,34 +2,19 @@ using System;
 using System.Linq;
 using BlazeIL.il2cpp;
 using UnityEngine;
-using VRC.Core;
 
 public class VRCUiManager : MonoBehaviour
 {
     public VRCUiManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    private static IL2Field fieldInstance = null;
     public static VRCUiManager Instance
     {
         get
         {
-            if (fieldInstance == null)
-            {
-                fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
-                if (fieldInstance == null)
-                    return null;
-            }
-            return fieldInstance.GetValue()?.Unbox<VRCUiManager>();
-        }
-        set
-        {
-            if (fieldInstance == null)
-            {
-                fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
-                if (fieldInstance == null)
-                    return;
-            }
-            fieldInstance.SetValue(value.ptr);
+            IL2Field field = Instance_Class.GetField(nameof(Instance));
+            if (field == null)
+                (field = Instance_Class.GetFields().First(x => x.Instance)).Name = nameof(Instance);
+            return field?.GetValue()?.unbox<VRCUiManager>();
         }
     }
 

@@ -8,7 +8,8 @@ using BlazeWebAPI;
 
 namespace Addons.Patch
 {
-    public delegate void _VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, IntPtr authenticationRequired, IntPtr disableCache, IntPtr cacheLifetime, IntPtr retryCount, IntPtr credentials);
+    // public delegate void _VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, IntPtr authenticationRequired, IntPtr disableCache, IntPtr cacheLifetime, IntPtr retryCount, IntPtr credentials);
+    public delegate void _VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData);
     public static class patch_InvisAPI
     {
         public static void Toggle_Enable()
@@ -41,7 +42,7 @@ namespace Addons.Patch
             }
         }
 
-        private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, IntPtr authenticationRequired, IntPtr disableCache, IntPtr cacheLifetime, IntPtr retryCount, IntPtr credentials)
+        private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData)
         {
             string point = new IL2String(endpoint).ToString();
             new Thread(() =>
@@ -61,7 +62,8 @@ namespace Addons.Patch
                 disableCache,
                 cacheLifetime,
                 retryCount,
-                credentials
+                credentials,
+                formData
             );
         }
 

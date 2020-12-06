@@ -8,34 +8,20 @@ public class YoutubeDLControl : MonoBehaviour
     public YoutubeDLControl(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
 
-    private static IL2Field fieldInstance = null;
     public static YoutubeDLControl Instance
     {
         get
         {
-            if (fieldInstance == null)
-            {
-                fieldInstance = Instance_Class.GetFields().First(x => x.Instance);
-                if (fieldInstance == null)
-                    return null;
-            }
-            return fieldInstance.GetValue()?.MonoCast<YoutubeDLControl>();
+            IL2Field field = Instance_Class.GetField(nameof(Instance));
+            if (field == null)
+                (field = Instance_Class.GetFields().First(x => x.Instance)).Name = nameof(Instance);
+            return field.GetValue()?.unbox<YoutubeDLControl>();
         }
     }
 
-    private static IL2Field fieldYoutubeDLVersion = null;
     public string YoutubeDLVersion
     {
-        get
-        {
-            if (fieldYoutubeDLVersion == null)
-            {
-                fieldYoutubeDLVersion = Instance_Class.GetField("YoutubeDLVersion");
-                if (fieldYoutubeDLVersion == null)
-                    return null;
-            }
-            return fieldYoutubeDLVersion.GetValue(ptr)?.MonoCast<string>();
-        }
+        get => Instance_Class.GetField(nameof(YoutubeDLVersion)).GetValue(ptr)?.unbox_ToString().ToString();
     }
 
     public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("YoutubeDLControl");
