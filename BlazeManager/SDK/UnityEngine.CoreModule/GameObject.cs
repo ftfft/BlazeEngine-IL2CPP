@@ -87,7 +87,7 @@ namespace UnityEngine
 
             IL2Object result = Instance_Class.GetMethod(nameof(GetComponents), x => x.GetParameters().Length == 1 && x.ReturnType.Name.EndsWith("[]")).Invoke(ptr, new IntPtr[] { typeObject.ptr });
             if (result != null)
-                return result.UnboxArray<Component>();
+                return result.unbox_ToArray<Component>();
 
             return new Component[0];
         }
@@ -115,7 +115,7 @@ namespace UnityEngine
 
             IL2Object result = Instance_Class.GetMethod(nameof(GetComponentsInChildren), x => x.GetParameters().Length == 2 && x.ReturnType.Name.EndsWith("[]")).Invoke(ptr, new IntPtr[] { typeObject.ptr, includeInactive.MonoCast() });
             if (result != null)
-                return result.UnboxArray<Component>();
+                return result.unbox_ToArray<Component>();
 
             return new Component[0];
         }

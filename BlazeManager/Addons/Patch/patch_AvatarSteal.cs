@@ -38,7 +38,7 @@ namespace Addons.Patch
 
             // pAvatarStealer.InvokeOriginal(ptrInstance, new IntPtr[0]);
 
-            var __instance = ptrInstance.MonoCast<UserInteractMenu>();
+            var __instance = new UserInteractMenu(ptrInstance);
             var menuController = __instance.menuController;
             if (menuController == null)
                 return;

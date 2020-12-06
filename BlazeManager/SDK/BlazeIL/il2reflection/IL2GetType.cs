@@ -28,7 +28,7 @@ namespace BlazeIL.il2reflection
             if (ptr == IntPtr.Zero)
                 return null;
 
-            return result.MonoCast<IL2TypeObject>();
+            return new IL2TypeObject(result);
         }
     }
 }

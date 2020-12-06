@@ -63,7 +63,7 @@ namespace UnityEngine
             if (typeObject == null)
                 return null;
 
-            return Instance_Class.GetMethod(nameof(FindObjectsOfType), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { typeObject.ptr }).UnboxArray<Object>();
+            return Instance_Class.GetMethod(nameof(FindObjectsOfType), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { typeObject.ptr }).unbox_ToArray<Object>();
         }
 
         public void Destroy() => Destroy(this, 0f);

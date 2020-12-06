@@ -107,7 +107,7 @@ namespace VRC
             if (result == IntPtr.Zero)
                 return null;
             
-            return result.MonoCast<GameObject>();
+            return new GameObject(result);
         }
         public static IntPtr Instantiate(IntPtr broadcast, IntPtr prefabPathOrDynamicPrefabName, IntPtr position, IntPtr rotation)
         {

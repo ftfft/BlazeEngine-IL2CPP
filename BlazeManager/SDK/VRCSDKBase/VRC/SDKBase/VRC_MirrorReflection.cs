@@ -133,29 +133,10 @@ namespace VRC.SDKBase
 
 		public bool TurnOffMirrorOcclusion;
 
-		private static IL2Field fieldReflectLayers = null;
 		public LayerMask m_ReflectLayers
 		{
-			get
-			{
-				if (fieldReflectLayers == null)
-				{
-					fieldReflectLayers = Instance_Class.GetField("m_ReflectLayers");
-					if (fieldReflectLayers == null)
-						return new LayerMask();
-				}
-				return fieldReflectLayers.GetValue(ptr).MonoCast<LayerMask>();
-			}
-			set
-			{
-				if (fieldReflectLayers == null)
-				{
-					fieldReflectLayers = Instance_Class.GetField("m_ReflectLayers");
-					if (fieldReflectLayers == null)
-						return;
-				}
-				fieldReflectLayers.SetValue(ptr, value.MonoCast());
-			}
+			get => Instance_Class.GetField(nameof(m_ReflectLayers)).GetValue(ptr).unbox_Unmanaged<LayerMask>();
+			set => Instance_Class.GetField(nameof(m_ReflectLayers)).SetValue(ptr, value.MonoCast());
 		}
 
 		// private VRC_MirrorReflection.Dimension mirrorResolution;
