@@ -1,4 +1,4 @@
-﻿namespace Photon.Realtime
+﻿namespace IL2Photon.Realtime
 {
 	public enum EventCaching : byte
 	{

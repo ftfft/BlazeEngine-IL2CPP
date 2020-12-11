@@ -13,6 +13,6 @@ namespace VRC.SDKBase
 	{
 		public VRCPlayerApi(IntPtr ptr) : base(ptr) => this.ptr = ptr;
 
-		public static IL2Type Instance_Class = Assemblies.a["VRCSDKBase"].GetClass("VRCPlayerApi", "VRC.SDKBase");
+		public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcsdkbase]].GetClass("VRCPlayerApi", "VRC.SDKBase");
 	}
 }

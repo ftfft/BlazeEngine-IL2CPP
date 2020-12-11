@@ -16,6 +16,6 @@ namespace UnityEngine
             return Instance_Class.GetMethod("GetBoneTransformInternal").Invoke(ptr, new IntPtr[] { ((int)humanBoneId).MonoCast() })?.MonoCast<Transform>();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.AnimationModule"].GetClass("Animator", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineanimationmodule]].GetClass("Animator", "UnityEngine");
     }
 }

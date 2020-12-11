@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace BlazeIL.il2cpp
 {
@@ -14,7 +13,6 @@ namespace BlazeIL.il2cpp
         }
 
         public IL2ReturnType ReturnType { get; set; }
-        public T Unbox<T>() => ptr.MonoCast<T>();
         public T pUnbox<T>() where T : unmanaged => ptr.pUnbox<T>();
         unsafe public IntPtr[] UnboxArray()
         {
@@ -37,17 +35,6 @@ namespace BlazeIL.il2cpp
             return b;
         }
         
-        public T[] pUnboxArray<T>() where T : unmanaged
-        {
-            IntPtr[] a = UnboxArray();
-            T[] b = new T[a.Length];
-            for (int i = 0; i < a.Length; i++)
-            {
-                b[i] = a[i].pUnbox<T>();
-            }
-            return b;
-        }
-
         public T unbox<T>()
         {
             InvocationDelegate fastInvoke = IL2Tools.GetMethodInvoker(typeof(T).GetConstructors().First(x => x.GetParameters().Length == 1));
@@ -102,21 +89,25 @@ namespace BlazeIL.il2cpp
             return result;
         }
 
-        public T[] unbox_ToArray_Unmanaged<T>() where T : unmanaged
+        unsafe public T[] unbox_ToArray_Unmanaged<T>() where T : unmanaged
         {
-            IL2Object[] @objects = unbox_ToArray();
-            T[] result = new T[@objects.Length];
-            for (int i = 0; i < @objects.Length; i++)
-                result[i] = @objects[i].unbox_Unmanaged<T>();
+            long length = *((long*)ptr + 3);
+            T[] result = new T[length];
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i * sizeof(T)), null).unbox_Unmanaged<T>();
+            }
             return result;
         }
 
-        public T[] unbox_ToArray_Dis_Unmanaged<T>() where T : unmanaged
+        unsafe public T[] unbox_ToArray_Dis_Unmanaged<T>() where T : unmanaged
         {
-            IL2Object[] @objects = unbox_ToArray();
-            T[] result = new T[@objects.Length];
-            for (int i = 0; i < @objects.Length; i++)
-                result[i] = @objects[i].unbox_Dis_Unmanaged<T>();
+            long length = *((long*)ptr + 3);
+            T[] result = new T[length];
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i * sizeof(T)), null).unbox_Dis_Unmanaged<T>();
+            }
             return result;
         }
 

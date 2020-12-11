@@ -14,11 +14,9 @@ namespace Addons.Utils
                 return;
 
             NotificationDetails notificationDetails = new NotificationDetails();
-            notificationDetails["worldId"] = RoomManager.currentRoom.id + ":" + RoomManager.currentRoom.currentInstanceIdWithTags;
-            notificationDetails["worldName"] = "\n" + Message;
-            notificationDetails["message"] = "\u0001";
-
-            NotificationManager.Instance.SendNotification(Player.user.id, "invite", string.Empty, notificationDetails);
+            notificationDetails["message"] = Message;
+            Console.WriteLine(notificationDetails.ToString());
+            NotificationManager.Instance.SendNotification(Player.user.id, "requestInvite", string.Empty, notificationDetails);
         }
     }
 }

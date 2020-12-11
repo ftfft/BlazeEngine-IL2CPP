@@ -5,11 +5,11 @@ using System.Text;
 using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeTools;
-using ExitGames.Client.Photon;
+using IL2ExitGames.Client.Photon;
 using UnityEngine;
 using VRC.SDKBase;
-using Photon.Pun;
-using Photon.Realtime;
+using IL2Photon.Pun;
+using IL2Photon.Realtime;
 
 
 namespace BlazeAttack

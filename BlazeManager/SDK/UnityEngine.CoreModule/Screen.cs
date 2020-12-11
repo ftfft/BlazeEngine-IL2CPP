@@ -17,6 +17,6 @@ namespace UnityEngine
 			get => Instance_Class.GetProperty(nameof(height)).GetGetMethod().Invoke().unbox_Unmanaged<int>();
 		}
 
-		public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Screen", "UnityEngine");
+		public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Screen", "UnityEngine");
 	}
 }

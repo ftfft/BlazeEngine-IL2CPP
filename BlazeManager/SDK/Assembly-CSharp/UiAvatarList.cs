@@ -49,5 +49,5 @@ public class UiAvatarList : UiVRCList
         Licensed
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("UiAvatarList");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UiAvatarList");
 }

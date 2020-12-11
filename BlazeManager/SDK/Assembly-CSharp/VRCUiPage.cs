@@ -8,5 +8,5 @@ public class VRCUiPage : MonoBehaviour
 {
     public VRCUiPage(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCUiPage");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCUiPage");
 }

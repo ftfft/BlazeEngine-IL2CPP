@@ -15,6 +15,6 @@ namespace System.Linq
             return new IL2List<T>(result.ptr);
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["System.Core"].GetClass("Enumerable", "System.Linq");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.systemcore]].GetClass("Enumerable", "System.Linq");
     }
 }

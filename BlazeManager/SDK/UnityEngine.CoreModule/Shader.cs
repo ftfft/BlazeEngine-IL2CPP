@@ -5,9 +5,6 @@ using BlazeIL.il2reflection;
 
 namespace UnityEngine
 {
-	/// <summary>
-	///   <para>Behaviours are Components that can be enabled or disabled.</para>
-	/// </summary>
 	public class Shader : Object
 	{
 		public Shader(IntPtr ptr) : base(ptr) => base.ptr = ptr;
@@ -17,6 +14,6 @@ namespace UnityEngine
 			return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).ptr })?.unbox<Shader>();
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Shader", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Shader", "UnityEngine");
 	}
 }

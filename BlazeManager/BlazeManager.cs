@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Runtime.ExceptionServices;
 using System.Collections.Generic;
 using BlazeTools;
@@ -7,13 +8,14 @@ using BlazeTools.Json;
 using BlazeIL.il2cpp;
 using Addons;
 using Addons.Patch;
+using System.Linq;
 
 public class BlazeManager
 {
     [HandleProcessCorruptedStateExceptions]
     public static void Start()
     {
-        Assemblies.a = new Dictionary<string, IL2Assembly>();
+        Dll_Loader.Start();
         //# BlazeSDK.Main.LoadModule(Environment.CurrentDirectory + "\\BlazeEngine\\MonoLib\\SharpDisasm.dll", string.Empty, string.Empty, false);
         LoadDefaultSettings();
 
@@ -35,7 +37,8 @@ public class BlazeManager
         patch_NoPortal.Start();
         patch_Network.Start();
         patch_QuickMenu.Start();
-        
+        // patch_ColoredPlates.Start();
+
         // patch_ForceMute.Start();
         // patch_RPC.Start();
         // patch_VipPlates.Start();

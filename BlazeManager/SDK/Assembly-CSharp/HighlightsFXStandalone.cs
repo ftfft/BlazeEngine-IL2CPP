@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using UnityEngine;
 
 public sealed class HighlightsFXStandalone : HighlightsFX
@@ -39,5 +37,5 @@ public sealed class HighlightsFXStandalone : HighlightsFX
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("HighlightsFXStandalone");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("HighlightsFXStandalone");
 }

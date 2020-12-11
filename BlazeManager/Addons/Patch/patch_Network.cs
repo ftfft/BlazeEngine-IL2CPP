@@ -6,17 +6,19 @@ using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
 using BlazeTools;
 using UnityEngine;
-using ExitGames.Client.Photon;
-using Steamworks;
-using VRC;
-using Photon.Pun;
-using Photon.Realtime;
+using IL2ExitGames.Client.Photon;
+using IL2Photon.Pun;
+using IL2Photon.Realtime;
 using BlazeIL.cpp2il;
 using BlazeIL.cpp2il.IL;
+using Steamworks;
+using VRC;
 using VRC.Core;
 using SharpDisasm;
 using SharpDisasm.Udis86;
 using System.Globalization;
+using Addons.Mods.UI;
+using Addons.Mods;
 
 namespace Addons.Patch
 {
@@ -27,7 +29,7 @@ namespace Addons.Patch
     public delegate void _NetworkManager_OnOwnershipTransfered(IntPtr instance, IntPtr pPhotonView, IntPtr obfusStream);
     public delegate void _NetworkMetadata_OnOwnershipTransfered(IntPtr instance, IntPtr pGameObject, IntPtr pPlayer, IntPtr pPlayer2);
     public delegate int _System_BitConverter_ToInt32(IntPtr pValue, int startIndex);
-    public delegate void _PhotonSettings_OnEvent(IntPtr instance, IntPtr pEventData);
+    public delegate void _LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData);
     public delegate SteamId _Steamworks_SteamClient_Get_SteamId();
     public delegate void _USpeakPhotonSender3D_OnEventBytes(IntPtr instance, IntPtr pBytes, int Int32_1, IntPtr pInt32_2);
     public delegate void _PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer);
@@ -117,39 +119,37 @@ namespace Addons.Patch
             {
                 IL2Method method = LoadBalancingClient.Instance_Class.GetMethod("OnEvent");
                 if (method == null)
-                    throw new Exception();
+                    throw new Exception("0x0M1");
 
-                var patch = IL2Ch.Patch(method, (_PhotonSettings_OnEvent)PhotonSettings_OnEvent);
+                var patch = IL2Ch.Patch(method, (_LoadBalancingClient_OnEvent)LoadBalancingClient_OnEvent);
                 if (patch == null)
-                    throw new Exception();
-                _delegatePhotonSettings_OnEvent = patch.CreateDelegate<_PhotonSettings_OnEvent>();
+                    throw new Exception("0x0M2");
+                _delegateLoadBalancingClient_OnEvent = patch.CreateDelegate<_LoadBalancingClient_OnEvent>();
 
                 method = SteamClient.Instance_Class.GetProperty("SteamId").GetGetMethod();
                 if (method == null)
-                    throw new Exception();
+                    throw new Exception("0x0M3");
 
                 patch = IL2Ch.Patch(method, (_Steamworks_SteamClient_Get_SteamId)Steamworks_SteamClient_Get_SteamId);
                 if (patch == null)
-                    throw new Exception();
+                    throw new Exception("0x0M4");
                 _delegateSteamworks_SteamClient_Get_SteamId = patch.CreateDelegate<_Steamworks_SteamClient_Get_SteamId>();
 
-                /*
                 try
                 {
-                    method = LoadBalancingClient.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && !x.IsStatic).First(x => x.GetParameters()[0].ReturnType.Name == "System.Byte");
+                    method = LoadBalancingClient.Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName);
                     if (method == null)
-                        throw new Exception();
+                        throw new Exception("0x0M5");
 
                     patch = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
                     if (patch == null)
-                        throw new Exception();
+                        throw new Exception("0x0M6");
                     _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
                 }
                 catch
                 {
                     ConSole.Error("Patch: EventManager [RaiseEvent]");
                 }
-                */
 
                 //method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.IsStatic).GetGetMethod();
                 //patch = IL2Ch.Patch(method, (_methodFastJoin)methodFastJoin);
@@ -253,25 +253,27 @@ namespace Addons.Patch
         }
         public static _Steamworks_SteamClient_Get_SteamId _delegateSteamworks_SteamClient_Get_SteamId;
 
-        public static void PhotonSettings_OnEvent(IntPtr instance, IntPtr pEventData)
+        public static void LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData)
         {
-            if (instance == null) return;
-            if (pEventData == null) return;
+            if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
             int iSender = eventData.Sender;
             byte a = eventData.Code;
-
             bool isSelf = false;
-            if (!iSelfActor.HasValue)
-            {
-                iSelfActor = VRC.Player.Instance?.PhotonPlayer?.ActorNumber;
-            }
-            if (iSelfActor.HasValue && iSelfActor.Value == iSender)
+            VRC.Player player = PlayerManager.GetPlayer(iSender);
+            if (VRC.Player.Instance == player)
                 isSelf = true;
 
             switch(a)
             {
+                case 1:
+                    {
+                        if (player.IsMuted)
+                            return;
+
+                        break;
+                    }
                 case 6:
                     {
                         if (!isSelf && BlazeManager.GetForPlayer<bool>("RPC Block"))
@@ -288,30 +290,44 @@ namespace Addons.Patch
 
                         break;
                     }
-                case 209:
+                case PunEvent.OwnershipRequest:
                     {
                         if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
                             return;
 
                         break;
                     }
-                case 210:
+                case PunEvent.OwnershipTransfer:
                     {
                         if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
                             return;
 
                         break;
                     }
-                case 255:
+                case EventCode.SetProperties:
                     {
+                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
+                        break;
+                    }
+                case EventCode.Leave:
+                    {
+                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
+                        break;
+                    }
+                case EventCode.Join:
+                    {
+                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
                         if (BlazeManager.GetForPlayer<bool>("DeathMap"))
                             return;
 
                         break;
                     }
             }
-
-            _delegatePhotonSettings_OnEvent.Invoke(instance, pEventData);
+            try
+            {
+                _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
+            }
+            catch { }
             /*
             if (iSender != 0 && !isSelf)
             {
@@ -320,7 +336,7 @@ namespace Addons.Patch
             }
             */
         }
-        public static _PhotonSettings_OnEvent _delegatePhotonSettings_OnEvent;
+        public static _LoadBalancingClient_OnEvent _delegateLoadBalancingClient_OnEvent;
 
         public static int? iSelfActor = null;
         /*
@@ -399,32 +415,122 @@ namespace Addons.Patch
                     return true;
                 }
             }
-            if (operationCode != 6 && operationCode != 7 && BlazeAttack.PhotonUtils.raise209_status)
+            /*
+            if (operationCode == 8)
             {
-                BlazeAttack.PhotonUtils.Raise200();
-                return false;
-            }
-            if (operationCode == 7)
-            {
-                /*
-                Console.WriteLine("OP: " + operationCode);
-                if (raiseEventOptions == IntPtr.Zero)
-                    return true;
-                
-                RaiseEventOptions raiseEvent = new RaiseEventOptions(raiseEventOptions);
-                Console.WriteLine("Raise Cache: " + raiseEvent.CachingOption.ToString());
-                foreach (var target in raiseEvent.TargetActorts_Pointer)
+                Console.WriteLine("".PadRight(30, '-'));
+                Console.WriteLine("operationParameters[]: ");
+                unsafe
                 {
-                    Console.WriteLine("Raise Target: " + target.pUnbox<int>().ToString());
-                }
-                Console.WriteLine("Raise Receivers: " + raiseEvent.Receivers.ToString());
-                Console.WriteLine("Raise InterestGroup: " + raiseEvent.InterestGroup);
-                Console.WriteLine("sendOptions: " + sendOptions.Channel.ToString());
-                Console.WriteLine("sendOptions: " + sendOptions.Encrypt.ToString());
-                */
-            }
-            return _delegateOpRaiseEvent.Invoke(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
+                    long length = *((long*)operationParameters + 3);
+                    IntPtr[] result = new IntPtr[length];
+                    for (int i = 0; i < length; i++)
+                    {
+                        result[i] = *(IntPtr*)((IntPtr)((long*)operationParameters + 4) + i * sizeof(byte));
+                    }
 
+                    List<byte> vs = new List<byte>();
+                    foreach (var dd in result)
+                        vs.Add(dd.pUnbox<byte>());
+                    using (var cx = System.IO.File.AppendText("test.by.txt"))
+                    {
+                        cx.WriteLine("".PadRight(30, '-'));
+                        foreach (var tt in vs)
+                        {
+                            cx.WriteLine(tt.ToString());
+                        }
+                    }
+                    unsafe
+                    {
+                        Console.WriteLine(new IL2Type(IL2Import.il2cpp_class_from_system_type(IL2Import.il2cpp_type_get_object(*(IntPtr*)operationParameters + 0x20))).FullName);
+                    }
+                }
+                //Hashtable test = new Hashtable(operationParameters);
+                // Console.WriteLine(test.ToString());
+                //Console.WriteLine(new IL2ReturnType(IL2Import.il2cpp_field_get_type(operationParameters)).Name);
+                /*
+                Console.WriteLine("".PadRight(30, '-'));
+                Console.WriteLine("operationParameters[4 Start]: ");
+                var res = test[IL2Import.CreateNewObject(4, IL2SystemClass.Byte)];
+                unsafe
+                {
+                    long length = *((long*)res + 3);
+                    IntPtr[] result = new IntPtr[length];
+                    for (int i = 0; i < length; i++)
+                    {
+                        result[i] = *(IntPtr*)((IntPtr)((long*)res + 4) + i * sizeof(int));
+                    }
+
+                    List<int> vs = new List<int>();
+                    foreach (var dd in result)
+                        vs.Add(dd.pUnbox<int>());
+                    foreach (var tt in vs)
+                    {
+                        Console.WriteLine(tt);
+                    }
+                }
+                */
+        /*
+                Console.WriteLine("".PadRight(30, '-'));
+                RaiseEventOptions raise = new RaiseEventOptions(raiseEventOptions);
+                Console.WriteLine("RaiseEventOptions[CachingOption]: " + raise.CachingOption.ToString());
+                Console.WriteLine("RaiseEventOptions[InterestGroup]: " + raise.InterestGroup.ToString());
+                Console.WriteLine("RaiseEventOptions[Receivers]: " + raise.Receivers.ToString());
+                // Console.WriteLine("RaiseEventOptions[TargetActors]: " + raise.TargetActors_Patched.ToString());
+
+                Console.WriteLine("".PadRight(30, '-'));
+                Console.WriteLine("sendOptions[Channel]: " + sendOptions.Channel.ToString());
+                Console.WriteLine("sendOptions[DeliveryMode]: " + sendOptions.DeliveryMode.ToString());
+                Console.WriteLine("sendOptions[Encrypt]: " + sendOptions.Encrypt.ToString());
+                Console.WriteLine("".PadRight(30, '-'));
+            }
+            /*
+            if (operationCode == 202)
+            {
+                Console.WriteLine("operationCode: " + operationCode);
+                Console.WriteLine("".PadRight(30, '-'));
+                Console.WriteLine("operationParameters[]: ");
+                Hashtable test = new Hashtable(operationParameters);
+                Console.WriteLine(test.ToString());
+                Console.WriteLine("".PadRight(30, '-'));
+                Console.WriteLine("operationParameters[4 Start]: ");
+                var res = test[IL2Import.CreateNewObject(4, IL2SystemClass.Byte)];
+                unsafe
+                {
+                    long length = *((long*)res + 3);
+                    IntPtr[] result = new IntPtr[length];
+                    for (int i = 0; i < length; i++)
+                    {
+                        result[i] = *(IntPtr*)((IntPtr)((long*)res + 4) + i * sizeof(int));
+                    }
+
+                    List<int> vs = new List<int>();
+                    foreach(var dd in result)
+                        vs .Add(dd.pUnbox<int>());
+                    foreach(var tt in vs)
+                    {
+                        Console.WriteLine(tt);
+                    }
+                }
+                Console.WriteLine("".PadRight(30, '-'));
+                RaiseEventOptions raise = new RaiseEventOptions(raiseEventOptions);
+                Console.WriteLine("RaiseEventOptions[CachingOption]: " + raise.CachingOption.ToString());
+                Console.WriteLine("RaiseEventOptions[InterestGroup]: " + raise.InterestGroup.ToString());
+                Console.WriteLine("RaiseEventOptions[Receivers]: " + raise.Receivers.ToString());
+                // Console.WriteLine("RaiseEventOptions[TargetActors]: " + raise.TargetActors_Patched.ToString());
+
+                Console.WriteLine("".PadRight(30, '-'));
+                Console.WriteLine("sendOptions[Channel]: " + sendOptions.Channel.ToString());
+                Console.WriteLine("sendOptions[DeliveryMode]: " + sendOptions.DeliveryMode.ToString());
+                Console.WriteLine("sendOptions[Encrypt]: " + sendOptions.Encrypt.ToString());
+                Console.WriteLine("".PadRight(30, '-'));
+            }
+            */
+            try
+            {
+                return _delegateOpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
+            }
+            catch { return true; }
             /*
             if (operationCode == 3 || operationCode == 202 || operationCode == 8 || operationCode == 6 || operationCode == 1)
             {

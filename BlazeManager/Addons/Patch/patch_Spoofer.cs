@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
-using System.Linq;
 using System.Text;
 using System.IO;
-using System.Reflection;
-using ExitGames.Client.Photon;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
-using BlazeIL;
 using BlazeTools;
 
 namespace Addons.Patch
@@ -21,7 +16,7 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = Assemblies.a["UnityEngine.CoreModule"].GetClass("SystemInfo", "UnityEngine").GetProperty("deviceUniqueIdentifier").GetGetMethod();
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("SystemInfo", "UnityEngine").GetProperty("deviceUniqueIdentifier").GetGetMethod();
                 if (method == null)
                     throw new Exception();
 
@@ -34,7 +29,7 @@ namespace Addons.Patch
             }
             try
             {
-                IL2Method method = Assemblies.a["VRCCore-Standalone"].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
                 if (method == null)
                     throw new Exception();
 

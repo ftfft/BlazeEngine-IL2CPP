@@ -38,6 +38,6 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(ptr)?.unbox<GameObject>();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Component", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Component", "UnityEngine");
     }
 }

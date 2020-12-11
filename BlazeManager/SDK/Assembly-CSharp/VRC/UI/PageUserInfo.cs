@@ -15,6 +15,6 @@ namespace VRC.UI
             get => Instance_Class.GetField(nameof(user)).GetValue(ptr)?.unbox<APIUser>();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PageUserInfo", "VRC.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PageUserInfo", "VRC.UI");
     }
 }

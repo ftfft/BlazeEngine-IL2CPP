@@ -196,6 +196,6 @@ namespace VRC.SDKBase
 			public MaterialPropertyBlock propertyBlock;
 		}
 		*/
-		public static new IL2Type Instance_Class = Assemblies.a["VRCSDKBase"].GetClass("VRC_MirrorReflection", "VRC.SDKBase");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcsdkbase]].GetClass("VRC_MirrorReflection", "VRC.SDKBase");
 	}
 }

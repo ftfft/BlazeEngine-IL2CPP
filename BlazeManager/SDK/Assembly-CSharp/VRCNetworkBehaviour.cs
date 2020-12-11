@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using Photon.Pun;
+using IL2Photon.Pun;
 using VRC.SDKBase;
 
 public abstract class VRCNetworkBehaviour : MonoBehaviourPun
@@ -29,9 +29,9 @@ public abstract class VRCNetworkBehaviour : MonoBehaviourPun
             if (property == null)
                 (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRC_EventHandler.Instance_Class.FullName)).Name = nameof(EventHandler);
 
-            return property?.GetGetMethod().Invoke(ptr)?.Unbox<VRC_EventHandler>();
+            return property?.GetGetMethod().Invoke(ptr)?.unbox<VRC_EventHandler>();
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCNetworkBehaviour");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCNetworkBehaviour");
 }

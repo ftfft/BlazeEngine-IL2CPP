@@ -23,7 +23,7 @@ namespace VRC.UserCamera
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(mode));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Assemblies.a["Assembly-CSharp"].GetClasses().FirstOrDefault(y => y.IsEnum && y.GetFields().Where(z => z.Name == "Off" || z.Name == "Photo" || z.Name == "Video").Count() == 3).FullName)).Name = nameof(mode);
+                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(y => y.IsEnum && y.GetFields().Where(z => z.Name == "Off" || z.Name == "Photo" || z.Name == "Video").Count() == 3).FullName)).Name = nameof(mode);
                 IL2Object result = property?.GetGetMethod().Invoke(ptr);
                 if (result == null)
                     return default;
@@ -33,7 +33,7 @@ namespace VRC.UserCamera
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(mode));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Assemblies.a["Assembly-CSharp"].GetClasses().FirstOrDefault(y => y.IsEnum && y.GetFields().Where(z => z.Name == "Off" || z.Name == "Photo" || z.Name == "Video").Count() == 3).FullName)).Name = nameof(mode);
+                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(y => y.IsEnum && y.GetFields().Where(z => z.Name == "Off" || z.Name == "Photo" || z.Name == "Video").Count() == 3).FullName)).Name = nameof(mode);
                 property?.GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
             }
         }
@@ -64,6 +64,6 @@ namespace VRC.UserCamera
             }
         }
         
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("UserCameraController", "VRC.UserCamera");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UserCameraController", "VRC.UserCamera");
     }
 }

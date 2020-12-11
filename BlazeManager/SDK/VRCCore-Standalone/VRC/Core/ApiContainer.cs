@@ -14,6 +14,6 @@ namespace VRC.Core
             Instance_Class.GetConstructor().Invoke(ptr);
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("ApiContainer", "VRC.Core");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("ApiContainer", "VRC.Core");
     }
 }

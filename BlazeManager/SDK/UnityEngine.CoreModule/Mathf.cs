@@ -719,34 +719,13 @@ namespace UnityEngine
         private static IL2Method methodGammaToLinearSpace = null;
         public static float GammaToLinearSpace(float value)
         {
-            if (methodGammaToLinearSpace == null)
-            {
-                methodGammaToLinearSpace = Instance_Class.GetMethod("GammaToLinearSpace");
-                if (methodGammaToLinearSpace == null)
-                    return 0;
-            }
-
-            IL2Object result = methodGammaToLinearSpace.Invoke(new IntPtr[] { value.MonoCast() });
-            if (result == null)
-                return default;
-
-            return result.Unbox<float>();
+            return Instance_Class.GetMethod(nameof(GammaToLinearSpace)).Invoke(new IntPtr[] { value.MonoCast() }).unbox_Unmanaged<float>();
         }
 
         private static IL2Method methodLinearToGammaSpace = null;
         public static float LinearToGammaSpace(float value)
         {
-            if (methodLinearToGammaSpace == null)
-            {
-                methodLinearToGammaSpace = Instance_Class.GetMethod("LinearToGammaSpace");
-                if (methodLinearToGammaSpace == null)
-                    return default;
-            }
-
-            IL2Object result = methodLinearToGammaSpace.Invoke(new IntPtr[] { value.MonoCast() });
-            if (result == null)
-                return default;
-            return result.Unbox<float>();
+            return Instance_Class.GetMethod(nameof(LinearToGammaSpace)).Invoke(new IntPtr[] { value.MonoCast() }).unbox_Unmanaged<float>();
         }
 
         internal static long RandomToLong(Random r)
@@ -786,6 +765,6 @@ namespace UnityEngine
         /// </summary>
         //        public static readonly float Epsilon = (!MathfInternal.IsFlushToZeroEnabled) ? MathfInternal.FloatMinDenormal : MathfInternal.FloatMinNormal;
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Mathf", "UnityEngine");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Mathf", "UnityEngine");
     }
 }

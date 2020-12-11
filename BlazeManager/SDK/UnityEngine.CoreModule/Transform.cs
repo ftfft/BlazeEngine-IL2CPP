@@ -116,6 +116,6 @@ namespace UnityEngine
             private int currentIndex = -1;
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Transform", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Transform", "UnityEngine");
     }
 }

@@ -15,6 +15,6 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(label)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.IMGUIModule"].GetClass("GUISkin", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineimguimodule]].GetClass("GUISkin", "UnityEngine");
 	}
 }

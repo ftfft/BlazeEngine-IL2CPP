@@ -13,14 +13,17 @@ using BlazeTools;
 using Addons.Mods;
 using SharpDisasm;
 using SharpDisasm.Udis86;
-using ExitGames.Client.Photon;
+using BlazeIL.cpp2il;
+using BlazeIL.cpp2il.IL;
+using IL2ExitGames.Client.Photon;
+using VRC;
 
 namespace Addons.Patch
 {
     public delegate void _RoomManagerBase_OnConnectedToMaster(IntPtr instance);
     public delegate void _NetworkInitalize(VRC_EventHandler.VrcBroadcastType broadcast, IntPtr prefabPathOrDynamicPrefabName, IntPtr position, IntPtr rotation);
     public delegate void _RPCSend(VRC_EventHandler.VrcTargetType targetClients, IntPtr targetObject, IntPtr methodName, IntPtr parameters);
-    public delegate IntPtr _VRCPlayer_GetUserRank_String(IntPtr instance);
+    public delegate IntPtr _VRCPlayer_GetUserRank_String(IntPtr user);
     public delegate void _HudVoiceIndicator_Update(IntPtr instance);
     public delegate void _VRC_UI_PageUserInfo_SetUserRelationshipState(IntPtr instance, IntPtr friendType);
     public delegate float _UnityEngine_Time_fixedDeltaTime();
@@ -76,7 +79,7 @@ namespace Addons.Patch
             try
             {
                 IL2Method method = null;
-                foreach (var m in VRCPlayer.Instance_Class.GetMethods(x => x.ReturnType.Name == "System.String" && x.GetParameters().Length == 1).Where(x => x.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName))
+                foreach (var m in VRCPlayer.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(string).FullName && x.GetParameters().Length == 1).Where(x => x.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName))
                 {
                     if (method != null) break;
                     var disasm = new Disassembler(*(IntPtr*)m.ptr, 0x1000, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)m.ptr).ToInt64()), true, Vendor.Intel);
@@ -84,6 +87,8 @@ namespace Addons.Patch
                     var instructions = disasm.Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
                     if (instructions.Count() > 150)
                         method = m;
+
+
                     /*foreach (var instruction1 in instructions)
                     {
                         if (!instruction1.ToString().StartsWith("call "))
@@ -103,6 +108,23 @@ namespace Addons.Patch
                 if (method == null)
                     throw new Exception();
 
+                unsafe
+                {
+                    IL2Method newMethod = null;
+                    var disassembler = disasm.GetDisassembler(method, 0x1000);
+                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
+                    foreach (var instruction in instructions)
+                    {
+                        var addr = ILCode.GetPointer(instruction);
+                        if ((newMethod = PlayerManager.Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr && x.GetParameters().Length == 1)) != null)
+                            break;
+                    }
+                    string oldName = newMethod.Name;
+                    foreach (var method2 in PlayerManager.Instance_Class.GetMethods(x => x.Name == oldName))
+                    {
+                        method2.Name = "GetPlayer";
+                    }
+                }
                 IL2Ch.Patch(method, (_VRCPlayer_GetUserRank_String)VRCPlayer_GetUserRank_String);
             }
             catch
@@ -200,27 +222,42 @@ namespace Addons.Patch
         }
 
         private static Dictionary<string, IL2String> dictUserRank = new Dictionary<string, IL2String>();
-        public static IntPtr VRCPlayer_GetUserRank_String(IntPtr instance)
+        public static IntPtr VRCPlayer_GetUserRank_String(IntPtr user)
         {
-            if (instance != IntPtr.Zero)
+            if (user != IntPtr.Zero)
             {
-                SocialRank rank = VRCPlayer.GetSocialRank(new APIUser(instance));
+                APIUser u = new APIUser(user);
+                SocialRank rank = VRCPlayer.GetSocialRank(u);
                 if (rank == SocialRank.VRChatTeam)
+                {
                     return dictUserRank["Moderator"].ptr;
+                }
                 else if (rank == SocialRank.Nuisance)
                     return dictUserRank["Nuisance"].ptr;
                 else if (rank == SocialRank.Legend)
+                {
                     return dictUserRank["Legend"].ptr;
+                }
                 else if (rank == SocialRank.VeteranUser)
+                {
                     return dictUserRank["Veteran"].ptr;
+                }
                 else if (rank == SocialRank.TrustedUser)
+                {
                     return dictUserRank["Trusted user"].ptr;
+                }
                 else if (rank == SocialRank.KnownUser)
+                {
                     return dictUserRank["Known user"].ptr;
+                }
                 else if (rank == SocialRank.User)
+                {
                     return dictUserRank["User"].ptr;
+                }
                 else if (rank == SocialRank.NewUser)
+                {
                     return dictUserRank["New user"].ptr;
+                }
                 else if (rank == SocialRank.Visitor)
                     return dictUserRank["Visitor"].ptr;
             }

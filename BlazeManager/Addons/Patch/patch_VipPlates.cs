@@ -11,37 +11,39 @@ using BlazeTools;
 
 namespace Addons.Patch
 {
-    public delegate void _VRC_Player_DispatchedUpdate(IntPtr instance, IntPtr fTimer);
-    public static class patch_VipPlates
+    public delegate void _VRC_Player_DispatchedUpdate(IntPtr instance, float fTimer);
+    public static class patch_ColoredPlates
     {
         public static void Start()
         {
             IL2Method method = null;
             try
             {
-                method = VRCPlayer.Instance_Class.GetMethods().First(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == "System.Single");
+                method = VRCPlayer.Instance_Class.GetMethods().First(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == typeof(float).FullName);
                 if (method == null)
                     new Exception();
 
                 var patch = IL2Ch.Patch(method, (_VRC_Player_DispatchedUpdate)VRC_Player_DispatchedUpdate);
-                patch.CreateDelegate<_VRC_Player_DispatchedUpdate>();
-                ConSole.Success("Patch: VipPlates");
+                _delegateVRC_Player_DispatchedUpdate = patch.CreateDelegate<_VRC_Player_DispatchedUpdate>();
+                ConSole.Success("Patch: Colored Plates");
 
             }
             catch
             {
-                ConSole.Error("Patch: VipPlates");
+                ConSole.Error("Patch: Colored Plates");
             }
         }
 
 
-        public static void VRC_Player_DispatchedUpdate(IntPtr instance, IntPtr fTimer)
+        public static void VRC_Player_DispatchedUpdate(IntPtr instance, float timer)
         {
-            if (instance == IntPtr.Zero || fTimer == IntPtr.Zero)
+            if (instance == IntPtr.Zero)
                 return;
 
-            _delegateVRC_Player_DispatchedUpdate.Invoke(instance, fTimer);
+            _delegateVRC_Player_DispatchedUpdate.Invoke(instance, timer);
 
+            VRCPlayer vrcPlayer = new VRCPlayer(instance);
+            /*
             VRCPlayer vrcPlayer = new VRCPlayer(instance);
             VRC.Core.APIUser apiuser = vrcPlayer?.player.user;
             if (apiuser == null) return;
@@ -60,6 +62,7 @@ namespace Addons.Patch
                 textRank = "Known";
 
             if (string.IsNullOrWhiteSpace(textRank)) return;
+            */
         }
 
 

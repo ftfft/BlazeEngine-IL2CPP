@@ -8,6 +8,6 @@ namespace VRC.Steam
     {
         public SteamNetworkingConnectionInterface(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == "Steamworks.SteamId").Count() == 1);
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == "Steamworks.SteamId").Count() == 1);
     }
 }

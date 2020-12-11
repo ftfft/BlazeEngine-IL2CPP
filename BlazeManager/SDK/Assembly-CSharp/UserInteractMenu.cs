@@ -25,5 +25,5 @@ public class UserInteractMenu : UnityEngine.Object
         set => Instance_Class.GetField(nameof(menuController)).SetValue(ptr, value.ptr);
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("UserInteractMenu");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UserInteractMenu");
 }

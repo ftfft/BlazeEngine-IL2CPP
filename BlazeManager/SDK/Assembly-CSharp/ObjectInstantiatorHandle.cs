@@ -33,7 +33,7 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 		{
 			if (fieldLocalID == null)
 			{
-				fieldLocalID = Instance_Class.GetFields().First(x => x.ReturnType.Name == "System.Nullable<System.Int32>");
+				fieldLocalID = Instance_Class.GetField(x => x.ReturnType.Name == typeof(int?).FullName);
 				if (fieldLocalID == null)
 					return null;
 			}
@@ -47,7 +47,7 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 		{
 			if (fieldLocalID == null)
 			{
-				fieldLocalID = Instance_Class.GetFields().First(x => x.ReturnType.Name == "System.Nullable<System.Int32>");
+				fieldLocalID = Instance_Class.GetField(x => x.ReturnType.Name == typeof(int?).FullName);
 				if (fieldLocalID == null)
 					return;
 			}
@@ -55,5 +55,5 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 		}
 	}
 
-	public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("ObjectInstantiatorHandle");
+	public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("ObjectInstantiatorHandle");
 }

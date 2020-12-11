@@ -54,14 +54,14 @@ namespace VRC
             }
         }
 
-        public Photon.Realtime.Player PhotonPlayer
+        public IL2Photon.Realtime.Player PhotonPlayer
         {
             get
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(PhotonPlayer));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(PhotonPlayer);
-                return property?.GetGetMethod().Invoke(ptr)?.unbox<Photon.Realtime.Player>();
+                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == IL2Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(PhotonPlayer);
+                return property?.GetGetMethod().Invoke(ptr)?.unbox<IL2Photon.Realtime.Player>();
             }
         }
 
@@ -136,6 +136,23 @@ namespace VRC
             }
         }
 
+        public bool IsMuted
+        {
+
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(IsMuted));
+                if (property == null)
+                    (property = Instance_Class.GetProperties(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.GetSetMethod() != null).Skip(2).FirstOrDefault()).Name = nameof(IsMuted);
+
+                IL2Object result = property?.GetGetMethod().Invoke(ptr);
+                if (result == null)
+                    return default;
+                
+                return result.unbox_Unmanaged<bool>();
+            }
+        }
+
         // <!---------- ------- ---------->
         // <!---------- FIELD'S ---------->
         // <!---------- ------- ---------->
@@ -150,23 +167,11 @@ namespace VRC
             }
         }
 
-        public ulong steamId
-        {
-            get
-            {
-                Photon.Realtime.Player photon = PhotonPlayer;
-                if (photon == null) return 0U;
-                IntPtr ptr = photon.CustomProperties[new IL2String("steamUserID").ptr];
-                if (ptr == IntPtr.Zero) return 0U;
-                return Convert.ToUInt64(new IL2String(ptr).ToString());
-            }
-        }
-
         public new IL2String ToString()
         {
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("Player", "VRC");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("Player", "VRC");
     }
 }

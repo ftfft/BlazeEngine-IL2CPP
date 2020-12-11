@@ -20,9 +20,9 @@ namespace VRC.Management
             }
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(
             VRCApplication.Instance_Class.GetProperty(x => !x.IsStatic &&
-            Assemblies.a["Assembly-CSharp"].GetClass(x.GetGetMethod().ReturnType.Name).GetMethods(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName).Length > 10).GetGetMethod().ReturnType.Name
+            Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(x.GetGetMethod().ReturnType.Name).GetMethods(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ReturnType.Name == APIUser.Instance_Class.FullName).Length > 10).GetGetMethod().ReturnType.Name
         );
         //public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == "System.Collections.Generic.List<VRC.Core.ApiPlayerModeration>").Count() == 1);
     }

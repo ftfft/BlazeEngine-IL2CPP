@@ -37,5 +37,5 @@ public class VRCFlowManager : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCFlowManager");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCFlowManager");
 }

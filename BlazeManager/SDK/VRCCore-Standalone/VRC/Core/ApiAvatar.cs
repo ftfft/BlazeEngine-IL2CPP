@@ -44,6 +44,6 @@ namespace VRC.Core
             Instance_Class.GetMethod(nameof(SaveReleaseStatus)).Invoke(ptr, new IntPtr[] { ptrSucc, ptrFail });
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("ApiAvatar", "VRC.Core");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("ApiAvatar", "VRC.Core");
     }
 }

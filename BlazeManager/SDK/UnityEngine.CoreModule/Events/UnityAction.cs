@@ -51,6 +51,6 @@ namespace UnityEngine.Events
             return obj;
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("UnityAction", "UnityEngine.Events");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("UnityAction", "UnityEngine.Events");
     }
 }

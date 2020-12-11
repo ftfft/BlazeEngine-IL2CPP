@@ -93,6 +93,6 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(inFixedTimeStep)).GetGetMethod().Invoke().unbox_Unmanaged<bool>();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Time", "UnityEngine");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Time", "UnityEngine");
     }
 }

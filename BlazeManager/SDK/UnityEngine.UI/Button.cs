@@ -27,6 +27,6 @@ namespace UnityEngine.UI
             public static new IL2Type Instance_Class = Button.Instance_Class.GetNestedType("ButtonClickedEvent");
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.UI"].GetClass("Button", "UnityEngine.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineui]].GetClass("Button", "UnityEngine.UI");
     }
 }

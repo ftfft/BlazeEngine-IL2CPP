@@ -7,6 +7,6 @@ namespace VRC.Steam
     {
         public ConnectionInterface(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(SteamNetworkingConnectionInterface.Instance_Class.BaseType.FullName);
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(SteamNetworkingConnectionInterface.Instance_Class.BaseType.FullName);
     }
 }

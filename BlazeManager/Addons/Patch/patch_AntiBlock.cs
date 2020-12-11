@@ -117,8 +117,26 @@ namespace Addons.Patch
             Renderer renderer = vrcPlayer?.playerSelector?.GetComponent<Renderer>();
             if (renderer != null)
             {
-                string userid = vrcPlayer?.player?.user?.id;
 
+                APIUser user = vrcPlayer.player?.user;
+                if (user == null)
+                    return;
+
+                var graphic = vrcPlayer.nameplate?.uiNameBackground;
+                SocialRank rank = VRCPlayer.GetSocialRank(user);
+                if (graphic != null)
+                {
+                    if (rank == SocialRank.VRChatTeam)
+                        graphic.color = Color.red;
+                    else if (rank == SocialRank.Legend || rank == SocialRank.VeteranUser || rank == SocialRank.TrustedUser)
+                        graphic.color = new Color(120, 0, 80);
+                    else if (rank == SocialRank.KnownUser)
+                        graphic.color = new Color(255, 160, 66);
+                    else if (rank == SocialRank.User)
+                        graphic.color = Color.green;
+                    else if (rank == SocialRank.NewUser)
+                        graphic.color = Color.blue;
+                }
                 if (highlightsYellow?.gameObject == null)
                 {
                     highlightsYellow = HighlightsFX.Instance.gameObject.AddComponent<HighlightsFXStandalone>();
@@ -126,7 +144,8 @@ namespace Addons.Patch
                 }
                 highlightsYellow.EnableOutline(renderer, false);
                 HighlightsFX.Instance.EnableOutline(renderer, false);
-                if (APIUser.IsFriendsWith(userid))
+
+                if (APIUser.IsFriendsWith(user.id))
                 {
                     highlightsYellow.EnableOutline(renderer, BlazeManager.GetForPlayer<bool>("ESP Capsule"));
                 }

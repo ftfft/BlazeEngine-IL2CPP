@@ -11,7 +11,7 @@ namespace Addons
 {
     public static class UserUtils
     {
-        public static void Gen15(Photon.Realtime.Player player)
+        public static void Gen15(IL2Photon.Realtime.Player player)
         {
             byte[] array = new byte[17000];
             array[0] = 11;
@@ -41,7 +41,7 @@ namespace Addons
                     vrcLong = 0L,
                     vrcFloat = 0F,
                 };
-                Photon.Pun.PhotonView.Find(1).RpcSecure("ProcessEvent", player, true, new IntPtr[] {
+                IL2Photon.Pun.PhotonView.Find(1).RpcSecure("ProcessEvent", player, true, new IntPtr[] {
                     vrcEvent2.ptr
                 });
             }

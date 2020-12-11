@@ -10,6 +10,6 @@ namespace UnityEngine
 	{
 		public GUIStyle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.IMGUIModule"].GetClass("GUIStyle", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineimguimodule]].GetClass("GUIStyle", "UnityEngine");
 	}
 }

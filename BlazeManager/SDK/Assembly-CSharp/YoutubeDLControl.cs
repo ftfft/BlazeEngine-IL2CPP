@@ -24,5 +24,5 @@ public class YoutubeDLControl : MonoBehaviour
         get => Instance_Class.GetField(nameof(YoutubeDLVersion)).GetValue(ptr)?.unbox_ToString().ToString();
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("YoutubeDLControl");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("YoutubeDLControl");
 }

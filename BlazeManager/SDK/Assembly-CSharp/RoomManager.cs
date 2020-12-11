@@ -23,7 +23,7 @@ public class RoomManager : MonoBehaviour
             {
                 foreach (IL2Method method in Instance_Class.GetMethods().Where(x => x.ReturnType.Name == "System.String" && x.GetParameters().Length == 0))
                 {
-                    string result = method.Invoke().Unbox<string>();
+                    string result = method.Invoke().unbox_ToString().ToString();
                     if (result.Length == 40)
                     {
                         if (result.Contains("usr_"))
@@ -37,7 +37,7 @@ public class RoomManager : MonoBehaviour
                     return string.Empty;
             }
 
-            return methodGetCurrentOwnerId.Invoke()?.Unbox<string>();
+            return methodGetCurrentOwnerId.Invoke()?.unbox_ToString().ToString();
         }
     }
 
@@ -60,7 +60,7 @@ public class RoomManager : MonoBehaviour
             IL2Field field = Instance_Class.GetField(nameof(currentRoom));
             if (field == null)
                 (field = Instance_Class.GetField(x => x.ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(currentRoom);
-            return field?.GetValue()?.Unbox<ApiWorld>();
+            return field?.GetValue()?.unbox<ApiWorld>();
         }
     }
     
@@ -80,5 +80,5 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("RoomManager");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("RoomManager");
 }

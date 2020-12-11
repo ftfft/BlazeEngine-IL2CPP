@@ -70,6 +70,6 @@ namespace UnityEngine
 			get => Instance_Class.GetField(nameof(s_Skin)).GetValue()?.unbox<GUISkin>();
 		}
 
-		public static IL2Type Instance_Class = Assemblies.a["UnityEngine.IMGUIModule"].GetClass("GUI", "UnityEngine");
+		public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineimguimodule]].GetClass("GUI", "UnityEngine");
 	}
 }

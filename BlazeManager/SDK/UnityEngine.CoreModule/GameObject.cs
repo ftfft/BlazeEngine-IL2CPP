@@ -51,7 +51,7 @@ namespace UnityEngine
             if (!IL2Get.Method("GetComponentByName", Instance_Class, ref methodGetComponentByName))
                 return null;
 
-            return methodGetComponentByName.Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(type) })?.Unbox<Component>();
+            return methodGetComponentByName.Invoke(ptr, new IntPtr[] { IL2Import.StringToIntPtr(type) })?.unbox<Component>();
         }
 
         public T GetComponentInChildren<T>() => GetComponentInChildren(typeof(T)).MonoCast<T>();
@@ -185,6 +185,6 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(ptr)?.unbox<GameObject>();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("GameObject", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("GameObject", "UnityEngine");
     }
 }

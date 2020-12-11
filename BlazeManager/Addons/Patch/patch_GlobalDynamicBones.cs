@@ -79,7 +79,7 @@ namespace Addons.Patch
             }
 
             VRC.Player pPlayer = new VRC.Player(instance);
-            Photon.Realtime.Player photon = pPlayer?.PhotonPlayer;
+            IL2Photon.Realtime.Player photon = pPlayer?.PhotonPlayer;
             if (photon == null)
                 return;
 
@@ -129,8 +129,11 @@ namespace Addons.Patch
             if (bones.Length == 0 || colliders.Length == 0) return;
             for (int i = 0; i < bones.Length; i++)
             {
-                foreach (var collider in colliders.Where(x => !bones[i].m_Colliders.Contains(x.ptr)))
-                    bones[i].m_Colliders.Add(collider.ptr);
+                foreach (var collider in colliders)
+                {
+                    if (!bones[i].m_Colliders.IL2Contains(collider.ptr))
+                        bones[i].m_Colliders.IL2Add(collider.ptr);
+                }
             }
         }
 
@@ -139,8 +142,11 @@ namespace Addons.Patch
             if (bones.Length == 0 || colliders.Length == 0) return;
             for (int i = 0; i < bones.Length; i++)
             {
-                foreach (var collider in colliders.Where(x => bones[i].m_Colliders.Contains(x.ptr)))
-                    bones[i].m_Colliders.Remove(collider.ptr);
+                foreach (var collider in colliders)
+                {
+                    if (bones[i].m_Colliders.IL2Contains(collider.ptr))
+                        bones[i].m_Colliders.IL2Remove(collider.ptr);
+                }
             }
         }
 
@@ -173,7 +179,7 @@ namespace Addons.Patch
 
             public DynamicBoneCollider[] colliders = new DynamicBoneCollider[0];
         }
-
+        
         public static DynamicBone[] myBones = new DynamicBone[0];
 
         public static DynamicBoneCollider[] myColliders = new DynamicBoneCollider[0];

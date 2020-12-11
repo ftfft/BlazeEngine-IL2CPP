@@ -21,6 +21,6 @@ namespace Transmtn.DTO.Notifications
 			return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["Transmtn"].GetClass("NotificationDetails", "Transmtn.DTO.Notifications");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.transmtn]].GetClass("NotificationDetails", "Transmtn.DTO.Notifications");
 	}
 }

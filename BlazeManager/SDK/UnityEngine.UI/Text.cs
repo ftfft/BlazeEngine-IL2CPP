@@ -14,6 +14,6 @@ namespace UnityEngine.UI
             set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.UI"].GetClass("Text", "UnityEngine.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineui]].GetClass("Text", "UnityEngine.UI");
     }
 }

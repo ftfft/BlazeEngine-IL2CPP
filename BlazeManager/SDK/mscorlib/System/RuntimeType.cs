@@ -19,6 +19,6 @@ namespace System
             return IL2Import.il2cpp_class_from_system_type(Instance_Class.GetMethod(nameof(MakeGenericType)).Invoke(IL2GetType.IL2Typeof(new IL2Type(ptr)).ptr, new IntPtr[] { intPtrs.ArrayToIntPtr(IL2SystemClass.Type) }).ptr);
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("RuntimeType", "System");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("RuntimeType", "System");
     }
 }

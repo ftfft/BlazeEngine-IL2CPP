@@ -2,7 +2,7 @@
 using UnityEngine;
 using BlazeIL.il2cpp;
 
-namespace Photon.Pun
+namespace IL2Photon.Pun
 {
     public class MonoBehaviourPun : MonoBehaviour
     {
@@ -19,6 +19,6 @@ namespace Photon.Pun
             }
 		}
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("MonoBehaviourPun", "Photon.Pun");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("MonoBehaviourPun", "Photon.Pun");
     }
 }

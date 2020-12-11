@@ -10,6 +10,6 @@ namespace VRC.UI
     {
         public DebugDisplayText(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("DebugDisplayText", "VRC.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("DebugDisplayText", "VRC.UI");
     }
 }

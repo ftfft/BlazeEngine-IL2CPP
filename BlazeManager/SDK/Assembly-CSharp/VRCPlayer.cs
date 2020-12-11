@@ -213,7 +213,7 @@ public class VRCPlayer : VRCNetworkBehaviour
                     return false;
             }
 
-            return propertyShouldUpdate.GetGetMethod().Invoke(ptr).Unbox<bool>();
+            return propertyShouldUpdate.GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
     }
 
@@ -249,13 +249,13 @@ public class VRCPlayer : VRCNetworkBehaviour
             if (field == null)
                 (field = Instance_Class.GetField(x => x.ReturnType.Name == Animator.Instance_Class.FullName)).Name = nameof(avatarAnimator);
 
-            return field.GetValue(ptr)?.Unbox<Animator>();
+            return field.GetValue(ptr)?.unbox<Animator>();
         }
     }
 
-    public VRCUiShadowPlate namePlate
+    public PlayerNameplate nameplate
     {
-        get => Instance_Class.GetField(nameof(namePlate)).GetValue(ptr)?.unbox<VRCUiShadowPlate>();
+        get => Instance_Class.GetField(nameof(nameplate)).GetValue(ptr)?.unbox<PlayerNameplate>();
     }
 
     /*
@@ -293,5 +293,5 @@ public class VRCPlayer : VRCNetworkBehaviour
         User = 256
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCPlayer");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCPlayer");
 }

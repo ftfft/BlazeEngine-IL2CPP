@@ -27,6 +27,6 @@ namespace VRC.SDKBase
 			set => Instance_Class.GetField(nameof(allowManipulationWhenEquipped)).SetValue(ptr, value.MonoCast());
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["VRCSDKBase"].GetClass("VRC_Pickup", "VRC.SDKBase");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcsdkbase]].GetClass("VRC_Pickup", "VRC.SDKBase");
 	}
 }

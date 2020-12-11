@@ -20,6 +20,6 @@ namespace UnityEngine
             set => Instance_Class.GetProperty(nameof(useGravity)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.PhysicsModule"].GetClass("Rigidbody", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginephysicsmodule]].GetClass("Rigidbody", "UnityEngine");
     }
 }

@@ -18,6 +18,6 @@ namespace System
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("Type", "System");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("Type", "System");
     }
 }

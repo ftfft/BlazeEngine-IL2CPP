@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BlazeIL.il2cpp;
-using Photon.Realtime;
+using IL2Photon.Realtime;
 
 namespace VRC.Core
 {
@@ -20,6 +20,6 @@ namespace VRC.Core
             }
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().First(x => x.GetFields().Length == 2 && x.GetField(y => y.Instance) != null && x.GetMethod("OnEvent") != null);
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().First(x => x.GetField(y => y.Instance) != null && x.GetMethod("OnEvent") != null);
     }
 }

@@ -23,6 +23,6 @@ namespace UnityEngine
 			get => Instance_Class.GetProperty(nameof(isActiveAndEnabled)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Behaviour", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Behaviour", "UnityEngine");
 	}
 }

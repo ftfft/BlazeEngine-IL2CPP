@@ -13,11 +13,11 @@ public class PlayerModComponentJump : MonoBehaviour
         {
             IL2Field field = Instance_Class.GetField(nameof(_controller));
             if(field == null)
-                (field = Instance_Class.GetFields().First(x => x.ReturnType.Name == LocomotionInputController.Instance_Class.FullName)).Name = nameof(_controller);
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == LocomotionInputController.Instance_Class.FullName)).Name = nameof(_controller);
 
             return field?.GetValue(ptr)?.unbox<LocomotionInputController>();
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PlayerModComponentJump");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PlayerModComponentJump");
 }

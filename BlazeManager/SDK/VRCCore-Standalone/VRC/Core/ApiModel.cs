@@ -19,6 +19,6 @@ namespace VRC.Core
             get => Instance_Class.GetProperty(nameof(Populated)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<bool>();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("ApiModel", "VRC.Core");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("ApiModel", "VRC.Core");
     }
 }

@@ -35,7 +35,7 @@ namespace VRC.Core
         {
             get
             {
-                return new IL2List<string>(Instance_Class.GetProperty(nameof(tags)).GetGetMethod().Invoke(ptr).ptr).ToArray();
+                return new IL2List<string>(Instance_Class.GetProperty(nameof(tags)).GetGetMethod().Invoke(ptr).ptr).IL2ToArray();
             }
         }
         
@@ -90,6 +90,6 @@ namespace VRC.Core
             get => Instance_Class.GetProperty(nameof(location)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("APIUser", "VRC.Core");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("APIUser", "VRC.Core");
     }
 }

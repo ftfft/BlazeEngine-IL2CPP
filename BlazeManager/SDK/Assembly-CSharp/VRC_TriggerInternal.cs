@@ -6,5 +6,5 @@ public class VRC_TriggerInternal : MonoBehaviour
 {
     public VRC_TriggerInternal(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRC_TriggerInternal");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRC_TriggerInternal");
 }

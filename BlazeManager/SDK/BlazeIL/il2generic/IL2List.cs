@@ -8,7 +8,7 @@ namespace BlazeIL.il2generic
         public IL2List(IntPtr ptrNew) : base(ptrNew) =>
             ptr = ptrNew;
 
-        public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("List`1", "System.Collections.Generic");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("List`1", "System.Collections.Generic");
     }
     unsafe public class IL2List<T> : IL2List
     {
@@ -16,7 +16,7 @@ namespace BlazeIL.il2generic
             ptr = ptrNew;
 
         private static IL2Method methodAdd = null;
-        public void Add(IntPtr item)
+        public void IL2Add(IntPtr item)
         {
             if (methodAdd == null)
             {
@@ -28,7 +28,7 @@ namespace BlazeIL.il2generic
         }
 
         private static IL2Method methodContainsObject = null;
-        public bool Contains(IntPtr item)
+        public bool IL2Contains(IntPtr item)
         {
             if (methodContainsObject == null)
             {
@@ -40,7 +40,7 @@ namespace BlazeIL.il2generic
         }
 
         private static IL2Method methodRemove = null;
-        public bool Remove(IntPtr item)
+        public bool IL2Remove(IntPtr item)
         {
             if (methodRemove == null)
             {
@@ -52,7 +52,7 @@ namespace BlazeIL.il2generic
         }
 
         private static IL2Method methodToArray = null;
-        public T[] ToArray()
+        public T[] IL2ToArray()
         {
             if (methodToArray == null)
             {

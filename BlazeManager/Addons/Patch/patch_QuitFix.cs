@@ -14,7 +14,7 @@ namespace Addons.Patch
 
             try
             {
-                IL2Method method = Assemblies.a["Assembly-CSharp"].GetClass("VRCApplication").GetMethod("OnApplicationQuit");
+                IL2Method method = VRCApplication.Instance_Class.GetMethod("OnApplicationQuit");
                 if (method == null)
                     throw new Exception();
 

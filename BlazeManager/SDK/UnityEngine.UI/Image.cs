@@ -19,6 +19,6 @@ namespace UnityEngine.UI
             set => Instance_Class.GetProperty(nameof(material)).GetSetMethod().Invoke(ptr, new IntPtr[] { value });
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.UI"].GetClass("Image", "UnityEngine.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineui]].GetClass("Image", "UnityEngine.UI");
     }
 }

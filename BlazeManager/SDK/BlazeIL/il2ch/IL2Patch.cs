@@ -19,7 +19,7 @@ namespace BlazeIL.il2ch
 
         public T CreateDelegate<T>() where T : Delegate
         {
-            return (T)Marshal.GetDelegateForFunctionPointer(OriginalMethod, typeof(T));
+            return Marshal.GetDelegateForFunctionPointer(OriginalMethod, typeof(T)) as T;
         }
     }
 }

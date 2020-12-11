@@ -26,6 +26,6 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(extents)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
 		}
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.PhysicsModule"].GetClass("BoxCollider", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginephysicsmodule]].GetClass("BoxCollider", "UnityEngine");
     }
 }

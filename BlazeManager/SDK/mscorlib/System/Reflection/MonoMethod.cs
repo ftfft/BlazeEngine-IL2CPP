@@ -25,6 +25,6 @@ namespace System.Reflection
             }
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("MonoMethod", "System.Reflection");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("MonoMethod", "System.Reflection");
     }
 }

@@ -20,7 +20,7 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = Assemblies.a["Assembly-CSharp"].GetClass("PlayerModComponentJump").GetMethod("Update");
+                IL2Method method = PlayerModComponentJump.Instance_Class.GetMethod("Update");
 
                 IL2Ch.Patch(method, (_PlayerModComponentJump_Update)PlayerModComponentJump_Update);
                 ConSole.Success("Patch: No Udon Jump");

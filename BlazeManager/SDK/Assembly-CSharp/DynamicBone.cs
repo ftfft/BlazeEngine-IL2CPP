@@ -16,5 +16,5 @@ public class DynamicBone : MonoBehaviour
 		set => Instance_Class.GetField(nameof(m_Colliders)).SetValue(ptr, value.ptr);
 	}
 
-	public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("DynamicBone");
+	public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("DynamicBone");
 }

@@ -11,39 +11,17 @@ namespace BlazeIL.il2generic
 		public IL2Dictionary(IntPtr ptrNew) : base(ptrNew) =>
 			ptr = ptrNew;
 
-		private static IL2Property propertyCount = null;
 		public int Count
 		{
-			get
-			{
-				if (propertyCount == null)
-				{
-					propertyCount = Instance_Class.GetProperty("Count");
-					if (propertyCount == null)
-						return default;
-				}
-
-				IL2Object result = propertyCount.GetGetMethod().Invoke(ptr);
-				if (result == null)
-					return default;
-
-				return result.Unbox<int>();
-			}
+			get => Instance_Class.GetProperty(nameof(Count)).GetGetMethod().Invoke(ptr).unbox_Unmanaged<int>();
 		}
 
-		private static IL2Method methodClear = null;
 		public void Clear()
 		{
-			if (methodClear == null)
-			{
-				methodClear = Instance_Class.GetMethod("Clear");
-				if (methodClear == null)
-					return;
-			}
-			methodClear.Invoke(ptr, ex: false);
+			Instance_Class.GetMethod(nameof(Clear)).Invoke(ptr, ex: false);
 		}
 
-		public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("Dictionary`2", "System.Collections.Generic");
+		public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("Dictionary`2", "System.Collections.Generic");
 	}
 
 	unsafe public class IL2Dictionary<TKey, TValue> : IL2Dictionary
@@ -54,44 +32,14 @@ namespace BlazeIL.il2generic
 		private static IL2Property propertyItem = null;
 		public string this[string key]
 		{
-			get
-			{
-				if (propertyItem == null)
-				{
-					propertyItem = Instance_Class.GetProperty("Item");
-					if (propertyItem == null)
-						return default;
-				}
-
-				return propertyItem.GetGetMethod().Invoke(ptr, new IntPtr[] { IL2Import.il2cpp_string_new_len(key, key.Length), propertyItem.GetGetMethod().ptr }).MonoCast<string>();
-			}
-			set
-			{
-				if (propertyItem == null)
-				{
-					propertyItem = Instance_Class.GetProperty("Item");
-					if (propertyItem == null)
-						return;
-				}
-
-				propertyItem.GetSetMethod().Invoke(ptr, new IntPtr[] { IL2Import.il2cpp_string_new_len(key, key.Length), IL2Import.il2cpp_string_new_len(value, value.Length), propertyItem.GetSetMethod().ptr });
-			}
+			get => Instance_Class.GetProperty("Item").GetGetMethod().Invoke(ptr, new IntPtr[] { new IL2String(key).ptr, propertyItem.GetGetMethod().ptr })?.unbox_ToString().ToString();
+			set => Instance_Class.GetProperty("Item").GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(key).ptr, new IL2String(value).ptr, propertyItem.GetSetMethod().ptr });
 		}
 
 		private static IL2Method methodFindEntry = null;
 		public int FindEntry(IntPtr key)
 		{
-			if (methodFindEntry == null)
-			{
-				methodFindEntry = Instance_Class.GetMethod("FindEntry");
-				if (methodFindEntry == null)
-					return default;
-			}
-			IL2Object result = methodRemove.Invoke(ptr, new IntPtr[] { key });
-			if (result == null)
-				return default;
-
-			return result.Unbox<int>();
+			return Instance_Class.GetMethod("FindEntry").Invoke(ptr, new IntPtr[] { key }).unbox_Unmanaged<int>();
 		}
 
 		private static IL2Method methodAdd = null;
@@ -119,7 +67,7 @@ namespace BlazeIL.il2generic
 			if (result == null)
 				return default;
 
-			return result.Unbox<bool>();
+			return result.unbox_Unmanaged<bool>();
 		}
 
 		public static new IL2Type Instance_Class = IL2Dictionary.Instance_Class.MakeGenericType(new Type[] {typeof(TKey), typeof(TValue) });

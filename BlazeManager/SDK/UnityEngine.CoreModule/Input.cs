@@ -37,6 +37,6 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(mousePosition)).GetGetMethod().Invoke().unbox_Unmanaged<Vector3>();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Input", "UnityEngine");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Input", "UnityEngine");
     }
 }

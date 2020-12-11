@@ -28,7 +28,7 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = Assemblies.a["VRCCore-Standalone"].GetClass("API", "VRC.Core").GetMethod("SendRequestInternal");
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("API", "VRC.Core").GetMethod("SendRequestInternal");
                 if (method == null)
                     throw new Exception();
 

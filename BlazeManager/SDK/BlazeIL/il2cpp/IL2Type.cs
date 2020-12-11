@@ -203,7 +203,8 @@ namespace BlazeIL.il2cpp
         // Properties
         public IL2Property[] GetProperties() => PropertyList.ToArray();
         public IL2Property[] GetProperties(IL2BindingFlags flags) => GetProperties().Where(x => x.HasFlag(flags)).ToArray();
-        public IL2Property GetProperty(Func<IL2Property, bool> func) => GetProperties().First(x => func(x));
+        public IL2Property[] GetProperties(Func<IL2Property, bool> func) => GetProperties().Where(x => func(x)).ToArray();
+        public IL2Property GetProperty(Func<IL2Property, bool> func) => GetProperties().FirstOrDefault(x => func(x));
         public IL2Property GetProperty(string name)
         {
             IL2Property returnval = null;

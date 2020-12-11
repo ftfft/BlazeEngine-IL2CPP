@@ -38,13 +38,13 @@ namespace VRC
             {
                 methodCalculateServerDeltaTime = Instance_Class.GetMethods().First(
                     x =>
-                        x.ReturnType.Name == "System.Double" &&
+                        x.ReturnType.Name == typeof(double).FullName &&
                         x.GetParameters().Length == 2
                 );
                 if (methodCalculateServerDeltaTime == null)
                     return default;
             }
-            return methodCalculateServerDeltaTime.Invoke(IntPtr.Zero, new IntPtr[] { timeInSeconds.MonoCast(), previousTimeInSeconds.MonoCast() }).Unbox<double>();
+            return methodCalculateServerDeltaTime.Invoke(IntPtr.Zero, new IntPtr[] { timeInSeconds.MonoCast(), previousTimeInSeconds.MonoCast() }).unbox_Unmanaged<double>();
         }
 
         public static double GetOwnershipTransferTime(GameObject go)
@@ -54,14 +54,14 @@ namespace VRC
 
                 methodGetOwnershipTransferTime = Instance_Class.GetMethods().First(
                     x =>
-                        x.ReturnType.Name == "System.Double" &&
+                        x.ReturnType.Name == typeof(double).FullName &&
                         x.GetParameters().Length == 1 &&
                         x.GetParameters()[0].ReturnType.Name == GameObject.Instance_Class.FullName
                 );
                 if (methodGetOwnershipTransferTime == null)
                     return default;
             }
-            return methodGetOwnershipTransferTime.Invoke(IntPtr.Zero, new IntPtr[] { go.ptr }).Unbox<double>();
+            return methodGetOwnershipTransferTime.Invoke(IntPtr.Zero, new IntPtr[] { go.ptr }).unbox_Unmanaged<double>();
         }
 
         public static void TriggerEvent(VRC_EventHandler.VrcEvent e, VRC_EventHandler.VrcBroadcastType broadcast = VRC_EventHandler.VrcBroadcastType.AlwaysUnbuffered, int instagatorId = 0, float fastForward = 0f)
@@ -85,10 +85,10 @@ namespace VRC
                     x =>
                         x.GetParameters().Length == 4 &&
                         x.GetParameters()[0].ReturnType.Name == GameObject.Instance_Class.FullName &&
-                        x.GetParameters()[1].ReturnType.Name == "System.String" &&
+                        x.GetParameters()[1].ReturnType.Name == typeof(string).FullName &&
                         x.GetParameters()[2].ReturnType.Name == "UnityEngine.SendMessageOptions" &&
-                        x.GetParameters()[3].ReturnType.Name == "System.Object" &&
-                        x.ReturnType.Name == "System.Void"
+                        x.GetParameters()[3].ReturnType.Name == typeof(object).FullName &&
+                        x.ReturnType.Name == typeof(void).FullName
                 );
                 if (methodSendMessageToChildren == null)
                     return;
@@ -138,8 +138,8 @@ namespace VRC
                     x =>
                         x.GetParameters()[0].ReturnType.Name.EndsWith(".RPC.Destination") &&
                         x.GetParameters()[1].ReturnType.Name == GameObject.Instance_Class.FullName &&
-                        x.GetParameters()[2].ReturnType.Name == "System.String" &&
-                        x.GetParameters()[3].ReturnType.Name == "System.Object[]"
+                        x.GetParameters()[2].ReturnType.Name == typeof(string).FullName &&
+                        x.GetParameters()[3].ReturnType.Name == typeof(object[]).FullName
                 );
                 if (methodRPC == null)
                     return;
@@ -165,10 +165,10 @@ namespace VRC
                         x.GetParameters()[0].ReturnType.Name == Player.Instance_Class.FullName &&
                         x.GetParameters()[1].ReturnType.Name == "VRCSDK2.VRC_EventHandler.VrcTargetType" &&
                         x.GetParameters()[2].ReturnType.Name == GameObject.Instance_Class.FullName &&
-                        x.GetParameters()[3].ReturnType.Name == "System.String" &&
-                        x.GetParameters()[4].ReturnType.Name == "System.Byte[]" &&
-                        x.ReturnType.Name == "System.Boolean" &&
-                        x.HasFlag(IL2BindingFlags.METHOD_PUBLIC)
+                        x.GetParameters()[3].ReturnType.Name == typeof(string).FullName &&
+                        x.GetParameters()[4].ReturnType.Name == typeof(byte[]).FullName &&
+                        x.ReturnType.Name == typeof(bool).FullName &&
+                        x.IsPublic
                 );
                 if (methodRPCToTargetEncrypt == null)
                     return default;
@@ -202,7 +202,7 @@ namespace VRC
                         x.GetParameters()[3].ReturnType.Name == typeof(string).FullName &&
                         x.GetParameters()[4].ReturnType.Name == typeof(object[]).FullName &&
                         x.ReturnType.Name == typeof(bool).FullName &&
-                        x.HasFlag(IL2BindingFlags.METHOD_PRIVATE)
+                        x.IsPrivate
                 );
                 if (methodRPCToTarget == null)
                     return false;
@@ -272,6 +272,6 @@ namespace VRC
                                  methodRPCToTarget;
 
 
-        public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().Where(x => !x.Name.StartsWith("ObjectInstantiator") && !x.HasFlag(IL2BindingFlags.TYPE_INTERFACE)).Where(x => x.GetMethods().Where(y => y.ReturnType.Name == "ObjectInstantiator").Count() > 0).First();
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().Where(x => !x.Name.StartsWith("ObjectInstantiator") && !x.HasFlag(IL2BindingFlags.TYPE_INTERFACE)).Where(x => x.GetMethods().Where(y => y.ReturnType.Name == "ObjectInstantiator").Count() > 0).First();
     }
 }

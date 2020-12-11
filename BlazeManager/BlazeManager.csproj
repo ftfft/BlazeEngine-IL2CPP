@@ -48,8 +48,13 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Photon-DotNet">
+      <HintPath>Libs\Photon-DotNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -59,6 +64,7 @@
     <Compile Include="Addons\Avatars\AvatarStatus.cs" />
     <Compile Include="Addons\Avatars\AvatarTools.cs" />
     <Compile Include="Addons\Avatars\UIAvatar.cs" />
+    <Compile Include="Addons\Debuger\Debugger.cs" />
     <Compile Include="Addons\Locale\Base.cs" />
     <Compile Include="Addons\Locale\Lang.cs" />
     <Compile Include="Addons\Locale\Locale_Data.cs" />
@@ -69,6 +75,12 @@
     <Compile Include="Addons\Mods\NoLocalPickup.cs" />
     <Compile Include="Addons\Mods\Chair.cs" />
     <Compile Include="Addons\Mods\PortableMirror.cs" />
+    <Compile Include="Addons\Mods\UI\Debug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Addons\Mods\UI\Debug.Designer.cs">
+      <DependentUpon>Debug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Addons\Mods\UI\TabMenu.cs" />
     <Compile Include="Addons\Mods\VoiceDotFade.cs" />
     <Compile Include="Addons\Patch\patch_AntiBlock.cs" />
@@ -95,6 +107,7 @@
     <Compile Include="Addons\UserUtils.cs" />
     <Compile Include="Addons\Utils\FileDebug.cs" />
     <Compile Include="Addons\Utils\Notification.cs" />
+    <Compile Include="Dll_Loader.cs" />
     <Compile Include="BlazeManagerMenu\Edit_UserPanel.cs" />
     <Compile Include="BlazeTools\BlazeAttack\PhotonUtils.cs" />
     <Compile Include="BlazeManager.cs" />
@@ -119,6 +132,15 @@
     <Compile Include="SDK\Assembly-CSharp\DynamicBone.cs" />
     <Compile Include="SDK\Assembly-CSharp\GamelikeInputController.cs" />
     <Compile Include="SDK\Assembly-CSharp\InputStateController.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\InstantiateParameters.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\ServerSettings.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PunEvent.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\GamePropertyKey.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\EventCode.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\ActorProperties.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\AppSettings.cs" />
+    <Compile Include="SDK\Assembly-CSharp\PlayerNameplate.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Core\VRCNetworkingPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModNetworkProperty.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModNetworkEvent.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Steam\ConnectionInterface.cs" />
@@ -160,7 +182,7 @@
     <Compile Include="SDK\Assembly-CSharp\VRC_StationInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_StationInternal2.cs" />
-    <Compile Include="SDK\Assembly-CSharp\RaiseEventOptions.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RaiseEventOptions.cs" />
     <Compile Include="SDK\Assembly-CSharp\ReceiverGroup.cs" />
     <Compile Include="SDK\Assembly-CSharp\SocialRank.cs" />
     <Compile Include="SDK\Assembly-CSharp\USpeakPhotonSender3D.cs" />
@@ -175,6 +197,7 @@
     <Compile Include="SDK\BlazeIL\cpp2il\IL\ILCode.cs" />
     <Compile Include="SDK\BlazeIL\il2cpp\IL2String.cs" />
     <Compile Include="SDK\BlazeIL\il2delegate\delegates.cs" />
+    <Compile Include="SDK\BlazeIL\IL2Space.cs" />
     <Compile Include="SDK\BlazeTools\JsonManager.cs" />
     <Compile Include="SDK\BlazeTools\Json\JsonData.cs" />
     <Compile Include="SDK\BlazeTools\Json\JsonType.cs" />
@@ -185,7 +208,9 @@
     <Compile Include="SDK\mscorlib\System\ObjectIL.cs" />
     <Compile Include="SDK\mscorlib\System\RuntimeType.cs" />
     <Compile Include="SDK\mscorlib\System\Reflection\MonoMethod.cs" />
+    <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\DebugLevel.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\DictionaryEntryEnumerator.cs" />
+    <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\ConnectionProtocol.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\EventData.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\Hashtable.cs" />
     <Compile Include="SDK\Assembly-CSharp\LocomotionInputController.cs" />
@@ -284,6 +309,8 @@
     <Compile Include="SDK\SharpDisasm\Vendor.cs" />
     <Compile Include="SDK\System.Core\Linq\IL2Enumerable.cs" />
     <Compile Include="SDK\Transmtn\DTO\Notifications\NotificationDetails.cs" />
+    <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Text.cs" />
+    <Compile Include="SDK\Unity.TextMeshPro\TMPro\TextMeshProUGUI.cs" />
     <Compile Include="SDK\UnityEngine.AnimationModule\Animator.cs" />
     <Compile Include="SDK\UnityEngine.AnimationModule\HumanBodyBones.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Application.cs" />
@@ -361,11 +388,51 @@
     <Compile Include="BlazeTools\WebTools\Rules.cs" />
     <Compile Include="BlazeTools\WebTools\SecureProtocol.cs" />
     <Compile Include="SDK\WebSocketClient\ClientManager.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Endpoint\Config.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Endpoint\Auth.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Endpoint\SerilizerJSON.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Helpers.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Client.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\HttpClient\HttpClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SDK_Bots\PhotonClient\API\PhotonHandler.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Response\ApiContainer.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Response\WorldResponse.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\RPC.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\CustomTypes.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\PhotonNetwork.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Response\PastDisplayName.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Response\UserSelfResponse.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Response\UserResponse.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Structures\InstantiateParameters.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Variables.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\PhotonClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SDK_Bots\PhotonClient\PhotonClientForm.Designer.cs">
+      <DependentUpon>PhotonClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\AppSettings.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\ConnectionHandler.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\CustomTypesUnity.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\Extensions.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\FriendInfo.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\LoadBalancingClient.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\LoadBalancingPeer.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\PhotonPing.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\PhotonPingClasses.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\Player.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\Region.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\RegionHandler.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\Room.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\RoomInfo.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\SupportLogger.cs" />
+    <Compile Include="SDK_Bots\PhotonLoadbalancingApi\WebRpc.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="SDK\SharpDisasm\Udis86\OpTable.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -378,5 +445,14 @@
   <ItemGroup>
     <None Include="SDK\SharpDisasm\Udis86\optable.xsl" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Addons\Mods\UI\Debug.resx">
+      <DependentUpon>Debug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SDK_Bots\PhotonClient\PhotonClientForm.resx">
+      <DependentUpon>PhotonClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

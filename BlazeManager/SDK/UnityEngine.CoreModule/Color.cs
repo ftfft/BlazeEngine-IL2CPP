@@ -565,6 +565,6 @@ namespace UnityEngine
         /// </summary>
         public float a;
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Color", "UnityEngine");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Color", "UnityEngine");
     }
 }

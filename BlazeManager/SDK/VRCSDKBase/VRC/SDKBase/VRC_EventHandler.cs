@@ -384,6 +384,6 @@ namespace VRC.SDKBase
 			public float fastForward;
 		}
 		*/
-		public static new IL2Type Instance_Class = Assemblies.a["VRCSDKBase"].GetClass("VRC_EventHandler", "VRC.SDKBase");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcsdkbase]].GetClass("VRC_EventHandler", "VRC.SDKBase");
 	}
 }

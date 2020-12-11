@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using ExitGames.Client.Photon;
+using IL2ExitGames.Client.Photon;
 
-namespace Photon.Realtime
+namespace IL2Photon.Realtime
 {
 
     public class Player : IL2Base
@@ -80,6 +80,6 @@ namespace Photon.Realtime
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(VRC.Player.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(VRC.Player.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
     }
 }

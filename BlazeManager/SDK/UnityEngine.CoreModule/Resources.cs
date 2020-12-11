@@ -31,6 +31,6 @@ namespace UnityEngine
             return @object.UnboxArray<Object>();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Resources", "UnityEngine");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Resources", "UnityEngine");
     }
 }

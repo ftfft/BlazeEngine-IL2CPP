@@ -15,6 +15,6 @@ namespace VRC.SDKBase
 			set => Instance_Class.GetField(nameof(canUseStationFromStation)).SetValue(ptr, value.MonoCast());
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["VRCSDKBase"].GetClass("VRCStation", "VRC.SDKBase");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcsdkbase]].GetClass("VRCStation", "VRC.SDKBase");
 	}
 }

@@ -18,5 +18,5 @@ public class VRC_EventDispatcherRFC : IL2Base
         Instance_Class.GetMethod("TriggerEvent").Invoke(ptr, new IntPtr[] { handler.ptr, e.ptr, broadcast.MonoCast(), instagatorId.MonoCast(), fastForward.MonoCast() });
     }
 
-    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventDispatcherRFC");
+    public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRC_EventDispatcherRFC");
 }

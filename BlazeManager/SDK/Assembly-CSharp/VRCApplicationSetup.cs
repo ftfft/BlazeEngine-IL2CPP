@@ -29,5 +29,5 @@ public class VRCApplicationSetup : MonoBehaviour
         get => Instance_Class.GetField(nameof(buildNumber)).GetValue(ptr).unbox_Unmanaged<int>();
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCApplicationSetup");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCApplicationSetup");
 }

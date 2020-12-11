@@ -14,6 +14,6 @@ namespace UnityEngine.UI
             set => Instance_Class.GetProperty(nameof(interactable)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.UI"].GetClass("Selectable", "UnityEngine.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineui]].GetClass("Selectable", "UnityEngine.UI");
     }
 }

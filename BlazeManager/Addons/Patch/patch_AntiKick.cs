@@ -29,7 +29,7 @@ namespace Addons.Patch
             // ~ Analytics [Count: 3]
             try
             {
-                method = Assemblies.a["UnityEngine.UnityAnalyticsModule"].GetClass("Analytics", "UnityEngine.Analytics").GetMethods()
+                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineunityanalyticsmodule]].GetClass("Analytics", "UnityEngine.Analytics").GetMethods()
                     .Where(x => x.Name == "CustomEvent" && x.GetParameters().Length == 2)
                     .First(x => x.GetParameters()[1].Name == "eventData");
                 IL2Ch.Patch(method, (_patch_method_3)patch_method_3);
@@ -41,7 +41,7 @@ namespace Addons.Patch
             }
             try
             {
-                method = Assemblies.a["Assembly-CSharp"].GetClass("Analytics").GetMethods()
+                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("Analytics").GetMethods()
                 .Where(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 3)
                 .First(x => x.HasFlag(IL2BindingFlags.METHOD_STATIC));
                 IL2Ch.Patch(method, (_patch_method_4)patch_method_4);
@@ -53,7 +53,7 @@ namespace Addons.Patch
             }
             try
             {
-                method = Assemblies.a["VRCCore-Standalone"].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
+                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
                 IL2Ch.Patch(method, (_patch_method_5)patch_method_5);
             }
             catch
@@ -62,32 +62,6 @@ namespace Addons.Patch
                 iError++;
             }
 
-            try
-            {
-                // PortalInternal::CreatePortal([5])
-                method = VRCFlowManager.Instance_Class.GetMethod(x => x.GetParameters().Length == 5);
-                unsafe
-                {
-                    var disassembler = disasm.GetDisassembler(method, 0x1000);
-                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
-                    foreach(var instruction in instructions)
-                    {
-                        var addr = ILCode.GetPointer(instruction);
-                        if ((method = ModerationManager.Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr && x.GetParameters().Length == 2)) != null)
-                            break;
-                    }
-                    if (method == null)
-                        throw new Exception();
-
-                }
-
-                // IsKickedFromWorld
-                IL2Ch.Patch(method, (_ModerationManager_IsKickedFromWorld)ModerationManager_IsKickedFromWorld);
-            }
-            catch
-            {
-                ConSole.Error("Patch:  AntiKick [IsKickedFromWorld]");
-            }
             /*
             method = VRC.Player.Instance_Class.GetMethod("OnNetworkReady");
             unsafe

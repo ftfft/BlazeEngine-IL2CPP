@@ -18,5 +18,5 @@ public class UiTooltip : MonoBehaviour
         set => Instance_Class.GetField(nameof(alternateText)).SetValue(ptr, new IL2String(value).ptr);
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("UiTooltip");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UiTooltip");
 }

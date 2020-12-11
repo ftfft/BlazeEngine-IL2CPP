@@ -66,7 +66,7 @@ public class VRCInput : IL2Base
                     return default;
             }
 
-            return fieldTimePressed.GetValue(ptr).Unbox<float>();
+            return fieldTimePressed.GetValue(ptr).unbox_Unmanaged<float>();
         }
         set
         {
@@ -92,7 +92,7 @@ public class VRCInput : IL2Base
                     return default;
             }
 
-            return fieldLastDownTime.GetValue(ptr).Unbox<float>();
+            return fieldLastDownTime.GetValue(ptr).unbox_Unmanaged<float>();
         }
         set
         {
@@ -118,7 +118,7 @@ public class VRCInput : IL2Base
                     return default;
             }
 
-            return fieldLastUpTime.GetValue(ptr).Unbox<float>();
+            return fieldLastUpTime.GetValue(ptr).unbox_Unmanaged<float>();
         }
         set
         {
@@ -144,7 +144,7 @@ public class VRCInput : IL2Base
                     return default;
             }
 
-            return fieldFValue.GetValue(ptr).Unbox<float>();
+            return fieldFValue.GetValue(ptr).unbox_Unmanaged<float>();
         }
         set
         {
@@ -171,7 +171,7 @@ public class VRCInput : IL2Base
                     return default;
             }
 
-            return fieldValue.GetValue(ptr).Unbox<bool>();
+            return fieldValue.GetValue(ptr).unbox_Unmanaged<bool>();
         }
         set
         {
@@ -197,7 +197,7 @@ public class VRCInput : IL2Base
                     return false;
             }
 
-            return fieldValuePrev.GetValue(ptr).Unbox<bool>();
+            return fieldValuePrev.GetValue(ptr).unbox_Unmanaged<bool>();
         }
         set
         {
@@ -212,5 +212,5 @@ public class VRCInput : IL2Base
         }
     }
 
-    public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(LocomotionInputController.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
+    public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(LocomotionInputController.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
 }

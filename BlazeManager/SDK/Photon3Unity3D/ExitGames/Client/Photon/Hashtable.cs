@@ -3,7 +3,7 @@ using BlazeIL;
 using BlazeIL.il2cpp;
 using BlazeIL.il2reflection;
 
-namespace ExitGames.Client.Photon
+namespace IL2ExitGames.Client.Photon
 {
     public class Hashtable : IL2Base
     {
@@ -11,7 +11,11 @@ namespace ExitGames.Client.Photon
 
         public IntPtr this[IntPtr key]
         {
-            get => Instance_Class.GetProperty("Item").GetGetMethod().Invoke(ptr, new IntPtr[] { key }).ptr;
+            get
+            {
+                IL2Object result = Instance_Class.GetProperty("Item").GetGetMethod().Invoke(ptr, new IntPtr[] { key });
+                return (result == null) ? IntPtr.Zero : result.ptr;
+            }
             set => Instance_Class.GetProperty("Item").GetSetMethod().Invoke(ptr, new IntPtr[] { key, value });
         }
 
@@ -30,6 +34,6 @@ namespace ExitGames.Client.Photon
         //            return new Dictionary<object, object>(this);
         //        }
 
-        public static IL2Type Instance_Class = Assemblies.a["Photon3Unity3D"].GetClass("Hashtable", "ExitGames.Client.Photon");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.photon3unity3d]].GetClass("Hashtable", "ExitGames.Client.Photon");
     }
 }

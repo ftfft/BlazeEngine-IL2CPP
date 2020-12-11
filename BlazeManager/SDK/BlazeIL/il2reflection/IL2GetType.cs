@@ -12,7 +12,7 @@ namespace BlazeIL.il2reflection
         {
             IL2Type ilType = null;
 
-            ilType = Assemblies.a["mscorlib"].GetClass(type.Name, type.Namespace);
+            ilType = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass(type.Name, type.Namespace);
             if (ilType == null)
                 ilType = (IL2Type)type.GetFields().First(x => x.IsStatic && x.FieldType == typeof(IL2Type)).GetValue(null);
 

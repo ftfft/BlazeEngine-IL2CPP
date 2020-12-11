@@ -10,9 +10,9 @@ namespace UnityEngine.Events
 
         public void RemoveAllListeners()
         {
-            Instance_Class.GetMethod("RemoveAllListeners").Invoke(ptr);
+            Instance_Class.GetMethod(nameof(RemoveAllListeners)).Invoke(ptr);
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("UnityEventBase", "UnityEngine.Events");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("UnityEventBase", "UnityEngine.Events");
     }
 }

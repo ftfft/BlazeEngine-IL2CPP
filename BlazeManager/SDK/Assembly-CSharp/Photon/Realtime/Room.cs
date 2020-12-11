@@ -2,9 +2,8 @@ using System;
 using System.Linq;
 using BlazeIL.il2cpp;
 
-namespace Photon.Realtime
+namespace IL2Photon.Realtime
 {
-
     public class Room : RoomInfo
     {
         public Room(IntPtr ptr) : base(ptr) => base.ptr = ptr;
@@ -37,6 +36,6 @@ namespace Photon.Realtime
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(Player.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(Player.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
     }
 }

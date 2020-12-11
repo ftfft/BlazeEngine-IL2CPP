@@ -26,6 +26,6 @@ namespace UnityEngine.Events
             Instance_Class.GetMethod("AddListener").Invoke(ptr, actionPtr);
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("UnityEvent", "UnityEngine.Events");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("UnityEvent", "UnityEngine.Events");
     }
 }

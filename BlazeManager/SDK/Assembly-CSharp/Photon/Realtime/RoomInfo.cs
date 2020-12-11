@@ -1,8 +1,8 @@
 using System;
 using BlazeIL.il2cpp;
-using ExitGames.Client.Photon;
+using IL2ExitGames.Client.Photon;
 
-namespace Photon.Realtime
+namespace IL2Photon.Realtime
 {
 
     public class RoomInfo : IL2Base
@@ -25,6 +25,6 @@ namespace Photon.Realtime
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(Room.Instance_Class.BaseType.FullName);
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(Room.Instance_Class.BaseType.FullName);
     }
 }

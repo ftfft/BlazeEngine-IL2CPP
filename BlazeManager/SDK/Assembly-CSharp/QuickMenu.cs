@@ -113,7 +113,7 @@ public class QuickMenu : MonoBehaviour
             IL2Field field = Instance_Class.GetField(nameof(_currentMenu));
             if (field == null)
                 (field = f_currentMenu()).Name = nameof(_currentMenu);
-            return field?.GetValue(ptr)?.Unbox<GameObject>();
+            return field?.GetValue(ptr)?.unbox<GameObject>();
         }
         set
         {
@@ -124,5 +124,5 @@ public class QuickMenu : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("QuickMenu");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("QuickMenu");
 }

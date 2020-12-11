@@ -38,5 +38,5 @@ public class VRCUiShadowPlate : MonoBehaviour
         get => Instance_Class.GetField(nameof(image)).GetValue(ptr)?.unbox<Image>();
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCUiShadowPlate");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCUiShadowPlate");
 }

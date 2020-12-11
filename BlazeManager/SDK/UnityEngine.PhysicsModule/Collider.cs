@@ -74,6 +74,6 @@ namespace UnityEngine
 		}
 		*/
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.PhysicsModule"].GetClass("Collider", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginephysicsmodule]].GetClass("Collider", "UnityEngine");
     }
 }

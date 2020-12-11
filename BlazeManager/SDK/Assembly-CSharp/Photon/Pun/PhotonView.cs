@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL;
 using BlazeIL.il2cpp;
 
-namespace Photon.Pun
+namespace IL2Photon.Pun
 {
     public class PhotonView : MonoBehaviour
     {
@@ -34,16 +32,16 @@ namespace Photon.Pun
             PhotonNetwork.RPC(this, command, target, encrypt, objects);
         }
 
-        public void RPC(string command, Photon.Realtime.Player targetPlayer, params IntPtr[] objects)
+        public void RPC(string command, IL2Photon.Realtime.Player targetPlayer, params IntPtr[] objects)
         {
             RpcSecure(command, targetPlayer, false, objects);
         }
 
-        public void RpcSecure(string command, Photon.Realtime.Player targetPlayer, bool encrypt, params IntPtr[] objects) 
+        public void RpcSecure(string command, IL2Photon.Realtime.Player targetPlayer, bool encrypt, params IntPtr[] objects) 
         {
             PhotonNetwork.RPC(this, command, targetPlayer, encrypt, objects);
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PhotonView", "Photon.Pun");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PhotonView", "Photon.Pun");
     }
 }

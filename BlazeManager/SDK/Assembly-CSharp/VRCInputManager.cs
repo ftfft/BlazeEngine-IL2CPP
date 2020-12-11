@@ -19,7 +19,7 @@ public class VRCInputManager : MonoBehaviour
                     return 0f;
             }
 
-            return fieldMicLvlVR.GetValue().Unbox<float>();
+            return fieldMicLvlVR.GetValue().unbox_Unmanaged<float>();
         }
         set
         {
@@ -47,7 +47,7 @@ public class VRCInputManager : MonoBehaviour
                     return 0f;
             }
 
-            return fieldMicLvlDesc.GetValue().Unbox<float>();
+            return fieldMicLvlDesc.GetValue().unbox_Unmanaged<float>();
         }
         set
         {
@@ -62,5 +62,5 @@ public class VRCInputManager : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCInputManager");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCInputManager");
 }

@@ -26,5 +26,5 @@ public class FadeCycleEffect : MonoBehaviour
 		set => Instance_Class.GetField(nameof(maxAlpha)).SetValue(ptr, value.MonoCast());
 	}
 	
-	public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("FadeCycleEffect");
+	public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("FadeCycleEffect");
 }

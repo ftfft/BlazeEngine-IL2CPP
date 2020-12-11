@@ -1,7 +1,7 @@
 ﻿using System;
 using BlazeIL.il2cpp;
 
-namespace ExitGames.Client.Photon
+namespace IL2ExitGames.Client.Photon
 {
     public class EventData : IL2Base
     {
@@ -28,5 +28,6 @@ namespace ExitGames.Client.Photon
         }
 
         public static IL2Type Instance_Class = Assemblies.a["Photon3Unity3D"].GetClass("EventData", "ExitGames.Client.Photon");
+        // public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.photon3unity3d]].GetClass("EventData", "ExitGames.Client.Photon");
     }
 }

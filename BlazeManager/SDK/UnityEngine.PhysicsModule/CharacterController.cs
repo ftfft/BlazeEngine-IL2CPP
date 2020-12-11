@@ -26,6 +26,6 @@ namespace UnityEngine
             return Instance_Class.GetMethod(nameof(Move)).Invoke(ptr, new IntPtr[] { motion.MonoCast() }).unbox_Unmanaged<CollisionFlags>();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.PhysicsModule"].GetClass("CharacterController", "UnityEngine");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginephysicsmodule]].GetClass("CharacterController", "UnityEngine");
     }
 }

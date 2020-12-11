@@ -59,5 +59,5 @@ public class UiToggleButton : MonoBehaviour
 		set => Instance_Class.GetField(nameof(disabledButton)).SetValue(ptr, (value == null) ? IntPtr.Zero : value.ptr);
 	}
 
-	public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("UiToggleButton");
+	public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UiToggleButton");
 }

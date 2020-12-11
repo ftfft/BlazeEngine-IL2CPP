@@ -21,6 +21,6 @@ namespace VRC.Udon
         }
 
 
-        public static new IL2Type Instance_Class = Assemblies.a["VRC.Udon"].GetClass("UdonBehaviour", "VRC.Udon");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcudon]].GetClass("UdonBehaviour", "VRC.Udon");
     }
 }

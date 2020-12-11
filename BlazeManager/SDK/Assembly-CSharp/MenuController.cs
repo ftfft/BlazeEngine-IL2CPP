@@ -18,5 +18,5 @@ public class MenuController : UnityEngine.Object
         set => Instance_Class.GetField(nameof(activeAvatar)).SetValue(ptr, value.ptr);
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("MenuController");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("MenuController");
 }

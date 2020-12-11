@@ -37,5 +37,5 @@ public class VRCUiManager : MonoBehaviour
         return vrcuiPage;
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRCUiManager");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCUiManager");
 }

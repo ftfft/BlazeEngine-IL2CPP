@@ -42,6 +42,6 @@ namespace VRC
             return method.Invoke(new IntPtr[] { new IL2String(id).ptr })?.unbox_ToString();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == APIUser.Instance_Class.FullName);
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == APIUser.Instance_Class.FullName);
     }
 }

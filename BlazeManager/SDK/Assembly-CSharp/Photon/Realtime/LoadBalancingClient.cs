@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using ExitGames.Client.Photon;
-using Photon.Pun;
+using IL2ExitGames.Client.Photon;
+using IL2Photon.Pun;
 using VRC.Core;
 
-namespace Photon.Realtime
+namespace IL2Photon.Realtime
 {
     public class LoadBalancingClient : IL2Base
     {
@@ -25,6 +25,6 @@ namespace Photon.Realtime
             return result.unbox_Unmanaged<bool>();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass(VRCNetworkingClient.Instance_Class.BaseType.FullName);
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(VRCNetworkingClient.Instance_Class.BaseType.FullName);
     }
 }

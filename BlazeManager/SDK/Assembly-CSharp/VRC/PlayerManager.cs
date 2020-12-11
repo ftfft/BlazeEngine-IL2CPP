@@ -33,6 +33,30 @@ namespace VRC
             }
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PlayerManager", "VRC");
+        public static Player GetPlayer(int playerId)
+        {
+            if (playerId < 0)
+                return null;
+
+            return Instance_Class.GetMethod(nameof(GetPlayer)).Invoke(new IntPtr[] { playerId.MonoCast() })?.unbox<Player>();
+        }
+
+        public static Player GetPlayer(IL2Photon.Realtime.Player photonPlayer)
+        {
+            if (photonPlayer == null)
+                return null;
+
+            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == IL2Photon.Realtime.Player.Instance_Class.FullName).Invoke(new IntPtr[] { photonPlayer.ptr })?.unbox<Player>();
+        }
+
+        public static Player GetPlayer(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return null;
+
+            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String(userId).ptr })?.unbox<Player>();
+        }
+
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PlayerManager", "VRC");
     }
 }

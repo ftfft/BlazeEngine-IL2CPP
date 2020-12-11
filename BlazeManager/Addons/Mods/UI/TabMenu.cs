@@ -41,7 +41,7 @@ namespace Addons.Mods.UI
             GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.ptr);
 
             int iPlayer = 0;
-            foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
+            foreach (var player in players)
             {
                 int? playerId = player?.PhotonPlayer?.ActorNumber;
                 if (playerId == null) continue;
@@ -66,7 +66,7 @@ namespace Addons.Mods.UI
                 {
                     playerPhoton = player;
                     iSelectUser = playerId;
-                    uSelectSteam = player.steamId;
+                    uSelectSteam = player.Components.SteamUserIDULong;
                     string text = "<b>Selected player:</b>";
                     text += "\n<b>ID:</b>\t" + playerId;
                     if (uSelectSteam != 0U)
@@ -90,5 +90,7 @@ namespace Addons.Mods.UI
         private static readonly int iTopMargin = 160;
 
         private static readonly int iLeftMargin = 160;
+
+        public static VRC.Player[] players = new VRC.Player[0];
     }
 }

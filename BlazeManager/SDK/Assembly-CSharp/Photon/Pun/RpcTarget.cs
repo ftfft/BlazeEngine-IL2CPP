@@ -1,4 +1,4 @@
-﻿namespace Photon.Pun 
+﻿namespace IL2Photon.Pun 
 {
 	public enum RpcTarget
 	{

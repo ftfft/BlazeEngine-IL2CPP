@@ -29,6 +29,6 @@ namespace VRC.Core
             get => Instance_Class.GetField(nameof(idWithTags)).GetValue(ptr)?.unbox_ToString().ToString();
         }
         
-        public static IL2Type Instance_Class = Assemblies.a["VRCCore-Standalone"].GetClass("ApiWorldInstance", "VRC.Core");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("ApiWorldInstance", "VRC.Core");
     }
 }

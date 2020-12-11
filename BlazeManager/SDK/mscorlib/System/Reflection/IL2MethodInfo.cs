@@ -16,6 +16,6 @@ namespace System.Reflection
             return Instance_Class.GetMethod(nameof(MakeGenericMethod)).Invoke(ptr, new IntPtr[] { intPtrs.ArrayToIntPtr(IL2SystemClass.Type) }, true).ptr;
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["mscorlib"].GetClass("MethodInfo", "System.Reflection");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("MethodInfo", "System.Reflection");
     }
 }

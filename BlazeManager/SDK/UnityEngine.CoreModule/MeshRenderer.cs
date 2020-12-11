@@ -14,6 +14,6 @@ namespace UnityEngine
 
 
 
-		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("MeshRenderer", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("MeshRenderer", "UnityEngine");
 	}
 }

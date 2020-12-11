@@ -1,4 +1,4 @@
-﻿namespace ExitGames.Client.Photon
+﻿namespace IL2ExitGames.Client.Photon
 {
 	public enum DeliveryMode
 	{

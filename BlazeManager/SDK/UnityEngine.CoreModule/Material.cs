@@ -23,6 +23,6 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(color)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
 		}
 
-		public static new IL2Type Instance_Class = Assemblies.a["UnityEngine.CoreModule"].GetClass("Material", "UnityEngine");
+		public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Material", "UnityEngine");
 	}
 }

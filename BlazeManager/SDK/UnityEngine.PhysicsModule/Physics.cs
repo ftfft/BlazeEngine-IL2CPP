@@ -20,7 +20,7 @@ namespace UnityEngine
             {
                 RayCastMini = Instance_Class.GetMethods()
                     .Where(x => x.Name == "Raycast" && x.GetParameters().Length == 2)
-                    .First(x => IL2Import.il2cpp_type_get_name(x.GetParameters()[1].ptr) == "UnityEngine.RaycastHit&");
+                    .First(x => x.GetParameters()[1].ReturnType.Name == "UnityEngine.RaycastHit&");
 
                 if (RayCastMini == null)
                 {
@@ -33,11 +33,11 @@ namespace UnityEngine
             {
                 fixed (RaycastHit* hitInfoPtr = &hitInfo)
                 {
-                    return RayCastMini.Invoke(new IntPtr[] { ray.MonoCast(), new IntPtr(hitInfoPtr) }).Unbox<bool>();
+                    return RayCastMini.Invoke(new IntPtr[] { ray.MonoCast(), new IntPtr(hitInfoPtr) }).unbox_Unmanaged<bool>();
                 }
             }
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["UnityEngine.PhysicsModule"].GetClass("Physics", "UnityEngine");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginephysicsmodule]].GetClass("Physics", "UnityEngine");
     }
 }

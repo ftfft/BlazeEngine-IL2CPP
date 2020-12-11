@@ -139,5 +139,5 @@ public class VRC_EventLog : VRCNetworkBehaviour
     }
 
 
-    public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRC_EventLog");
 }

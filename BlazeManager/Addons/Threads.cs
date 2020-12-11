@@ -10,10 +10,11 @@ using BlazeIL.il2cpp;
 using Addons.Patch;
 using Addons.Utils;
 using VRCSDK2;
-using Photon.Pun.UtilityScripts;
-using Photon.Pun;
+using IL2Photon.Pun.UtilityScripts;
+using IL2Photon.Pun;
 using VRC.UserCamera;
 using Addons.Mods.UI;
+using System.Collections.Generic;
 
 namespace Addons
 {
@@ -84,7 +85,7 @@ namespace Addons
 
             try
             {
-                IL2Method method = Assemblies.a["Assembly-CSharp"].GetClass("InteractivePlayer").GetMethod("Update");
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("InteractivePlayer").GetMethod("Update");
                 if (method == null)
                     throw new Exception();
 
@@ -160,8 +161,8 @@ namespace Addons
                     {
                         if (SelectColesion.GetComponent<VRC_Pickup>() != null || SelectColesion.GetComponent<VRC.SDK3.Components.VRCPickup>() != null)
                         {
-                            PhotonNetwork.TransferOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.PhotonPlayer.ActorNumber);
-                            PhotonNetwork.RequestOwnership(SelectColesion.GetComponent<Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.PhotonPlayer.ActorNumber);
+                            PhotonNetwork.TransferOwnership(SelectColesion.GetComponent<IL2Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.PhotonPlayer.ActorNumber);
+                            PhotonNetwork.RequestOwnership(SelectColesion.GetComponent<IL2Photon.Pun.PhotonView>().viewIdField, VRC.Player.Instance.PhotonPlayer.ActorNumber);
                             SelectColesion.transform.position = new Vector3(float.NaN, float.NaN, float.NaN);
                         }
                     }
@@ -188,14 +189,51 @@ namespace Addons
                 }
             }
             /*
+            if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            {
+                PhotonClient.API.PhotonNetwork.Disconnect();
+                // Console.WriteLine("T1: " + PhotonClient.API.PhotonNetwork.NetworkClientState.ToString());
+            }
+            if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+            {
+                PhotonClient.API.Helpers.InstantiateSelf();
+                // Console.WriteLine("T1: " + PhotonClient.API.PhotonNetwork.NetworkClientState.ToString());
+            }
             if (Input.GetKeyDown(KeyCode.KeypadPlus))
             {
-                UserUtils.WengaClose();
+                new Thread(() => {
+
+                    if (!PhotonClient.API.PhotonNetwork.ConnectToNameServer())
+                        return;
+
+                    while (PhotonClient.API.PhotonNetwork.IsConnected && !PhotonClient.API.PhotonNetwork.IsConnectedAndReady)
+                        Thread.Sleep(50);
+
+                    if (!PhotonClient.API.PhotonNetwork.IsConnectedAndReady)
+                    {
+                        Console.WriteLine("[INFO] Failed connecting to photon!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("[INFO] Now connected to masterserver!");
+                        while (PhotonClient.API.PhotonNetwork.isWaitState)
+                        {
+                            Thread.Sleep(50);
+                        }
+                        if (!PhotonClient.API.PhotonNetwork.IsConnectedAndReady)
+                            return;
+
+                        if (PhotonClient.API.PhotonNetwork.JoinOrCreateRoom(RoomManager.currentRoom.id + ":" + RoomManager.currentRoom.currentInstanceIdWithTags))
+                        {
+                        }
+                    }
+                }).Start();
                 return;
             }
+            */
             if (Input.GetKey(KeyCode.KeypadEnter))
             {
-                foreach(var player in VRC.PlayerManager.Instance.AllPlayers)
+                foreach(var player in TabMenu.players)
                 {
                     foreach (var obj in NoLocalPickup.gameObjects)
                     {
@@ -211,7 +249,7 @@ namespace Addons
                 // Console.WriteLine(VRC.User.CreateSessionIdForUser(TabMenu.playerPhoton.userId));
                 // Console.WriteLine(VRC.Player.Instance.photonPlayer.RoomReference.CustomProperties.ToString());
                 return;
-            }*/
+            }
             /*
             if (Input.GetKey(KeyCode.PageDown))
             {
@@ -294,6 +332,7 @@ namespace Addons
             }
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                /*
                 var mm = QuickMenu.Instance_Class.GetMethods().First(x=> !x.IsStatic && x.HasFlag(IL2BindingFlags.METHOD_PRIVATE)
                 && x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2
                 && x.GetParameters()[0].ReturnType.Name == typeof(bool).FullName

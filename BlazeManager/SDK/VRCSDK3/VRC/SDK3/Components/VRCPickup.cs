@@ -8,6 +8,6 @@ namespace VRC.SDK3.Components
     {
         public VRCPickup(IntPtr ptr) : base(ptr) => base.ptr = ptr;
         
-        public static new IL2Type Instance_Class = Assemblies.a["VRCSDK3"].GetClass("VRCPickup", "VRC.SDK3.Components");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrcsdk3]].GetClass("VRCPickup", "VRC.SDK3.Components");
     }
 }

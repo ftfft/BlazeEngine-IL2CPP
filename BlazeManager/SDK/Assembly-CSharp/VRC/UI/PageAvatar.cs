@@ -13,6 +13,6 @@ namespace VRC.UI
             set => Instance_Class.GetField(nameof(avatar)).SetValue(ptr, value.ptr);
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a["Assembly-CSharp"].GetClass("PageAvatar", "VRC.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PageAvatar", "VRC.UI");
     }
 }
