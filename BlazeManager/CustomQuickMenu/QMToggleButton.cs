@@ -26,8 +26,8 @@ namespace CustomQuickMenu
             btnToggle = button.transform.Find("Toggle_States_Visible").gameObject;
             btnToggle.GetComponent<UiToggleButton>().Awake();
 
-            initShift[0] = -4;
-            initShift[1] = 0;
+            initShift[0] = -3;
+            initShift[1] = -1;
             setLocation(btnXLocation, btnYLocation);
 
             setOnText(btnTextOn);

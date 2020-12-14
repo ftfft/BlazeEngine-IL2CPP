@@ -4,7 +4,7 @@ using BlazeIL.il2cpp;
 
 namespace VRC.Networking
 {
-	public class UdonSync : MonoBehaviour
+	public class UdonSync : VRCNetworkBehaviour
 	{
 		public UdonSync(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 

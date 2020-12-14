@@ -14,7 +14,7 @@ namespace BlazeIL.cpp2il.IL
 
         public static bool IsCall(Instruction instruction) => instruction.Mnemonic == ud_mnemonic_code.UD_Icall;
         
-        public static bool IsString(Instruction instruction) => instruction.Mnemonic == ud_mnemonic_code.UD_Istr;
+        public static bool IsString(Instruction instruction) => instruction.Mnemonic == ud_mnemonic_code.UD_Istc;
 
         public unsafe static ILObject[] CastToILObject(IEnumerable<Instruction> instructions)
         {

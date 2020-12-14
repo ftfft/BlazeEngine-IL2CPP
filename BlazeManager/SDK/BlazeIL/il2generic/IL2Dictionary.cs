@@ -36,7 +36,6 @@ namespace BlazeIL.il2generic
 			set => Instance_Class.GetProperty("Item").GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(key).ptr, new IL2String(value).ptr, propertyItem.GetSetMethod().ptr });
 		}
 
-		private static IL2Method methodFindEntry = null;
 		public int FindEntry(IntPtr key)
 		{
 			return Instance_Class.GetMethod("FindEntry").Invoke(ptr, new IntPtr[] { key }).unbox_Unmanaged<int>();

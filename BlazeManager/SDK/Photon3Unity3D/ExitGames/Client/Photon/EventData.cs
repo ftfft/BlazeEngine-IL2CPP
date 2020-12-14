@@ -27,7 +27,6 @@ namespace IL2ExitGames.Client.Photon
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a["Photon3Unity3D"].GetClass("EventData", "ExitGames.Client.Photon");
-        // public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.photon3unity3d]].GetClass("EventData", "ExitGames.Client.Photon");
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.photon3unity3d]].GetClass("EventData", "ExitGames.Client.Photon");
     }
 }

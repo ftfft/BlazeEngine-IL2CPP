@@ -1,4 +1,5 @@
 ﻿using System;
+using BlazeIL;
 using BlazeIL.il2cpp;
 
 namespace VRC.Core
@@ -6,6 +7,12 @@ namespace VRC.Core
     public class ApiAvatar : ApiModel
     {
         public ApiAvatar(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+        public ApiAvatar() : base(IntPtr.Zero)
+        {
+            ptr = IL2Import.il2cpp_object_new(Instance_Class.ptr);
+            Instance_Class.GetConstructor().Invoke(ptr);
+        }
 
         public string releaseStatus
 		{
@@ -30,7 +37,7 @@ namespace VRC.Core
             get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
             set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
-
+        
         public void SaveReleaseStatus(Action<ApiContainer> onSuccess = null, Action<ApiContainer> onFailure = null)
         {
             IntPtr ptrSucc = IntPtr.Zero;

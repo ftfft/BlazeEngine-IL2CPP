@@ -90,6 +90,11 @@ namespace VRC.Core
             get => Instance_Class.GetProperty(nameof(location)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
         }
 
+        public string avatarId
+        {
+            get => Instance_Class.GetProperty(nameof(avatarId)).GetGetMethod().Invoke(ptr)?.unbox_ToString().ToString();
+        }
+
         public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("APIUser", "VRC.Core");
     }
 }

@@ -716,13 +716,11 @@ namespace UnityEngine
         }
         */
 
-        private static IL2Method methodGammaToLinearSpace = null;
         public static float GammaToLinearSpace(float value)
         {
             return Instance_Class.GetMethod(nameof(GammaToLinearSpace)).Invoke(new IntPtr[] { value.MonoCast() }).unbox_Unmanaged<float>();
         }
 
-        private static IL2Method methodLinearToGammaSpace = null;
         public static float LinearToGammaSpace(float value)
         {
             return Instance_Class.GetMethod(nameof(LinearToGammaSpace)).Invoke(new IntPtr[] { value.MonoCast() }).unbox_Unmanaged<float>();

@@ -34,7 +34,9 @@ namespace Addons.Patch
                 }
                 if (method == null)
                     throw new Exception();
-                
+
+                method.Name = "SwitchAvatar";
+
                 var patch = IL2Ch.Patch(method, (_VRCAvatarManager_SwitchAvatar)VRCAvatarManager_SwitchAvatar);
                 _VRCAvatarManager_SwitchAvatar = patch.CreateDelegate<_VRCAvatarManager_SwitchAvatar>();
                 ConSole.Success("Patch: No Avatars");

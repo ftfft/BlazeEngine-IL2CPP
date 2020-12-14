@@ -5,11 +5,12 @@ using System.IO;
 using BlazeIL.il2ch;
 using BlazeIL.il2cpp;
 using BlazeTools;
+using Steamworks;
 
 namespace Addons.Patch
 {
+    public delegate SteamId _Steamworks_SteamClient_Get_SteamId();
     public delegate IntPtr _UnityEngine_SystemInfo();
-    public delegate void _VRC_Core_AnalyticsInterface_Send_3(IntPtr eventType, IntPtr eventProperties, IntPtr options);
     public static class patch_Spoofer
     {
         public static void Start()
@@ -21,29 +22,45 @@ namespace Addons.Patch
                     throw new Exception();
 
                 IL2Ch.Patch(method, (_UnityEngine_SystemInfo)UnityEngine_SystemInfo);
-                ConSole.Success("Patch: Spoofer");
+                ConSole.Success("Patch: Spoofer [HWID]");
             }
             catch
             {
-                ConSole.Error("Patch: Spoofer");
+                ConSole.Error("Patch: Spoofer [HWID]");
             }
             try
             {
-                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
+                IL2Method method = SteamClient.Instance_Class.GetProperty("SteamId").GetGetMethod();
                 if (method == null)
-                    throw new Exception();
+                    throw new Exception("0x0M3");
 
-                IL2Ch.Patch(method, (_VRC_Core_AnalyticsInterface_Send_3)VRC_Core_AnalyticsInterface_Send_3);
+                IL2Patch patch = IL2Ch.Patch(method, (_Steamworks_SteamClient_Get_SteamId)Steamworks_SteamClient_Get_SteamId);
+                if (patch == null)
+                    throw new Exception("0x0M4");
+                _delegateSteamworks_SteamClient_Get_SteamId = patch.CreateDelegate<_Steamworks_SteamClient_Get_SteamId>();
+                ConSole.Success("Patch: Spoofer [SteamId]");
             }
             catch
             {
-                ConSole.Error("Patch: Analytics");
+                ConSole.Error("Patch: Spoofer [SteamId]");
             }
         }
 
-        private static void VRC_Core_AnalyticsInterface_Send_3(IntPtr eventType, IntPtr eventProperties, IntPtr options)
+        public static SteamId fakeSteamId = 0U;
+        public static SteamId? realSteamId = null;
+        public static SteamId Steamworks_SteamClient_Get_SteamId()
         {
+            if (BlazeManager.GetForPlayer<bool>("Steam Spoof"))
+                return fakeSteamId;
+
+            if (realSteamId is null)
+            {
+                realSteamId = _delegateSteamworks_SteamClient_Get_SteamId.Invoke();
+            }
+            return realSteamId.Value;
         }
+        public static _Steamworks_SteamClient_Get_SteamId _delegateSteamworks_SteamClient_Get_SteamId;
+
 
         public static IL2String _fakeDeviceId = null;
         private static IntPtr UnityEngine_SystemInfo()

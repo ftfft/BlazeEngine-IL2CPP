@@ -40,17 +40,6 @@ namespace IL2Photon.Pun
                 return field?.GetValue()?.unbox<LoadBalancingClient>();
             }
         }
-        
-        public static ServerSettings serverSettings
-        {
-            get
-            {
-                IL2Field field = Instance_Class.GetField(nameof(serverSettings));
-                if (field == null)
-                    (field = Instance_Class.GetField(x => x.ReturnType.Name == ServerSettings.Instance_Class.FullName)).Name = nameof(serverSettings);
-                return field?.GetValue()?.unbox<ServerSettings>();
-            }
-        }
 
         public static void RequestOwnership(int viewId, int fromId)
         {
@@ -103,6 +92,6 @@ namespace IL2Photon.Pun
             return result.unbox_Unmanaged<bool>();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == ServerSettings.Instance_Class.FullName).Count() == 1);
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == RaiseEventOptions.Instance_Class.FullName).Count() > 0);
     }
 }

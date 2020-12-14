@@ -8,7 +8,7 @@ using PhotonClient.API.Response;
 
 namespace PhotonClient.API
 {
-	internal static class PhotonNetwork
+	public static class PhotonNetwork
 	{
 		internal static bool IsConnected
 		{
@@ -101,6 +101,16 @@ namespace PhotonClient.API
 				return NetworkingClient.CurrentRoom != null && NetworkingClient.CurrentRoom.MasterClientId == LocalPlayer.ActorNumber;
 			}
 		}
+		
+		
+		public static Cmd command { get; set; }
+		public static string target { get; set; }
+		public enum Cmd
+        {
+			none,
+			check,
+			cloneAvatar
+		}
 
 		public static Player LocalPlayer
 		{
@@ -182,7 +192,7 @@ namespace PhotonClient.API
 
 		static PhotonNetwork()
 		{
-			// ApiClient = new Client("blowblow666", "$OorT2URr1ai");
+			ApiClient = new Client("blowblow666", "$OorT2URr1ai");
 			NetworkingClient = new LoadBalancingClient(ConnectionProtocol.Udp);
 			NetworkingClient.LoadBalancingPeer.QuickResendAttempts = 2;
 			NetworkingClient.LoadBalancingPeer.SentCountAllowance = 7;
@@ -193,9 +203,9 @@ namespace PhotonClient.API
 			CustomTypes.Register();
 			PhotonHandler = new PhotonHandler();
 			NetworkingClient.AddCallbackTarget(PhotonHandler);
-			NetworkingClient.AppId = IL2Photon.Pun.PhotonNetwork.serverSettings.AppSettings.AppIdRealtime;
-			AppVersion = IL2Photon.Pun.PhotonNetwork.serverSettings.AppSettings.AppVersion;
-			NetworkingClient.EnableLobbyStatistics = IL2Photon.Pun.PhotonNetwork.serverSettings.AppSettings.EnableLobbyStatistics;
+			NetworkingClient.AppId = "bf0942f7-9935-4192-b359-f092fa85bef1";
+			AppVersion = VRCApplicationSetup.Instance.GetGameServerVersion();
+			NetworkingClient.EnableLobbyStatistics = true;
 
 			NetworkingClient.AuthValues = new AuthenticationValues
 			{
@@ -212,11 +222,13 @@ namespace PhotonClient.API
 
 		public static bool ConnectToNameServer()
 		{
+			/*
 			if (IL2Photon.Pun.PhotonNetwork.serverSettings.AppSettings.IsBestRegion)
 			{
 				return NetworkingClient.ConnectToMasterServer();
 			}
-			return NetworkingClient.ConnectToRegionMaster(IL2Photon.Pun.PhotonNetwork.serverSettings.AppSettings.FixedRegion);
+			*/
+			return NetworkingClient.ConnectToRegionMaster(FixedRegion);
 		}
 		private static bool ConnectToMaster(string address, int port, string appId)
 		{
@@ -247,11 +259,6 @@ namespace PhotonClient.API
 			return result;
 		}
 
-		public static bool ConnectToRegionMaster()
-        {
-			return NetworkingClient.ConnectToRegionMaster(IL2Photon.Pun.PhotonNetwork.serverSettings.AppSettings.FixedRegion);
-		}
-		
 		public static void Disconnect()
 		{
 			bool flag = NetworkingClient == null;

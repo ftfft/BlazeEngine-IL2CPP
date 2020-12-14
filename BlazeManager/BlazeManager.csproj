@@ -64,7 +64,6 @@
     <Compile Include="Addons\Avatars\AvatarStatus.cs" />
     <Compile Include="Addons\Avatars\AvatarTools.cs" />
     <Compile Include="Addons\Avatars\UIAvatar.cs" />
-    <Compile Include="Addons\Debuger\Debugger.cs" />
     <Compile Include="Addons\Locale\Base.cs" />
     <Compile Include="Addons\Locale\Lang.cs" />
     <Compile Include="Addons\Locale\Locale_Data.cs" />
@@ -75,16 +74,11 @@
     <Compile Include="Addons\Mods\NoLocalPickup.cs" />
     <Compile Include="Addons\Mods\Chair.cs" />
     <Compile Include="Addons\Mods\PortableMirror.cs" />
-    <Compile Include="Addons\Mods\UI\Debug.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Addons\Mods\UI\Debug.Designer.cs">
-      <DependentUpon>Debug.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Addons\Mods\UI\Debug.cs" />
     <Compile Include="Addons\Mods\UI\TabMenu.cs" />
     <Compile Include="Addons\Mods\VoiceDotFade.cs" />
     <Compile Include="Addons\Patch\patch_AntiBlock.cs" />
-    <Compile Include="Addons\Patch\patch_AntiKick.cs" />
+    <Compile Include="Addons\Patch\patch_AntiAnalytics.cs" />
     <Compile Include="Addons\Patch\patch_NoAvatars.cs" />
     <Compile Include="Addons\Patch\patch_QuickMenu.cs" />
     <Compile Include="Addons\Patch\patch_GlobalDynamicBones.cs" />
@@ -105,8 +99,11 @@
     <Compile Include="Addons\Patch\patch_VipPlates.cs" />
     <Compile Include="Addons\Threads.cs" />
     <Compile Include="Addons\UserUtils.cs" />
+    <Compile Include="Addons\Utils\PhotonBot.cs" />
+    <Compile Include="Addons\Utils\Avatar.cs" />
     <Compile Include="Addons\Utils\FileDebug.cs" />
     <Compile Include="Addons\Utils\Notification.cs" />
+    <Compile Include="BlazeManagerMenu\Edit_WorldPanel.cs" />
     <Compile Include="Dll_Loader.cs" />
     <Compile Include="BlazeManagerMenu\Edit_UserPanel.cs" />
     <Compile Include="BlazeTools\BlazeAttack\PhotonUtils.cs" />
@@ -133,7 +130,6 @@
     <Compile Include="SDK\Assembly-CSharp\GamelikeInputController.cs" />
     <Compile Include="SDK\Assembly-CSharp\InputStateController.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\InstantiateParameters.cs" />
-    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\ServerSettings.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PunEvent.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\GamePropertyKey.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\EventCode.cs" />
@@ -347,6 +343,8 @@
     <Compile Include="SDK\UnityEngine.CoreModule\Vector2.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Vector3.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Vector4.cs" />
+    <Compile Include="SDK\UnityEngine.IMGUIModule\GUILayoutOption.cs" />
+    <Compile Include="SDK\UnityEngine.IMGUIModule\GUILayout.cs" />
     <Compile Include="SDK\UnityEngine.IMGUIModule\GUIStyle.cs" />
     <Compile Include="SDK\UnityEngine.IMGUIModule\GUISkin.cs" />
     <Compile Include="SDK\UnityEngine.IMGUIModule\GUI.cs" />
@@ -366,7 +364,10 @@
     <Compile Include="SDK\UnityEngine.UnityAnalyticsModule\ApiAnalyticEvent.cs" />
     <Compile Include="SDK\VRC.Udon.Common\VRC\Udon\Common\Interfaces\NetworkEventTarget.cs" />
     <Compile Include="SDK\VRC.Udon\VRC\Udon\UdonBehaviour.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\API.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiAvatar.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiDictContainer.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiModelContainer.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiContainer.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiModel.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\APIUser.cs" />
@@ -446,9 +447,6 @@
     <None Include="SDK\SharpDisasm\Udis86\optable.xsl" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Addons\Mods\UI\Debug.resx">
-      <DependentUpon>Debug.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SDK_Bots\PhotonClient\PhotonClientForm.resx">
       <DependentUpon>PhotonClientForm.cs</DependentUpon>
     </EmbeddedResource>

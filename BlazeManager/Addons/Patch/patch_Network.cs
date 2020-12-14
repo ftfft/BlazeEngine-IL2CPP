@@ -30,7 +30,6 @@ namespace Addons.Patch
     public delegate void _NetworkMetadata_OnOwnershipTransfered(IntPtr instance, IntPtr pGameObject, IntPtr pPlayer, IntPtr pPlayer2);
     public delegate int _System_BitConverter_ToInt32(IntPtr pValue, int startIndex);
     public delegate void _LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData);
-    public delegate SteamId _Steamworks_SteamClient_Get_SteamId();
     public delegate void _USpeakPhotonSender3D_OnEventBytes(IntPtr instance, IntPtr pBytes, int Int32_1, IntPtr pInt32_2);
     public delegate void _PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer);
     public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
@@ -80,7 +79,7 @@ namespace Addons.Patch
         }
         public static void Toggle_Enable_Serilize()
         {
-            BlazeManager.SetForPlayer("Photon Serilize", !BlazeManager.GetForPlayer<bool>("Fake Ping"));
+            BlazeManager.SetForPlayer("Photon Serilize", !BlazeManager.GetForPlayer<bool>("Photon Serilize"));
             RefreshStatus_Serilize();
         }
 
@@ -117,46 +116,66 @@ namespace Addons.Patch
         {
             try
             {
-                IL2Method method = LoadBalancingClient.Instance_Class.GetMethod("OnEvent");
-                if (method == null)
-                    throw new Exception("0x0M1");
+                try
+                {
+                    IL2Method method = LoadBalancingClient.Instance_Class.GetMethod("OnEvent");
+                    if (method == null)
+                        throw new Exception("0x0M1");
 
-                var patch = IL2Ch.Patch(method, (_LoadBalancingClient_OnEvent)LoadBalancingClient_OnEvent);
-                if (patch == null)
-                    throw new Exception("0x0M2");
-                _delegateLoadBalancingClient_OnEvent = patch.CreateDelegate<_LoadBalancingClient_OnEvent>();
-
-                method = SteamClient.Instance_Class.GetProperty("SteamId").GetGetMethod();
-                if (method == null)
-                    throw new Exception("0x0M3");
-
-                patch = IL2Ch.Patch(method, (_Steamworks_SteamClient_Get_SteamId)Steamworks_SteamClient_Get_SteamId);
-                if (patch == null)
-                    throw new Exception("0x0M4");
-                _delegateSteamworks_SteamClient_Get_SteamId = patch.CreateDelegate<_Steamworks_SteamClient_Get_SteamId>();
+                    var patch = IL2Ch.Patch(method, (_LoadBalancingClient_OnEvent)LoadBalancingClient_OnEvent);
+                    if (patch == null)
+                        throw new Exception("0x0M2");
+                    _delegateLoadBalancingClient_OnEvent = patch.CreateDelegate<_LoadBalancingClient_OnEvent>();
+                }
+                catch { }
 
                 try
                 {
-                    method = LoadBalancingClient.Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName);
+                    IL2Method method = LoadBalancingClient.Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName);
                     if (method == null)
-                        throw new Exception("0x0M5");
+                        throw new Exception("0x0M6");
 
-                    patch = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
+                    IL2Patch patch = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
                     if (patch == null)
                         throw new Exception("0x0M6");
                     _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
                 }
                 catch
                 {
-                    ConSole.Error("Patch: EventManager [RaiseEvent]");
+                    ConSole.Error("Patch: Network [RaiseEvent]");
                 }
 
+                try
+                {
+                    IL2Method method = VRC.UI.DebugDisplayText.Instance_Class.GetMethod("Update");
+                    var methods = PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
+
+                    unsafe
+                    {
+                        var disassembler = disasm.GetDisassembler(method, 0x512);
+                        var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
+                        foreach (var instruction in instructions)
+                        {
+                            IntPtr addr = ILCode.GetPointer(instruction);
+                            if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr)) != null)
+                                break;
+                        }
+                    }
+                    IL2Patch patch = IL2Ch.Patch(method, (_NetworkPing)methodNetworkPing);
+                    if (patch == null)
+                        throw new Exception("0x0M6");
+                    _delegateNetworkPing = patch.CreateDelegate<_NetworkPing>();
+                }
+                catch
+                {
+                    ConSole.Error("Patch: Network [Ping]");
+                }
                 //method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.IsStatic).GetGetMethod();
                 //patch = IL2Ch.Patch(method, (_methodFastJoin)methodFastJoin);
                 //_delegateFastJoin = patch.CreateDelegate<_methodFastJoin>();
 
-                method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
-                IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
+                //method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
+                //IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
                 /*
                 method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("PhotoCapture");
                 IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
@@ -165,27 +184,9 @@ namespace Addons.Patch
                 IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
                 */
 
-                method = Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
-                patch = IL2Ch.Patch(method, (_SendMessage)SendMessage);
-                _delegateSendMessage = patch.CreateDelegate<_SendMessage>();
-
-                method = VRC.UI.DebugDisplayText.Instance_Class.GetMethod("Update");
-                var methods = PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
-
-                unsafe
-                {
-                    var disassembler = disasm.GetDisassembler(method, 0x512);
-                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
-                    foreach (var instruction in instructions)
-                    {
-                        IntPtr addr = ILCode.GetPointer(instruction);
-                        method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
-                        if (method != null)
-                            break;
-                    }
-                }
-                patch = IL2Ch.Patch(method, (_NetworkPing)methodNetworkPing);
-                _delegateNetworkPing = patch.CreateDelegate<_NetworkPing>();
+                //method = Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
+                //patch = IL2Ch.Patch(method, (_SendMessage)SendMessage);
+                //_delegateSendMessage = patch.CreateDelegate<_SendMessage>();
 
                 //IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
                 //pPatch[0] = IL2Ch.Patch(method, (_USpeakPhotonSender3D_OnEvent)USpeakPhotonSender3D_OnEvent);
@@ -238,35 +239,19 @@ namespace Addons.Patch
             return result;
         }
         */
-        public static SteamId fakeSteamId = 0U;
-        public static SteamId? realSteamId = null;
-        public static SteamId Steamworks_SteamClient_Get_SteamId()
-        {
-            if (BlazeManager.GetForPlayer<bool>("Steam Spoof"))
-                return fakeSteamId;
-
-            if (realSteamId is null)
-            {
-                realSteamId = _delegateSteamworks_SteamClient_Get_SteamId.Invoke();
-            }
-            return realSteamId.Value;
-        }
-        public static _Steamworks_SteamClient_Get_SteamId _delegateSteamworks_SteamClient_Get_SteamId;
 
         public static void LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData)
         {
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
-            int iSender = eventData.Sender;
-            byte a = eventData.Code;
             bool isSelf = false;
-            VRC.Player player = PlayerManager.GetPlayer(iSender);
-            if (VRC.Player.Instance == player)
+            if (VRC.Player.Instance?.PhotonPlayer?.ActorNumber == eventData.Sender)
                 isSelf = true;
 
-            switch(a)
+            switch (eventData.Code)
             {
+                /*
                 case 1:
                     {
                         if (player.IsMuted)
@@ -274,6 +259,7 @@ namespace Addons.Patch
 
                         break;
                     }
+                */
                 case 6:
                     {
                         if (!isSelf && BlazeManager.GetForPlayer<bool>("RPC Block"))
@@ -530,7 +516,7 @@ namespace Addons.Patch
             {
                 return _delegateOpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
             }
-            catch { return true; }
+            catch { return false; }
             /*
             if (operationCode == 3 || operationCode == 202 || operationCode == 8 || operationCode == 6 || operationCode == 1)
             {
@@ -583,7 +569,7 @@ namespace Addons.Patch
         private static int methodNetworkPing()
         {
             int result = 777;
-            if (!BlazeManager.GetForPlayer<bool>("Fake Ping"))
+            if (!BlazeManager.GetForPlayer<bool>("Fake Ping") || VRC.Player.Instance == null)
                 result = _delegateNetworkPing.Invoke();
             return result;
         }

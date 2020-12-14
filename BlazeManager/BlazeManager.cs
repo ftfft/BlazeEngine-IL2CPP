@@ -24,8 +24,8 @@ public class BlazeManager
         //# patch_UpdateYoutube_dl.Start();
         patch_QuitFix.Start();
         patch_Spoofer.Start();
+        patch_AntiAnalytics.Start();
         patch_AntiBlock.Start();
-        patch_AntiKick.Start();
         patch_AvatarSteal.Start();
         patch_AvatarTools.Start();
         patch_EventManager.Start();

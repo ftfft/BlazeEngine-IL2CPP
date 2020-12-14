@@ -15,6 +15,7 @@ using IL2Photon.Pun;
 using VRC.UserCamera;
 using Addons.Mods.UI;
 using System.Collections.Generic;
+using VRC.Core;
 
 namespace Addons
 {
@@ -25,6 +26,13 @@ namespace Addons
     public delegate IntPtr _Nulled2(IntPtr instance);
     public static class Threads
     {
+        public static void FAction(IntPtr result)
+        {
+            Console.WriteLine("Faction success " + result);
+        }
+
+        public static string AvatarId { get; set; }
+
         internal static void Start()
         {
             try
@@ -119,7 +127,7 @@ namespace Addons
             if (Input.GetKey(KeyCode.Tab))
             {
                 if (VRC.Player.Instance != null)
-                    Mods.UI.TabMenu.ShowMenu();
+                    TabMenu.ShowMenu();
                 return;
             }
         }
@@ -132,11 +140,10 @@ namespace Addons
             if (instance == IntPtr.Zero)
                 return;
 
-            if (Input.GetKey(KeyCode.Home))
+            if (!string.IsNullOrEmpty(AvatarId))
             {
-                BlazeAttack.PhotonUtils.raise209_status = true;
-                BlazeAttack.PhotonUtils.Raise200();
-                return;
+                Avatar.SelectAvatar(AvatarId);
+                AvatarId = null;
             }
             
             if (Input.GetKeyDown(KeyCode.PageUp))
@@ -188,12 +195,16 @@ namespace Addons
 
                 }
             }
-            /*
             if (Input.GetKeyDown(KeyCode.KeypadMinus))
             {
-                PhotonClient.API.PhotonNetwork.Disconnect();
+                new ApiAvatar
+                {
+                    id = "avtr_5b5b1269-1b46-4920-ad44-9f37fa499e53"
+                }.Fetch(FAction);
+                // PhotonClient.API.PhotonNetwork.Disconnect();
                 // Console.WriteLine("T1: " + PhotonClient.API.PhotonNetwork.NetworkClientState.ToString());
             }
+            /*
             if (Input.GetKeyDown(KeyCode.KeypadMultiply))
             {
                 PhotonClient.API.Helpers.InstantiateSelf();
@@ -261,8 +272,6 @@ namespace Addons
             }
             */
 
-            BlazeAttack.PhotonUtils.raise209_status = false;
-
             if (Cam3th._isEnable)
                 Cam3th.Update();
 
@@ -277,6 +286,7 @@ namespace Addons
                 Application.targetFrameRate = 101;
                 BlazeManagerMenu.Main.CreateMenu();
                 BlazeManagerMenu.Edit_UserPanel.Start();
+                BlazeManagerMenu.Edit_WorldPanel.Start();
                 return;
             }
             
@@ -376,19 +386,21 @@ namespace Addons
                     VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "TimerBloop", new IntPtr[0]);
                 VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, gameObject, "PhotoCapture", new IntPtr[0]);
             }
-            */
             if (Input.GetKeyDown(KeyCode.End))
             {
                 foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())
                 {
-                    //Console.WriteLine("------- [ " + x.gameObject.ToString());
-                    //foreach(var z in x.GetPrograms())
-                    //    Console.WriteLine(z);
-
-                    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_interact");
+                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "_start"))
+                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_start");
+                    if (null != x.GetPrograms().FirstOrDefault(y => y == "_interact"))
+                        VRC.Network.RPC(VRC.SDKBase.VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("_interact").ptr });
+                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "Play"))
+                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "Play");
                 }
                 // Notification.SendMessage(VRC.Player.Instance, "Test world");
             }
+
+            */
             if (Input.GetKeyDown(KeyCode.P))
             {
                 Cam3th.Toggle_Enable();

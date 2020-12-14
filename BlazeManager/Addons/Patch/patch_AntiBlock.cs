@@ -108,7 +108,7 @@ namespace Addons.Patch
 
         public static void VRCPlayer_RefreshState(IntPtr instance)
         {
-            if (instance == IntPtr.Zero) return;
+            if (instance == IntPtr.Zero || VRCPlayer.Instance == null) return;
             _delegateVRCPlayer_RefreshState.Invoke(instance);
 
             if (VRCPlayer.Instance.ptr == instance) return;

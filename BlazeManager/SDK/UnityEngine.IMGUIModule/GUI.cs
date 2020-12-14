@@ -7,13 +7,20 @@ namespace UnityEngine
 {
 	public class GUI
 	{
+		public static Color contentColor
+		{
+			get => Instance_Class.GetProperty(nameof(contentColor)).GetGetMethod().Invoke().unbox_Unmanaged<Color>();
+			set => Instance_Class.GetProperty(nameof(contentColor)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
+		}
+
 		public static void Box(Rect position, string text) => Box(position.MonoCast(), new IL2String(text).ptr);
 		public static void Box(Rect position, IntPtr text) => Box(position.MonoCast(), text);
 		public static void Box(IntPtr position, string text) => Box(position, new IL2String(text).ptr);
 		public static void Box(IntPtr position, IntPtr text)
 		{
-			Instance_Class.GetMethod(nameof(Box), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { position, text });
+			Instance_Class.GetMethod(nameof(Box), m => m.GetParameters().Length == 3 && m.GetParameters()[1].Name == "text").Invoke(new IntPtr[] { position, text, s_Skin.box.ptr });
 		}
+
 		/*
 
 		public static void Box(Rect position, string text, GUIStyle style)

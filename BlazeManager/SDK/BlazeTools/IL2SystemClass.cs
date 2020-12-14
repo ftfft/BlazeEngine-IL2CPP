@@ -12,6 +12,7 @@ namespace BlazeTools
         public static IL2Type Object = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("Object", "System");
         public static IL2Type String = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("String", "System");
         public static IL2Type Type = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("Type", "System");
+        public static IL2Type action = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("Action", "System");
         public static IL2Type action_1 = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.mscorlib]].GetClass("Action`1", "System");
         public static IL2Type vector3 = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Vector3", "UnityEngine");
         public static IL2Type quaternion = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityenginecoremodule]].GetClass("Quaternion", "UnityEngine");

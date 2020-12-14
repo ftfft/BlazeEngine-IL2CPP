@@ -20,6 +20,22 @@ namespace VRC.UI
                 return property?.GetGetMethod().Invoke(ptr)?.unbox<ApiWorld>();
             }
         }
+        
+        public IL2String worldInfoScreenPath
+        {
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(worldInfoScreenPath));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string).FullName)).Name = nameof(worldInfoScreenPath);
+                return field?.GetValue(ptr)?.unbox_ToString();
+            }
+        }
+        
+        public ApiWorldInstance worldInstance
+        {
+            get => Instance_Class.GetField(nameof(worldInstance)).GetValue(ptr)?.unbox<ApiWorldInstance>();
+        }
 
         public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PageWorldInfo", "VRC.UI");
     }

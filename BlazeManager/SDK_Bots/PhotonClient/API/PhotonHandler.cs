@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Photon.Realtime;
+using Addons.Utils;
+using Addons;
 
 namespace PhotonClient.API
 {
@@ -163,7 +165,21 @@ namespace PhotonClient.API
 		public void OnJoinedRoom()
 		{
 			Console.WriteLine("[INFO] Successfully joined room!");
-			PhotonNetwork.PlayerList.ToList().ForEach(p => Console.WriteLine($"{p.displayName.PadRight(30, ' ')} (ID: {p.ActorNumber}{(p.IsMasterClient ? "(Master)" : "")})"));
+			if (PhotonNetwork.command == PhotonNetwork.Cmd.check)
+            {
+				PhotonNetwork.PlayerList.ToList().ForEach(p => Console.WriteLine($"{p.displayName.PadRight(30, ' ')} (ID: {p.ActorNumber}{(p.IsMasterClient ? "(Master)" : "")})"));
+				PhotonNetwork.Disconnect();
+			}
+			if (PhotonNetwork.command == PhotonNetwork.Cmd.cloneAvatar)
+			{
+				var player = PhotonNetwork.PlayerList.FirstOrDefault(x => x.userId == PhotonNetwork.target);
+				if (player != null)
+                {
+					Threads.AvatarId = player.avatarId;
+					Console.WriteLine("Success: Copy avatar " + player.avatarId);
+				}
+				PhotonNetwork.Disconnect();
+			}
 		}
 
 		public void OnJoinRandomFailed(short returnCode, string message)
