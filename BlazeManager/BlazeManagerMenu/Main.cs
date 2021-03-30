@@ -34,8 +34,8 @@ namespace BlazeManagerMenu
  
             togglerList.Add("No Portal Join", new QMToggleButton("UIElementsMenu", 2, 1, "NoPortalJoin\non", patch_NoPortal.Toggle_Enable_Join, "off", "Toggle: Block join in portal"));
             patch_NoPortal.RefreshStatusJoin();
-            togglerList.Add("AntiBlock", new QMToggleButton("UIElementsMenu", 3, 1, "AntiBlock\non", patch_AntiBlock.Toggle_Enable, "off", "Toggle: Show blocked players"));
-            patch_AntiBlock.RefreshStatus();
+            // togglerList.Add("AntiBlock", new QMToggleButton("UIElementsMenu", 3, 1, "AntiBlock\non", patch_AntiBlock.Toggle_Enable, "off", "Toggle: Show blocked players"));
+            // patch_AntiBlock.RefreshStatus();
             togglerList.Add("Photon Serilize", new QMToggleButton("UIElementsMenu", 1, 2, "Serilize on", patch_Network.Toggle_Enable_Serilize, "off", "Toggle: Photon Serilize"));
             patch_Network.RefreshStatus_Serilize();
             togglerList.Add("No Portal Spawn", new QMToggleButton("UIElementsMenu", 2, 2, "NoPortalSpawn\non", patch_NoPortal.Toggle_Enable_Spawn, "off", "Toggle: Auto-remove spawned portals"));
@@ -66,8 +66,8 @@ namespace BlazeManagerMenu
             #region UIElement4
             togglerList.Add("RPC Block", new QMToggleButton("UIElementsMenu4", 1, 0, "RPC Block\non", patch_EventManager.Toggle_Enable, "off", "Toggle: RPC Block"));
             patch_EventManager.RefreshStatus();
-            togglerList.Add("Hide Pickup", new QMToggleButton("UIElementsMenu4", 2, 0, "Hide Pickup\non", NoLocalPickup.Toggle_Enable, "off", "Toggle: Hide all pickup objects"));
-            NoLocalPickup.RefreshStatus();
+            //togglerList.Add("Hide Pickup", new QMToggleButton("UIElementsMenu4", 2, 0, "Hide Pickup\non", NoLocalPickup.Toggle_Enable, "off", "Toggle: Hide all pickup objects"));
+            //NoLocalPickup.RefreshStatus();
             togglerList.Add("Steam Spoof", new QMToggleButton("UIElementsMenu4", 3, 0, "Steam Spoof\non", patch_Network.Toggle_SteamSpoof, "off", "Toggle: Steam Spoofer"));
             patch_Network.RefreshStatus_SteamSpoof();
             togglerList.Add("VoiceDotFade", new QMToggleButton("UIElementsMenu4", 4, 0, "Voice Fade\non", VoiceDotFade.Toggle_Enable, "off", "Toggle: Effect voice fade"));
@@ -83,8 +83,9 @@ namespace BlazeManagerMenu
                 Addons.UserUtils.RemoveInstiatorObjects();
             }, "");
 
-            togglerList.Add("High Vol", new QMToggleButton("ShortcutMenu", 0, -1, "High Vol.\non", Toggle_HighVol, "off", "Toggle: ESP Capsule"));
-            Refresh_HighVol();
+            // togglerList.Add("High Vol", new QMToggleButton("ShortcutMenu", 0, -1, "High Vol.\non", Toggle_HighVol, "off", "Toggle: ESP Capsule"));
+            //Refresh_HighVol();
+            /*
             togglerList.Add("ESP Capsule", new QMToggleButton("ShortcutMenu", 0, 1, "ESP Capsule\non", patch_AntiBlock.Toggle_Enable_ESP_Capsule, "off", "Toggle: ESP Capsule"));
             patch_AntiBlock.RefreshStatus_ESP_Capsule();
             singleList.Add("LocalMirror", new QMSingleButton("ShortcutMenu", 5, -1, "SpawnMirror", () =>
@@ -95,7 +96,7 @@ namespace BlazeManagerMenu
                     PortableMirror.OnCreate();
             }, ""));
             PortableMirror.UpdateStatus();
-
+            */
             new QMSingleButton("ShortcutMenu", 5, 1, "Spawn\nFlashlight", () =>
             {
                 Addons.UserUtils.SpawnDynLight(VRC.Player.Instance.transform);

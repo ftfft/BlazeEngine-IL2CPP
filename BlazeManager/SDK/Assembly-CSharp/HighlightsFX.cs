@@ -2,13 +2,7 @@ using System;
 using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
-using BlazeIL.il2reflection;
 using UnityEngine;
-using VRC;
-using VRC.Core;
-using VRC.SDKBase;
-using SharpDisasm;
-using SharpDisasm.Udis86;
 
 public class HighlightsFX : PostEffectsBase
 {
@@ -21,7 +15,7 @@ public class HighlightsFX : PostEffectsBase
             IL2Property property = Instance_Class.GetProperty(nameof(Instance));
             if (property == null)
                 (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
-            return property?.GetGetMethod().Invoke()?.unbox<HighlightsFX>();
+            return property.GetGetMethod().Invoke()?.unbox<HighlightsFX>();
         }
     }
 
@@ -31,7 +25,7 @@ public class HighlightsFX : PostEffectsBase
         if (method == null)
             (method = Instance_Class.GetMethod(x => !x.IsStatic && x.GetParameters().Length == 2)).Name = nameof(EnableOutline);
 
-        method?.Invoke(ptr, new IntPtr[] { renderer.ptr, isEnabled.MonoCast() });
+        method.Invoke(ptr, new IntPtr[] { renderer.ptr, isEnabled.MonoCast() });
     }
 
     public Material m_Material
@@ -40,17 +34,17 @@ public class HighlightsFX : PostEffectsBase
         {
             IL2Field field = Instance_Class.GetField(nameof(m_Material));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == Material.Instance_Class.FullName)).Name = nameof(m_Material);
-            return field?.GetValue(ptr)?.unbox<Material>();
+                (field = Instance_Class.GetField(Material.Instance_Class)).Name = nameof(m_Material);
+            return field.GetValue(ptr)?.unbox<Material>();
         }
         set
         {
             IL2Field field = Instance_Class.GetField(nameof(m_Material));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == Material.Instance_Class.FullName)).Name = nameof(m_Material);
-            field?.SetValue(ptr, value.ptr);
+                (field = Instance_Class.GetField(Material.Instance_Class)).Name = nameof(m_Material);
+            field.SetValue(ptr, value.ptr);
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("HighlightsFX");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.IsAbstract && x.GetProperty(y => y.Instance) != null && x.GetMethod("OnDestroy") != null && x.GetMethod("Awake") != null && x.GetField(Material.Instance_Class) != null);
 }

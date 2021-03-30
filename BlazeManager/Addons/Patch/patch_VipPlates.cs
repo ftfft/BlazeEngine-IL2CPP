@@ -25,12 +25,11 @@ namespace Addons.Patch
 
                 var patch = IL2Ch.Patch(method, (_VRC_Player_DispatchedUpdate)VRC_Player_DispatchedUpdate);
                 _delegateVRC_Player_DispatchedUpdate = patch.CreateDelegate<_VRC_Player_DispatchedUpdate>();
-                ConSole.Success("Patch: Colored Plates");
-
+                Dll_Loader.success_Patch.Add("Colored Plates");
             }
             catch
             {
-                ConSole.Error("Patch: Colored Plates");
+                Dll_Loader.failed_Patch.Add("Colored Plates");
             }
         }
 

@@ -5,6 +5,13 @@ namespace BlazeIL.il2cpp
 {
     public class IL2Object : IL2Base
     {
+        public IL2Object(IntPtr ptr) : base(ptr)
+        {
+            base.ptr = ptr;
+
+            ReturnType = null;
+        }
+
         public IL2Object(IntPtr ptr, IL2ReturnType ReturnType) : base(ptr)
         {
             base.ptr = ptr;

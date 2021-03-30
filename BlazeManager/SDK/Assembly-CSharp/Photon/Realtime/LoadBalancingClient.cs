@@ -16,10 +16,7 @@ namespace IL2Photon.Realtime
 
         public bool OpRaiseEvent(byte eventCode, IntPtr customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
-            IL2Method method = Instance_Class.GetMethod(nameof(OpRaiseEvent));
-            if (method == null)
-                (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName)).Name = nameof(OpRaiseEvent);
-            IL2Object result = method?.Invoke(ptr, new IntPtr[] { eventCode.MonoCast(), customEventContent, raiseEventOptions.ptr, sendOptions.MonoCast() });
+            IL2Object result = Instance_Class.GetMethod(nameof(OpRaiseEvent))?.Invoke(ptr, new IntPtr[] { eventCode.MonoCast(), customEventContent, raiseEventOptions.ptr, sendOptions.MonoCast() });
             if (result == null)
                 return default;
             return result.unbox_Unmanaged<bool>();

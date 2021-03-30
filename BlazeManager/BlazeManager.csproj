@@ -99,6 +99,7 @@
     <Compile Include="Addons\Patch\patch_VipPlates.cs" />
     <Compile Include="Addons\Threads.cs" />
     <Compile Include="Addons\UserUtils.cs" />
+    <Compile Include="Addons\Utils\BadDetector.cs" />
     <Compile Include="Addons\Utils\PhotonBot.cs" />
     <Compile Include="Addons\Utils\Avatar.cs" />
     <Compile Include="Addons\Utils\FileDebug.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="SDK\Assembly-CSharp\DynamicBone.cs" />
     <Compile Include="SDK\Assembly-CSharp\GamelikeInputController.cs" />
     <Compile Include="SDK\Assembly-CSharp\InputStateController.cs" />
+    <Compile Include="SDK\Assembly-CSharp\InteractivePlayer.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\InstantiateParameters.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PunEvent.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\GamePropertyKey.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\ActorProperties.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\AppSettings.cs" />
     <Compile Include="SDK\Assembly-CSharp\PlayerNameplate.cs" />
+    <Compile Include="SDK\Assembly-CSharp\USpeakCodecManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\VRCNetworkingPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModNetworkProperty.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModNetworkEvent.cs" />
@@ -207,6 +210,7 @@
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\DebugLevel.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\DictionaryEntryEnumerator.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\ConnectionProtocol.cs" />
+    <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\PhotonPeer.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\EventData.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\Hashtable.cs" />
     <Compile Include="SDK\Assembly-CSharp\LocomotionInputController.cs" />
@@ -399,6 +403,7 @@
     </Compile>
     <Compile Include="SDK_Bots\PhotonClient\API\PhotonHandler.cs" />
     <Compile Include="SDK_Bots\PhotonClient\API\Response\ApiContainer.cs" />
+    <Compile Include="SDK_Bots\PhotonClient\API\Response\ApiJoinResponse.cs" />
     <Compile Include="SDK_Bots\PhotonClient\API\Response\WorldResponse.cs" />
     <Compile Include="SDK_Bots\PhotonClient\API\RPC.cs" />
     <Compile Include="SDK_Bots\PhotonClient\API\CustomTypes.cs" />

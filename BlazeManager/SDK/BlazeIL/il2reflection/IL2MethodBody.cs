@@ -80,9 +80,9 @@ namespace BlazeIL.il2reflection
         public IL2Object Invoke(IntPtr obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true)
         {
             IntPtr returnval = InvokeMethod(ptr, obj, paramtbl, isVirtual, ex);
-            if (returnval == IntPtr.Zero)
-                return null;
-            return new IL2Object(returnval, ReturnType);
+            if (returnval != IntPtr.Zero)
+                return new IL2Object(returnval, ReturnType);
+            return null;
         }
 
         unsafe public static IntPtr InvokeMethod(IntPtr method, IntPtr obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true)

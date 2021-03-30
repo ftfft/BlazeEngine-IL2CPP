@@ -58,7 +58,7 @@ namespace Addons.Patch
                 }
                 catch
                 {
-                    ConSole.Error("Patch: Youtube-dl");
+                    Dll_Loader.failed_Patch.Add("Youtube-dl");
                 }
                 finally
                 {

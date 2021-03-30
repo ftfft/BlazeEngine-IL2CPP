@@ -93,7 +93,7 @@ namespace Addons
 
             try
             {
-                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("InteractivePlayer").GetMethod("Update");
+                IL2Method method = InteractivePlayer.Instance_Class.GetMethod("Update");
                 if (method == null)
                     throw new Exception();
 
@@ -161,6 +161,7 @@ namespace Addons
             if (Input.GetKeyDown(KeyCode.PageDown))
             {
 
+                /*
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
                 {
                     GameObject SelectColesion = hit.transform.gameObject;
@@ -174,9 +175,12 @@ namespace Addons
                         }
                     }
                 }
+                */
+                var test = VRC.UI.PageAvatar.Instance_Class.GetMethod(x => x.GetParameters().Length == 3 && x.GetParameters()[2].ReturnType.Name.EndsWith("AvatarFavoriteGroups"));
+                Console.WriteLine(test.GetParameters()[2].DefaultValue.unbox_Unmanaged<int>());
                 return;
             }
-
+            /*
             if (Input.GetKey(KeyCode.Space))
             {
                 var jump = VRCPlayer.Instance?.GetComponent<GamelikeInputController>()?.inJump;
@@ -204,6 +208,7 @@ namespace Addons
                 // PhotonClient.API.PhotonNetwork.Disconnect();
                 // Console.WriteLine("T1: " + PhotonClient.API.PhotonNetwork.NetworkClientState.ToString());
             }
+            */
             /*
             if (Input.GetKeyDown(KeyCode.KeypadMultiply))
             {
@@ -293,10 +298,11 @@ namespace Addons
             if (!bFirstThreadInRoom)
             {
                 bFirstThreadInRoom = true;
-                NoLocalPickup.ClearObjects();
-                NoLocalPickup.Update();
+                //NoLocalPickup.ClearObjects();
+                //NoLocalPickup.Update();
                 patch_Network.playerInfo.Clear();
                 patch_ForceMute.forceMuteList.Clear();
+                /*
                 GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 if (gameObject != null)
                 {
@@ -305,6 +311,7 @@ namespace Addons
                     gameObject.GetComponent<MeshRenderer>()?.Destroy();
                     gameObject.GetOrAddComponent<PhotonLagSimulationGui>();
                 }
+                */
                 patch_Network.RefreshStatus_DeathMap();
                 patch_Network.RefreshStatus_Serilize();
                 return;
@@ -471,6 +478,7 @@ namespace Addons
         public static bool bFirstThreadInRoom = false;
 
         public static string currentTime = "0";
+        
         public static Random rand = new Random();
     }
 }

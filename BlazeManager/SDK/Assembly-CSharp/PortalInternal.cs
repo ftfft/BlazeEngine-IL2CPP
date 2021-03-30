@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using BlazeIL;
 using BlazeIL.il2cpp;
@@ -12,5 +14,5 @@ public class PortalInternal : MonoBehaviour
         Instance_Class.GetMethod(nameof(SetTimerRPC)).Invoke(ptr, new IntPtr[] { timer.MonoCast(), player.ptr });
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PortalInternal");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.GetMethod("SetTimerRPC") != null);
 }

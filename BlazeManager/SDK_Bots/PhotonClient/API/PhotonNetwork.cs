@@ -286,32 +286,31 @@ namespace PhotonClient.API
 
 		public static bool JoinOrCreateRoom(string roomId)
 		{
-			bool result;
-			if (NetworkingClient == null)
-			{
-				result = false;
-			}
-			else
+			bool result = false;
+			if (NetworkingClient != null)
 			{
 				if (!NetworkingClient.InRoom)
 				{
 					var worldInfo = WorldResponse.GetInfo(roomId);
+					var apiJoin = ApiJoinResponse.GetInfo(roomId);
 					int maxPlayers = (worldInfo?.capacity == null) ? 8 : worldInfo.capacity;
 					string roomName = (worldInfo?.name == null) ? "VRChat Home" : worldInfo.name;
 					EnterRoomParams enterRoomParams = new EnterRoomParams
 					{
+						RoomName = roomId,
 						RoomOptions = new RoomOptions
 						{
 							IsOpen = true,
-							IsVisible = false,
+							IsVisible = true,
+							CleanupCacheOnLeave = true,
 							MaxPlayers = (byte)(maxPlayers * 2),
-							CustomRoomPropertiesForLobby = new string[] {"name"},
-							CustomRoomProperties = new Hashtable() { { "name", roomName } },
-							EmptyRoomTtl = 0,
-							DeleteNullProperties = true,
+							CustomRoomProperties = new Hashtable()
+							{
+								{ (byte)3, apiJoin.apiJoinVersion },
+								{ (byte)2, apiJoin.apiJoinToken }
+							},
 							PublishUserId = false
 						},
-						RoomName = roomId,
 						CreateIfNotExists = true,
 						Lobby = new TypedLobby("", LobbyType.Default),
 						PlayerProperties = NetworkingClient.LocalPlayer.CustomProperties
@@ -321,7 +320,6 @@ namespace PhotonClient.API
 				else
 				{
 					Console.WriteLine("Can't join room while in room");
-					result = false;
 				}
 			}
 			return result;

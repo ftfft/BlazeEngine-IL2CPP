@@ -23,11 +23,11 @@ namespace Addons.Patch
                 IL2Method method = PlayerModComponentJump.Instance_Class.GetMethod("Update");
 
                 IL2Ch.Patch(method, (_PlayerModComponentJump_Update)PlayerModComponentJump_Update);
-                ConSole.Success("Patch: No Udon Jump");
+                Dll_Loader.success_Patch.Add("No Udon Jump");
             }
             catch
             {
-                ConSole.Error("Patch: No Udon Jump");
+                Dll_Loader.failed_Patch.Add("No Udon Jump");
             }
         }
 

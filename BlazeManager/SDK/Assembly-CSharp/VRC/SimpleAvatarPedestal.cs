@@ -34,6 +34,6 @@ namespace VRC
             }
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("SimpleAvatarPedestal", "VRC");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(UiAvatarList.Instance_Class.GetFields().First().ReturnType.Name);
     }
 }

@@ -293,5 +293,5 @@ public class VRCPlayer : VRCNetworkBehaviour
         User = 256
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCPlayer");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.GetMethods(y => y.Name == "SendVoiceSetupToPlayerRPC").Length == 1);
 }

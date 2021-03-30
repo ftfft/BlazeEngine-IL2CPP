@@ -40,12 +40,12 @@ namespace Addons.Patch
 
                 var patch = IL2Ch.Patch(method, (_VRC_Player_Update)VRC_Player_Update);
                 _delegateVRC_Player_Update = patch.CreateDelegate<_VRC_Player_Update>();
-                ConSole.Success("Patch: Global Dynamic Bones");
+                Dll_Loader.success_Patch.Add("Global Dynamic Bones");
 
             }
             catch
             {
-                ConSole.Error("Patch: Global Dynamic Bones");
+                Dll_Loader.failed_Patch.Add("Global Dynamic Bones");
             }
         }
 

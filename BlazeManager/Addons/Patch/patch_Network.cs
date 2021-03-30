@@ -31,7 +31,6 @@ namespace Addons.Patch
     public delegate int _System_BitConverter_ToInt32(IntPtr pValue, int startIndex);
     public delegate void _LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData);
     public delegate void _USpeakPhotonSender3D_OnEventBytes(IntPtr instance, IntPtr pBytes, int Int32_1, IntPtr pInt32_2);
-    public delegate void _PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer);
     public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
     public delegate bool _methodFastJoin();
     public delegate void _methodUdonSyncRunProgramAsRPC(IntPtr str, IntPtr pPlayer);
@@ -116,106 +115,102 @@ namespace Addons.Patch
         {
             try
             {
-                try
-                {
-                    IL2Method method = LoadBalancingClient.Instance_Class.GetMethod("OnEvent");
-                    if (method == null)
-                        throw new Exception("0x0M1");
+                IL2Method method = LoadBalancingClient.Instance_Class.GetMethod("OnEvent");
+                if (method == null)
+                    throw new Exception("0x0M1");
 
-                    var patch = IL2Ch.Patch(method, (_LoadBalancingClient_OnEvent)LoadBalancingClient_OnEvent);
-                    if (patch == null)
-                        throw new Exception("0x0M2");
-                    _delegateLoadBalancingClient_OnEvent = patch.CreateDelegate<_LoadBalancingClient_OnEvent>();
-                }
-                catch { }
-
-                try
-                {
-                    IL2Method method = LoadBalancingClient.Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName);
-                    if (method == null)
-                        throw new Exception("0x0M6");
-
-                    IL2Patch patch = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
-                    if (patch == null)
-                        throw new Exception("0x0M6");
-                    _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
-                }
-                catch
-                {
-                    ConSole.Error("Patch: Network [RaiseEvent]");
-                }
-
-                try
-                {
-                    IL2Method method = VRC.UI.DebugDisplayText.Instance_Class.GetMethod("Update");
-                    var methods = PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
-
-                    unsafe
-                    {
-                        var disassembler = disasm.GetDisassembler(method, 0x512);
-                        var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
-                        foreach (var instruction in instructions)
-                        {
-                            IntPtr addr = ILCode.GetPointer(instruction);
-                            if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr)) != null)
-                                break;
-                        }
-                    }
-                    IL2Patch patch = IL2Ch.Patch(method, (_NetworkPing)methodNetworkPing);
-                    if (patch == null)
-                        throw new Exception("0x0M6");
-                    _delegateNetworkPing = patch.CreateDelegate<_NetworkPing>();
-                }
-                catch
-                {
-                    ConSole.Error("Patch: Network [Ping]");
-                }
-                //method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.IsStatic).GetGetMethod();
-                //patch = IL2Ch.Patch(method, (_methodFastJoin)methodFastJoin);
-                //_delegateFastJoin = patch.CreateDelegate<_methodFastJoin>();
-
-                //method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
-                //IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
-                /*
-                method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("PhotoCapture");
-                IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
-
-                method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("TimerBloop");
-                IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
-                */
-
-                //method = Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
-                //patch = IL2Ch.Patch(method, (_SendMessage)SendMessage);
-                //_delegateSendMessage = patch.CreateDelegate<_SendMessage>();
-
-                //IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
-                //pPatch[0] = IL2Ch.Patch(method, (_USpeakPhotonSender3D_OnEvent)USpeakPhotonSender3D_OnEvent);
-
-                //method = NetworkManager.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
-                //pPatch[1] = IL2Ch.Patch(method, (_NetworkManager_OnEvent)NetworkManager_OnEvent);
-
-                //method = Assemblies.a["Assembly-CSharp"].GetClass("VRCFlowNetworkManager").GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
-                //pPatch[2] = IL2Ch.Patch(method, (_VRCFlowNetworkManager_OnEvent)VRCFlowNetworkManager_OnEvent);
-
-                //method = VRC_EventLog.EventReplicator.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData" && m.Name == method.Name);
-                //pPatch[3] = IL2Ch.Patch(method, (_VRC_EventLog_EventReplicator_OnEvent)VRC_EventLog_EventReplicator_OnEvent);
-
-                //method = NetworkManager.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 2 && m.GetParameters()[0].typeName == "Photon.Pun.PhotonView" && m.Name != "OnOwnershipRequest");
-                //pPatch[4] = IL2Ch.Patch(method, (_NetworkManager_OnOwnershipTransfered)NetworkManager_OnOwnershipTransfered);
-                //method = Assemblies.a["Assembly-CSharp"].GetClass("NetworkMetadata").GetMethods().First(m => m.GetParameters().Length == 3 && m.GetParameters()[0].typeName == "UnityEngine.GameObject");
-                //pPatch[4] = IL2Ch.Patch(method, (_NetworkMetadata_OnOwnershipTransfered)NetworkMetadata_OnOwnershipTransfered);
-
-                //method = Assemblies.a["mscorlib"].GetClass("BitConverter", "System").GetMethod("ToInt32");
-                //pPatch[5] = IL2Ch.Patch(method, (_System_BitConverter_ToInt32)System_BitConverter_ToInt32);
-
-                //IL2Method method = PortalInternal.Instance_Class.GetMethod("ConfigurePortal");
-                // pPatch[4] = IL2Ch.Patch(method, (_PortalInternal_ConfigurePortal)PortalInternal_ConfigurePortal);
+                var patch = IL2Ch.Patch(method, (_LoadBalancingClient_OnEvent)LoadBalancingClient_OnEvent);
+                if (patch == null)
+                    throw new Exception("0x0M2");
+                _delegateLoadBalancingClient_OnEvent = patch.CreateDelegate<_LoadBalancingClient_OnEvent>();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.ToString());
-                ConSole.Error("Patch: Network");
+                Dll_Loader.failed_Patch.Add("OnEvent");
             }
+
+            try
+            {
+                IL2Method method = null;
+                (method = LoadBalancingClient.Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName)).Name = "OpRaiseEvent";
+                if (method == null)
+                    throw new Exception("0x0M6");
+
+                IL2Patch patch = IL2Ch.Patch(method, (_OpRaiseEvent)OpRaiseEvent);
+                if (patch == null)
+                    throw new Exception("0x0M6");
+                _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
+            }
+            catch
+            {
+                Dll_Loader.failed_Patch.Add("OpRaiseEvent");
+            }
+
+            try
+            {
+                IL2Method method = VRC.UI.DebugDisplayText.Instance_Class.GetMethod("Update");
+                var methods = PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
+
+                unsafe
+                {
+                    var disassembler = disasm.GetDisassembler(method, 0x512);
+                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsCall(x));
+                    foreach (var instruction in instructions)
+                    {
+                        IntPtr addr = ILCode.GetPointer(instruction);
+                        if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr)) != null)
+                            break;
+                    }
+                }
+                IL2Patch patch = IL2Ch.Patch(method, (_NetworkPing)methodNetworkPing);
+                if (patch == null)
+                    throw new Exception("0x0M6");
+                _delegateNetworkPing = patch.CreateDelegate<_NetworkPing>();
+            }
+            catch
+            {
+                Dll_Loader.failed_Patch.Add("FakePing");
+            }
+            //method = Assemblies.a["Assembly-CSharp"].GetClass("VRC_EventLog").GetProperties().First(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.IsStatic).GetGetMethod();
+            //patch = IL2Ch.Patch(method, (_methodFastJoin)methodFastJoin);
+            //_delegateFastJoin = patch.CreateDelegate<_methodFastJoin>();
+
+            //method = VRC.Networking.UdonSync.Instance_Class.GetMethod("UdonSyncRunProgramAsRPC");
+            //IL2Ch.Patch(method, (_methodUdonSyncRunProgramAsRPC)methodUdonSyncRunProgramAsRPC);
+            /*
+            method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("PhotoCapture");
+            IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
+
+            method = VRC.UserCamera.UserCameraIndicator.Instance_Class.GetMethod("TimerBloop");
+            IL2Ch.Patch(method, (_methodTimerBloop)methodTimerBloop);
+            */
+
+            //method = Component.Instance_Class.GetMethod("SendMessage", x=> x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "options");
+            //patch = IL2Ch.Patch(method, (_SendMessage)SendMessage);
+            //_delegateSendMessage = patch.CreateDelegate<_SendMessage>();
+
+            //IL2Method method = USpeakPhotonSender3D.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
+            //pPatch[0] = IL2Ch.Patch(method, (_USpeakPhotonSender3D_OnEvent)USpeakPhotonSender3D_OnEvent);
+
+            //method = NetworkManager.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
+            //pPatch[1] = IL2Ch.Patch(method, (_NetworkManager_OnEvent)NetworkManager_OnEvent);
+
+            //method = Assemblies.a["Assembly-CSharp"].GetClass("VRCFlowNetworkManager").GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData");
+            //pPatch[2] = IL2Ch.Patch(method, (_VRCFlowNetworkManager_OnEvent)VRCFlowNetworkManager_OnEvent);
+
+            //method = VRC_EventLog.EventReplicator.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 1 && m.GetParameters()[0].typeName == "ExitGames.Client.Photon.EventData" && m.Name == method.Name);
+            //pPatch[3] = IL2Ch.Patch(method, (_VRC_EventLog_EventReplicator_OnEvent)VRC_EventLog_EventReplicator_OnEvent);
+
+            //method = NetworkManager.Instance_Class.GetMethods().First(m => m.GetParameters().Length == 2 && m.GetParameters()[0].typeName == "Photon.Pun.PhotonView" && m.Name != "OnOwnershipRequest");
+            //pPatch[4] = IL2Ch.Patch(method, (_NetworkManager_OnOwnershipTransfered)NetworkManager_OnOwnershipTransfered);
+            //method = Assemblies.a["Assembly-CSharp"].GetClass("NetworkMetadata").GetMethods().First(m => m.GetParameters().Length == 3 && m.GetParameters()[0].typeName == "UnityEngine.GameObject");
+            //pPatch[4] = IL2Ch.Patch(method, (_NetworkMetadata_OnOwnershipTransfered)NetworkMetadata_OnOwnershipTransfered);
+
+            //method = Assemblies.a["mscorlib"].GetClass("BitConverter", "System").GetMethod("ToInt32");
+            //pPatch[5] = IL2Ch.Patch(method, (_System_BitConverter_ToInt32)System_BitConverter_ToInt32);
+
+            //IL2Method method = PortalInternal.Instance_Class.GetMethod("ConfigurePortal");
+            // pPatch[4] = IL2Ch.Patch(method, (_PortalInternal_ConfigurePortal)PortalInternal_ConfigurePortal);
         }
 
         /*
@@ -345,10 +340,6 @@ namespace Addons.Patch
                 pPatch[3].InvokeOriginal(instance, pEventData);
         }*/
 
-        private static void PortalInternal_ConfigurePortal(IntPtr instance, IntPtr pString1, IntPtr pString2, IntPtr pInt1, IntPtr pPlayer)
-        {
-            //pPatch[4].InvokeOriginal(instance, new IntPtr[] { pString1, pString2, pInt1, pPlayer });
-        }
 
         private static void NetworkManager_OnOwnershipTransfered(IntPtr instance, IntPtr pPhotonView, IntPtr pPhotonPlayer)
         {

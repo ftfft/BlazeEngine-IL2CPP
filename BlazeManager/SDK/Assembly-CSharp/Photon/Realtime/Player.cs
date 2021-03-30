@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
@@ -39,6 +40,7 @@ namespace IL2Photon.Realtime
             }
         }
 
+        /*
         public Hashtable CustomProperties
         {
             get
@@ -57,7 +59,7 @@ namespace IL2Photon.Realtime
             }
         }
 
-
+        */
         // <!---------- ------- ---------->
         // <!---------- FIELD'S ---------->
         // <!---------- ------- ---------->
@@ -80,6 +82,6 @@ namespace IL2Photon.Realtime
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(VRC.Player.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.GetMethod("Equals") != null && x.GetProperties(y => y.GetGetMethod().ReturnType.Name == typeof(System.Collections.Hashtable).FullName).Length == 1);
     }
 }

@@ -52,11 +52,11 @@ namespace Addons.Patch
             {
                 foreach(var method in USpeakPhotonSender3D.Instance_Class.GetMethods(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == VRC.Player.Instance_Class.FullName && x.ReturnType.Name == "System.Boolean"))
                     IL2Ch.Patch(method, (_USpeakPhotonSender_ForceMute)USpeakPhotonSender_ForceMute);
-                ConSole.Success("Patch: ForceMute");
+                Dll_Loader.success_Patch.Add("ForceMute");
             }
             catch
             {
-                ConSole.Error("Patch: ForceMute");
+                Dll_Loader.failed_Patch.Add("ForceMute");
             }
         }
 

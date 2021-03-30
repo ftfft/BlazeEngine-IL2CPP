@@ -21,11 +21,11 @@ namespace Addons.Patch
 
                 foreach (IL2Method method in methods)
                     IL2Ch.Patch(method, (_RoomManagerBase_ObjectInstantiator)RoomManagerBase_ObjectInstantiator);
-                ConSole.Success("Patch: More Portals [1]");
+                Dll_Loader.success_Patch.Add("Portals[1]");
             }
             catch
             {
-                ConSole.Error("Patch: More Portals [1]");
+                Dll_Loader.failed_Patch.Add("Portals[1]");
             }
             try
             {
@@ -35,11 +35,11 @@ namespace Addons.Patch
 
                 foreach (IL2Method method in methods)
                     IL2Ch.Patch(method, (_ObjectInstantiator_ObjectInstantiator)ObjectInstantiator_ObjectInstantiator);
-                ConSole.Success("Patch: More Portals [2]");
+                Dll_Loader.success_Patch.Add("Portals[2]");
             }
             catch
             {
-                ConSole.Error("Patch: More Portals [2]");
+                Dll_Loader.failed_Patch.Add("Portals[2]");
             }
         }
 

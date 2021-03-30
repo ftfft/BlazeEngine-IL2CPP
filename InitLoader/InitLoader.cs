@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Security;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Runtime.ExceptionServices;
 
 namespace InitLoader
 {
@@ -129,6 +129,7 @@ namespace InitLoader
                     webClient.Headers.Add("login", login);
                     webClient.Headers.Add("pass", pass);
                     webClient.Headers.Add("PrivateKey", privatekey);
+                    webClient.Headers.Add("mhash", mHash);
                     try
                     {
                         result = webClient.DownloadData(newURI);
@@ -159,6 +160,33 @@ namespace InitLoader
                     }
                 }
                 return true;
+            }
+        }
+
+        public static string mHash
+        {
+            get
+            {
+                string result = string.Empty;
+                try
+                {
+                    if (File.Exists("winmm.dll"))
+                    {
+                        MD5 md5 = new MD5CryptoServiceProvider();
+                        byte[] retVal = md5.ComputeHash(File.ReadAllBytes("winmm.dll"));
+
+                        for (int i = 0; i < retVal.Length; i++)
+                        {
+                            result += retVal[i].ToString("x2");
+                            
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+                return result;
             }
         }
         // -----------

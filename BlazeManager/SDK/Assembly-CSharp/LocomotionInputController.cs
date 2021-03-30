@@ -20,5 +20,10 @@ public class LocomotionInputController : InputStateController
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("LocomotionInputController");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses()
+    .FirstOrDefault(
+        x => x.GetField(
+            y => x.GetFields(z => z.ReturnType.Name == y.ReturnType.Name).Length > 9
+        ) != null
+    );
 }

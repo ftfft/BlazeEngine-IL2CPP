@@ -80,5 +80,5 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("RoomManager");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == MonoBehaviour.Instance_Class.FullName && x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">") != null);
 }

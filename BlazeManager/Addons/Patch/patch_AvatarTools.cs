@@ -19,12 +19,11 @@ namespace Addons.Patch
 
                 var patch = IL2Ch.Patch(method, (_UiAvatarList_Update)UiAvatarList_Update);
                 _delegateUiAvatarList_Update = patch.CreateDelegate<_UiAvatarList_Update>();
-                ConSole.Success("Patch: Avatar Tools");
-
+                Dll_Loader.success_Patch.Add("Avatar Tools");
             }
             catch
             {
-                ConSole.Error("Patch: Avatar Tools");
+                Dll_Loader.failed_Patch.Add("Avatar Tools");
             }
         }
 

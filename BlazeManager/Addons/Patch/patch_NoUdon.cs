@@ -37,12 +37,11 @@ namespace Addons.Patch
                     new Exception();
 
                 pList[2] = IL2Ch.Patch(method, typeof(patch_NoUdon).GetMethod("patch_method_2", BindingFlags.Static | BindingFlags.NonPublic));
-                ConSole.Success("Patch: NO-Udon");
-
+                Dll_Loader.success_Patch.Add("No Udon");
             }
             catch
             {
-                ConSole.Error("Patch: NO-Udon");
+                Dll_Loader.failed_Patch.Add("No Udon");
             }
         }
 

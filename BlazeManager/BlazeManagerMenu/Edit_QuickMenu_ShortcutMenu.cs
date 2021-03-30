@@ -13,13 +13,11 @@ namespace BlazeManagerMenu
 
             RectTransform rTransform = button.transform.MonoCast<RectTransform>();
             rTransform.anchoredPosition += Vector2.right * (420 * 1);
-            rTransform.anchoredPosition += Vector2.down * (420 * 1);
 
             // RankColor
             button = QuickTools.quickTransform.Find("ShortcutMenu/Toggle_States_ShowTrustRank_Colors");
             rTransform = button.transform.MonoCast<RectTransform>();
             rTransform.anchoredPosition += Vector2.right * (420 * -1);
-            rTransform.anchoredPosition += Vector2.down * (420 * 1);
 
             // Settings
             button = QuickTools.quickTransform.Find("ShortcutMenu/SettingsButton");

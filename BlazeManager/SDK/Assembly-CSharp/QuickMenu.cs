@@ -91,7 +91,7 @@ public class QuickMenu : MonoBehaviour
                 {
                     if (instruction.ToString().StartsWith("mov "))
                     {
-                        if (++iCount == 3)
+                        if (++iCount == 2)
                         {
                             var resultToken = Convert.ToInt32(instruction.ToString().Split('+').LastOrDefault().Replace("]", ""), 16);
                             field = Instance_Class.GetField(x => x.Token == resultToken);
@@ -124,5 +124,12 @@ public class QuickMenu : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("QuickMenu");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses()
+        .FirstOrDefault(x => 
+            x.GetProperty(y => y.Instance) != null &&
+            x.GetFields(y => y.ReturnType.Name == VRC.Player.Instance_Class.FullName).Length == 1 &&
+            x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 9 &&
+            x.GetFields(y => y.ReturnType.Name == VRC.Core.APIUser.Instance_Class.FullName).Length == 1 &&
+            x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 5
+        );
 }

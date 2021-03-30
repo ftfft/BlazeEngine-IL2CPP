@@ -34,11 +34,11 @@ namespace Addons.Patch
 
                 var patch = IL2Ch.Patch(method, (_VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent)VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent);
                 _delegateVRC_SDKBase_VRC_EventHandler_InternalTriggerEvent = patch.CreateDelegate<_VRC_SDKBase_VRC_EventHandler_InternalTriggerEvent>();
-                ConSole.Success("Patch: Global Events");
+                Dll_Loader.success_Patch.Add("Global Events");
             }
             catch
             {
-                ConSole.Error("Patch: Global Events");
+                Dll_Loader.failed_Patch.Add("Global Events");
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
 using UnityEngine;
@@ -34,5 +35,5 @@ public class USpeaker : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("USpeaker");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x?.BaseType.FullName == MonoBehaviour.Instance_Class.FullName && x.GetField(USpeakCodecManager.Instance_Class) != null);
 }

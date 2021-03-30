@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRCheat", "VRCheat\VRCheat.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitLoader", "InitLoader\InitLoader.csproj", "{521C29F7-645B-4F38-843B-0BBBE31059D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE4v", "BE4v\BE4v.csproj", "{48A98327-969A-4676-A7E7-6E8A3030F4DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,30 @@ Global
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Unity-Release|Any CPU.Build.0 = Release|Any CPU
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Unity-Release|x64.ActiveCfg = Release|Any CPU
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Unity-Release|x64.Build.0 = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Debug|x64.Build.0 = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Release|x64.ActiveCfg = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Release|x64.Build.0 = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Debug|x64.ActiveCfg = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Debug|x64.Build.0 = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Release|Any CPU.Build.0 = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Release|x64.ActiveCfg = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.ServerSdk-Release|x64.Build.0 = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Debug|x64.ActiveCfg = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Debug|x64.Build.0 = Debug|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|Any CPU.Build.0 = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|x64.ActiveCfg = Release|Any CPU
+		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,14 +13,14 @@ public class UiAvatarList : UiVRCList
 
     public string[] specificListIds
     {
-        get => Instance_Class.GetField(nameof(specificListIds)).GetValue(ptr).unbox_ToArray_String();
-        set => Instance_Class.GetField(nameof(specificListIds)).SetValue(ptr, value.Select(x => new IL2String(x).ptr).ToArray().ArrayToIntPtr());
+        get => Instance_Class.GetField(x => x.ReturnType.Name == "System.String[]").GetValue(ptr).unbox_ToArray_String();
+        set => Instance_Class.GetField(x => x.ReturnType.Name == "System.String[]").SetValue(ptr, value.Select(x => new IL2String(x).ptr).ToArray().ArrayToIntPtr());
     }
 
     public Category category
     {
-        get => Instance_Class.GetField(nameof(category)).GetValue(ptr).unbox_Unmanaged<Category>();
-        set => Instance_Class.GetField(nameof(category)).SetValue(ptr, value.MonoCast());
+        get => Instance_Class.GetField(x => x.ReturnType.Name.StartsWith(Instance_Class.FullName)).GetValue(ptr).unbox_Unmanaged<Category>();
+        set => Instance_Class.GetField(x => x.ReturnType.Name.StartsWith(Instance_Class.FullName)).SetValue(ptr, value.MonoCast());
     }
 
     public IL2Dictionary<string, ApiAvatar> specificListValues
@@ -49,5 +49,5 @@ public class UiAvatarList : UiVRCList
         Licensed
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UiAvatarList");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<System.String," + ApiAvatar.Instance_Class.FullName + ">") != null);
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using BlazeIL.il2cpp;
+using System.Linq;
 
 public class VRCApplication : MonoBehaviour
 {
@@ -17,5 +18,5 @@ public class VRCApplication : MonoBehaviour
         }
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("VRCApplication");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().Where(x => x.GetMethods(y => y.Name == "OnApplicationQuit" && y.IsPrivate).Length == 1 && x.GetMethods(y => y.Name == "OnApplicationPause" && y.IsPrivate).Length == 1).FirstOrDefault(x => x.GetProperties(y => y.Instance).Length == 1);
 }

@@ -212,5 +212,9 @@ public class VRCInput : IL2Base
         }
     }
 
-    public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(LocomotionInputController.Instance_Class.GetFields().First(x => x.ReturnType.Name.Length > 64).ReturnType.Name);
+    public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(
+            LocomotionInputController.Instance_Class.GetField(
+                x => LocomotionInputController.Instance_Class.GetFields().Where(y => y.ReturnType.Name == x.ReturnType.Name).Count() > 9
+            ).ReturnType.Name
+        );
 }

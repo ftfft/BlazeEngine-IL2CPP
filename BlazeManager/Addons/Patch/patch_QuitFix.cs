@@ -22,7 +22,7 @@ namespace Addons.Patch
             }
             catch
             {
-                ConSole.Error("Patch: Fast Quit");
+                Dll_Loader.failed_Patch.Add("Fast Quit");
             }
         }
 

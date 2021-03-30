@@ -93,12 +93,12 @@ namespace Addons.Patch
                 if (_delegateQuickMenu_CloseMenu == null)
                     throw new Exception();
 
-                ConSole.Success("Patch: CloseQuickMenu");
+                Dll_Loader.success_Patch.Add("CloseQuickMenu");
 
             }
             catch
             {
-                ConSole.Error("Patch: CloseQuickMenu");
+                Dll_Loader.failed_Patch.Add("CloseQuickMenu");
             }
         }
 

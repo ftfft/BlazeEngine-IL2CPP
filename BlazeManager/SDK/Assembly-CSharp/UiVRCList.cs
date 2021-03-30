@@ -53,5 +53,5 @@ public abstract class UiVRCList : MonoBehaviour
         method?.Invoke(ptr);
     }
 
-    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("UiVRCList");
+    public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(UiAvatarList.Instance_Class.BaseType.FullName);
 }

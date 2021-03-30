@@ -374,7 +374,7 @@ namespace Photon.Realtime
                 }
             }
 
-            //this.Listener.DebugReturn(DebugLevel.INFO, "OpJoinRoom: " + SupportClass.DictionaryToString(op));
+            this.Listener.DebugReturn(DebugLevel.INFO, "OpJoinRoom: " + SupportClass.DictionaryToString(op));
             return this.SendOperation(OperationCode.JoinGame, op, SendOptions.SendReliable);
         }
 

@@ -8,7 +8,8 @@ namespace CustomQuickMenu
 {
     public class QMToggleButton : QuickMenuBase
     {
-        public GameObject btnToggle;
+        public GameObject btnOn;
+        public GameObject btnOff;
 
         public QMToggleButton(string btnMenu, int btnXLocation, int btnYLocation, string btnTextOn, UnityAction buttonAction, string btnTextOff, string btnToolTip, Color? btnBackgroundColor = null, Color? btnTextColor = null)
         {
@@ -23,15 +24,22 @@ namespace CustomQuickMenu
 
             button = UnityEngine.Object.Instantiate<GameObject>(btnTemplate.gameObject, QuickMenu.Instance.transform.Find(btnQMLoc), true);
 
-            btnToggle = button.transform.Find("Toggle_States_Visible").gameObject;
-            btnToggle.GetComponent<UiToggleButton>().Awake();
-
+            btnOn = button.transform.Find("Toggle_States_Visible/ON").gameObject;
+            btnOff = button.transform.Find("Toggle_States_Visible/OFF").gameObject;
+            
             initShift[0] = -3;
             initShift[1] = -1;
             setLocation(btnXLocation, btnYLocation);
 
             setOnText(btnTextOn);
             setOffText(btnTextOff);
+            Text[] btnTextsOn = btnOn.GetComponentsInChildren<Text>();
+            btnTextsOn[0].name = "Text_ON";
+            btnTextsOn[1].name = "Text_OFF";
+            Text[] btnTextsOff = btnOff.GetComponentsInChildren<Text>();
+            btnTextsOff[0].name = "Text_ON";
+            btnTextsOff[1].name = "Text_OFF";
+
             setToolTip(btnToolTip);
 
             setAction(buttonAction, true);
@@ -49,39 +57,42 @@ namespace CustomQuickMenu
 
         public void setBackgroundColor(Color buttonBackgroundColor)
         {
-            UiToggleButton uiToggleButton = btnToggle.GetComponent<UiToggleButton>();
-            Image[] btnBgColorList = ((uiToggleButton.toggledOnButton.GetComponentsInChildren<Image>()).Concat(uiToggleButton.toggledOffButton.GetComponentsInChildren<Image>()).ToArray()).Concat(button.GetComponentsInChildren<Image>()).ToArray();
+            UnityEngine.UI.Image[] btnBgColorList = ((btnOn.GetComponentsInChildren<UnityEngine.UI.Image>()).Concat(btnOff.GetComponentsInChildren<UnityEngine.UI.Image>()).ToArray()).Concat(button.GetComponentsInChildren<UnityEngine.UI.Image>()).ToArray();
             foreach (Image btnBackground in btnBgColorList) btnBackground.color = buttonBackgroundColor;
         }
 
         public void setTextColor(Color buttonTextColor)
         {
-            UiToggleButton uiToggleButton = btnToggle.GetComponent<UiToggleButton>();
-            Text[] btnTxtColorList = (uiToggleButton.toggledOnButton.GetComponentsInChildren<Text>()).Concat(uiToggleButton.toggledOffButton.GetComponentsInChildren<Text>()).ToArray();
+            Text[] btnTxtColorList = (btnOn.GetComponentsInChildren<Text>()).Concat(btnOff.GetComponentsInChildren<Text>()).ToArray();
             foreach (Text btnText in btnTxtColorList) btnText.color = buttonTextColor;
         }
 
         public void setOnText(string buttonOnText)
         {
-            UiToggleButton uiToggleButton = btnToggle.GetComponent<UiToggleButton>();
-            Text[] btnTextsOn = uiToggleButton.toggledOnButton.GetComponentsInChildren<Text>();
+            Text[] btnTextsOn = btnOn.GetComponentsInChildren<Text>();
             btnTextsOn[0].text = buttonOnText;
-            Text[] btnTextsOff = uiToggleButton.toggledOffButton.GetComponentsInChildren<Text>();
+            Text[] btnTextsOff = btnOff.GetComponentsInChildren<Text>();
             btnTextsOff[0].text = buttonOnText;
         }
 
         public void setOffText(string buttonOffText)
         {
-            UiToggleButton uiToggleButton = btnToggle.GetComponent<UiToggleButton>();
-            Text[] btnTextsOn = uiToggleButton.toggledOnButton.GetComponentsInChildren<Text>();
+            Text[] btnTextsOn = btnOn.GetComponentsInChildren<Text>();
             btnTextsOn[1].text = buttonOffText;
-            Text[] btnTextsOff = uiToggleButton.toggledOffButton.GetComponentsInChildren<Text>();
+            Text[] btnTextsOff = btnOff.GetComponentsInChildren<Text>();
             btnTextsOff[1].text = buttonOffText;
         }
 
         public void SetToggleToOn(bool statusButton, bool disabledButton = false)
         {
-            btnToggle.GetComponent<UiToggleButton>().SetToggleToOn(statusButton, disabledButton);
+            if (null != btnOn)
+            {
+                btnOn.SetActive(statusButton);
+            }
+            if (null != btnOff)
+            {
+                btnOff.SetActive(!statusButton);
+            }
         }
     }
 }

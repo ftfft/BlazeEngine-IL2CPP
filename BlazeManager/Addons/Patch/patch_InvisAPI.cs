@@ -34,11 +34,11 @@ namespace Addons.Patch
 
                 var patch = IL2Ch.Patch(method, (_VRC_Core_API_SendRequestInternal)VRC_Core_API_SendRequestInternal);
                 _delegateVRC_Core_API_SendRequestInternal = patch.CreateDelegate<_VRC_Core_API_SendRequestInternal>();
-                ConSole.Success("Patch: InvisAPI");
+                Dll_Loader.success_Patch.Add("InvisAPI");
             }
             catch
             {
-                ConSole.Error("Patch: InvisAPI");
+                Dll_Loader.failed_Patch.Add("InvisAPI");
             }
         }
 

@@ -272,6 +272,6 @@ namespace VRC
                                  methodRPCToTarget;
 
 
-        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().Where(x => !x.Name.StartsWith("ObjectInstantiator") && !x.HasFlag(IL2BindingFlags.TYPE_INTERFACE)).Where(x => x.GetMethods().Where(y => y.ReturnType.Name == "ObjectInstantiator").Count() > 0).First();
+        public static IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().Where(x => !x.HasFlag(IL2BindingFlags.TYPE_INTERFACE)).Where(x => x.GetMethods().Where(y => y.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName).Count() > 0 && x.BaseType?.FullName != MonoBehaviour.Instance_Class.FullName).First();
     }
 }

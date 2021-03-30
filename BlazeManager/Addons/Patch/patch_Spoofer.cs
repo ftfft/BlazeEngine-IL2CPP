@@ -22,27 +22,25 @@ namespace Addons.Patch
                     throw new Exception();
 
                 IL2Ch.Patch(method, (_UnityEngine_SystemInfo)UnityEngine_SystemInfo);
-                ConSole.Success("Patch: Spoofer [HWID]");
+                Dll_Loader.success_Patch.Add("Spoofer [HWID]");
             }
             catch
             {
-                ConSole.Error("Patch: Spoofer [HWID]");
+                Dll_Loader.failed_Patch.Add("Spoofer [HWID]");
             }
             try
             {
                 IL2Method method = SteamClient.Instance_Class.GetProperty("SteamId").GetGetMethod();
                 if (method == null)
-                    throw new Exception("0x0M3");
+                    throw new Exception();
 
                 IL2Patch patch = IL2Ch.Patch(method, (_Steamworks_SteamClient_Get_SteamId)Steamworks_SteamClient_Get_SteamId);
-                if (patch == null)
-                    throw new Exception("0x0M4");
                 _delegateSteamworks_SteamClient_Get_SteamId = patch.CreateDelegate<_Steamworks_SteamClient_Get_SteamId>();
-                ConSole.Success("Patch: Spoofer [SteamId]");
+                Dll_Loader.success_Patch.Add("Spoofer [SteamId]");
             }
             catch
             {
-                ConSole.Error("Patch: Spoofer [SteamId]");
+                Dll_Loader.failed_Patch.Add("Spoofer [SteamId]");
             }
         }
 

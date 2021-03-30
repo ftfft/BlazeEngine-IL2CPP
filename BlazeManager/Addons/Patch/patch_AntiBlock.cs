@@ -56,6 +56,30 @@ namespace Addons.Patch
 
         public static void Start()
         {
+            try
+            {
+                var method = Player.Instance_Class.GetMethod("OnNetworkReady");
+                unsafe
+                {
+                    var disassembler = disasm.GetDisassembler(method, 0x1000);
+                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsJump(x));
+                    foreach (var instruction in instructions)
+                    {
+                        IntPtr addr = ILCode.GetPointer(instruction);
+
+                        method = VRCPlayer.Instance_Class.GetMethods().FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
+                        if (method != null)
+                            break;
+                    }
+                    var patch = IL2Ch.Patch(method, (_VRCPlayer_RefreshState)VRCPlayer_RefreshState);
+                    _delegateVRCPlayer_RefreshState = patch.CreateDelegate<_VRCPlayer_RefreshState>();
+                }
+                Dll_Loader.success_Patch.Add("Player Refresh");
+            }
+            catch
+            {
+                Dll_Loader.failed_Patch.Add("Player Refresh");
+            }
             /*
             try
             {
@@ -80,30 +104,6 @@ namespace Addons.Patch
                 ConSole.Error("Patch: Anti-Block [Second]");
             }
             */
-            try
-            {
-                var method = Player.Instance_Class.GetMethod("OnNetworkReady");
-                unsafe
-                {
-                    var disassembler = disasm.GetDisassembler(method, 0x1000);
-                    var instructions = disassembler.Disassemble().Where(x => ILCode.IsJump(x));
-                    foreach (var instruction in instructions)
-                    {
-                        IntPtr addr = ILCode.GetPointer(instruction);
-
-                        method = VRCPlayer.Instance_Class.GetMethods().FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
-                        if (method != null)
-                            break;
-                    }
-                    var patch = IL2Ch.Patch(method, (_VRCPlayer_RefreshState)VRCPlayer_RefreshState);
-                    _delegateVRCPlayer_RefreshState = patch.CreateDelegate<_VRCPlayer_RefreshState>();
-                }
-                ConSole.Success("Patch: Player Refresh");
-            }
-            catch
-            {
-                ConSole.Error("Patch: Player Refresh");
-            }
         }
 
         public static void VRCPlayer_RefreshState(IntPtr instance)

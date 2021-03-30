@@ -53,11 +53,11 @@ namespace Addons.Patch
 
                 var patch = IL2Ch.Patch(method, (_RoomManagerBase_OnConnectedToMaster)RoomManagerBase_OnConnectedToMaster);
                 _delegateRoomManagerBase_OnConnectedToMaster = patch.CreateDelegate<_RoomManagerBase_OnConnectedToMaster>();
-                ConSole.Success("Patch: EventManager [JoinRoom]");
+                Dll_Loader.success_Patch.Add("EventManager [OnConnectedToMaster]");
             }
             catch
             {
-                ConSole.Error("Patch: EventManager [JoinRoom]");
+                Dll_Loader.failed_Patch.Add("EventManager [OnConnectedToMaster]");
             }
             /*
             try
@@ -126,10 +126,11 @@ namespace Addons.Patch
                     }
                 }
                 IL2Ch.Patch(method, (_VRCPlayer_GetUserRank_String)VRCPlayer_GetUserRank_String);
+                Dll_Loader.success_Patch.Add("EventManager [User Ranked]");
             }
             catch
             {
-                ConSole.Error("Patch: EventManager [User Ranked]");
+                Dll_Loader.failed_Patch.Add("EventManager [User Ranked]");
             }
             try
             {
@@ -142,7 +143,7 @@ namespace Addons.Patch
             }
             catch
             {
-                ConSole.Error("Patch: EventManager [PUI State]");
+                Dll_Loader.failed_Patch.Add("EventManager [PUI State]");
             }
             /*
             try

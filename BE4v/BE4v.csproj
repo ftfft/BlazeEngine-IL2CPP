@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{48A98327-969A-4676-A7E7-6E8A3030F4DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BE4v</RootNamespace>
+    <AssemblyName>BE4v</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="InjectDLL.cs" />
+    <Compile Include="MenuEdit\BE4V_MainMenu.cs" />
+    <Compile Include="MenuEdit\Construct\QuickBaseObject.cs" />
+    <Compile Include="MenuEdit\Construct\QuickButton.cs" />
+    <Compile Include="MenuEdit\Construct\QuickMenu_Utils.cs" />
+    <Compile Include="MenuEdit\Construct\QuickToggler.cs" />
+    <Compile Include="Mods\Mod_Fly.cs" />
+    <Compile Include="Mods\Status.cs" />
+    <Compile Include="Mods\Threads.cs" />
+    <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />
+    <Compile Include="Patch\Patch_QuitFix.cs" />
+    <Compile Include="Patch\Patch_Spoofer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDK\Assembly-CSharp\DynamicBone.cs" />
+    <Compile Include="SDK\Assembly-CSharp\DynamicBoneCollider.cs" />
+    <Compile Include="SDK\Assembly-CSharp\InteractivePlayer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\InstantiateParameters.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\MonoBehaviourPun.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonNetwork.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonView.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PunEvent.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\RpcTarget.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\PhotonLagSimulationGui.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\ViewSynchronization.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\ActorProperties.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\AppSettings.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\DisconnectCause.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\EventCaching.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\EventCode.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\GamePropertyKey.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\LoadBalancingClient.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Player.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RaiseEventOptions.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRCApplication.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRCPlayer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Core\VRCNetworkingClient.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Core\VRCNetworkingPeer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Player.cs" />
+    <Compile Include="SDK\CPP2IL\CastUtils.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Assembly.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Base.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Class.cs" />
+    <Compile Include="SDK\CPP2IL\IL2ClassType.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Field.cs" />
+    <Compile Include="SDK\CPP2IL\IL2List.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Method.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Object.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Param.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Property.cs" />
+    <Compile Include="SDK\CPP2IL\IL2String.cs" />
+    <Compile Include="SDK\Facepunch.Steamworks.Win64\Steamworks\SteamClient.cs" />
+    <Compile Include="SDK\Facepunch.Steamworks.Win64\Steamworks\SteamId.cs" />
+    <Compile Include="SDK\IL2BindingFlags.cs" />
+    <Compile Include="SDK\IL2Patch.cs" />
+    <Compile Include="SDK\Import.cs" />
+    <Compile Include="SDK\SDKLoader.cs" />
+    <Compile Include="SDKUtils.cs" />
+    <Compile Include="SDK\UnityEngine.AnimationModule\Animator.cs" />
+    <Compile Include="SDK\UnityEngine.AnimationModule\HumanBodyBones.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Application.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Behaviour.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Camera.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Color.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Component.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Events\UnityAction.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Events\UnityEvent.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Events\UnityEventBase.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\GameObject.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Input.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\KeyCode.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\LayerMask.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Material.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Mathf.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\MeshFilter.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\MeshRenderer.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\MonoBehaviour.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Object.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\PrimitiveType.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Quaternion.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Ray.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Rect.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\RectTransform.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Renderer.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Resources.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Screen.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\SendMessageOptions.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Shader.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Time.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Transform.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\UnityString.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Vector2.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Vector3.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Vector4.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\BoxCollider.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\CharacterController.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\Collider.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\CollisionFlags.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\Physics.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\RaycastHit.cs" />
+    <Compile Include="SDK\UnityEngine.PhysicsModule\Rigidbody.cs" />
+    <Compile Include="SDK\UnityEngine.UI\Button.cs" />
+    <Compile Include="SDK\UnityEngine.UI\Graphic.cs" />
+    <Compile Include="SDK\UnityEngine.UI\Image.cs" />
+    <Compile Include="SDK\UnityEngine.UI\Selectable.cs" />
+    <Compile Include="SDK\UnityEngine.UI\Text.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VRLoader\VRLoader.csproj">
+      <Project>{cfe72319-45e3-4e7f-9635-c533c5d66ddf}</Project>
+      <Name>VRLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

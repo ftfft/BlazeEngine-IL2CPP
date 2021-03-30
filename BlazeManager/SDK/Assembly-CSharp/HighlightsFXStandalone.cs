@@ -17,9 +17,9 @@ public sealed class HighlightsFXStandalone : HighlightsFX
     {
         get
         {
-            IL2Field field = Instance_Class.GetField(nameof(m_Material));
+            IL2Field field = Instance_Class.GetField(nameof(highlightColor));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == Color.Instance_Class.FullName)).Name = nameof(m_Material);
+                (field = Instance_Class.GetField(Color.Instance_Class)).Name = nameof(highlightColor);
 
             IL2Object result = field.GetValue(ptr);
             if (result == null)
@@ -29,11 +29,11 @@ public sealed class HighlightsFXStandalone : HighlightsFX
         }
         set
         {
-            IL2Field field = Instance_Class.GetField(nameof(m_Material));
+            IL2Field field = Instance_Class.GetField(nameof(highlightColor));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == Color.Instance_Class.FullName)).Name = nameof(m_Material);
+                (field = Instance_Class.GetField(Color.Instance_Class)).Name = nameof(highlightColor);
 
-            field?.SetValue(ptr, value.MonoCast());
+            field.SetValue(ptr, value.MonoCast());
         }
     }
 

@@ -38,41 +38,31 @@ namespace Addons.Mods
 			gameObject.transform.position = position;
 			gameObject.transform.rotation = transform.rotation;
 			gameObject.transform.localScale = new Vector3(_mirrorScaleX, _mirrorScaleY, 1f);
-			gameObject.GetComponent<Collider>().Destroy();
+			gameObject.GetComponent<Collider>()?.Destroy();
 			#endregion
 			#region BoxCollider
-			BoxCollider boxCollider;
-			if ((boxCollider = gameObject.GetComponent<BoxCollider>()) == null)
-				boxCollider = gameObject.AddComponent<BoxCollider>();
+			BoxCollider boxCollider = gameObject.GetOrAddComponent<BoxCollider>();
 			boxCollider.size = new Vector3(1f, 1f, 0.05f);
 			boxCollider.isTrigger = true;
 			#endregion
 			#region MeshRender
-			MeshRenderer meshRenderer;
-			if ((meshRenderer = gameObject.GetComponent<MeshRenderer>()) == null)
-				meshRenderer = gameObject.AddComponent<MeshRenderer>();
+			MeshRenderer meshRenderer = gameObject.GetOrAddComponent<MeshRenderer>();
 			meshRenderer.material.shader = Shader.Find("FX/MirrorReflection");
 			#endregion
 			#region MirrorReflection
-			VRC_MirrorReflection mirrorReflection;
-			if ((mirrorReflection = gameObject.GetComponent<VRC_MirrorReflection>()) == null)
-				mirrorReflection = gameObject.AddComponent<VRC_MirrorReflection>();
+			VRC_MirrorReflection mirrorReflection = gameObject.GetOrAddComponent<VRC_MirrorReflection>();
 			LayerMask reflectLayers = new LayerMask();
 			reflectLayers.value = (_optimizedMirror ? 263680 : -1025);
 			mirrorReflection.m_ReflectLayers = reflectLayers;
 			#endregion
 			#region VRCPickup
-			VRC_Pickup pickup;
-			if ((pickup = gameObject.GetComponent<VRC_Pickup>()) == null)
-				pickup = gameObject.AddComponent<VRC_Pickup>();
+			VRC_Pickup pickup = gameObject.GetOrAddComponent<VRC_Pickup>();
 			pickup.proximity = 0.3f;
 			pickup.pickupable = _canPickupMirror;
 			pickup.allowManipulationWhenEquipped = false;
 			#endregion
 			#region Rigidbody
-			Rigidbody rigidbody;
-			if ((rigidbody = gameObject.GetComponent<Rigidbody>()) == null)
-				rigidbody = gameObject.AddComponent<Rigidbody>();
+			Rigidbody rigidbody = gameObject.GetOrAddComponent<Rigidbody>();
 			rigidbody.useGravity = false;
 			rigidbody.isKinematic = true;
 			#endregion

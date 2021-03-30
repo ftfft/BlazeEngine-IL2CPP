@@ -57,6 +57,6 @@ namespace VRC
             return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String(userId).ptr })?.unbox<Player>();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PlayerManager", "VRC");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.GetMethod("Awake") != null && x.GetMethod("Start") != null && x.GetMethod("Start").ReturnType.Name == "System.Collections.IEnumerator" && x.GetProperty(y => y.Instance) != null && x.GetProperties(y => y.GetGetMethod().ReturnType.Name == VRC.Player.Instance_Class.FullName + "[]").Length == 1);
     }
 }

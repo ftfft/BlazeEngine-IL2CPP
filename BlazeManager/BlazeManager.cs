@@ -24,19 +24,24 @@ public class BlazeManager
         //# patch_UpdateYoutube_dl.Start();
         patch_QuitFix.Start();
         patch_Spoofer.Start();
-        patch_AntiAnalytics.Start();
-        patch_AntiBlock.Start();
-        patch_AvatarSteal.Start();
+        patch_InvisAPI.Start();
+        patch_Network.Start();
+        patch_MorePortals.Start();
+        patch_NoPortal.Start();
         patch_AvatarTools.Start();
+        patch_AntiAnalytics.Start();
+        patch_AvatarSteal.Start();
+        /*
+        patch_AntiBlock.Start();
         patch_EventManager.Start();
         patch_GlobalEvents.Start();
         patch_GlobalDynamicBones.Start();
-        patch_InvisAPI.Start();
-        patch_MorePortals.Start();
         patch_NoAvatars.Start();
-        patch_NoPortal.Start();
-        patch_Network.Start();
         patch_QuickMenu.Start();
+        */
+
+        Dll_Loader.Finish();
+
         // patch_ColoredPlates.Start();
 
         // patch_ForceMute.Start();

@@ -109,6 +109,7 @@ namespace BlazeIL.il2cpp
         }
 
         public bool IsEnum => IL2Import.il2cpp_class_is_enum(ptr);
+        public bool IsAbstract => HasFlag(IL2BindingFlags.TYPE_ABSTRACT);
 
         public IL2BindingFlags Flags
         {
@@ -168,6 +169,7 @@ namespace BlazeIL.il2cpp
         public IL2Field GetField(Func<IL2Field, bool> func) => GetFields().FirstOrDefault(x => func(x));
         public IL2Field GetField(string name) => GetField(name, null);
         public IL2Field GetField(string name, IL2BindingFlags flags) => GetField(name, flags, null);
+        public IL2Field GetField(IL2Type type) => GetFields().FirstOrDefault(x => x.ReturnType.Name == type.FullName);
         public IL2Field GetField(string name, Func<IL2Field, bool> func)
         {
             IL2Field returnval = null;
@@ -205,6 +207,7 @@ namespace BlazeIL.il2cpp
         public IL2Property[] GetProperties(IL2BindingFlags flags) => GetProperties().Where(x => x.HasFlag(flags)).ToArray();
         public IL2Property[] GetProperties(Func<IL2Property, bool> func) => GetProperties().Where(x => func(x)).ToArray();
         public IL2Property GetProperty(Func<IL2Property, bool> func) => GetProperties().FirstOrDefault(x => func(x));
+        public IL2Property GetProperty(IL2Type type) => GetProperties().FirstOrDefault(x => x.GetGetMethod().ReturnType.Name == type.FullName);
         public IL2Property GetProperty(string name)
         {
             IL2Property returnval = null;

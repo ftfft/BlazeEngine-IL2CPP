@@ -22,12 +22,11 @@ namespace Addons.Patch
                     new Exception();
 
                 IL2Ch.Patch(method, (_UserInteractMenu_Update)UserInteractMenu_Update);
-                ConSole.Success("Patch: Avatar Stealer");
-
+                Dll_Loader.success_Patch.Add("Avatar Stealer");
             }
             catch
             {
-                ConSole.Error("Patch: Avatar Stealer");
+                Dll_Loader.failed_Patch.Add("Avatar Stealer");
             }
         }
 

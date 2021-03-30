@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using BlazeIL.il2cpp;
 using UnityEngine;
@@ -12,9 +13,15 @@ namespace VRC.UI
 
         public APIUser user
         {
-            get => Instance_Class.GetField(nameof(user)).GetValue(ptr)?.unbox<APIUser>();
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(user));
+                if (field == null)
+                    (field = Instance_Class.GetField(APIUser.Instance_Class)).Name = nameof(user);
+                return field.GetValue(ptr)?.unbox<APIUser>();
+            }
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PageUserInfo", "VRC.UI");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().First(x => x.GetMethod("DeclineFriendRequest") != null);
     }
 }

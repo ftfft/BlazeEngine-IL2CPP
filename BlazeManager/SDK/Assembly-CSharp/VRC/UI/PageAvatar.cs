@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BlazeIL;
 using BlazeIL.il2cpp;
 
@@ -16,15 +17,33 @@ namespace VRC.UI
 
         public SimpleAvatarPedestal avatar
         {
-            get => Instance_Class.GetField(nameof(avatar)).GetValue(ptr)?.unbox<SimpleAvatarPedestal>();
-            set => Instance_Class.GetField(nameof(avatar)).SetValue(ptr, value.ptr);
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(avatar));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.ReturnType.Name == SimpleAvatarPedestal.Instance_Class.FullName)).Name = nameof(avatar);
+                return field.GetValue(ptr)?.unbox<SimpleAvatarPedestal>();
+            }
+            set
+            {
+                IL2Field field = Instance_Class.GetField(nameof(avatar));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.ReturnType.Name == SimpleAvatarPedestal.Instance_Class.FullName)).Name = nameof(avatar);
+                field.SetValue(ptr, value.ptr);
+            }
         }
 
         public void ChangeToSelectedAvatar()
         {
             Instance_Class.GetMethod(nameof(ChangeToSelectedAvatar)).Invoke(ptr);
         }
+        
+        public void ChangeToSelectedAvatar2()
+        {
+            Instance_Class.GetMethod(nameof(ChangeToSelectedAvatar)).Invoke(ptr);
+        }
 
-        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("PageAvatar", "VRC.UI");
+
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClasses().FirstOrDefault(x => x.GetMethod("ChangeToSelectedAvatar") != null);
     }
 }

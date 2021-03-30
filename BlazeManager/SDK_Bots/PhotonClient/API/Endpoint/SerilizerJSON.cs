@@ -45,6 +45,13 @@ namespace PhotonClient.API.Endpoint
                 // result.location = FastFind(json, "location");
                 result = (T)(object)data;
             }
+            else if (typeof(T) == typeof(ApiJoinResponse))
+            {
+                ApiJoinResponse data = new ApiJoinResponse();
+                data.apiJoinVersion = FastFind_int(json, "version");
+                data.apiJoinToken = FastFind(json, "token");
+                result = (T)(object)data;
+            }
             if (result != null)
                 result.id = FastFind(json, "id");
 

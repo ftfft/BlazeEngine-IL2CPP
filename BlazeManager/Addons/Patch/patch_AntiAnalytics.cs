@@ -14,46 +14,48 @@ namespace Addons.Patch
     {
         public static void Start()
         {
-            IL2Method method;
-            int iError = 0;
-
             try
             {
-                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineunityanalyticsmodule]].GetClass("Analytics", "UnityEngine.Analytics").GetMethod(x => x.Name == "CustomEvent" && x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "eventData");
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.unityengineunityanalyticsmodule]].GetClass("Analytics", "UnityEngine.Analytics").GetMethod(x => x.Name == "CustomEvent" && x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "eventData");
                 if (method == null)
                     throw new Exception();
                 IL2Ch.Patch(method, (_UnityEngine_Analytics_CustomEvent)UnityEngine_Analytics_CustomEvent);
             }
             catch
             {
-                ConSole.Error("Patch: 0xAA1");
-                iError++;
+                Dll_Loader.failed_Patch.Add("0xAA1");
             }
+            /*
             try
             {
-                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("Analytics").GetMethod(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == typeof(string).FullName && x.GetParameters()[1].ReturnType.Name.StartsWith("System.Collections.Generic") && x.IsStatic);
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("Analytics").GetMethod(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == typeof(string).FullName && x.GetParameters()[1].ReturnType.Name.StartsWith("System.Collections.Generic") && x.IsStatic);
+                if (method == null)
+                    throw new Exception();
                 IL2Ch.Patch(method, (_Analytics_SendOrSendError)Analytics_SendOrSendError);
                 method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("Analytics").GetMethod(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name.StartsWith("Analytics") && x.GetParameters()[1].ReturnType.Name.StartsWith("System.Collections.Generic") && x.IsStatic);
+                if (method == null)
+                    throw new Exception();
                 IL2Ch.Patch(method, (_Analytics_SendOrSendError)Analytics_SendOrSendError);
             }
             catch
             {
-                ConSole.Error("Patch: 0xAA2");
-                iError++;
+                Dll_Loader.failed_Patch.Add("0xAA2");
             }
+            */
             try
             {
-                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
+                if (method == null)
+                    throw new Exception();
                 IL2Ch.Patch(method, (_AmplitudeSDKWrapper_AmplitudeWrapper_CheckedLogEvent)AmplitudeSDKWrapper_AmplitudeWrapper_CheckedLogEvent);
             }
             catch
             {
-                ConSole.Error("Patch: 0xAA3");
-                iError++;
+                Dll_Loader.failed_Patch.Add("0xAA3");
             }
             try
             {
-                method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
+                IL2Method method = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.vrccorestandalone]].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
                 if (method == null)
                     throw new Exception();
 
@@ -61,10 +63,8 @@ namespace Addons.Patch
             }
             catch
             {
-                ConSole.Error("Patch: Analytics");
+                Dll_Loader.failed_Patch.Add("0xAA4");
             }
-            if (iError > 0)
-                ConSole.Error("Patch: 0xAA-" + iError);
         }
 
         private static void VRC_Core_AnalyticsInterface_Send_3(IntPtr eventType, IntPtr eventProperties, IntPtr options)

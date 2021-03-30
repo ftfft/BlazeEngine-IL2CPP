@@ -38,7 +38,7 @@ namespace VRC
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(user));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName)).Name = nameof(user);
+                    (property = Instance_Class.GetProperty(APIUser.Instance_Class)).Name = nameof(user);
                 return property?.GetGetMethod().Invoke(ptr)?.unbox<APIUser>();
             }
         }
@@ -49,7 +49,7 @@ namespace VRC
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(playerNet));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName)).Name = nameof(playerNet);
+                    (property = Instance_Class.GetProperty(PlayerNet.Instance_Class)).Name = nameof(playerNet);
                 return property?.GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
             }
         }
@@ -60,7 +60,7 @@ namespace VRC
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(PhotonPlayer));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == IL2Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(PhotonPlayer);
+                    (property = Instance_Class.GetProperty(IL2Photon.Realtime.Player.Instance_Class)).Name = nameof(PhotonPlayer);
                 return property?.GetGetMethod().Invoke(ptr)?.unbox<IL2Photon.Realtime.Player>();
             }
         }
@@ -71,7 +71,7 @@ namespace VRC
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(Components));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRCPlayer.Instance_Class.FullName)).Name = nameof(Components);
+                    (property = Instance_Class.GetProperty(VRCPlayer.Instance_Class)).Name = nameof(Components);
                 return property?.GetGetMethod().Invoke(ptr)?.unbox<VRCPlayer>();
             }
         }
@@ -82,7 +82,7 @@ namespace VRC
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(playerApi));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == VRCPlayerApi.Instance_Class.FullName)).Name = nameof(playerApi);
+                    (property = Instance_Class.GetProperty(VRCPlayerApi.Instance_Class)).Name = nameof(playerApi);
                 return property?.GetGetMethod().Invoke(ptr)?.unbox<VRCPlayerApi>();
             }
         }
@@ -162,8 +162,8 @@ namespace VRC
             {
                 IL2Field field = Instance_Class.GetField(nameof(mUSpeaker));
                 if (field == null)
-                    (field = Instance_Class.GetField(x => x.ReturnType.Name == USpeaker.Instance_Class.FullName)).Name = nameof(mUSpeaker);
-                return field?.GetValue(ptr)?.unbox<USpeaker>();
+                    (field = Instance_Class.GetField(USpeaker.Instance_Class)).Name = nameof(mUSpeaker);
+                return field.GetValue(ptr)?.unbox<USpeaker>();
             }
         }
 
@@ -172,6 +172,6 @@ namespace VRC
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
 
-        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass("Player", "VRC");
+        public static new IL2Type Instance_Class = Assemblies.a[LangTransfer.values[cAssemblies.offset + (long)eAssemblies.assemblycsharp]].GetClass(VRCPlayer.Instance_Class.GetMethod("SpawnEmojiRPC").GetParameters()[1].ReturnType.Name);
     }
 }
