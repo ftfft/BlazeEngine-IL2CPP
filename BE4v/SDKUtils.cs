@@ -53,8 +53,7 @@ public static class SDKUtils
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write(prefix);
         Console.ForegroundColor = ConsoleColor.Gray;
-        Console.Write("]");
-        Console.WriteLine(message);
+        Console.WriteLine("] " + message);
     }
     
     public static void GreenPrefix(this string message, string prefix)
@@ -63,13 +62,12 @@ public static class SDKUtils
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write(prefix);
         Console.ForegroundColor = ConsoleColor.Gray;
-        Console.Write("]");
-        Console.WriteLine(message);
+        Console.WriteLine("] " + message);
     }
 
     public static void WriteMessage(this string message, string prefix)
     {
-        Console.WriteLine($"[{prefix}]{message}");
+        Console.WriteLine($"[{prefix}] {message}");
     }
 
     public static void WriteMessage(this string message)

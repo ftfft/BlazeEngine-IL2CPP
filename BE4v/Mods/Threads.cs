@@ -44,8 +44,12 @@ namespace BE4v.Mods
                 Status.isFly = !Status.isFly;
                 Physics.gravity = Vector3.up * -9.5f;
             }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+            }
 
         }
+
 
         public static _Threads_Update _delegateThreads_Update;
     }

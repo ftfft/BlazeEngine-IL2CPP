@@ -50,13 +50,16 @@
     <Compile Include="Mods\Mod_Fly.cs" />
     <Compile Include="Mods\Status.cs" />
     <Compile Include="Mods\Threads.cs" />
+    <Compile Include="Patch\Patch_ForceCloneAvatar.cs" />
     <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />
     <Compile Include="Patch\Patch_QuitFix.cs" />
+    <Compile Include="Patch\Patch_InvisAPI.cs" />
     <Compile Include="Patch\Patch_Spoofer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBone.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBoneCollider.cs" />
     <Compile Include="SDK\Assembly-CSharp\InteractivePlayer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\MenuController.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\InstantiateParameters.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\MonoBehaviourPun.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonNetwork.cs" />
@@ -76,6 +79,8 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RaiseEventOptions.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
+    <Compile Include="SDK\Assembly-CSharp\QuickMenu.cs" />
+    <Compile Include="SDK\Assembly-CSharp\UserInteractMenu.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCApplication.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCPlayer.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\VRCNetworkingClient.cs" />
@@ -100,6 +105,41 @@
     <Compile Include="SDK\Import.cs" />
     <Compile Include="SDK\SDKLoader.cs" />
     <Compile Include="SDKUtils.cs" />
+    <Compile Include="SDK\SharpDisasm\ArchitectureMode.cs" />
+    <Compile Include="SDK\SharpDisasm\Disassembler.cs" />
+    <Compile Include="SDK\SharpDisasm\Helpers\AssemblyCode.cs" />
+    <Compile Include="SDK\SharpDisasm\Helpers\AssemblyCodeArray.cs" />
+    <Compile Include="SDK\SharpDisasm\Helpers\AssemblyCodeMemory.cs" />
+    <Compile Include="SDK\SharpDisasm\Helpers\AssemblyCodeOffset.cs" />
+    <Compile Include="SDK\SharpDisasm\IAssemblyCode.cs" />
+    <Compile Include="SDK\SharpDisasm\Instruction.cs" />
+    <Compile Include="SDK\SharpDisasm\Operand.cs" />
+    <Compile Include="SDK\SharpDisasm\Translators\ATTTranslator.cs" />
+    <Compile Include="SDK\SharpDisasm\Translators\IntelTranslator.cs" />
+    <Compile Include="SDK\SharpDisasm\Translators\SymbolResolverDelegate.cs" />
+    <Compile Include="SDK\SharpDisasm\Translators\Translator.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\BitOps.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\Decode.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\OpTable.cs">
+      <DependentUpon>OpTable.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SDK\SharpDisasm\Udis86\reg_class.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\syn.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\syn_intel.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\udis86.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_itab_entry.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_itab_entry_operand.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_lookup_table_list_entry.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_lval.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_operand.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_operand_code.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_operand_size.cs" />
+    <Compile Include="SDK\SharpDisasm\Udis86\ud_type.cs" />
+    <Compile Include="SDK\SharpDisasm\Vendor.cs" />
+    <Compile Include="SDK\TMessage.cs" />
     <Compile Include="SDK\UnityEngine.AnimationModule\Animator.cs" />
     <Compile Include="SDK\UnityEngine.AnimationModule\HumanBodyBones.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Application.cs" />
@@ -148,6 +188,16 @@
     <Compile Include="SDK\UnityEngine.UI\Image.cs" />
     <Compile Include="SDK\UnityEngine.UI\Selectable.cs" />
     <Compile Include="SDK\UnityEngine.UI\Text.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\API.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiAvatar.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiContainer.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiDictContainer.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiModel.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiModelContainer.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\APIUser.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiWorld.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiWorldInstance.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\BestHTTP\HTTPMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VRLoader\VRLoader.csproj">
@@ -155,6 +205,20 @@
       <Name>VRLoader</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDK\SharpDisasm\Udis86\OpTable.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OpTable.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDK\SharpDisasm\Udis86\optable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDK\SharpDisasm\Udis86\optable.xsl" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

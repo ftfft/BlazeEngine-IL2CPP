@@ -37,11 +37,11 @@ namespace BE4v.Patch
 
                 var patch = new IL2Patch(method, (_VRC_Player_Update)VRC_Player_Update);
                 _delegateVRC_Player_Update = patch.CreateDelegate<_VRC_Player_Update>();
-                "Global Dynamic Bones".WriteMessage("Patched");
+                "Global Dynamic Bones".WriteMessage(TMessage.SuccessPatch);
             }
             catch
             {
-                "Global Dynamic Bones".WriteMessage("Not Patched");
+                "Global Dynamic Bones".WriteMessage(TMessage.BadPatch);
             }
         }
 

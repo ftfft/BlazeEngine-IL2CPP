@@ -21,11 +21,11 @@ namespace BE4v.Patch
                     throw new Exception();
 
                 new IL2Patch(method, (_UnityEngine_SystemInfo)UnityEngine_SystemInfo);
-                "HWID".GreenPrefix("Good");
+                "HWID".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
             {
-                "HWID".RedPrefix("Bad");
+                "HWID".RedPrefix(TMessage.BadPatch);
             }
         }
 

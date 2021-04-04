@@ -18,8 +18,8 @@ namespace BE4v.MenuEdit.Construct
 
         public float y;
 
-        public static readonly float offsetLeft = 420;
+        public bool isCustom = true;
 
-        public static readonly float offsetTop = 420;
+        // public static readonly Vector2 offsetButton = QuickMenu_Utils.BaseButton().transform.MonoCast<RectTransform>().anchoredPosition;
     }
 }

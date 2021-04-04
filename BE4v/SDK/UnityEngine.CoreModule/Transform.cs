@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.Remoting.Messaging;
 using BE4v.SDK.CPP2IL;
 
 namespace UnityEngine
@@ -18,10 +19,14 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(right)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
         }
 
-        public Vector3 position
+        unsafe public Vector3 position
         {
             get => Instance_Class.GetProperty(nameof(position)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set
+            {
+                Vector3 arg1 = value;
+                Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
+            }
         }
 
         public Vector3 localPosition
@@ -69,14 +74,19 @@ namespace UnityEngine
             set => Instance_Class.GetProperty(nameof(parent)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
         }
 
-        public Transform GetChild(int index)
+        unsafe public Transform GetChild(int index)
         {
-            return Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { index.MonoCast() })?.GetValue<Transform>();
+            int arg1 = index;
+            IL2Object result = Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
+            if (result != null)
+                return result.GetValue<Transform>();
+            return null;
         }
 
-        public void SetSiblingIndex(int index)
+        unsafe public void SetSiblingIndex(int index)
         {
-            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(ptr, new IntPtr[] { index.MonoCast() });
+            int arg1 = index;
+            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
         }
 
         public IEnumerator GetEnumerator()

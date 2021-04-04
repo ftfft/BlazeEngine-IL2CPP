@@ -289,5 +289,5 @@ public class VRCPlayer : MonoBehaviour
         User = 256
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethods(y => y.Name == "SendVoiceSetupToPlayerRPC").Length == 1);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SendVoiceSetupToPlayerRPC") != null);
 }
