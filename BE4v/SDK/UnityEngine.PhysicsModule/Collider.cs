@@ -7,10 +7,10 @@ namespace UnityEngine
     {
         public Collider(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		public bool enabled
+		unsafe public bool enabled
 		{
 			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		/*
@@ -22,16 +22,16 @@ namespace UnityEngine
 			}
 		}
 		*/
-		public bool isTrigger
+		unsafe public bool isTrigger
 		{
 			get => Instance_Class.GetProperty(nameof(isTrigger)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(isTrigger)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(isTrigger)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
-		public float contactOffset
+		unsafe public float contactOffset
 		{
 			get => Instance_Class.GetProperty(nameof(contactOffset)).GetGetMethod().Invoke(ptr).GetValuе<float>();
-			set => Instance_Class.GetProperty(nameof(contactOffset)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(contactOffset)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		/*

@@ -18,12 +18,12 @@ namespace UnityEngine
         {
             return Instantiate(original, parent, instantiateInWorldSpace)?.MonoCast<T>();
         }
-        public static Object Instantiate(Object original, Transform parent, bool instantiateInWorldSpace)
+        unsafe public static Object Instantiate(Object original, Transform parent, bool instantiateInWorldSpace)
         {
             return Instance_Class.GetMethod(nameof(Instantiate),
                 x => x.GetParameters().Length == 3
                 && x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName
-                && x.ReturnType.Name == Instance_Class.FullName).Invoke(new IntPtr[] { original.ptr, parent.ptr, instantiateInWorldSpace.MonoCast() })?.GetValue<Object>();
+                && x.ReturnType.Name == Instance_Class.FullName).Invoke(new IntPtr[] { original.ptr, parent.ptr, new IntPtr(&instantiateInWorldSpace) })?.GetValue<Object>();
         }
 
         public static T FindObjectOfType<T>() where T : Object
@@ -68,18 +68,17 @@ namespace UnityEngine
         public void Destroy() => Destroy(this, 0f);
         public void Destroy(float time) => Destroy(this, time);
         public static void Destroy(Object obj) => Destroy(obj, 0f);
-        public static void Destroy(Object obj, float time)
+        unsafe public static void Destroy(Object obj, float time)
         {
             if (obj == null || time < 0)
                 return;
 
-            Instance_Class.GetMethod(nameof(Destroy), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { obj.ptr, time.MonoCast() });
+            Instance_Class.GetMethod(nameof(Destroy), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { obj.ptr, new IntPtr(&time) });
         }
 
-        public static Object FindObjectFromInstanceID(int instanceID) => FindObjectFromInstanceID(instanceID.MonoCast());
-        public static Object FindObjectFromInstanceID(IntPtr instanceID)
+        unsafe public static Object FindObjectFromInstanceID(int instanceID)
         {
-            return Instance_Class.GetMethod(nameof(FindObjectFromInstanceID)).Invoke(new IntPtr[] { instanceID })?.GetValue<Object>();
+            return Instance_Class.GetMethod(nameof(FindObjectFromInstanceID)).Invoke(new IntPtr[] { new IntPtr(&instanceID) })?.GetValue<Object>();
         }
 
         public static void DontDestroyOnLoad(Object target)

@@ -29,28 +29,28 @@ namespace UnityEngine
             }
         }
 
-        public Vector3 localPosition
+        unsafe public Vector3 localPosition
         {
             get => Instance_Class.GetProperty(nameof(localPosition)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(localPosition)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(localPosition)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
-        public Vector3 localEulerAngles
+        unsafe public Vector3 localEulerAngles
         {
             get => Instance_Class.GetProperty(nameof(localEulerAngles)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(localEulerAngles)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(localEulerAngles)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
-        public Quaternion rotation
+        unsafe public Quaternion rotation
         {
             get => Instance_Class.GetProperty(nameof(rotation)).GetGetMethod().Invoke(ptr).GetValuе<Quaternion>();
-            set => Instance_Class.GetProperty(nameof(rotation)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(rotation)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
-        public Vector3 localScale
+        unsafe public Vector3 localScale
         {
             get => Instance_Class.GetProperty(nameof(localScale)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(localScale)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(localScale)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
         public Transform Find(string name)
@@ -76,8 +76,7 @@ namespace UnityEngine
 
         unsafe public Transform GetChild(int index)
         {
-            int arg1 = index;
-            IL2Object result = Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
+            IL2Object result = Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { new IntPtr(&index) });
             if (result != null)
                 return result.GetValue<Transform>();
             return null;
@@ -85,8 +84,7 @@ namespace UnityEngine
 
         unsafe public void SetSiblingIndex(int index)
         {
-            int arg1 = index;
-            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
+            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(ptr, new IntPtr[] { new IntPtr(&index) });
         }
 
         public IEnumerator GetEnumerator()

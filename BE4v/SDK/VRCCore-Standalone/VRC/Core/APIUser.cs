@@ -46,11 +46,7 @@ namespace VRC.Core
         unsafe public bool allowAvatarCopying
         {
             get => Instance_Class.GetProperty(nameof(allowAvatarCopying)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-            set
-            {
-                bool arg1 = value;
-                Instance_Class.GetProperty(nameof(allowAvatarCopying)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
-            }
+            set => Instance_Class.GetProperty(nameof(allowAvatarCopying)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
         public bool hasModerationPowers

@@ -7,7 +7,7 @@ namespace BE4v.SDK.CPP2IL
 {
     public static class CastUtils
     {
-        unsafe public static IntPtr MonoCast<T>(this T obj) where T : unmanaged => new IntPtr(&obj);
+        // unsafe public static IntPtr MonoCast<T>(this T obj) where T : unmanaged => new IntPtr(&obj);
         unsafe public static T1 MonoCast<T1>(this IntPtr ptr)
         {
             if (typeof(T1) == typeof(string))

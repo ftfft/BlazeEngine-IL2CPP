@@ -9,10 +9,10 @@ public class DynamicBoneCollider : MonoBehaviour
 {
 	public DynamicBoneCollider(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-	public Bound m_Bound
+	unsafe public Bound m_Bound
     {
         get => Instance_Class.GetField(nameof(m_Bound)).GetValue(ptr).GetValuе<Bound>();
-        set => Instance_Class.GetField(nameof(m_Bound)).SetValue(ptr, value.MonoCast());
+		set => Instance_Class.GetField(nameof(m_Bound)).SetValue(ptr, new IntPtr(&value));
     }
 
 	public enum Direction

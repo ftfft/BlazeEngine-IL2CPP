@@ -35,25 +35,25 @@ namespace IL2Photon.Pun
             {
                 IL2Field field = Instance_Class.GetField(nameof(NetworkingClient));
                 if (field == null)
-                    (field = Instance_Class.GetField(x => x.ReturnType.Name == LoadBalancingClient.Instance_Class.FullName)).Name = nameof(NetworkingClient);
+                    (field = Instance_Class.GetField(LoadBalancingClient.Instance_Class)).Name = nameof(NetworkingClient);
                 return field?.GetValue()?.GetValue<LoadBalancingClient>();
             }
         }
 
-        public static void RequestOwnership(int viewId, int fromId)
+        unsafe public static void RequestOwnership(int viewId, int fromId)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(RequestOwnership));
             if (method == null)
                 (method = Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName && x.GetParameters()[1].ReturnType.Name == typeof(int).FullName).First()).Name = nameof(RequestOwnership);
-            method?.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
+            method?.Invoke(new IntPtr[] { new IntPtr(&viewId), new IntPtr(&fromId) });
         }
 
-        public static void TransferOwnership(int viewId, int fromId)
+        unsafe public static void TransferOwnership(int viewId, int fromId)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(TransferOwnership));
             if (method == null)
                 (method = Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 2 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName && x.GetParameters()[1].ReturnType.Name == typeof(int).FullName).Last()).Name = nameof(TransferOwnership);
-            method?.Invoke(new IntPtr[] { viewId.MonoCast(), fromId.MonoCast() });
+            method?.Invoke(new IntPtr[] { new IntPtr(&viewId), new IntPtr(&fromId) });
         }
         /*
         public static void RPC(PhotonView view, string methodName, RpcTarget target, bool encrypt, IntPtr[] parameters)

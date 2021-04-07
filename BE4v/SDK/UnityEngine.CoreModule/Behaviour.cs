@@ -11,10 +11,10 @@ namespace UnityEngine
 	{
 		public Behaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		public bool enabled
+		unsafe public bool enabled
 		{
 			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		public bool isActiveAndEnabled

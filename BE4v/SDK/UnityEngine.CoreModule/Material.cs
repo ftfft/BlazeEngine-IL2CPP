@@ -16,10 +16,10 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(shader)).GetSetMethod().Invoke(ptr, new IntPtr[] { value == null ? IntPtr.Zero : value.ptr });
 		}
 		
-		public Color color
+		unsafe public Color color
 		{
 			get => Instance_Class.GetProperty(nameof(color)).GetGetMethod().Invoke(ptr).GetValuе<Color>();
-			set => Instance_Class.GetProperty(nameof(color)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(color)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Material", "UnityEngine");

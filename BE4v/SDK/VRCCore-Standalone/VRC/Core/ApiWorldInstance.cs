@@ -8,10 +8,10 @@ namespace VRC.Core
     {
         public ApiWorldInstance(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public ApiWorldInstance(ApiWorld world, string _idWithTags, int _count) : base(IntPtr.Zero)
+        unsafe public ApiWorldInstance(ApiWorld world, string _idWithTags, int _count) : base(IntPtr.Zero)
         {
             ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 3 && x.GetParameters()[2].Name == "_count").Invoke(ptr, new IntPtr[] { world.ptr, new IL2String(_idWithTags).ptr, _count.MonoCast() });
+            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 3 && x.GetParameters()[2].Name == "_count").Invoke(ptr, new IntPtr[] { world.ptr, new IL2String(_idWithTags).ptr, new IntPtr(&_count) });
         }
 
         public string GetInstanceCreator()

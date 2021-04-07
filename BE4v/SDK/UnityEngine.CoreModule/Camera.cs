@@ -17,9 +17,9 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(current)).GetGetMethod().Invoke()?.GetValue<Camera>();
         }
 
-        public Ray ScreenPointToRay(Vector3 pos)
+        unsafe public Ray ScreenPointToRay(Vector3 pos)
         {
-            return Instance_Class.GetMethod("ScreenPointToRay", x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { pos.MonoCast() }).GetValuå<Ray>();
+            return Instance_Class.GetMethod("ScreenPointToRay", x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { new IntPtr(&pos) }).GetValuå<Ray>();
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Camera", "UnityEngine");

@@ -45,10 +45,10 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(fixedUnscaledDeltaTime)).GetGetMethod().Invoke().GetValuе<float>();
         }
 
-        public static float fixedDeltaTime
+        unsafe public static float fixedDeltaTime
         {
             get => Instance_Class.GetProperty(nameof(fixedDeltaTime)).GetGetMethod().Invoke().GetValuе<float>();
-            set => Instance_Class.GetProperty(nameof(fixedDeltaTime)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(fixedDeltaTime)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
         public static float maximumDeltaTime
@@ -61,10 +61,10 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(smoothDeltaTime)).GetGetMethod().Invoke().GetValuе<float>();
         }
 
-        public static float timeScale
+        unsafe public static float timeScale
         {
             get => Instance_Class.GetProperty(nameof(timeScale)).GetGetMethod().Invoke().GetValuе<float>();
-            set => Instance_Class.GetProperty(nameof(timeScale)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(timeScale)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
         public static int frameCount

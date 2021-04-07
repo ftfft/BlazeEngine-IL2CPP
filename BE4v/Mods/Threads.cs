@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using BE4v.MenuEdit;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using UnityEngine;
@@ -38,6 +40,18 @@ namespace BE4v.Mods
 
             _delegateThreads_Update.Invoke(instance);
 
+
+            if (isFirstControl > 0)
+            {
+                if (--isFirstControl == 0)
+                {
+                    Application.targetFrameRate = 101;
+                    BE4V_MainMenu.Delete();
+                    BE4V_MainMenu.Start();
+                }
+                return;
+            }
+
             if (!Input.GetKey(KeyCode.LeftControl)) return;
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -46,11 +60,13 @@ namespace BE4v.Mods
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
+                FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
             }
 
         }
 
+        private static int isFirstControl = 50;
 
-        public static _Threads_Update _delegateThreads_Update;
+        private static _Threads_Update _delegateThreads_Update;
     }
 }

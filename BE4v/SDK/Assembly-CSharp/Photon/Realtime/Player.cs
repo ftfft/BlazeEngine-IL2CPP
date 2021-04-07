@@ -20,7 +20,7 @@ namespace IL2Photon.Realtime
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(RoomReference));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Room.Instance_Class.FullName)).Name = nameof(RoomReference);
+                    (property = Instance_Class.GetProperty(Room.Instance_Class)).Name = nameof(RoomReference);
                 return property?.GetGetMethod().Invoke(ptr)?.GetValue<Room>();
             }
         }

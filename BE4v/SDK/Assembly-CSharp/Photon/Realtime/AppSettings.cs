@@ -7,28 +7,28 @@ namespace IL2Photon.Realtime
 	{
 		public AppSettings(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		public bool IsBestRegion
+		unsafe public bool IsBestRegion
 		{
 			get => Instance_Class.GetProperty(nameof(IsBestRegion)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(IsBestRegion)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(IsBestRegion)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
-		
-		public bool IsMasterServerAddress
+
+		unsafe public bool IsMasterServerAddress
 		{
 			get => Instance_Class.GetProperty(nameof(IsMasterServerAddress)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(IsMasterServerAddress)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(IsMasterServerAddress)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
-		
-		public bool IsDefaultNameServer
+
+		unsafe public bool IsDefaultNameServer
 		{
 			get => Instance_Class.GetProperty(nameof(IsDefaultNameServer)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(IsDefaultNameServer)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(IsDefaultNameServer)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
-		
-		public bool IsDefaultPort
+
+		unsafe public bool IsDefaultPort
 		{
 			get => Instance_Class.GetProperty(nameof(IsDefaultPort)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(IsDefaultPort)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(IsDefaultPort)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 		
 		public string AppIdRealtime
@@ -59,10 +59,10 @@ namespace IL2Photon.Realtime
 		}
 
 
-		public bool UseNameServer
+		unsafe public bool UseNameServer
 		{
 			get => Instance_Class.GetField(nameof(UseNameServer)).GetValue(ptr).GetValuе<bool>();
-			set => Instance_Class.GetField(nameof(UseNameServer)).SetValue(ptr, value.MonoCast());
+			set => Instance_Class.GetField(nameof(UseNameServer)).SetValue(ptr, new IntPtr(&value));
 		}
 
 		public string FixedRegion
@@ -78,10 +78,10 @@ namespace IL2Photon.Realtime
 			set => Instance_Class.GetField(nameof(Server)).SetValue(ptr, new IL2String(value).ptr);
 		}
 
-		public int Port
+		unsafe public int Port
 		{
 			get => Instance_Class.GetField(nameof(Port)).GetValue(ptr).GetValuе<int>();
-			set => Instance_Class.GetField(nameof(Port)).SetValue(ptr, value.MonoCast());
+			set => Instance_Class.GetField(nameof(Port)).SetValue(ptr, new IntPtr(&value));
 		}
 		/*
 		public ConnectionProtocol Protocol
@@ -91,10 +91,10 @@ namespace IL2Photon.Realtime
 		}
 		*/
 
-		public bool EnableLobbyStatistics
+		unsafe public bool EnableLobbyStatistics
 		{
 			get => Instance_Class.GetField(nameof(EnableLobbyStatistics)).GetValue(ptr).GetValuе<bool>();
-			set => Instance_Class.GetField(nameof(EnableLobbyStatistics)).SetValue(ptr, value.MonoCast());
+			set => Instance_Class.GetField(nameof(EnableLobbyStatistics)).SetValue(ptr, new IntPtr(&value));
 		}
 		/*
 		public DebugLevel NetworkLogging

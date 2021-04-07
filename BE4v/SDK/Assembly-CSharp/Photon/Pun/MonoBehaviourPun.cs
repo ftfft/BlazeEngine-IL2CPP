@@ -14,7 +14,7 @@ namespace IL2Photon.Pun
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(photonView));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PhotonView.Instance_Class.FullName)).Name = nameof(photonView);
+                    (property = Instance_Class.GetProperty(PhotonView.Instance_Class)).Name = nameof(photonView);
                 return property?.GetGetMethod().Invoke()?.GetValue<PhotonView>();
             }
 		}

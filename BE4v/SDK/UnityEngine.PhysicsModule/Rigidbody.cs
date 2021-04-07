@@ -8,16 +8,16 @@ namespace UnityEngine
     {
         public Rigidbody(IntPtr ptr) : base(ptr) => this.ptr = ptr;
 
-        public bool isKinematic
+        unsafe public bool isKinematic
         {
             get => Instance_Class.GetProperty(nameof(isKinematic)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-            set => Instance_Class.GetProperty(nameof(isKinematic)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(isKinematic)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
-        public bool useGravity
+        unsafe public bool useGravity
         {
             get => Instance_Class.GetProperty(nameof(useGravity)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-            set => Instance_Class.GetProperty(nameof(useGravity)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(useGravity)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("Rigidbody", "UnityEngine");

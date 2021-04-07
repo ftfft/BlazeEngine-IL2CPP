@@ -7,10 +7,10 @@ namespace UnityEngine.UI
     {
         public Selectable(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public bool interactable
+        unsafe public bool interactable
         {
             get => Instance_Class.GetProperty(nameof(interactable)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-            set => Instance_Class.GetProperty(nameof(interactable)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(interactable)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.UI"].GetClass("Selectable", "UnityEngine.UI");

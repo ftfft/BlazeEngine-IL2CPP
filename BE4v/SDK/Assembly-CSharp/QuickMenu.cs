@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
 using VRC.Core;
 using BE4v.SDK.CPP2IL;
@@ -19,27 +18,28 @@ public class QuickMenu : MonoBehaviour
             return property?.GetGetMethod().Invoke()?.GetValue<QuickMenu>();
         }
     }
-    /*
+
     public APIUser SelectedUser
     {
         get
         {
             IL2Property property = Instance_Class.GetProperty(nameof(SelectedUser));
             if (property == null)
-                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName)).Name = nameof(SelectedUser);
+                (property = Instance_Class.GetProperty(APIUser.Instance_Class)).Name = nameof(SelectedUser);
 
-            return property?.GetGetMethod().Invoke(ptr)?.unbox<APIUser>();
+            return property?.GetGetMethod().Invoke(ptr)?.GetValue<APIUser>();
         }
         set
         {
             IL2Property property = Instance_Class.GetProperty(nameof(SelectedUser));
             if (property == null)
-                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == APIUser.Instance_Class.FullName)).Name = nameof(SelectedUser);
+                (property = Instance_Class.GetProperty(APIUser.Instance_Class)).Name = nameof(SelectedUser);
 
             property?.GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
         }
     }
-    
+
+    /*
     private static IL2Method m_SetMenuIndex()
     {
         IL2Method method = Instance_Class.GetMethod(nameof(SetMenuIndex));

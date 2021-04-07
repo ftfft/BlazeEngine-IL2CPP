@@ -7,22 +7,22 @@ namespace UnityEngine
     {
         public BoxCollider(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-		public Vector3 center
+		unsafe public Vector3 center
 		{
 			get => Instance_Class.GetProperty(nameof(center)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-			set => Instance_Class.GetProperty(nameof(center)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(center)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
-		public Vector3 size
+		unsafe public Vector3 size
 		{
 			get => Instance_Class.GetProperty(nameof(size)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-			set => Instance_Class.GetProperty(nameof(size)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(size)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
-		public Vector3 extents
+		unsafe public Vector3 extents
 		{
 			get => Instance_Class.GetProperty(nameof(extents)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-			set => Instance_Class.GetProperty(nameof(extents)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+			set => Instance_Class.GetProperty(nameof(extents)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
 		}
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("BoxCollider", "UnityEngine");

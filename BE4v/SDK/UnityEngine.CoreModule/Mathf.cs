@@ -715,14 +715,14 @@ namespace UnityEngine
         }
         */
 
-        public static float GammaToLinearSpace(float value)
+        unsafe public static float GammaToLinearSpace(float value)
         {
-            return Instance_Class.GetMethod(nameof(GammaToLinearSpace)).Invoke(new IntPtr[] { value.MonoCast() }).GetValuå<float>();
+            return Instance_Class.GetMethod(nameof(GammaToLinearSpace)).Invoke(new IntPtr[] { new IntPtr(&value) }).GetValuå<float>();
         }
 
-        public static float LinearToGammaSpace(float value)
+        unsafe public static float LinearToGammaSpace(float value)
         {
-            return Instance_Class.GetMethod(nameof(LinearToGammaSpace)).Invoke(new IntPtr[] { value.MonoCast() }).GetValuå<float>();
+            return Instance_Class.GetMethod(nameof(LinearToGammaSpace)).Invoke(new IntPtr[] { new IntPtr(&value) }).GetValuå<float>();
         }
 
         internal static long RandomToLong(Random r)

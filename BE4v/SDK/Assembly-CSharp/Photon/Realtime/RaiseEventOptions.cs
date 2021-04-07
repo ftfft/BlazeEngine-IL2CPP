@@ -16,16 +16,16 @@ namespace IL2Photon.Realtime
             Instance_Class.GetMethod(".ctor").Invoke(ptr);
         }
 
-        public EventCaching CachingOption
+        unsafe public EventCaching CachingOption
         {
             get => Instance_Class.GetField(x => x.Token == 0x10).GetValue(ptr).GetValuе<EventCaching>();
-            set => Instance_Class.GetField(x => x.Token == 0x10).SetValue(ptr, value.MonoCast());
+            set => Instance_Class.GetField(x => x.Token == 0x10).SetValue(ptr, new IntPtr(&value));
         }
         
-        public byte InterestGroup
+        unsafe public byte InterestGroup
         {
             get => Instance_Class.GetField(x => x.Token == 0x11).GetValue(ptr).GetValuе<byte>();
-            set => Instance_Class.GetField(x => x.Token == 0x11).SetValue(ptr, value.MonoCast());
+            set => Instance_Class.GetField(x => x.Token == 0x11).SetValue(ptr, new IntPtr(&value));
         }
 
         /*public int[] TargetActors

@@ -5,10 +5,10 @@ namespace UnityEngine
 {
     public static class Application
     {
-        public static int targetFrameRate
+        unsafe public static int targetFrameRate
         {
             get => Instance_Class.GetProperty(nameof(targetFrameRate)).GetGetMethod().Invoke().GetValuå<int>();
-            set => Instance_Class.GetProperty(nameof(targetFrameRate)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(targetFrameRate)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
         public static string unityVersion

@@ -9,21 +9,21 @@ namespace UnityEngine
     {
         public CharacterController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public bool isGrounded
+        unsafe public bool isGrounded
         {
             get => Instance_Class.GetProperty(nameof(isGrounded)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-            set => Instance_Class.GetProperty(nameof(isGrounded)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(isGrounded)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
         
-        public Vector3 velocity
+        unsafe public Vector3 velocity
         {
             get => Instance_Class.GetProperty(nameof(velocity)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(velocity)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(velocity)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
-        public CollisionFlags Move(Vector3 motion)
+        unsafe public CollisionFlags Move(Vector3 motion)
         {
-            return Instance_Class.GetMethod(nameof(Move)).Invoke(ptr, new IntPtr[] { motion.MonoCast() }).GetValuе<CollisionFlags>();
+            return Instance_Class.GetMethod(nameof(Move)).Invoke(ptr, new IntPtr[] { new IntPtr(&motion) }).GetValuе<CollisionFlags>();
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("CharacterController", "UnityEngine");

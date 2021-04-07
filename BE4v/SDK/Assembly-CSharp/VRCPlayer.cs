@@ -19,7 +19,7 @@ public class VRCPlayer : MonoBehaviour
         {
             IL2Property property = Instance_Class.GetProperty(nameof(player));
             if (property == null)
-                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName)).Name = nameof(player);
+                (property = Instance_Class.GetProperty(Player.Instance_Class)).Name = nameof(player);
             return property?.GetGetMethod().Invoke(ptr)?.GetValue<Player>();
         }
     }

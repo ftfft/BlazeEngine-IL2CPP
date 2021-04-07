@@ -14,12 +14,12 @@ namespace IL2Photon.Pun
             get => Instance_Class.GetField(nameof(viewIdField)).GetValue(ptr).GetValuе<int>();
         }
 
-        public static PhotonView Find(int viewID)
+        unsafe public static PhotonView Find(int viewID)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(Find));
             if (method == null)
                 (method = Instance_Class.GetMethod(x => x.ReturnType.Name == Instance_Class.FullName && x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == typeof(int).FullName)).Name = nameof(Find);
-            return method?.Invoke(new IntPtr[] { viewID.MonoCast() }).GetValue<PhotonView>();
+            return method?.Invoke(new IntPtr[] { new IntPtr(&viewID) }).GetValue<PhotonView>();
         }
 
         /*

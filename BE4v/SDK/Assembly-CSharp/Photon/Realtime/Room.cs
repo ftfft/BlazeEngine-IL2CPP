@@ -14,7 +14,7 @@ namespace IL2Photon.Realtime
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(LoadBalancingClient));
                 if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == LoadBalancingClient.Instance_Class.FullName)).Name = nameof(LoadBalancingClient);
+                    (property = Instance_Class.GetProperty(LoadBalancingClient.Instance_Class)).Name = nameof(LoadBalancingClient);
                 return property?.GetGetMethod().Invoke(ptr)?.GetValue<LoadBalancingClient>();
             }
         }

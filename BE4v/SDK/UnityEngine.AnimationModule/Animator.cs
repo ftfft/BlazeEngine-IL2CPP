@@ -10,9 +10,9 @@ namespace UnityEngine
         public Animator(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
         public Transform GetBoneTransform(int humanBoneId) => GetBoneTransform((HumanBodyBones)humanBoneId);
-        public Transform GetBoneTransform(HumanBodyBones humanBoneId)
+        unsafe public Transform GetBoneTransform(HumanBodyBones humanBoneId)
         {
-            return Instance_Class.GetMethod("GetBoneTransformInternal").Invoke(ptr, new IntPtr[] { ((int)humanBoneId).MonoCast() })?.MonoCast<Transform>();
+            return Instance_Class.GetMethod("GetBoneTransformInternal").Invoke(ptr, new IntPtr[] { new IntPtr(&humanBoneId) })?.MonoCast<Transform>();
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.AnimationModule"].GetClass("Animator", "UnityEngine");

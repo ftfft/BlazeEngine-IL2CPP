@@ -38,7 +38,7 @@ namespace BE4v.Patch
                 return;
 
             _delegateUserInteractMenu_Update.Invoke(instance);
-
+            
             var __instance = new UserInteractMenu(instance);
             var menuController = __instance.menuController;
             if (menuController == null)
@@ -48,7 +48,10 @@ namespace BE4v.Patch
             var activeUser = menuController.activeUser;
             if (activeAvatar == null
             || activeUser == null)
+            {
+                userId = string.Empty;
                 return;
+            }
 
             if (cloneAvatarButton == null)
             {
@@ -60,16 +63,17 @@ namespace BE4v.Patch
                     return;
                 }
                 cloneAvatarButton = new QuickButton(transform.gameObject);
+                if (cloneAvatarButton == null)
+                    return;
             }
-            if (cloneAvatarButton == null)
-                return;
- 
-            if (activeAvatar.releaseStatus != "public"
-            && activeUser.allowAvatarCopying)
+            bool nonPublicRelease = activeAvatar.releaseStatus != "public";
+            if (nonPublicRelease
+            || activeUser.allowAvatarCopying)
             {
-                if (userId == activeUser.id)
+                if (nonPublicRelease) userId = string.Empty;
+                if (userId != activeUser.id)
                 {
-                    cloneAvatarButton.setBackgroundColor(Color.white);
+                    cloneAvatarButton.setButtonText("Clone\nPublic\nAvatar");
                 }
             }
             else
@@ -77,7 +81,7 @@ namespace BE4v.Patch
                 userId = activeUser.id;
                 activeUser.allowAvatarCopying = true;
                 cloneAvatarButton.gameObject.GetComponent<Button>().interactable = true;
-                cloneAvatarButton.setBackgroundColor(Color.red);
+                cloneAvatarButton.setButtonText("Clone\nAvatar");
             }
         }
 

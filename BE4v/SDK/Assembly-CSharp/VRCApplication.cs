@@ -18,5 +18,5 @@ public class VRCApplication : MonoBehaviour
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().Where(x => x.GetMethods(y => y.Name == "OnApplicationQuit" && y.IsPrivate).Length == 1 && x.GetMethods(y => y.Name == "OnApplicationPause" && y.IsPrivate).Length == 1).FirstOrDefault(x => x.GetProperties(y => y.Instance).Length == 1);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().Where(x => x.GetMethods(y => y.Name == "OnApplicationQuit" && y.IsPrivate).Length == 1 && x.GetMethod("OnApplicationPause", y => y.IsPrivate) != null).FirstOrDefault(x => x.GetProperties(y => y.Instance).Length == 1);
 }

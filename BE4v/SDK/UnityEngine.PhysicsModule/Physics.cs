@@ -7,10 +7,10 @@ namespace UnityEngine
 {
     public static class Physics
     {
-        public static Vector3 gravity
+        unsafe public static Vector3 gravity
         {
             get => Instance_Class.GetProperty(nameof(gravity)).GetGetMethod().Invoke().GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(gravity)).GetSetMethod().Invoke(new IntPtr[] { value.MonoCast() });
+            set => Instance_Class.GetProperty(nameof(gravity)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
         private static IL2Method RayCastMini = null;
@@ -18,9 +18,7 @@ namespace UnityEngine
         {
             if(RayCastMini == null)
             {
-                RayCastMini = Instance_Class.GetMethods()
-                    .Where(x => x.Name == "Raycast" && x.GetParameters().Length == 2)
-                    .First(x => x.GetParameters()[1].ReturnType.Name == "UnityEngine.RaycastHit&");
+                RayCastMini = Instance_Class.GetMethod("Raycast", x => x.GetParameters().Length == 2 && x.GetParameters()[1].ReturnType.Name == "UnityEngine.RaycastHit&");
 
                 if (RayCastMini == null)
                 {
@@ -33,7 +31,7 @@ namespace UnityEngine
             {
                 fixed (RaycastHit* hitInfoPtr = &hitInfo)
                 {
-                    return RayCastMini.Invoke(new IntPtr[] { ray.MonoCast(), new IntPtr(hitInfoPtr) }).GetValuе<bool>();
+                    return RayCastMini.Invoke(new IntPtr[] { new IntPtr(&ray), new IntPtr(hitInfoPtr) }).GetValuе<bool>();
                 }
             }
         }
