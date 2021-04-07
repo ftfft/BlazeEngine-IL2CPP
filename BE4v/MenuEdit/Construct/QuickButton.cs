@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace BE4v.MenuEdit.Construct
 {
@@ -12,6 +13,27 @@ namespace BE4v.MenuEdit.Construct
         public QuickButton(GameObject gameObject)
         {
             base.gameObject = gameObject;
+        }
+
+
+        public QuickButton(string btnMenu, int btnXLocation, int btnYLocation, string btnText, UnityAction btnAction, string btnToolTip, Color? btnBackgroundColor = null, Color? btnTextColor = null)
+        {
+            location = btnMenu;
+            Transform btnTemplate = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton");
+
+            gameObject = UnityEngine.Object.Instantiate<GameObject>(btnTemplate.gameObject, QuickMenu.Instance.transform.Find(btnMenu), true);
+
+            setLocation(btnXLocation, btnYLocation);
+            setButtonText(btnText);
+            setToolTip(btnToolTip);
+            setAction(btnAction, true);
+
+            if (btnBackgroundColor != null)
+                setBackgroundColor(btnBackgroundColor.Value);
+            if (btnTextColor != null)
+                setTextColor(btnTextColor.Value);
+
+            gameObject.SetActive(true);
         }
 
         // @location - Position in menu  Example: "QuickMenu/UIMenu"

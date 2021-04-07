@@ -80,6 +80,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
     <Compile Include="SDK\Assembly-CSharp\QuickMenu.cs" />
+    <Compile Include="SDK\Assembly-CSharp\UiTooltip.cs" />
     <Compile Include="SDK\Assembly-CSharp\UserInteractMenu.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCApplication.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCPlayer.cs" />
