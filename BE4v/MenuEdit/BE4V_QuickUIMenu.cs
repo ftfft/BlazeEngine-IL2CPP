@@ -20,10 +20,10 @@ namespace BE4v.MenuEdit
             @menuname = "UIElementsMenu";
             buttons = new Dictionary<string, QuickButton>();
             toggler = new Dictionary<string, QuickToggler>();
-            buttons.Add("FlyToggle", new QuickButton("UIElementsMenu", 0, 2, "Fly:", OnClick_FlyToggle, "Toggle:"));
-            buttons.Add("FlyType", new QuickButton("UIElementsMenu", 1, 2, "Fly Type:", OnClick_FlyType, "Toggle:"));
-            toggler.Add("InfinityJump", new QuickToggler("UIElementsMenu", 2, 1, "Infinity Jump", OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
-            toggler.Add("InvisAPI", new QuickToggler("UIElementsMenu", -1, 0, "Invis API", OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
+            buttons.Add("FlyType", new QuickButton(@menuname, 1, 2, "Fly Type:", OnClick_FlyType, "Toggle:"));
+            toggler.Add("FlyToggle", new QuickToggler(@menuname, 0, 2, "Fly hack", OnClick_FlyToggle, "off", "Toggle: Module Fly Hack"));
+            toggler.Add("InfinityJump", new QuickToggler(@menuname, 2, 1, "Infinity Jump", OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
+            toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
             
             /* * [ SET BACK BUTTON ] * */
             GameObject gameObject = QuickMenu.Instance.transform.Find("UIElementsMenu/BackButton").gameObject;
@@ -69,16 +69,8 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_FlyToggle_Refresh()
         {
-            if (Status.isFly)
-            {
-                buttons["FlyToggle"].setToolTip("Toggle: Disable fly hack");
-                buttons["FlyToggle"].setButtonText("Fly:\n<color=red>On</color>");
-                buttons["FlyType"].gameObject.SetActive(true);
-                return;
-            }
-            buttons["FlyToggle"].setToolTip("Toggle: Enable fly hack");
-            buttons["FlyToggle"].setButtonText("Fly:\n<color=red>Off</color>");
-            buttons["FlyType"].gameObject.SetActive(false);
+            toggler["FlyToggle"].SetToggleToOn(Status.isFly);
+            buttons["FlyType"].gameObject.SetActive(Status.isFly);
         }
 
         private static void OnClick_FlyType()
