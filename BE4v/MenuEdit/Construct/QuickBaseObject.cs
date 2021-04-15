@@ -43,15 +43,26 @@ namespace BE4v.MenuEdit.Construct
             uiTooltip.alternateText = buttonToolTip;
         }
 
+        public void MoveLocation(float buttonXLoc, float buttonYLoc)
+        {
+            RectTransform rTransform = gameObject.transform.MonoCast<RectTransform>();
+            rTransform.anchoredPosition += (Vector2.right * (420 * buttonXLoc)) + (Vector2.down * (420 * buttonYLoc));
+
+            if (isCustom)
+            {
+                @tag = "(" + buttonXLoc + "," + buttonYLoc + ")";
+                gameObject.name = @location + "/" + @type + @tag;
+                gameObject.GetComponent<Button>().gameObject.name = @type + @tag;
+            }
+        }
+
         public GameObject gameObject;
 
         public string @tag;
 
         public string @location;
 
-        public float x;
-
-        public float y;
+        public string @type;
 
         public bool isCustom = true;
 

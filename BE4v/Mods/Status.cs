@@ -9,6 +9,10 @@ namespace BE4v.Mods
     {
         public static bool isFly = false;
 
+        public static bool isFlyType = false;
+
+        public static bool isInfinityJump = false;
+
         public static bool isGlobalDynamicBones = false;
 
         public static bool isInvisAPI = false;

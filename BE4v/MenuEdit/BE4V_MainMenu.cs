@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE4v.MenuEdit.Construct;
+using System;
 using UnityEngine;
 
 namespace BE4v.MenuEdit
@@ -24,7 +25,7 @@ namespace BE4v.MenuEdit
                 }
                 foreach (Transform transform1 in transform)
                 {
-                    switch(transform1.gameObject.name)
+                    switch (transform1.gameObject.name)
                     {
                         case "EmoteButton": goto case "be4v_destroy";
                         case "UserIconButton": goto case "be4v_destroy";
@@ -47,15 +48,40 @@ namespace BE4v.MenuEdit
                                 UnityEngine.Object.Destroy(transform1.gameObject);
                                 break;
                             }
+                        case "SitButton":
+                            {
+                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
+                                quickToggler.MoveLocation(1, 0);
+                                break;
+                            }
+                        case "SettingsButton":
+                            {
+                                QuickButton quickButton = new QuickButton(transform1.gameObject);
+                                quickButton.MoveLocation(-1, 0);
+                                break;
+                            }
+                        case "EmojiButton":
+                            {
+                                QuickButton quickButton = new QuickButton(transform1.gameObject);
+                                quickButton.MoveLocation(-1, 0);
+                                break;
+                            }
+                        case "Toggle_States_ShowTrustRank_Colors":
+                            {
+                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
+                                quickToggler.MoveLocation(-1, 0);
+                                break;
+                            }
                     }
                 }
             }
             "QuickMenu element's".RedPrefix("Destroy");
+            Start();
         }
 
         public static void Start()
         {
-
+            BE4V_QuickUIMenu.Start();
         }
     }
 }

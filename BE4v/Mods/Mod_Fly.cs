@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE4v.MenuEdit;
+using System;
 using UnityEngine;
 using VRC;
 
@@ -6,6 +7,20 @@ namespace BE4v.Mods
 {
     public static class Mod_Fly
     {
+        public static void Toggle()
+        {
+            Status.isFly = !Status.isFly;
+            if (!Status.isFly)
+            {
+                Physics.gravity = Vector3.up * -9.5f;
+            }
+            else
+            {
+                Physics.gravity = Vector3.zero;
+            }
+            BE4V_QuickUIMenu.OnClick_FlyToggle_Refresh();
+        }
+
         public static void Update()
         {
             Player player = Player.Instance;

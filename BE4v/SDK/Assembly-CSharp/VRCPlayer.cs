@@ -72,7 +72,7 @@ public class VRCPlayer : MonoBehaviour
         }
     }
 
-
+    */
     // <!---------- ------- ---------->
     // <!---------- FIELD'S ---------->
     // <!---------- ------- ---------->
@@ -83,7 +83,7 @@ public class VRCPlayer : MonoBehaviour
             IL2Field field = Instance_Class.GetField(nameof(Instance));
             if (field == null)
                 (field = Instance_Class.GetField(x => x.Instance)).Name = nameof(Instance);
-            return field?.GetValue()?.unbox<VRCPlayer>();
+            return field?.GetValue()?.GetValue<VRCPlayer>();
         }
     }
 

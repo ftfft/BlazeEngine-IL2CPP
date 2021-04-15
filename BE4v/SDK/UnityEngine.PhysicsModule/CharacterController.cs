@@ -12,18 +12,21 @@ namespace UnityEngine
         unsafe public bool isGrounded
         {
             get => Instance_Class.GetProperty(nameof(isGrounded)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-            set => Instance_Class.GetProperty(nameof(isGrounded)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
         
         unsafe public Vector3 velocity
         {
             get => Instance_Class.GetProperty(nameof(velocity)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(velocity)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public CollisionFlags Move(Vector3 motion)
         {
             return Instance_Class.GetMethod(nameof(Move)).Invoke(ptr, new IntPtr[] { new IntPtr(&motion) }).GetValuе<CollisionFlags>();
+        }
+        
+        unsafe public bool SimpleMove(Vector3 speed)
+        {
+            return Instance_Class.GetMethod(nameof(SimpleMove)).Invoke(ptr, new IntPtr[] { new IntPtr(&speed) }).GetValuе<bool>();
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("CharacterController", "UnityEngine");

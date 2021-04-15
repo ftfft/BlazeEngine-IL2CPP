@@ -35,6 +35,8 @@ namespace BE4v.Mods
 
         public static void Update(IntPtr instance)
         {
+            if (Status.isInfinityJump)
+                Mod_InfinityJump.Update();
             if (Status.isFly)
                 Mod_Fly.Update();
 
@@ -55,8 +57,11 @@ namespace BE4v.Mods
             if (!Input.GetKey(KeyCode.LeftControl)) return;
             if (Input.GetKeyDown(KeyCode.F))
             {
-                Status.isFly = !Status.isFly;
-                Physics.gravity = Vector3.up * -9.5f;
+                Mod_Fly.Toggle();
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse2))
+            {
+                Mod_FastTP.Teleport();
             }
             if (Input.GetKeyDown(KeyCode.G))
             {

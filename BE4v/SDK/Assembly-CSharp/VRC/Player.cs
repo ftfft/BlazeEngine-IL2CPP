@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
+using VRC.SDKBase;
 
 namespace VRC
 {
@@ -68,7 +69,7 @@ namespace VRC
                 return property?.GetGetMethod().Invoke(ptr)?.GetValue<VRCPlayer>();
             }
         }
-        /*
+
         public VRCPlayerApi playerApi
         {
             get
@@ -76,10 +77,11 @@ namespace VRC
                 IL2Property property = Instance_Class.GetProperty(nameof(playerApi));
                 if (property == null)
                     (property = Instance_Class.GetProperty(VRCPlayerApi.Instance_Class)).Name = nameof(playerApi);
-                return property?.GetGetMethod().Invoke(ptr)?.unbox<VRCPlayerApi>();
+                return property?.GetGetMethod().Invoke(ptr)?.GetValue<VRCPlayerApi>();
             }
         }
 
+        /*
         private static IL2Property propertyIsFriend = null;
         unsafe public bool IsFriend
         {
