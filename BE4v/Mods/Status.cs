@@ -11,6 +11,8 @@ namespace BE4v.Mods
 
         public static bool isFlyType = false;
 
+        public static bool isSpeedHack = false;
+
         public static bool isInfinityJump = false;
 
         public static bool isGlobalDynamicBones = false;

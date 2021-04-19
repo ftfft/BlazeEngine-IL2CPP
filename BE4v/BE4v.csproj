@@ -52,6 +52,7 @@
     <Compile Include="Mods\Mod_InfinityJump.cs" />
     <Compile Include="Mods\Mod_FastTP.cs" />
     <Compile Include="Mods\Mod_Fly.cs" />
+    <Compile Include="Mods\Mod_SpeedHack.cs" />
     <Compile Include="Mods\Status.cs" />
     <Compile Include="Mods\Threads.cs" />
     <Compile Include="Patch\Patch_ForceCloneAvatar.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBone.cs" />
     <Compile Include="SDK\Assembly-CSharp\DynamicBoneCollider.cs" />
+    <Compile Include="SDK\Assembly-CSharp\FadeCycleEffect.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRCMotionState.cs" />
     <Compile Include="SDK\Assembly-CSharp\GamelikeInputController.cs" />
     <Compile Include="SDK\Assembly-CSharp\InputStateController.cs" />

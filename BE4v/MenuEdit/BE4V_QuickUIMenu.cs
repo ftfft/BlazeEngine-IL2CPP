@@ -20,8 +20,9 @@ namespace BE4v.MenuEdit
             @menuname = "UIElementsMenu";
             buttons = new Dictionary<string, QuickButton>();
             toggler = new Dictionary<string, QuickToggler>();
-            buttons.Add("FlyType", new QuickButton(@menuname, 1, 2, "Fly Type:", OnClick_FlyType, "Toggle:"));
-            toggler.Add("FlyToggle", new QuickToggler(@menuname, 0, 2, "Fly hack", OnClick_FlyToggle, "off", "Toggle: Module Fly Hack"));
+            toggler.Add("FlyToggle", new QuickToggler(@menuname, 3, 0, "Fly hack", OnClick_FlyToggle, "off", "Toggle: Module Fly Hack"));
+            buttons.Add("FlyType", new QuickButton(@menuname, 4, 0, "Fly Type:", OnClick_FlyType, "Toggle:"));
+            toggler.Add("SHToggle", new QuickToggler(@menuname, 3, 1, "SpeedHack", OnClick_SHToggle, "off", "Toggle: Module SpeedHack"));
             toggler.Add("InfinityJump", new QuickToggler(@menuname, 2, 1, "Infinity Jump", OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
             toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
             
@@ -37,6 +38,7 @@ namespace BE4v.MenuEdit
             OnClick_FlyType_Refresh();
             OnClick_InfinityJumpToggle_Refresh();
             OnClick_InvisAPIToggle_Refresh();
+            OnClick_SHToggle_Refresh();
         }
 
         private static void nulled()
@@ -73,8 +75,18 @@ namespace BE4v.MenuEdit
             buttons["FlyType"].gameObject.SetActive(Status.isFly);
         }
 
+        private static void OnClick_SHToggle()
+        {
+            Mod_SpeedHack.Toggle();
+        }
+        public static void OnClick_SHToggle_Refresh()
+        {
+            toggler["SHToggle"].SetToggleToOn(Status.isSpeedHack);
+        }
+
         private static void OnClick_FlyType()
         {
+            Mod_Fly.ToggleType();
         }
 
         public static void OnClick_FlyType_Refresh()

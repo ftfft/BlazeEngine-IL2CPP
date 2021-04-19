@@ -30,6 +30,7 @@ namespace BE4v.MenuEdit
                         case "EmoteButton": goto case "be4v_destroy";
                         case "UserIconButton": goto case "be4v_destroy";
                         case "UserIconCameraButton": goto case "be4v_destroy";
+                        case "CustomizeNameplateButton": goto case "be4v_destroy";
                         case "HeaderContainer":
                             {
                                 foreach (Transform transform2 in transform1)
@@ -64,6 +65,12 @@ namespace BE4v.MenuEdit
                             {
                                 QuickButton quickButton = new QuickButton(transform1.gameObject);
                                 quickButton.MoveLocation(-1, 0);
+                                break;
+                            }
+                        case "QMInfoToggle":
+                            {
+                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
+                                quickToggler.MoveLocation(-2, 1);
                                 break;
                             }
                         case "Toggle_States_ShowTrustRank_Colors":

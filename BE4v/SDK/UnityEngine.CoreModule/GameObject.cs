@@ -8,17 +8,15 @@ namespace UnityEngine
     {
         public GameObject(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        /*
         public Component AddComponent(Type type)
         {
-            IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
-            if (typeObject == null)
+            IntPtr typeObject = type.IL2Typeof();
+            if (typeObject == IntPtr.Zero)
                 return null;
 
-            return Instance_Class.GetMethod(nameof(AddComponent), m => m.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { typeObject.ptr })?.unbox<Component>();
+            return Instance_Class.GetMethod(nameof(AddComponent), m => m.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { typeObject })?.GetValue<Component>();
         }
         public T AddComponent<T>() where T : Component => AddComponent(typeof(T))?.MonoCast<T>();
-        */
 
         unsafe public static GameObject CreatePrimitive(PrimitiveType type)
         {

@@ -7,12 +7,19 @@ namespace BE4v.Mods
 {
     public static class Mod_Fly
     {
+        public static void ToggleType()
+        {
+            Status.isFlyType = !Status.isFlyType;
+            BE4V_QuickUIMenu.OnClick_FlyType_Refresh();
+        }
+        
         public static void Toggle()
         {
             Status.isFly = !Status.isFly;
             if (!Status.isFly)
             {
                 Physics.gravity = Vector3.up * -9.5f;
+                Player.Instance.GetComponent<Collider>().enabled = true;
             }
             else
             {
@@ -25,13 +32,12 @@ namespace BE4v.Mods
         {
             Player player = Player.Instance;
             if (player == null) return;
-            /*
-            if (true != false)
+            if (Status.isFlyType)
             {
                 Transform transform = Camera.main.transform;
                 player.GetComponent<Collider>().enabled = false;
                 float MultiSpeed = Input.GetKey(KeyCode.LeftShift) ? 2.5F : 1F;
-                float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed * (BlazeManager.GetForPlayer<bool>("SpeedHack") ? MultiHack.fNoClipSpeed : 1f);
+                float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed * (Status.isSpeedHack ? Mod_SpeedHack.fSpeed : 1f);
                 Vector3 moveControl = Player.Instance.transform.position;
                 Vector3 moveControl2 = moveControl;
                 // NoClipMode
@@ -53,15 +59,14 @@ namespace BE4v.Mods
                 if (Math.Abs(fHorizontal) > 0f) moveControl += calcTimes * transform.right * fHorizontal;
                 #endregion
                 if (moveControl != moveControl2)
-                    UserUtils.TeleportTo(moveControl);
+                    player.transform.position = moveControl;
             }
             else
             {
-            */
                 player.GetComponent<Collider>().enabled = true;
                 if (Input.GetKey(KeyCode.Q))
                 {
-                    Physics.gravity = Vector3.up * -9.5f;
+                    Physics.gravity = Vector3.down * 9.5f;
                     iCountBalance = 10;
                 }
                 else if (Input.GetKey(KeyCode.E))
@@ -71,11 +76,11 @@ namespace BE4v.Mods
                 }
                 else if (iCountBalance >= 0)
                 {
-                    CharacterController controller = player.GetComponent<CharacterController>();
-                    if (controller.velocity[1] != 0.0f)
+                    VRCMotionState motionState = player.GetComponent<VRCMotionState>();
+                    if (motionState.PlayerVelocity[1] != 0.0f)
                     {
                         iCountBalance = 10;
-                        Physics.gravity = new Vector3(0, -controller.velocity[1] * 2.0f);
+                        Physics.gravity = new Vector3(0, -motionState.PlayerVelocity[1] * 2.0f);
                     }
                     else
                     {
@@ -83,7 +88,7 @@ namespace BE4v.Mods
                         Physics.gravity = Vector3.zero;
                     }
                 }
-            //}
+            }
         }
 
         // NoClip Speed [Default: 4.0f]

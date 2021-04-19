@@ -39,6 +39,8 @@ namespace BE4v.Mods
                 Mod_InfinityJump.Update();
             if (Status.isFly)
                 Mod_Fly.Update();
+            if (Status.isSpeedHack)
+                Mod_SpeedHack.Update();
 
             _delegateThreads_Update.Invoke(instance);
 
@@ -63,9 +65,10 @@ namespace BE4v.Mods
             {
                 Mod_FastTP.Teleport();
             }
+            // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
             if (Input.GetKeyDown(KeyCode.G))
             {
-                FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
+                Mod_SpeedHack.Toggle();
             }
 
         }
