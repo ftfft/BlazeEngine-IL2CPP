@@ -1,8 +1,9 @@
 ﻿using System;
 using BE4v.SDK.CPP2IL;
 using VRC.Core;
+using UnityEngine;
 
-public class MenuController : UnityEngine.Object
+public class MenuController : ScriptableObject
 {
     public MenuController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 

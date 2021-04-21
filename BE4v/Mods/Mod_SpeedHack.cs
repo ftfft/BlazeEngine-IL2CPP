@@ -37,7 +37,7 @@ namespace BE4v.Mods
         public static void Toggle()
         {
             Status.isSpeedHack = !Status.isSpeedHack;
-            BE4V_QuickUIMenu.OnClick_SHToggle_Refresh();
+            ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
         }
 
         public static void Update()
@@ -60,6 +60,6 @@ namespace BE4v.Mods
                 controller.Move(vector);
         }
 
-        public static float fSpeed = 4.0f;
+        public static int fSpeed = 4;
     }
 }

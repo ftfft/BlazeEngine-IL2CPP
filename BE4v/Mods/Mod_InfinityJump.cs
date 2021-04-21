@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using VRC;
+using VRC.Animation;
 
 namespace BE4v.Mods
 {
@@ -11,7 +12,7 @@ namespace BE4v.Mods
         public static void Toggle()
         {
             Status.isInfinityJump = !Status.isInfinityJump;
-            BE4V_QuickUIMenu.OnClick_InfinityJumpToggle_Refresh();
+            ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
         }
 
         public static void Update()

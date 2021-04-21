@@ -88,6 +88,7 @@ namespace BE4v.MenuEdit
 
         public static void Start()
         {
+            new QuickButton("ShortcutMenu", -1, 0, "Remove\nCreated\nObjects", UserUtils.RemoveInstiatorObjects, "Clear all portals, created object's on map");
             BE4V_QuickUIMenu.Start();
         }
     }

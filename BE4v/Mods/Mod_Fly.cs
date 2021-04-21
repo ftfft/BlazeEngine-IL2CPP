@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using VRC;
+using VRC.Animation;
 
 namespace BE4v.Mods
 {
@@ -10,7 +11,7 @@ namespace BE4v.Mods
         public static void ToggleType()
         {
             Status.isFlyType = !Status.isFlyType;
-            BE4V_QuickUIMenu.OnClick_FlyType_Refresh();
+            ClickClass_FlyHack.OnClick_FlyType_Refresh();
         }
         
         public static void Toggle()
@@ -25,7 +26,7 @@ namespace BE4v.Mods
             {
                 Physics.gravity = Vector3.zero;
             }
-            BE4V_QuickUIMenu.OnClick_FlyToggle_Refresh();
+            ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
         }
 
         public static void Update()

@@ -18,7 +18,7 @@ namespace BE4v.MenuEdit.Construct
         }
 
 
-        public QuickButton(string btnMenu, int btnXLocation, int btnYLocation, string btnText, UnityAction btnAction, string btnToolTip, Color? btnBackgroundColor = null, Color? btnTextColor = null)
+        public QuickButton(string btnMenu, float btnXLocation, float btnYLocation, string btnText, UnityAction btnAction, string btnToolTip, Color? btnBackgroundColor = null, Color? btnTextColor = null)
         {
             @type = "QuickButton";
             location = btnMenu;

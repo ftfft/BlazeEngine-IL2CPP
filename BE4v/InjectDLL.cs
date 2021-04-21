@@ -24,7 +24,9 @@ namespace BE4v
             SDKLoader.Start();
             Patch.Patch_Spoofer.Start();
             Patch.Patch_ForceCloneAvatar.Start();
-            Patch.patch_InvisAPI.Start();
+            Patch.Patch_InvisAPI.Start();
+            Patch.Patch_Serilize.Start();
+            Patch.Patch_FakePing.Start();
             Mods.Threads.Start();
             SDKLoader.Finish();
         }

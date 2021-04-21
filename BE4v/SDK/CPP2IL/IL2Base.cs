@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDisasm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace BE4v.SDK.CPP2IL
             if (ReferenceEquals(x, y)) return true;
             if (x is null || y is null) return false;
             return x.ptr == y.ptr;
+        }
+        unsafe public Disassembler GetDisassembler(int @size = 0x1000)
+        {
+            return new Disassembler(*(IntPtr*)ptr, @size, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)ptr).ToInt64()), true, Vendor.Intel);
         }
     }
 }

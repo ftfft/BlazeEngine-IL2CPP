@@ -5,14 +5,13 @@ using BE4v.SDK.CPP2IL;
 
 namespace BE4v.Patch
 {
-    // public delegate void _VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, IntPtr authenticationRequired, IntPtr disableCache, IntPtr cacheLifetime, IntPtr retryCount, IntPtr credentials);
     public delegate void _VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData);
-    public static class patch_InvisAPI
+    public static class Patch_InvisAPI
     {
         public static void Toggle()
         {
             Mods.Status.isInvisAPI = !Mods.Status.isInvisAPI;
-            BE4V_QuickUIMenu.OnClick_InvisAPIToggle_Refresh();
+            ClickClass_InvisAPI.OnClick_InvisAPIToggle_Refresh();
         }
 
         public static void Start()

@@ -15,6 +15,10 @@ namespace BE4v.Mods
 
         public static bool isInfinityJump = false;
 
+        public static bool isSerilize = false;
+
+        public static bool isFakePing = false;
+
         public static bool isGlobalDynamicBones = false;
 
         public static bool isInvisAPI = false;
