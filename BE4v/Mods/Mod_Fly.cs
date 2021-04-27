@@ -38,7 +38,7 @@ namespace BE4v.Mods
                 Transform transform = Camera.main.transform;
                 player.GetComponent<Collider>().enabled = false;
                 float MultiSpeed = Input.GetKey(KeyCode.LeftShift) ? 2.5F : 1F;
-                float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed * (Status.isSpeedHack ? Mod_SpeedHack.fSpeed : 1f);
+                float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed * (Status.isSpeedHack ? Status.iSpeedHackSpeed : 1f);
                 Vector3 moveControl = Player.Instance.transform.position;
                 Vector3 moveControl2 = moveControl;
                 // NoClipMode

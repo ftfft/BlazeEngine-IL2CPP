@@ -164,13 +164,15 @@ namespace BE4v.MenuEdit
     {
         public static void OnClick_SHButtonPlus()
         {
-            Mod_SpeedHack.fSpeed++;
+            if (Status.iSpeedHackSpeed < 100)
+                Status.iSpeedHackSpeed++;
             OnClick_SHToggle_Refresh();
         }
 
         public static void OnClick_SHButtonMinus()
         {
-            Mod_SpeedHack.fSpeed--;
+            if (Status.iSpeedHackSpeed > 1)
+                Status.iSpeedHackSpeed--;
             OnClick_SHToggle_Refresh();
         }
 
@@ -185,7 +187,7 @@ namespace BE4v.MenuEdit
             BE4V_QuickUIMenu.buttons["SHButtonMinus"].gameObject.SetActive(Status.isSpeedHack);
             if (Status.isSpeedHack)
             {
-                BE4V_QuickUIMenu.toggler["SHToggle"].setOffText("x" + Mod_SpeedHack.fSpeed);
+                BE4V_QuickUIMenu.toggler["SHToggle"].setOffText("x" + Status.iSpeedHackSpeed);
             }
             else
             {

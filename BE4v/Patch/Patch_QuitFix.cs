@@ -31,7 +31,7 @@ namespace BE4v.Patch
         {
             try
             {
-                // BlazeManager.SaveSettings();
+                BVault.Save();
             }
             finally
             {

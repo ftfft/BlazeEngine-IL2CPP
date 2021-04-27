@@ -13,6 +13,8 @@ namespace BE4v.Mods
 
         public static bool isSpeedHack = false;
 
+        public static int iSpeedHackSpeed = 8;
+
         public static bool isInfinityJump = false;
 
         public static bool isSerilize = false;

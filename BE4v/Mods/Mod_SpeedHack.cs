@@ -1,6 +1,4 @@
 ﻿using BE4v.MenuEdit;
-using BE4v.Mods;
-using System;
 using UnityEngine;
 using VRC;
 
@@ -21,13 +19,11 @@ namespace BE4v.Mods
             Vector3 velocity = controller.velocity;
             if (Status.isSpeedHack)
             {
-                vector[0] = velocity.x / 200 * fSpeed;
-                vector[2] = velocity.z / 200 * fSpeed;
+                vector[0] = velocity.x / 200 * Status.iSpeedHackSpeed;
+                vector[2] = velocity.z / 200 * Status.iSpeedHackSpeed;
             }
             if (vector != Vector3.zero)
                 controller.Move(vector);
         }
-
-        public static int fSpeed = 4;
     }
 }

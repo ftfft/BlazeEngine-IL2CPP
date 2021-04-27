@@ -58,10 +58,9 @@ namespace BE4v.Mods
             favButton.localPosition = baseButtonFavPosition + new Vector3(0, 80, 0);
             avatarModel.localPosition = baseAvatarModelPosition + new Vector3(0, 60, 0);
             avatarModel.localScale *= 0.8f;
-            /*
-            foreach (var av in WebRequest.LoadAvatarFav())
+
+            foreach (var av in Client.LoadAvatars())
                 AddFavorite(av);
-            */
         }
 
 
@@ -144,7 +143,7 @@ namespace BE4v.Mods
                 if (Base.AvatarId.Contains(apiAvatar.id))
                 {
                     RemoveFavorite(apiAvatar.id);
-                    // WebRequest.DelAvatarFav(apiAvatar.id);
+                    Client.DelAvatar(apiAvatar.id);
                     return;
                 }
 
@@ -159,7 +158,7 @@ namespace BE4v.Mods
                 }
 
                 AddFavorite(apiAvatar.id);
-                // WebRequest.AddAvatarFav(apiAvatar.id);
+                Client.AddAvatar(apiAvatar.id);
             }
         }
 

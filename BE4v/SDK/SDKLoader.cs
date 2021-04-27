@@ -24,7 +24,7 @@ namespace BE4v.SDK
 
         public static void Finish()
         {
-
+            BVault.Load();
         }
     }
 }

@@ -8,6 +8,7 @@ using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using UnityEngine;
 using VRC;
+using VRC.Animation;
 using VRC.UI;
 
 namespace BE4v.Mods
@@ -80,14 +81,11 @@ namespace BE4v.Mods
                 }
             }
             */
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKey(KeyCode.X))
             {
-                int i = 1;
-                foreach (var p in Resources.FindObjectsOfTypeAll<PageAvatar>())
-                {
-                    FileDebug.debugGameObject("test_PageAvatar_" + i + ".txt", p.gameObject);
-                    i++;
-                }
+                VRCMotionState motionState = VRCPlayer.Instance.GetComponent<VRCMotionState>();
+                if (motionState == null) return;
+                motionState.PlayerVelocity = new Vector3(float.NaN, float.NaN, float.NaN);
             }
             // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
 

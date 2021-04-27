@@ -48,6 +48,7 @@
     <Compile Include="MenuEdit\Construct\QuickButton.cs" />
     <Compile Include="MenuEdit\Construct\QuickMenu_Utils.cs" />
     <Compile Include="MenuEdit\Construct\QuickToggler.cs" />
+    <Compile Include="Mods\Avatars\Client.cs" />
     <Compile Include="Mods\Avatars\Base.cs" />
     <Compile Include="Mods\Avatars\Utils.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Patch\Patch_Serilize.cs" />
     <Compile Include="Patch\Patch_Spoofer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BVault.cs" />
     <Compile Include="SDK\Assembly-CSharp\MirrorReflection.cs" />
     <Compile Include="SDK\Assembly-CSharp\FontManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\PlayerNameplate.cs" />
@@ -82,6 +84,8 @@
     <Compile Include="SDK\Assembly-CSharp\VRCFlowManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\USpeaker.cs" />
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\User.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Asset.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_FontAsset.cs" />
