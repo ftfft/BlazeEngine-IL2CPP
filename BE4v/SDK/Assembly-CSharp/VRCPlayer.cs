@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRC;
 using BE4v.SDK.CPP2IL;
+using VRC.Core;
 
-// VRCNetworkBehaviour
-public class VRCPlayer : MonoBehaviour
+public class VRCPlayer : VRCNetworkBehaviour
 {
     public VRCPlayer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -23,21 +23,17 @@ public class VRCPlayer : MonoBehaviour
             return property?.GetGetMethod().Invoke(ptr)?.GetValue<Player>();
         }
     }
-    /*
+
     public ApiAvatar AvatarModel
     {
         get
         {
             IL2Property property = Instance_Class.GetProperty(nameof(AvatarModel));
             if (property == null)
-                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == ApiAvatar.Instance_Class.FullName)).Name = nameof(AvatarModel);
-            return property?.GetGetMethod().Invoke(ptr)?.unbox<ApiAvatar>();
+                (property = Instance_Class.GetProperty(ApiAvatar.Instance_Class)).Name = nameof(AvatarModel);
+            return property?.GetGetMethod().Invoke(ptr)?.GetValue<ApiAvatar>();
         }
     }
-
-    // * VRCAvatarManager
-    // * ulong (naverno steamid)
-    // * PlayerAudioManager
 
     public PlayerNet playerNet
     {
@@ -45,8 +41,19 @@ public class VRCPlayer : MonoBehaviour
         {
             IL2Property property = Instance_Class.GetProperty(nameof(playerNet));
             if (property == null)
-                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == PlayerNet.Instance_Class.FullName)).Name = nameof(playerNet);
-            return property.GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
+                (property = Instance_Class.GetProperty(PlayerNet.Instance_Class)).Name = nameof(playerNet);
+            return property.GetGetMethod().Invoke(ptr)?.GetValue<PlayerNet>();
+        }
+    }
+    
+    public VRCAvatarManager AvatarManager
+    {
+        get
+        {
+            IL2Property property = Instance_Class.GetProperty(nameof(AvatarManager));
+            if (property == null)
+                (property = Instance_Class.GetProperty(VRCAvatarManager.Instance_Class)).Name = nameof(AvatarManager);
+            return property.GetGetMethod().Invoke(ptr)?.GetValue<VRCAvatarManager>();
         }
     }
 
@@ -56,10 +63,15 @@ public class VRCPlayer : MonoBehaviour
         {
             IL2Property property = Instance_Class.GetProperty(nameof(uSpeaker));
             if (property == null)
-                (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == USpeaker.Instance_Class.FullName)).Name = nameof(uSpeaker);
-            return property?.GetGetMethod().Invoke(ptr)?.unbox<USpeaker>();
+                (property = Instance_Class.GetProperty(USpeaker.Instance_Class)).Name = nameof(uSpeaker);
+            return property?.GetGetMethod().Invoke(ptr)?.GetValue<USpeaker>();
         }
     }
+    /*
+
+    // * ulong (naverno steamid)
+    // * PlayerAudioManager
+
 
     public VRCPlayerApi apiPlayer
     {
@@ -247,18 +259,26 @@ public class VRCPlayer : MonoBehaviour
             return field.GetValue(ptr)?.GetValue<Animator>();
         }
     }
-    /*
 
     public PlayerNameplate nameplate
     {
-        get => Instance_Class.GetField(nameof(nameplate)).GetValue(ptr)?.unbox<PlayerNameplate>();
+        get
+        {
+            IL2Field field = Instance_Class.GetField(nameof(nameplate));
+            if (field == null)
+                (field = Instance_Class.GetField(PlayerNameplate.Instance_Class)).Name = nameof(nameplate);
+
+            return field.GetValue(ptr)?.GetValue<PlayerNameplate>();
+        }
     }
+
+    /*
+
 
     /*
      * [~] Property:
      * VRC.Player [+]
      * VRC.Core.ApiAvatar [+]
-     * VRCAvatarManager
      * ulong (naverno steamid)
      * PlayerAudioManager
      * PlayerNet

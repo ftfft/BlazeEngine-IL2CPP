@@ -22,7 +22,7 @@ namespace UnityEngine
         {
             return Instance_Class.GetMethod(nameof(CreatePrimitive)).Invoke(new IntPtr[] { new IntPtr(&type) })?.GetValue<GameObject>();
         }
-        /*
+
         public T GetOrAddComponent<T>() where T : Component
         {
             Component component = GetComponent(typeof(T));
@@ -30,7 +30,7 @@ namespace UnityEngine
                 component = AddComponent(typeof(T));
             return component?.MonoCast<T>();
         }
-        */
+
         public T GetComponent<T>() where T : Component => GetComponent(typeof(T))?.MonoCast<T>();
         public Component GetComponent(Type type)
         {

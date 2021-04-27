@@ -1,10 +1,10 @@
 ﻿using System;
 using BE4v.SDK.CPP2IL;
+using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
-    // Graphic -> UIBehaviour -> MonoBehaviour -> Behaviour -> Component
-    public class Graphic : MonoBehaviour
+    public class Graphic : UIBehaviour
     {
         public Graphic(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 

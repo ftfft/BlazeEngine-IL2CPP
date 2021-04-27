@@ -37,20 +37,22 @@ namespace VRC.Core
             get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
             set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
         }
-        /*
+
         public void SaveReleaseStatus(Action<ApiContainer> onSuccess = null, Action<ApiContainer> onFailure = null)
         {
             IntPtr ptrSucc = IntPtr.Zero;
+            /*
             if (onSuccess != null)
                 ptrSucc = UnityEngine.Events._UnityAction.CreateDelegate(onSuccess, IntPtr.Zero, BlazeTools.IL2SystemClass.action_1);
-
+            */
             IntPtr ptrFail = IntPtr.Zero;
+            /*
             if (onFailure != null)
                 ptrFail = UnityEngine.Events._UnityAction.CreateDelegate(onFailure, IntPtr.Zero, BlazeTools.IL2SystemClass.action_1);
-
+            */
             Instance_Class.GetMethod(nameof(SaveReleaseStatus)).Invoke(ptr, new IntPtr[] { ptrSucc, ptrFail });
         }
-        */
+
         public static new IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("ApiAvatar", "VRC.Core");
     }
 }

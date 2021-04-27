@@ -6,7 +6,6 @@ namespace UnityEngine
 {
     public sealed class Resources
     {
-        /*
         public static T[] FindObjectsOfTypeAll<T>()
         {
             Object[] objects = FindObjectsOfTypeAll(typeof(T));
@@ -19,17 +18,17 @@ namespace UnityEngine
         }
         public static Object[] FindObjectsOfTypeAll(Type type)
         {
-            IL2TypeObject typeObject = IL2GetType.IL2Typeof(type);
-            if (typeObject == null)
+            IntPtr typeObject = type.IL2Typeof();
+            if (typeObject == IntPtr.Zero)
                 return null;
 
-            IL2Object @object = Instance_Class.GetMethod(nameof(FindObjectsOfTypeAll), x => x.ReturnType.Name == Object.Instance_Class.FullName + "[]").Invoke(new IntPtr[] { typeObject.ptr });
+            IL2Object @object = Instance_Class.GetMethod(nameof(FindObjectsOfTypeAll), x => x.ReturnType.Name == Object.Instance_Class.FullName + "[]").Invoke(new IntPtr[] { typeObject });
             if (@object == null)
                 return new Object[0];
 
             return @object.UnboxArray<Object>();
         }
-        */
+
         public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Resources", "UnityEngine");
     }
 }

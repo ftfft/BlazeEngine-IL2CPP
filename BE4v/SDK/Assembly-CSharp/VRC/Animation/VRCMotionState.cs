@@ -27,6 +27,23 @@ namespace VRC.Animation
                 property.GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
             }
         }
+        unsafe public float jumpPower
+        {
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(jumpPower));
+                if (field == null)
+                    (field = Instance_Class.GetFields().Last(x => x.ReturnType.Name == "System.Single")).Name = nameof(jumpPower);
+                return field.GetValue(ptr).GetValuе<float>();
+            }
+            set
+            {
+                IL2Field field = Instance_Class.GetField(nameof(jumpPower));
+                if (field == null)
+                    (field = Instance_Class.GetFields().Last(x => x.ReturnType.Name == "System.Single")).Name = nameof(jumpPower);
+                field.SetValue(ptr, new IntPtr(&value));
+            }
+        }
 
         public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnControllerColliderHit") != null && x.GetMethod("Reset") != null && x.GetMethod("KillPortal") == null);
     }

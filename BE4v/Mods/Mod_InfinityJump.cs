@@ -17,7 +17,6 @@ namespace BE4v.Mods
 
         public static void Update()
         {
-
             var jump = VRCPlayer.Instance?.GetComponent<GamelikeInputController>()?.inJump;
             if (jump != null)
             {
@@ -37,7 +36,9 @@ namespace BE4v.Mods
         {
             VRCMotionState motionState = VRCPlayer.Instance.GetComponent<VRCMotionState>();
             if (motionState == null) return;
-            motionState.PlayerVelocity = Vector3.up * 4.0f;
+            Vector3 vector = motionState.PlayerVelocity;
+            vector.y = motionState.jumpPower;
+            motionState.PlayerVelocity = vector;
         }
     }
 }

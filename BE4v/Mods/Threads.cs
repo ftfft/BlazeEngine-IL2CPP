@@ -7,6 +7,8 @@ using BE4v.MenuEdit;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using UnityEngine;
+using VRC;
+using VRC.UI;
 
 namespace BE4v.Mods
 {
@@ -61,15 +63,33 @@ namespace BE4v.Mods
             {
                 Mod_Fly.Toggle();
             }
-            if (Input.GetKeyDown(KeyCode.Mouse2))
-            {
-                Mod_FastTP.Teleport();
-            }
-            // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
             if (Input.GetKeyDown(KeyCode.G))
             {
                 Mod_SpeedHack.Toggle();
             }
+            if (Input.GetKeyDown(KeyCode.Mouse2))
+            {
+                Mod_FastTP.Teleport();
+            }
+            /*
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                foreach(var player in PlayerManager.Instance.PlayersCopy)
+                {
+                    player.Components.nameplate.uiNameBackground.color = Color.red;
+                }
+            }
+            */
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                int i = 1;
+                foreach (var p in Resources.FindObjectsOfTypeAll<PageAvatar>())
+                {
+                    FileDebug.debugGameObject("test_PageAvatar_" + i + ".txt", p.gameObject);
+                    i++;
+                }
+            }
+            // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
 
         }
 

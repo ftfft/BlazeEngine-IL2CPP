@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
@@ -8,6 +9,25 @@ using BE4v.SDK.CPP2IL;
 
 public static class SDKUtils
 {
+    unsafe public static IntPtr ArrayToIntPtr(this IEnumerable<IntPtr> array, IL2Class typeobject = null)
+    {
+        return ArrayToIntPtr(array.ToArray(), typeobject);
+    }
+    
+    unsafe public static IntPtr ArrayToIntPtr(this IntPtr[] array, IL2Class typeobject = null)
+    {
+        if (typeobject == null)
+            typeobject = Assembler.list["mscorlib"].GetClass("Object", "System");
+
+        int length = array.Count();
+        IntPtr result = Import.Object.il2cpp_array_new(typeobject.ptr, length);
+        for (int i = 0; i < length; i++)
+        {
+            *(IntPtr*)((IntPtr)((long*)result + 4) + i * IntPtr.Size) = array[i];
+        }
+        return result;
+    }
+
     public static T[] IntPtrToStructureArray<T>(IntPtr ptr, uint len)
     {
         IntPtr iter = ptr;

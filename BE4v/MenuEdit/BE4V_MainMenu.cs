@@ -1,4 +1,5 @@
-﻿using BE4v.MenuEdit.Construct;
+﻿using Addons.Mods;
+using BE4v.MenuEdit.Construct;
 using System;
 using UnityEngine;
 
@@ -89,7 +90,44 @@ namespace BE4v.MenuEdit
         public static void Start()
         {
             new QuickButton("ShortcutMenu", -1, 0, "Remove\nCreated\nObjects", UserUtils.RemoveInstiatorObjects, "Clear all portals, created object's on map");
+            ClickClass_LocalMirror.quickButtonLocalMirror = new QuickButton("ShortcutMenu", 4, 0, "Mrr", ClickClass_LocalMirror.OnClick_PortableMirror, "");
             BE4V_QuickUIMenu.Start();
+            ClickClass_LocalMirror.OnClick_PortableMirror_Refresh();
         }
+
+    }
+
+    public static class ClickClass_ChangeMenu
+    {
+        public static void To_UIElementsMenu_1()
+        {
+
+        }
+        public static void To_UIElementsMenu_2()
+        {
+
+        }
+    }
+
+    public static class ClickClass_LocalMirror
+    {
+        public static void OnClick_PortableMirror()
+        {
+            Mod_PortableMirror.Toggle();
+        }
+
+        public static void OnClick_PortableMirror_Refresh()
+        {
+            if (Mod_PortableMirror.gameObject != null)
+            {
+                quickButtonLocalMirror.setButtonText("<color=red>Remove</color>\nLocal Mirror");
+                quickButtonLocalMirror.setToolTip("Remove Portable Mirror (Local)");
+                return;
+            }
+            quickButtonLocalMirror.setButtonText("<color=green>Create</color>\nLocal Mirror");
+            quickButtonLocalMirror.setToolTip("Create Portable Mirror (Local)");
+        }
+
+        public static QuickButton quickButtonLocalMirror;
     }
 }
