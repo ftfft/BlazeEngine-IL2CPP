@@ -67,6 +67,6 @@ namespace BE4v.SDK.CPP2IL
             return result.UnboxArray<T>();
         }
 
-        // public static new IL2Class Instance_Class = IL2List.Instance_Class.MakeGenericType(new Type[] { typeof(T) });
+        public static new IL2Class Instance_Class = IL2List.Instance_Class.MakeGenericType(new Type[] { typeof(T) });
     }
 }

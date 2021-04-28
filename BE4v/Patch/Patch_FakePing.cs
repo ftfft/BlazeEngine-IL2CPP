@@ -38,7 +38,7 @@ namespace BE4v.Patch
                             break;
                     }
                 }
-                IL2Patch patch = new IL2Patch(method, (_NetworkPing)methodNetworkPing);
+                patch = new IL2Patch(method, (_NetworkPing)methodNetworkPing);
                 _delegateNetworkPing = patch.CreateDelegate<_NetworkPing>();
                 "Fake Ping".GreenPrefix(TMessage.SuccessPatch);
             }
@@ -55,6 +55,8 @@ namespace BE4v.Patch
                 result = _delegateNetworkPing.Invoke();
             return result;
         }
+
+        public static IL2Patch patch;
 
         public static _NetworkPing _delegateNetworkPing;
     }

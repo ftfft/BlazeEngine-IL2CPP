@@ -294,7 +294,7 @@ namespace BE4v.SDK.CPP2IL
             return returnval;
         }
 
-        // public IL2Class MakeGenericType(Type[] types) => new IL2Class(new RuntimeType(ptr).MakeGenericType(types));
-        // public IL2Class MakeGenericType(IntPtr[] types) => new IL2Class(new RuntimeType(ptr).MakeGenericType(types));
+        public IL2Class MakeGenericType(Type[] types) => new IL2Class(new RuntimeType(ptr).MakeGenericType(types));
+        public IL2Class MakeGenericType(IntPtr[] types) => new IL2Class(new RuntimeType(ptr).MakeGenericType(types));
     }
 }

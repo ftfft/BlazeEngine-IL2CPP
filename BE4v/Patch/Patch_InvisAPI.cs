@@ -22,7 +22,7 @@ namespace BE4v.Patch
                 if (method == null)
                     throw new Exception();
 
-                var patch = new IL2Patch(method, (_VRC_Core_API_SendRequestInternal)VRC_Core_API_SendRequestInternal);
+                patch = new IL2Patch(method, (_VRC_Core_API_SendRequestInternal)VRC_Core_API_SendRequestInternal);
                 _delegateVRC_Core_API_SendRequestInternal = patch.CreateDelegate<_VRC_Core_API_SendRequestInternal>();
                 "Invis API".GreenPrefix(TMessage.SuccessPatch);
             }
@@ -35,12 +35,6 @@ namespace BE4v.Patch
         private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData)
         {
             string point = new IL2Object(endpoint).GetValue<string>();
-            /*
-            new Thread(() =>
-            {
-                new WebRequest(point);
-            });
-            */
             if ((point == "visits" || point == "joins" || (point.StartsWith("avatars/avtr_") && point.EndsWith("/select"))))
             {
                 if (Mods.Status.isInvisAPI)
@@ -60,6 +54,8 @@ namespace BE4v.Patch
                 formData
             );
         }
+
+        public static IL2Patch patch;
 
         public static _VRC_Core_API_SendRequestInternal _delegateVRC_Core_API_SendRequestInternal;
     }

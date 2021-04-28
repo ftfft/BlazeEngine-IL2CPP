@@ -84,7 +84,6 @@ namespace BE4v.MenuEdit
                 }
             }
             "QuickMenu element's".RedPrefix("Destroy");
-            Start();
         }
 
         public static void Start()

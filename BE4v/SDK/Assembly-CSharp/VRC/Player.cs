@@ -81,6 +81,23 @@ namespace VRC
             }
         }
 
+        public bool IsMuted
+        {
+
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(IsMuted));
+                if (property == null)
+                    (property = Instance_Class.GetProperties(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.GetSetMethod() != null).Skip(2).FirstOrDefault()).Name = nameof(IsMuted);
+
+                IL2Object result = property?.GetGetMethod().Invoke(ptr);
+                if (result == null)
+                    return default;
+
+                return result.GetValuå<bool>();
+            }
+        }
+
         /*
         private static IL2Property propertyIsFriend = null;
         unsafe public bool IsFriend
@@ -128,23 +145,6 @@ namespace VRC
                 if (property == null)
                     (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName && x.GetSetMethod() == null)).Name = nameof(userId);
                 return property?.GetGetMethod().Invoke(ptr)?.unbox_ToString();
-            }
-        }
-
-        public bool IsMuted
-        {
-
-            get
-            {
-                IL2Property property = Instance_Class.GetProperty(nameof(IsMuted));
-                if (property == null)
-                    (property = Instance_Class.GetProperties(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.GetSetMethod() != null).Skip(2).FirstOrDefault()).Name = nameof(IsMuted);
-
-                IL2Object result = property?.GetGetMethod().Invoke(ptr);
-                if (result == null)
-                    return default;
-                
-                return result.unbox_Unmanaged<bool>();
             }
         }
 

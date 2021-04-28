@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BE4v.MenuEdit;
 using BE4v.Mods;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
@@ -12,21 +13,12 @@ namespace BE4v.Patch
     public delegate void _VRC_Player_Update(IntPtr instance);
     public static class Patch_GlobalDynamicBones
     {
-        /*
-        public static void Toggle_Enable()
+        public static void Toggle()
         {
-            BlazeManager.SetForPlayer("GlobalDynamicBones", !BlazeManager.GetForPlayer<bool>("GlobalDynamicBones"));
-            RefreshStatus();
+            Status.isGlobalDynamicBones = !Status.isGlobalDynamicBones;
+            ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
         }
 
-        public static void RefreshStatus()
-        {
-            bool toggle = BlazeManager.GetForPlayer<bool>("GlobalDynamicBones");
-            BlazeManagerMenu.Main.togglerList["GlobalDynamicBones"].SetToggleToOn(toggle, false);
-            currentPlayer = VRC.Player.Instance;
-            timeToUpdate = 5f;
-        }
-        */
         public static void Start()
         {
             try
@@ -35,13 +27,13 @@ namespace BE4v.Patch
                 if (method == null)
                     throw new Exception();
 
-                var patch = new IL2Patch(method, (_VRC_Player_Update)VRC_Player_Update);
+                patch = new IL2Patch(method, (_VRC_Player_Update)VRC_Player_Update);
                 _delegateVRC_Player_Update = patch.CreateDelegate<_VRC_Player_Update>();
-                "Global Dynamic Bones".WriteMessage(TMessage.SuccessPatch);
+                "Global Dynamic Bones".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
             {
-                "Global Dynamic Bones".WriteMessage(TMessage.BadPatch);
+                "Global Dynamic Bones".RedPrefix(TMessage.BadPatch);
             }
         }
 
@@ -184,6 +176,8 @@ namespace BE4v.Patch
         public static float timeToUpdate = 0f;
 
         internal static float maxDistance = 2f;
+
+        public static IL2Patch patch;
 
         public static _VRC_Player_Update _delegateVRC_Player_Update;
     }

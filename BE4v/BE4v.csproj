@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InjectDLL.cs" />
+    <Compile Include="MenuEdit\BE4V_UserPanel.cs" />
     <Compile Include="MenuEdit\BE4V_MainMenu.cs" />
     <Compile Include="MenuEdit\BE4V_QuickUIMenu.cs" />
     <Compile Include="MenuEdit\Construct\QuickBaseObject.cs" />
@@ -61,9 +62,12 @@
     <Compile Include="Mods\Status.cs" />
     <Compile Include="Mods\Threads.cs" />
     <Compile Include="Patch\Patch_AvatarTools.cs" />
+    <Compile Include="Patch\Patch_Event_OnEvent.cs" />
     <Compile Include="Patch\Patch_ForceCloneAvatar.cs" />
     <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />
     <Compile Include="Patch\Patch_FakePing.cs" />
+    <Compile Include="Patch\Patch_Event_OnMasterConnected.cs" />
+    <Compile Include="Patch\Patch_NoPortalJoin.cs" />
     <Compile Include="Patch\Patch_QuitFix.cs" />
     <Compile Include="Patch\Patch_InvisAPI.cs" />
     <Compile Include="Patch\Patch_Serilize.cs" />
@@ -85,8 +89,13 @@
     <Compile Include="SDK\Assembly-CSharp\USpeaker.cs" />
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Network.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Networking\FlatBufferNetworkSerializer.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\User.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
+    <Compile Include="SDK\IL2SystemClass.cs" />
+    <Compile Include="SDK\mscorlib\System\RuntimeType.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Asset.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_FontAsset.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TextMeshProUGUI.cs" />
@@ -351,6 +360,7 @@
     <Compile Include="SDK\VRCSDK3\VRC\SDK3\Avatars\Components\VRCAvatarDescriptor.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRCPlayerApi.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRCStation.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_EventHandler.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_MirrorReflection.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_AvatarDescriptor.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_Pickup.cs" />

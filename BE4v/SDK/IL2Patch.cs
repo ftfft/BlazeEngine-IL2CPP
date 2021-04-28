@@ -29,5 +29,19 @@ namespace BE4v.SDK
         {
             return Marshal.GetDelegateForFunctionPointer(OriginalMethod, typeof(T)) as T;
         }
+
+        public bool Enabled
+        {
+            get => isEnabled;
+            set
+            {
+                if (isEnabled = value)
+                    Import.Patch.VRC_EnableHook(*(IntPtr*)TargetMethod.ptr.ToPointer());
+                else
+                    Import.Patch.VRC_DisableHook(*(IntPtr*)TargetMethod.ptr.ToPointer());
+            }
+        }
+
+        private bool isEnabled = true;
     }
 }

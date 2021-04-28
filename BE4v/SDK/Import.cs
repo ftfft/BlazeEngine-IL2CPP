@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE4v.SDK.CPP2IL;
+using System;
 using System.Runtime.InteropServices;
 
 namespace BE4v.SDK
@@ -77,16 +78,12 @@ namespace BE4v.SDK
             public extern static int il2cpp_array_length(IntPtr pArray);
             [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public extern static int il2cpp_array_get_byte_length(IntPtr pArray);
-
-            [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-            public extern static void VRC_CreateHook(IntPtr pTarget, IntPtr pDetour, out IntPtr ppOrig);
-
-            /*public static IntPtr CreateNewObject<T>(T value, IL2Type type) where T : unmanaged
+            unsafe public static IntPtr CreateNewObject<T>(T value, IL2Class type) where T : unmanaged
             {
                 IntPtr result = il2cpp_object_new(type.ptr);
                 *(T*)(result + 0x10) = value;
                 return result;
-            }*/
+            }
         }
 
         public static class Class
@@ -195,6 +192,15 @@ namespace BE4v.SDK
         {
             [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public extern static void VRC_CreateHook(IntPtr pTarget, IntPtr pDetour, out IntPtr ppOrig);
+
+            [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            public extern static void VRC_RemoveHook(IntPtr pTarget);
+
+            [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            public extern static void VRC_EnableHook(IntPtr pTarget);
+
+            [DllImport("winmm", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            public extern static void VRC_DisableHook(IntPtr pTarget);
         }
     }
 }

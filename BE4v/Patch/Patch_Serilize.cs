@@ -26,7 +26,7 @@ namespace BE4v.Patch
                 if (method == null)
                     new Exception();
 
-                IL2Patch patch = new IL2Patch(method, (_OpRaiseEvent)OpRaiseEvent);
+                patch = new IL2Patch(method, (_OpRaiseEvent)OpRaiseEvent);
                 _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
                 "Serilize".GreenPrefix(TMessage.SuccessPatch);
             }
@@ -52,6 +52,8 @@ namespace BE4v.Patch
             }
             catch { return false; }
         }
+
+        public static IL2Patch patch;
 
         public static _OpRaiseEvent _delegateOpRaiseEvent;
     }

@@ -55,6 +55,7 @@ namespace BE4v.Mods
                     Application.targetFrameRate = 101;
                     BE4V_MainMenu.Delete();
                     BE4V_MainMenu.Start();
+                    BE4V_UserPanel.Start();
                 }
                 return;
             }

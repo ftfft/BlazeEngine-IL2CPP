@@ -40,6 +40,8 @@ namespace BE4v.MenuEdit
             toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", ClickClass_InvisAPI.OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
             toggler.Add("Serilize", new QuickToggler(@menuname, -1, 1, "Serilize", ClickClass_Serilize.OnClick_SerilizeToggle, "off", "Toggle: Enabled module Serilize"));
             toggler.Add("FakePing", new QuickToggler(@menuname, 0, 2, "Fake Ping", ClickClass_FakePing.OnClick_FakePingToggle, "off", "Toggle: Enabled module Fake Ping (777)"));
+            toggler.Add("GlobalDynamicBones", new QuickToggler(@menuname, 2, 2, "Global\nDynamic Bones", ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones, "off", "Toggle: Enabled module Global Dynamic Bones"));
+            toggler.Add("NoPortalJoin", new QuickToggler(@menuname, 3, 2, "No Portal Join", ClickClass_NoPortalJoin.OnClick_NoPortalJoin, "off", "Toggle: Enabled module No Portal Join"));
 
             /* * [ SET BACK BUTTON ] * */
             GameObject gameObject = QuickMenu.Instance.transform.Find(@menuname + "/BackButton").gameObject;
@@ -56,6 +58,8 @@ namespace BE4v.MenuEdit
             ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
             ClickClass_Serilize.OnClick_SerilizeToggle_Refresh();
             ClickClass_FakePing.OnClick_FakePingToggle_Refresh();
+            ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
+            ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
 
             Image imgPrev = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button").GetComponentInChildren<Image>();
             Image imgNext = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button").GetComponentInChildren<Image>();
@@ -89,10 +93,14 @@ namespace BE4v.MenuEdit
             if (Status.isFakePing)
             {
                 BE4V_QuickUIMenu.toggler["FakePing"].setOffText("on");
+                if (!Patch_FakePing.patch.Enabled)
+                    Patch_FakePing.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["FakePing"].setOffText("off");
+                if (Patch_FakePing.patch.Enabled)
+                    Patch_FakePing.patch.Enabled = false;
             }
         }
     }
@@ -109,10 +117,14 @@ namespace BE4v.MenuEdit
             if (Status.isSerilize)
             {
                 BE4V_QuickUIMenu.toggler["Serilize"].setOffText("on");
+                if (!Patch_Serilize.patch.Enabled)
+                    Patch_Serilize.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["Serilize"].setOffText("off");
+                if (Patch_Serilize.patch.Enabled)
+                    Patch_Serilize.patch.Enabled = false;
             }
         }
     }
@@ -152,10 +164,65 @@ namespace BE4v.MenuEdit
             if (Status.isInvisAPI)
             {
                 BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("on");
+                if (!Patch_InvisAPI.patch.Enabled)
+                    Patch_InvisAPI.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("off");
+                if (Patch_InvisAPI.patch.Enabled)
+                    Patch_InvisAPI.patch.Enabled = false;
+            }
+        }
+    }
+    
+    public static class ClickClass_NoPortalJoin
+    {
+        public static void OnClick_NoPortalJoin()
+        {
+            Patch_NoPortalJoin.Toggle();
+        }
+
+        public static void OnClick_NoPortalJoin_Refresh()
+        {
+            BE4V_QuickUIMenu.toggler["NoPortalJoin"].SetToggleToOn(Status.isNoPortalJoin);
+            if (Status.isNoPortalJoin)
+            {
+                BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("on");
+                if (!Patch_NoPortalJoin.patch.Enabled)
+                    Patch_NoPortalJoin.patch.Enabled = true;
+            }
+            else
+            {
+                BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("off");
+                if (Patch_NoPortalJoin.patch.Enabled)
+                    Patch_NoPortalJoin.patch.Enabled = false;
+            }
+        }
+    }
+    
+    
+    public static class ClickClass_GlobalDynamicBones
+    {
+        public static void OnClick_GlobalDynamicBones()
+        {
+            Patch_GlobalDynamicBones.Toggle();
+        }
+
+        public static void OnClick_GlobalDynamicBones_Refresh()
+        {
+            BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].SetToggleToOn(Status.isGlobalDynamicBones);
+            if (Status.isGlobalDynamicBones)
+            {
+                BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("on");
+                if (!Patch_GlobalDynamicBones.patch.Enabled)
+                    Patch_GlobalDynamicBones.patch.Enabled = true;
+            }
+            else
+            {
+                BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("off");
+                if (Patch_GlobalDynamicBones.patch.Enabled)
+                    Patch_GlobalDynamicBones.patch.Enabled = false;
             }
         }
     }
