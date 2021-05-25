@@ -4,11 +4,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using BE4v.MenuEdit;
+using BE4v.MenuOverlay;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using UnityEngine;
 using VRC;
 using VRC.Animation;
+using VRC.SDKBase;
 using VRC.UI;
 
 namespace BE4v.Mods
@@ -56,6 +58,8 @@ namespace BE4v.Mods
                     BE4V_MainMenu.Delete();
                     BE4V_MainMenu.Start();
                     BE4V_UserPanel.Start();
+                    QuickMenu.ChangeColorMenu(Color.green, Color.white);
+                    QuickMenu.ChangeColorButtons(Color.green, Color.green);
                 }
                 return;
             }
@@ -73,24 +77,41 @@ namespace BE4v.Mods
             {
                 Mod_FastTP.Teleport();
             }
-            /*
             if (Input.GetKeyDown(KeyCode.X))
             {
-                foreach(var player in PlayerManager.Instance.PlayersCopy)
+                string avatarId = GUIUtility.systemCopyBuffer;
+                if (Avatars.Utils.IsValidId(avatarId))
+                    Avatars.Utils.ChangeAvatarById(avatarId);
+                else
+                    Console.WriteLine("Not found: " + avatarId);
+                // new MainForm();
+                /*
+                GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", new Vector3Ex(new IL2String("B\0").ptr, new IL2String("B\0").ptr, new IL2String("B\0").ptr), new Quaternion(0,0,0,0));
+                if (gameObject == null)
+                    return;
+                isAttack = true;
+                VRC.Network.RPC(VRC_EventHandler.VrcTargetType.AllBufferOne, gameObject, "ConfigurePortal", new IntPtr[]
                 {
-                    player.Components.nameplate.uiNameBackground.color = Color.red;
-                }
+                    new IL2String("wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde").ptr,
+                    new IL2String("B\0").ptr,
+                    Import.Object.CreateNewObject(0, IL2SystemClass.Int32)
+                });
+                isAttack = false;
+                */
             }
-            */
+            /*
             if (Input.GetKey(KeyCode.X))
             {
                 VRCMotionState motionState = VRCPlayer.Instance.GetComponent<VRCMotionState>();
                 if (motionState == null) return;
                 motionState.PlayerVelocity = new Vector3(float.NaN, float.NaN, float.NaN);
             }
+            */
             // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
 
         }
+
+        private static bool isAttack = false;
 
         private static int isFirstControl = 50;
 

@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using VRC.Core;
 using BE4v.SDK.CPP2IL;
+using UnityEngine.UI;
 
 public class QuickMenu : MonoBehaviour
 {
@@ -119,6 +120,66 @@ public class QuickMenu : MonoBehaviour
             field?.SetValue(ptr, value.ptr);
         }
     }*/
+
+    public static void ChangeColorButtons(Color? backgroundColor = null, Color? textColor = null)
+    {
+        if (backgroundColor == null && textColor == null)
+        {
+            ChangeColorButtons(Color.green, Color.green);
+            return;
+        }
+
+        foreach (Transform child in QuickMenu.Instance.transform)
+        {
+            foreach (Button button in child.gameObject.GetComponentsInChildren<Button>())
+            {
+                if (backgroundColor != null)
+                {
+                    foreach (Image background in button.gameObject.GetComponentsInChildren<Image>(true))
+                    {
+                        background.color = backgroundColor.Value;
+                        //buttonBackgroundColor = (Color)backgroundColor;
+                    }
+                }
+                if (textColor != null)
+                {
+                    foreach (Text text in button.gameObject.GetComponentsInChildren<Text>(true))
+                    {
+                        text.color = textColor.Value;
+                        //StatusBuff.buttonTextColor = (Color)textColor;
+                    }
+                }
+            }
+        }
+    }
+    public static void ChangeColorMenu(Color? backgroundColor = null, Color? textColor = null)
+    {
+        if (backgroundColor == null && textColor == null)
+        {
+            ChangeColorMenu(Color.green, Color.green);
+            return;
+        }
+
+        foreach (Transform child in QuickMenu.Instance.transform)
+        {
+            if (backgroundColor != null)
+            {
+                foreach (Image background in child.gameObject.GetComponentsInChildren<Image>(true))
+                {
+                    background.color = backgroundColor.Value;
+                    // Status.colorQuickMenu_Red = (Color)backgroundColor;
+                }
+            }
+            if (textColor != null)
+            {
+                foreach (Text text in child.gameObject.GetComponentsInChildren<Text>(true))
+                {
+                    text.color = textColor.Value;
+                    // StatusBuff.menuTextColor = (Color)textColor;
+                }
+            }
+        }
+    }
 
     public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses()
         .FirstOrDefault(x => 

@@ -201,7 +201,7 @@ namespace BE4v.SDK.CPP2IL
         public IL2Property[] GetProperties(IL2BindingFlags flags) => GetProperties().Where(x => x.HasFlag(flags)).ToArray();
         public IL2Property[] GetProperties(Func<IL2Property, bool> func) => GetProperties().Where(x => func(x)).ToArray();
         public IL2Property GetProperty(Func<IL2Property, bool> func) => GetProperties().FirstOrDefault(x => func(x));
-        public IL2Property GetProperty(IL2Class type) => GetProperties().FirstOrDefault(x => x.GetGetMethod().ReturnType.Name == type.FullName);
+        public IL2Property GetProperty(IL2Class type) => GetProperties().FirstOrDefault(x => x.GetGetMethod()?.ReturnType.Name == type.FullName || x.GetSetMethod()?.GetParameters()[0]?.Name == type.FullName);
         public IL2Property GetProperty(string name)
         {
             IL2Property returnval = null;

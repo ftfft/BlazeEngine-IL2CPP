@@ -92,6 +92,19 @@ namespace VRC
             methodSendMessageToChildren.Invoke(IntPtr.Zero, new IntPtr[] { obj.ptr, IL2Import.StringToIntPtr(message), options.MonoCast(), IL2Import.ObjectToIntPtr(value) });
         }
         */
+        unsafe public static GameObject Instantiate(VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3Ex position, Quaternion rotation)
+        {
+            IntPtr result = Instantiate(
+                new IntPtr(&broadcast),
+                new IL2String(prefabPathOrDynamicPrefabName).ptr,
+                new IntPtr(&position),
+                new IntPtr(&rotation)
+            );
+            if (result == IntPtr.Zero)
+                return null;
+            
+            return new GameObject(result);
+        }
         unsafe public static GameObject Instantiate(VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)
         {
             IntPtr result = Instantiate(
@@ -148,7 +161,7 @@ namespace VRC
                 targetObject.ptr,
                 new IL2String(methodName).ptr,
                 parameters.ArrayToIntPtr()
-            });
+            }, ex: true);
         }
 
         unsafe public static bool SetOwner(Player player, GameObject obj, Network.OwnershipModificationType modificationType = Network.OwnershipModificationType.Request, bool skipOwnerTest = false)

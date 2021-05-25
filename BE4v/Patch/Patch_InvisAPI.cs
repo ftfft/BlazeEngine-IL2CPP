@@ -37,8 +37,7 @@ namespace BE4v.Patch
             string point = new IL2Object(endpoint).GetValue<string>();
             if ((point == "visits" || point == "joins" || (point.StartsWith("avatars/avtr_") && point.EndsWith("/select"))))
             {
-                if (Mods.Status.isInvisAPI)
-                    return;
+                return;
             }
 
             _delegateVRC_Core_API_SendRequestInternal.Invoke(

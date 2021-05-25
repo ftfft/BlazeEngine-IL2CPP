@@ -14,7 +14,6 @@ namespace BE4v.SDK.CPP2IL
 
             Name = name;
         }
-
         public IL2ClassType ReturnType => new IL2ClassType(ptr);
     }
 }

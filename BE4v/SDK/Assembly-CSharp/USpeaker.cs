@@ -7,5 +7,5 @@ public class USpeaker : MonoBehaviour
 {
     public USpeaker(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.FullName != PlayerModComponentVoice.Instance_Class.FullName && x.GetField(USpeakPhotonSender3D.Instance_Class) != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRC.Player.Instance_Class.GetField("_USpeaker")?.ReturnType.Name);
 }

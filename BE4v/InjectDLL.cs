@@ -23,6 +23,7 @@ namespace BE4v
         {
             SDKLoader.Start();
             Patch.Patch_Spoofer.Start();
+            Patch.Patch_AntiBlock.Start();
             Patch.Patch_AvatarTools.Start();
             Patch.Patch_ForceCloneAvatar.Start();
             Patch.Patch_GlobalDynamicBones.Start();
@@ -30,7 +31,10 @@ namespace BE4v
             Patch.Patch_Serilize.Start();
             Patch.Patch_FakePing.Start();
             Patch.Patch_NoPortalJoin.Start();
+            Patch.Patch_NoVRDef.Start();
             Patch.Patch_Event_OnMasterConnected.Start();
+            Patch.Patch_Event_VRCPlayer_RefreshState.Start();
+            Patch.Patch_NoAnalytics.Start();
             Mods.Threads.Start();
             SDKLoader.Finish();
         }

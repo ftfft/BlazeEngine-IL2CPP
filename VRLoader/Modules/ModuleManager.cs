@@ -35,11 +35,23 @@ namespace VRCLoader.Modules
 				if (Path.GetExtension(path2) == ".dll")
 				{
 					Assembly assembly;
+                    /*
 					try
 					{
 						assembly = Assembly.LoadFrom(path2);
 					}
-					catch
+					catch (Exception ex)
+					{
+						Logs.Log("Error loading \"{0}\". Are you sure this is a valid assembly?", Path.GetFileName(path2));
+						Logs.Log("EX: " + ex);
+						goto IL_10A;
+					}
+					*/
+                    try
+					{
+						assembly = Assembly.UnsafeLoadFrom(path2);
+					}
+					catch (Exception ex)
 					{
 						Logs.Log("Error loading \"{0}\". Are you sure this is a valid assembly?", Path.GetFileName(path2));
 						goto IL_10A;

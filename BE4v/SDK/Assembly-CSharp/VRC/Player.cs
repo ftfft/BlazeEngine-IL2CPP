@@ -5,6 +5,7 @@ using UnityEngine;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using VRC.SDKBase;
+using VRC.Core;
 
 namespace VRC
 {
@@ -25,7 +26,6 @@ namespace VRC
             }
         }
 
-        /*
         public APIUser user
         {
             get
@@ -33,10 +33,11 @@ namespace VRC
                 IL2Property property = Instance_Class.GetProperty(nameof(user));
                 if (property == null)
                     (property = Instance_Class.GetProperty(APIUser.Instance_Class)).Name = nameof(user);
-                return property?.GetGetMethod().Invoke(ptr)?.unbox<APIUser>();
+                return property?.GetGetMethod().Invoke(ptr)?.GetValue<APIUser>();
             }
         }
 
+        /*
         public PlayerNet playerNet
         {
             get

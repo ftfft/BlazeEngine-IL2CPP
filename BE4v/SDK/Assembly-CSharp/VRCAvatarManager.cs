@@ -19,5 +19,5 @@ public class VRCAvatarManager : MonoBehaviour
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField(VRCAvatarDescriptor.Instance_Class) != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.GetProperty(VRCAvatarDescriptor.Instance_Class) != null);
 }

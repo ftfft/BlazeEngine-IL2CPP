@@ -47,6 +47,7 @@ namespace BE4v.SDK.CPP2IL
         }
         private List<IL2Param> Parameters = null;
 
+
         public bool HasAttribute(IL2Class klass)
         {
             if (klass == null) return false;

@@ -1,7 +1,9 @@
 ﻿using Addons.Mods;
 using BE4v.MenuEdit.Construct;
+using BE4v.Mods;
 using System;
 using UnityEngine;
+using VRC;
 
 namespace BE4v.MenuEdit
 {
@@ -89,8 +91,10 @@ namespace BE4v.MenuEdit
         public static void Start()
         {
             new QuickButton("ShortcutMenu", -1, 0, "Remove\nCreated\nObjects", UserUtils.RemoveInstiatorObjects, "Clear all portals, created object's on map");
+            ClickClass_GlowESP.quickTogglerGlowESP = new QuickToggler("ShortcutMenu", -1, 1, "Glow ESP", ClickClass_GlowESP.OnClick_GlowESP, "Off", "Toggle mod Glow ESP");
             ClickClass_LocalMirror.quickButtonLocalMirror = new QuickButton("ShortcutMenu", 4, 0, "Mrr", ClickClass_LocalMirror.OnClick_PortableMirror, "");
             BE4V_QuickUIMenu.Start();
+            ClickClass_GlowESP.OnClick_GlowESP_Refresh();
             ClickClass_LocalMirror.OnClick_PortableMirror_Refresh();
         }
 
@@ -128,5 +132,24 @@ namespace BE4v.MenuEdit
         }
 
         public static QuickButton quickButtonLocalMirror;
+    }
+
+    public static class ClickClass_GlowESP
+    {
+        public static void OnClick_GlowESP()
+        {
+            Mod_GlowESP.Toggle();
+        }
+
+        public static void OnClick_GlowESP_Refresh()
+        {
+            quickTogglerGlowESP.SetToggleToOn(Status.isGlowESP);
+            foreach(var player in PlayerManager.Instance.PlayersCopy)
+            {
+                player.Components?.RefreshState();
+            }
+        }
+
+        public static QuickToggler quickTogglerGlowESP;
     }
 }

@@ -35,8 +35,7 @@ namespace BE4v.Patch
         {
             if (_fakeDeviceId == null)
             {
-                string src = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
-                src += "\\spoof-id.json";
+                string src = SDKLoader.mainDir + "/spoof-id.json";
                 if (File.Exists(src))
                 {
                     _fakeDeviceId = new IL2String(File.ReadAllText(src));

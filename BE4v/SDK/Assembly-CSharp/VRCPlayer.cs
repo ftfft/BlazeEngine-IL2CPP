@@ -105,7 +105,6 @@ public class VRCPlayer : VRCNetworkBehaviour
         return !string.IsNullOrEmpty(tag) && this.tags != null && this.tags.Contains(tag);
     }
     */
-    /*
     static VRCPlayer()
     {
         dictUserRank.Add("Nuisance", new IL2String("system_probable_troll"));
@@ -154,7 +153,11 @@ public class VRCPlayer : VRCNetworkBehaviour
         return SocialRank.Visitor;
     }
 
-
+    public void RefreshState()
+    {
+        Instance_Class.GetMethod(nameof(RefreshState))?.Invoke(ptr);
+    }
+    /*
     private static IL2Method methodRefresh_Properties = null;
     public static void Refresh_Properties()
     {
@@ -225,18 +228,19 @@ public class VRCPlayer : VRCNetworkBehaviour
         }
     }
 
+    */
     public PlayerSelector playerSelector
     {
         get
         {
             IL2Field field = Instance_Class.GetField(nameof(playerSelector));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == PlayerSelector.Instance_Class.FullName)).Name = nameof(playerSelector);
+                (field = Instance_Class.GetField(PlayerSelector.Instance_Class)).Name = nameof(playerSelector);
 
-            return field?.GetValue(ptr)?.unbox<PlayerSelector>();
+            return field?.GetValue(ptr)?.GetValue<PlayerSelector>();
         }
     }
-    */
+
     public GameObject avatarGameObject
     {
         get
@@ -307,6 +311,20 @@ public class VRCPlayer : VRCNetworkBehaviour
         ShowRank = 64,
         Avatar = 128,
         User = 256
+    }
+
+    public enum SocialRank : byte
+    {
+        None = 0,
+        Visitor,
+        NewUser,
+        User,
+        KnownUser,
+        TrustedUser,
+        VeteranUser,
+        Legend,
+        Nuisance,
+        VRChatTeam
     }
 
     public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SendVoiceSetupToPlayerRPC") != null);

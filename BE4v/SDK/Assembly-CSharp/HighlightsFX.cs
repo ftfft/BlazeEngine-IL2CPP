@@ -13,7 +13,7 @@ public abstract class HighlightsFX : PostEffectsBase
             IL2Property property = Instance_Class.GetProperty(nameof(Instance));
             if (property == null)
                 (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
-            return property?.GetGetMethod().Invoke()?.GetValue<HighlightsFX>();
+            return property?.GetGetMethod().Invoke()?.GetValue<HighlightsFXStandalone>();
         }
     }
 

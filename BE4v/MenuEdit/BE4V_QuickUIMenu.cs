@@ -40,6 +40,7 @@ namespace BE4v.MenuEdit
             toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", ClickClass_InvisAPI.OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
             toggler.Add("Serilize", new QuickToggler(@menuname, -1, 1, "Serilize", ClickClass_Serilize.OnClick_SerilizeToggle, "off", "Toggle: Enabled module Serilize"));
             toggler.Add("FakePing", new QuickToggler(@menuname, 0, 2, "Fake Ping", ClickClass_FakePing.OnClick_FakePingToggle, "off", "Toggle: Enabled module Fake Ping (777)"));
+            toggler.Add("AntiBlock", new QuickToggler(@menuname, 1, 2, "Anti Block", ClickClass_AntiBlock.OnClick_AntiBlockToggle, "off", "Toggle: Enabled module Anti-Block\nShow blocked users"));
             toggler.Add("GlobalDynamicBones", new QuickToggler(@menuname, 2, 2, "Global\nDynamic Bones", ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones, "off", "Toggle: Enabled module Global Dynamic Bones"));
             toggler.Add("NoPortalJoin", new QuickToggler(@menuname, 3, 2, "No Portal Join", ClickClass_NoPortalJoin.OnClick_NoPortalJoin, "off", "Toggle: Enabled module No Portal Join"));
 
@@ -60,6 +61,7 @@ namespace BE4v.MenuEdit
             ClickClass_FakePing.OnClick_FakePingToggle_Refresh();
             ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
             ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
+            ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
 
             Image imgPrev = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button").GetComponentInChildren<Image>();
             Image imgNext = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button").GetComponentInChildren<Image>();
@@ -78,6 +80,31 @@ namespace BE4v.MenuEdit
         private static void nulled()
         { }
 
+    }
+
+    public static class ClickClass_AntiBlock
+    {
+        public static void OnClick_AntiBlockToggle()
+        {
+            Patch_AntiBlock.Toggle();
+        }
+
+        public static void OnClick_AntiBlockToggle_Refresh()
+        {
+            BE4V_QuickUIMenu.toggler["AntiBlock"].SetToggleToOn(Status.isAntiBlock);
+            if (Status.isAntiBlock)
+            {
+                BE4V_QuickUIMenu.toggler["AntiBlock"].setOffText("on");
+                if (!Patch_AntiBlock.patch.Enabled)
+                    Patch_AntiBlock.patch.Enabled = true;
+            }
+            else
+            {
+                BE4V_QuickUIMenu.toggler["AntiBlock"].setOffText("off");
+                if (Patch_AntiBlock.patch.Enabled)
+                    Patch_AntiBlock.patch.Enabled = false;
+            }
+        }
     }
 
     public static class ClickClass_FakePing

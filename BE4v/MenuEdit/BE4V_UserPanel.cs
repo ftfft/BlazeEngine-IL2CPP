@@ -44,27 +44,23 @@ namespace BE4v.MenuEdit
             APIUser user = GameObject.Find("UserInterface/MenuContent/Screens/UserInfo")?.GetComponent<PageUserInfo>()?.user;
             if (user?.id == APIUser.CurrentUser.id)
             {
-                Console.WriteLine("Error: You cannot drop a portal to yourself!");
-                // MiscUtils.VRCUiPopupManager.ShowAlert("Error", "You cannot drop a portal to yourself!", 10f);
+                VRCUiPopupManager.Instance.ShowAlert("Error", "You cannot drop a portal to yourself!");
                 return;
             }
             string loc = user.location;
             if (string.IsNullOrWhiteSpace(loc))
             {
-                Console.WriteLine("Error: No valid location");
-                //MiscUtils.VRCUiPopupManager.ShowAlert("Error", "Player " + user.displayName + " has no valid location!", 10f);
+                VRCUiPopupManager.Instance.ShowAlert("Error", "Player " + user.displayName + " has no valid location!");
                 return;
             }
             if (loc == "private")
             {
-                Console.WriteLine("Error: Player " + user.displayName + " location is private!");
-                // MiscUtils.VRCUiPopupManager.ShowAlert("Error", "Player " + user.displayName + " location is private!", 10f);
+                VRCUiPopupManager.Instance.ShowAlert("Error", "Player " + user.displayName + " location is private!");
                 return;
             }
             if (loc == "offline")
             {
-                Console.WriteLine("Error: Player " + user.displayName + " is offline!");
-                // MiscUtils.VRCUiPopupManager.ShowAlert("Error", "Player " + user.displayName + " is offline!", 10f);
+                VRCUiPopupManager.Instance.ShowAlert("Error", "Player " + user.displayName + " is offline!");
                 return;
             }
             string[] location = loc.Split(new char[]

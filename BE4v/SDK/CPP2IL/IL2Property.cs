@@ -53,6 +53,7 @@ namespace BE4v.SDK.CPP2IL
         }
         private IL2Method setMethod;
 
-        public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
+        public bool IsStatic => GetGetMethod()?.IsStatic == true || GetSetMethod()?.IsStatic == true;
+        public bool IsPublic => GetGetMethod()?.IsPublic == true || GetSetMethod()?.IsPublic == true;
     }
 }
