@@ -21,6 +21,7 @@ namespace BE4v.Patch
 
         public static void Start()
         {
+            /*
             try
             {
                 IL2Method method = ModerationManager.Instance_Class.GetMethod(x => x.IsPrivate && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 2);
@@ -35,6 +36,7 @@ namespace BE4v.Patch
                 "Anti-Block".RedPrefix(TMessage.BadPatch);
                 ex.ToString().RedPrefix("EX:");
             }
+            */
         }
 
         public static bool VRC_Management_ModerationManager_HasPlayerModeration(IntPtr instance, IntPtr userId, ApiPlayerModeration.ModerationType moderationType)

@@ -1,5 +1,4 @@
-﻿using Addons.Mods;
-using BE4v.MenuEdit.Construct;
+﻿using BE4v.MenuEdit.Construct;
 using BE4v.Mods;
 using System;
 using UnityEngine;
@@ -70,6 +69,12 @@ namespace BE4v.MenuEdit
                                 quickButton.MoveLocation(-1, 0);
                                 break;
                             }
+                        case "GalleryButton":
+                            {
+                                QuickButton quickButton = new QuickButton(transform1.gameObject);
+                                quickButton.MoveLocation(0, 1);
+                                break;
+                            }
                         case "QMInfoToggle":
                             {
                                 QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
@@ -85,6 +90,7 @@ namespace BE4v.MenuEdit
                     }
                 }
             }
+            FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
             "QuickMenu element's".RedPrefix("Destroy");
         }
 

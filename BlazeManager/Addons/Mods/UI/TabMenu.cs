@@ -32,6 +32,7 @@ namespace Addons.Mods.UI
         private static IL2String strTest;
         private static IL2String strEmpty;
         private static IL2String strTempText = null;
+        public static bool isPressed = false;
         public static void ShowMenu()
         {
 

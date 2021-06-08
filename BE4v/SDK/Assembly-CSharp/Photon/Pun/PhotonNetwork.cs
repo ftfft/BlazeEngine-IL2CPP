@@ -18,11 +18,7 @@ namespace IL2Photon.Pun
                 IL2Property property = Instance_Class.GetProperty(nameof(Time));
                 if (property == null)
                     (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(double).FullName)).Name = nameof(Time);
-
-                IL2Object result = property?.GetGetMethod().Invoke();
-                if (result == null)
-                    return default;
-                return result.GetValuе<double>();
+                return property?.GetGetMethod().Invoke()?.GetValuе<double>() ?? default(double);
             }
         }
 

@@ -6,40 +6,11 @@ namespace UnityEngine
 {
     public static class Input
     {
-        public static float GetAxis(string axisName)
-        {
-            return Instance_Class.GetMethod(nameof(GetAxis)).Invoke(new IntPtr[] { new IL2String(axisName).ptr }).GetValuå<float>();
-        }
-
-        unsafe public static bool GetKey(KeyCode key)
-        {
-            IL2Object @object = Instance_Class.GetMethod("GetKeyInt").Invoke(new IntPtr[] { new IntPtr(&key) });
-            if (@object != null)
-                return @object.GetValuå<bool>();
-            return false;
-        }
-
-
-        unsafe public static bool GetKeyDown(KeyCode key)
-        {
-            IL2Object @object = Instance_Class.GetMethod("GetKeyDownInt").Invoke(new IntPtr[] { new IntPtr(&key) });
-            if (@object != null)
-                return @object.GetValuå<bool>();
-            return false;
-        }
-
-        unsafe public static bool GetKeyUp(KeyCode key)
-        {
-            IL2Object @object = Instance_Class.GetMethod("GetKeyUpInt").Invoke(new IntPtr[] { new IntPtr(&key) });
-            if (@object != null)
-                return @object.GetValuå<bool>();
-            return false;
-        }
-
-        public static bool GetButtonDown(string buttonName)
-        {
-            return Instance_Class.GetMethod(nameof(GetButtonDown)).Invoke(new IntPtr[] { new IL2String(buttonName).ptr }).GetValuå<bool>();
-        }
+        public static float GetAxis(string axisName) => Instance_Class.GetMethod(nameof(GetAxis)).Invoke(new IntPtr[] { new IL2String(axisName).ptr }).GetValuå<float>();
+        unsafe public static bool GetKey(KeyCode key) => Instance_Class.GetMethod("GetKeyInt").Invoke(new IntPtr[] { new IntPtr(&key) })?.GetValuå<bool>() ?? false;
+        unsafe public static bool GetKeyDown(KeyCode key) => Instance_Class.GetMethod("GetKeyDownInt").Invoke(new IntPtr[] { new IntPtr(&key) })?.GetValuå<bool>() ?? false;
+        unsafe public static bool GetKeyUp(KeyCode key) => Instance_Class.GetMethod("GetKeyUpInt").Invoke(new IntPtr[] { new IntPtr(&key) })?.GetValuå<bool>() ?? false;
+        public static bool GetButtonDown(string buttonName) => Instance_Class.GetMethod(nameof(GetButtonDown)).Invoke(new IntPtr[] { new IL2String(buttonName).ptr }).GetValuå<bool>();
 
         public static Vector3 mousePosition
         {

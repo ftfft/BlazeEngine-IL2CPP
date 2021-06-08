@@ -76,10 +76,7 @@ namespace UnityEngine
 
         unsafe public Transform GetChild(int index)
         {
-            IL2Object result = Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { new IntPtr(&index) });
-            if (result != null)
-                return result.GetValue<Transform>();
-            return null;
+            return Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { new IntPtr(&index) })?.GetValue<Transform>();
         }
 
         unsafe public void SetSiblingIndex(int index)

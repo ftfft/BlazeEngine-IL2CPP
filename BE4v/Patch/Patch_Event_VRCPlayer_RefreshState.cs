@@ -7,6 +7,7 @@ using UnityEngine;
 using VRC.Core;
 using BE4v.Mods;
 using BE4v.SDK.CPP2IL;
+using VRC.Management;
 
 namespace BE4v.Patch
 {
@@ -47,10 +48,27 @@ namespace BE4v.Patch
         public static void VRCPlayer_RefreshState(IntPtr instance)
         {
             if (instance == IntPtr.Zero || VRCPlayer.Instance == null) return;
+            VRCPlayer vrcPlayer = new VRCPlayer(instance);
+            if (VRCPlayer.Instance != vrcPlayer)
+            {
+                if (Status.isAntiBlock)
+                {
+                    vrcPlayer.player.IsBlocked = false;
+                    vrcPlayer.player.IsBlockedBy = false;
+                }
+                /*
+                else
+                {
+                    ModerationManager moderationManager = ModerationManager.Instance;
+                    bool isBlock = moderationManager?.IsBlocked(vrcPlayer?.player?.user) == true;
+                    vrcPlayer.player.IsBlocked = isBlock;
+                    vrcPlayer.player.IsBlockedBy = isBlock;
+                }
+                */
+            }
             _delegateVRCPlayer_RefreshState.Invoke(instance);
 
             if (VRCPlayer.Instance.ptr == instance) return;
-            VRCPlayer vrcPlayer = new VRCPlayer(instance);
 
             Renderer renderer = vrcPlayer?.playerSelector?.GetComponent<Renderer>();
             if (renderer != null)

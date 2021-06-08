@@ -33,10 +33,7 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 			if (field == null)
 				(field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(int?).FullName)).Name = nameof(LocalID);
 
-			IL2Object result = field.GetValue(ptr);
-			if (result == null)
-				return null;
-			return result.GetValuе<int>();
+			return field.GetValue(ptr)?.GetValuе<int>();
 		}
 		set
 		{

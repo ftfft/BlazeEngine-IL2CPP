@@ -6,7 +6,7 @@ using VRCSDK2;
 using UnityEngine;
 using BE4v.MenuEdit;
 
-namespace Addons.Mods
+namespace BE4v.Mods
 {
 	public static class Mod_PortableMirror
 	{

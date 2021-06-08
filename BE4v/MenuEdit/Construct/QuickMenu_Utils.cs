@@ -33,22 +33,11 @@ namespace BE4v.MenuEdit.Construct
             return new GameObject(IntPtr.Zero);
         }
 
-        public static GameObject BaseButton()
-        {
-            if (baseButton == null)
-                baseButton = GameObject.Find("Button");
-            return baseButton;
-        }
+        public static Transform BaseButton() => baseButton ?? (baseButton = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton"));
+        public static Transform BaseToggler() => baseToggler ?? (baseToggler = QuickMenu.Instance.transform.Find("UserInteractMenu/BlockButton"));
 
-        public static GameObject BaseToggler()
-        {
-            if (baseToggler == null)
-                baseToggler = GameObject.Find("Toggler");
-            return baseToggler;
-        }
+        private static Transform baseButton;
 
-        private static GameObject baseButton;
-
-        private static GameObject baseToggler;
+        private static Transform baseToggler;
     }
 }

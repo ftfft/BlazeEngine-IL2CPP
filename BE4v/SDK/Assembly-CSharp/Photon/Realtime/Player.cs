@@ -32,10 +32,7 @@ namespace IL2Photon.Realtime
                 IL2Property property = Instance_Class.GetProperty(nameof(ActorNumber));
                 if (property == null)
                     (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(int).FullName)).Name = nameof(ActorNumber);
-                IL2Object result = property?.GetGetMethod().Invoke(ptr);
-                if (result == null)
-                    return default;
-                return result.GetValuå<int>();
+                return property?.GetGetMethod().Invoke(ptr)?.GetValuå<int>() ?? default(int);
             }
         }
 
@@ -69,10 +66,7 @@ namespace IL2Photon.Realtime
                 IL2Field field = Instance_Class.GetField(nameof(IsLocal));
                 if (field == null)
                     (field = Instance_Class.GetField(x => x.IsPublic && x.ReturnType.Name == typeof(bool).FullName)).Name = nameof(IsLocal);
-                IL2Object result = field?.GetValue(ptr);
-                if (result == null)
-                    return default;
-                return result.GetValuå<bool>();
+                return field?.GetValue(ptr)?.GetValuå<bool>() ?? default(bool);
             }
         }
 

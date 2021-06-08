@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using BE4v.MenuEdit;
+using BE4v.MenuEdit.IMGUI;
 using BE4v.MenuOverlay;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
@@ -29,17 +30,17 @@ namespace BE4v.Mods
 
                 var patch = new IL2Patch(method, (_Threads_Update)Update);
                 _delegateThreads_Update = patch.CreateDelegate<_Threads_Update>();
-                if (_delegateThreads_Update == null)
-                    throw new Exception("BE4V: Not found a delegate (Update)");
             }
             catch (Exception ex)
             {
                 ex.ToString().WriteMessage("Patch");
             }
+            TabMenu.Start();
         }
 
         public static void Update(IntPtr instance)
         {
+            TabMenu.Update();
             if (Status.isInfinityJump)
                 Mod_InfinityJump.Update();
             if (Status.isFly)

@@ -46,7 +46,7 @@ namespace BE4v.MenuEdit.Construct
         public void MoveLocation(float buttonXLoc, float buttonYLoc)
         {
             RectTransform rTransform = gameObject.transform.MonoCast<RectTransform>();
-            rTransform.anchoredPosition += (Vector2.right * (420 * buttonXLoc)) + (Vector2.down * (420 * buttonYLoc));
+            rTransform.anchoredPosition += (Vector2.right * (buttonSize[0] * buttonXLoc)) + (Vector2.down * (buttonSize[1] * buttonYLoc));
 
             if (isCustom)
             {
@@ -65,6 +65,8 @@ namespace BE4v.MenuEdit.Construct
         public string @type;
 
         public bool isCustom = true;
+
+        public float[] buttonSize = new float[]{ 420, 420 };
 
         // public static readonly Vector2 offsetButton = QuickMenu_Utils.BaseButton().transform.MonoCast<RectTransform>().anchoredPosition;
     }

@@ -91,12 +91,49 @@ namespace VRC
                 if (property == null)
                     (property = Instance_Class.GetProperties(x => x.GetGetMethod().ReturnType.Name == typeof(bool).FullName && x.GetSetMethod() != null).Skip(2).FirstOrDefault()).Name = nameof(IsMuted);
 
-                IL2Object result = property?.GetGetMethod().Invoke(ptr);
-                if (result == null)
-                    return default;
-
-                return result.GetValuå<bool>();
+                return property?.GetGetMethod().Invoke(ptr).GetValuå<bool>() ?? default(bool);
             }
+        }
+
+        unsafe public bool IsBlocked
+        {
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(IsBlocked));
+                if (field == null)
+                    (field = Instance_Class.GetFields(x => x.ReturnType.Name == typeof(bool).FullName).First()).Name = nameof(IsBlocked);
+                return field.GetValue(ptr).GetValuå<bool>();
+            }
+            set
+            {
+                IL2Field field = Instance_Class.GetField(nameof(IsBlocked));
+                if (field == null)
+                    (field = Instance_Class.GetFields(x => x.ReturnType.Name == typeof(bool).FullName).First()).Name = nameof(IsBlocked);
+                field.SetValue(ptr, new IntPtr(&value));
+            }
+        }
+
+        unsafe public bool IsBlockedBy
+        {
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(IsBlockedBy));
+                if (field == null)
+                    (field = Instance_Class.GetFields(x => x.ReturnType.Name == typeof(bool).FullName).Skip(1).First()).Name = nameof(IsBlockedBy);
+                return field.GetValue(ptr).GetValuå<bool>();
+            }
+            set
+            {
+                IL2Field field = Instance_Class.GetField(nameof(IsBlockedBy));
+                if (field == null)
+                    (field = Instance_Class.GetFields(x => x.ReturnType.Name == typeof(bool).FullName).Skip(1).First()).Name = nameof(IsBlockedBy);
+                field.SetValue(ptr, new IntPtr(&value));
+            }
+        }
+
+        public void OnNetworkReady()
+        {
+            Instance_Class.GetMethod(nameof(OnNetworkReady)).Invoke(ptr);
         }
 
         /*

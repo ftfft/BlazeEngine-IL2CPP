@@ -23,7 +23,7 @@ namespace BE4v.MenuEdit.Construct
         public QuickToggler(string btnMenu, int btnXLocation, int btnYLocation, string btnTextOn, UnityAction buttonAction, string btnTextOff, string btnToolTip, Color? btnBackgroundColor = null, Color? btnTextColor = null)
         {
             @type = "QuickToggler";
-            Transform btnTemplate = QuickMenu.Instance.transform.Find("UserInteractMenu/BlockButton");
+            Transform btnTemplate = QuickMenu_Utils.BaseToggler();
 
             gameObject = UnityEngine.Object.Instantiate<GameObject>(btnTemplate.gameObject, QuickMenu.Instance.transform.Find(btnMenu), true);
 
@@ -36,12 +36,10 @@ namespace BE4v.MenuEdit.Construct
             setOnText(btnTextOn);
             setOffText(btnTextOff);
             Text[] btnTextsOn = btnOn.GetComponentsInChildren<Text>();
-            btnTextsOn[0].name = "Text_ON";
-            btnTextsOn[1].name = "Text_OFF";
             Text[] btnTextsOff = btnOff.GetComponentsInChildren<Text>();
-            btnTextsOff[0].name = "Text_ON";
-            btnTextsOff[1].name = "Text_OFF";
-
+            btnTextsOn[0].name = btnTextsOff[0].name = "Text_ON";
+            btnTextsOn[1].name = btnTextsOff[1].name = "Text_OFF";
+            
             setToolTip(btnToolTip);
 
             setAction(buttonAction, true);
@@ -70,17 +68,15 @@ namespace BE4v.MenuEdit.Construct
         public void setOnText(string buttonOnText)
         {
             Text[] btnTextsOn = btnOn.GetComponentsInChildren<Text>();
-            btnTextsOn[0].text = buttonOnText;
             Text[] btnTextsOff = btnOff.GetComponentsInChildren<Text>();
-            btnTextsOff[0].text = buttonOnText;
+            btnTextsOn[0].text = btnTextsOff[0].text = buttonOnText;
         }
 
         public void setOffText(string buttonOffText)
         {
             Text[] btnTextsOn = btnOn.GetComponentsInChildren<Text>();
-            btnTextsOn[1].text = buttonOffText;
             Text[] btnTextsOff = btnOff.GetComponentsInChildren<Text>();
-            btnTextsOff[1].text = buttonOffText;
+            btnTextsOn[1].text = btnTextsOff[1].text = buttonOffText;
         }
 
         public void SetToggleToOn(bool statusButton, bool disabledButton = false)

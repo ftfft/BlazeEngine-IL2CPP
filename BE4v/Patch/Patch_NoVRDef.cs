@@ -14,7 +14,7 @@ namespace BE4v.Patch
     public static class Patch_NoVRDef
     {
         public static void Start()
-        {/*
+        {
             try
             {
                 IL2Method method = PortalInternal.Instance_Class.GetMethod("ConfigurePortal", x => x.GetParameters().Length == 4);
@@ -29,7 +29,6 @@ namespace BE4v.Patch
             {
                 "No VR Def".RedPrefix(TMessage.BadPatch);
             }
-            */
         }
 
         public static void PortalInternal_ConfigurePortal(IntPtr instance, IntPtr _roomId, IntPtr _idWithTags, int _playerCount, IntPtr instigator)

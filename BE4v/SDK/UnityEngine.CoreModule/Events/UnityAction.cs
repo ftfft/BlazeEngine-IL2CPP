@@ -37,7 +37,7 @@ namespace UnityEngine.Events
             *((IntPtr*)runtimeMethod) = function.Method.MethodHandle.GetFunctionPointer();
             byte paramCount = (byte)(function.Method.GetParameters()?.Length ?? 0);
             //Parameter count
-            *((byte*)runtimeMethod + 75) = 0; // 0 parameter_count
+            *((byte*)runtimeMethod + 75) = paramCount; // 0 parameter_count
 
             //Slot (65535)
             *((byte*)runtimeMethod + 74) = 0xFF;

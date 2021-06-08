@@ -22,7 +22,7 @@ namespace BE4v.MenuEdit.Construct
         {
             @type = "QuickButton";
             location = btnMenu;
-            Transform btnTemplate = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton");
+            Transform btnTemplate = QuickMenu_Utils.BaseButton();
 
             gameObject = UnityEngine.Object.Instantiate<GameObject>(btnTemplate.gameObject, QuickMenu.Instance.transform.Find(btnMenu), true);
 

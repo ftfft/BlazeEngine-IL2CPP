@@ -3,7 +3,7 @@ using BE4v.SDK.CPP2IL;
 
 namespace UnityEngine.UI
 {
-    // Text -> MaskableGraphic -> Graphic -> UIBehaviour -> MonoBehaviour -> Behaviour -> Component
+    // Text -> MaskableGraphic -> Graphic
     public class Text : Graphic
     {
         public Text(IntPtr ptr) : base(ptr) => base.ptr = ptr;

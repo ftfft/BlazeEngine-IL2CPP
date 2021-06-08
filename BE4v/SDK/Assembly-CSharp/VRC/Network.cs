@@ -16,7 +16,7 @@ namespace VRC
                 IL2Field field = Instance_Class.GetField(nameof(_networkDateTime));
                 if (field == null)
                     (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(DateTime).FullName)).Name = nameof(_networkDateTime);
-                return field.GetValue().GetValuå<DateTime>();
+                return field?.GetValue().GetValuå<DateTime>() ?? default(DateTime);
             }
             set
             {
@@ -127,16 +127,12 @@ namespace VRC
                     return IntPtr.Zero;
             }
 
-            IL2Object result = methodInstantiate.Invoke(IntPtr.Zero, new IntPtr[] {
+            return methodInstantiate.Invoke(IntPtr.Zero, new IntPtr[] {
                 broadcast,
                 prefabPathOrDynamicPrefabName,
                 position,
                 rotation
-            });
-            if (result == null)
-                return IntPtr.Zero;
-
-            return result.ptr;
+            })?.ptr ?? IntPtr.Zero;
         }
 
         unsafe public static void RPC(VRC_EventHandler.VrcTargetType targetClients, GameObject targetObject, string methodName, IntPtr[] parameters)

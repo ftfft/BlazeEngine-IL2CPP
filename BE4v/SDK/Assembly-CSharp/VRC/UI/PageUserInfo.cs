@@ -21,6 +21,22 @@ namespace VRC.UI
             }
         }
 
+        public static PageUserInfo Instance
+        {
+            get => VRCUiManager.GetPage<PageUserInfo>(userInfoScreenPath);
+        }
+
+        public static string userInfoScreenPath
+        {
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(userInfoScreenPath));
+                if (field == null)
+                    (field = Instance_Class.GetField(x => x.IsStatic && x.ReturnType.Name == typeof(string).FullName && x.GetValue()?.GetValue<string>()?.StartsWith("UserInterface") == true)).Name = nameof(userInfoScreenPath);
+                return field.GetValue()?.GetValue<string>();
+            }
+        }
+
         public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("RequestInvitation") != null);
     }
 }

@@ -157,6 +157,11 @@ public class VRCPlayer : VRCNetworkBehaviour
     {
         Instance_Class.GetMethod(nameof(RefreshState))?.Invoke(ptr);
     }
+
+    public void ReloadAvatarNetworkedRPC(VRC.Player player)
+    {
+        Instance_Class.GetMethod(nameof(ReloadAvatarNetworkedRPC))?.Invoke(ptr, new IntPtr[] { player.ptr });
+    }
     /*
     private static IL2Method methodRefresh_Properties = null;
     public static void Refresh_Properties()

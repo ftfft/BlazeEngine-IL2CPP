@@ -1,5 +1,4 @@
 ﻿using System;
-using Addons.Mods;
 using BE4v.MenuEdit;
 using BE4v.Mods;
 using BE4v.SDK;

@@ -13,25 +13,17 @@ namespace UnityEngine
             set => Instance_Class.GetProperty(nameof(gravity)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
-        private static IL2Method RayCastMini = null;
         public static bool Raycast(Ray ray, out RaycastHit hitInfo)
         {
-            if(RayCastMini == null)
-            {
-                RayCastMini = Instance_Class.GetMethod("Raycast", x => x.GetParameters().Length == 2 && x.GetParameters()[1].ReturnType.Name == "UnityEngine.RaycastHit&");
-
-                if (RayCastMini == null)
-                {
-                    hitInfo = new RaycastHit();
-                    return default;
-                }
-            }
+            IL2Method method = Instance_Class.GetMethod("Raycast_out");
+            if (method == null)
+                (method = Instance_Class.GetMethod("Raycast", x => x.GetParameters().Length == 2 && x.GetParameters()[1].ReturnType.Name == "UnityEngine.RaycastHit&")).Name = "Raycast_out";
 
             unsafe
             {
                 fixed (RaycastHit* hitInfoPtr = &hitInfo)
                 {
-                    return RayCastMini.Invoke(new IntPtr[] { new IntPtr(&ray), new IntPtr(hitInfoPtr) }).GetValuе<bool>();
+                    return method.Invoke(new IntPtr[] { new IntPtr(&ray), new IntPtr(hitInfoPtr) }).GetValuе<bool>();
                 }
             }
         }

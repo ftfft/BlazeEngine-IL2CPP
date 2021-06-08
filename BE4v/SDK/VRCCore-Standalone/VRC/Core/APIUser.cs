@@ -25,6 +25,11 @@ namespace VRC.Core
             return Instance_Class.GetMethod(nameof(HasTag)).Invoke(ptr, new IntPtr[] { tag }).GetValuе<bool>();
         }
 
+        public string username
+        {
+            get => Instance_Class.GetProperty(nameof(username)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
+        }
+
         public string displayName
         {
             get => Instance_Class.GetProperty(nameof(displayName)).GetGetMethod().Invoke(ptr)?.GetValue<string>();

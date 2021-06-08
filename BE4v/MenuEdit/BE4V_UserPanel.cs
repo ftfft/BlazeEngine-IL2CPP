@@ -1,6 +1,6 @@
-﻿using Addons.Mods;
-using BE4v.MenuEdit.Construct;
+﻿using BE4v.MenuEdit.Construct;
 using BE4v.SDK;
+using Microsoft.Win32;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,28 +11,27 @@ namespace BE4v.MenuEdit
 {
     public static class BE4V_UserPanel
     {
-        public static GameObject UserDropPortal { get; private set; }
+        public static UIButton UserDropPortal;
         public static void Start()
         {
+            /*
             try
             {
-                GameObject gameObject = GameObject.Find("MenuContent/Screens/UserInfo/User Panel/");
-                GameObject original = GameObject.Find("MenuContent/Screens/UserInfo/User Panel/Playlists/PlaylistsButton");
-                GameObject gameObject2 = GameObject.Find("MenuContent/Screens/UserInfo/User Panel/Playlists");
-                UserDropPortal = UnityEngine.Object.Instantiate(original, gameObject2.transform);
-                UserDropPortal.transform.SetParent(gameObject.transform);
-                UserDropPortal.GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, 75f);
-                UserDropPortal.GetComponentInChildren<Text>().text = "Drop Portal to Instance";
-                Button button = UserDropPortal.GetComponentInChildren<Button>();
-                button.onClick.RemoveAllListeners();
-                button.onClick = new Button.ButtonClickedEvent();
-                button.onClick.AddListener(ClickClass_DropPortalToUser.PortalDrop);
+                string path = PageUserInfo.userInfoScreenPath;
+                GameObject original = GameObject.Find(path + "/OnlineFriendButtons/JoinButton");
+                GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(original, GameObject.Find(path).transform, true);
+                UserDropPortal = new UIButton(gameObject);
+                UserDropPortal.MoveLocation(0, -80f);
+                UserDropPortal.setButtonText("Drop Portal to Instance");
+                UserDropPortal.setAction(ClickClass_DropPortalToUser.PortalDrop, true);
                 "[UI] Portals to friend's".GreenPrefix(TMessage.SuccessPatch);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 "[UI] Portals to friend's".RedPrefix(TMessage.BadPatch);
+                ex.ToString().WriteMessage("EX:");
             }
+            */
         }
 
     }
@@ -41,7 +40,8 @@ namespace BE4v.MenuEdit
     {
         public static void PortalDrop()
         {
-            APIUser user = GameObject.Find("UserInterface/MenuContent/Screens/UserInfo")?.GetComponent<PageUserInfo>()?.user;
+            APIUser user = PageUserInfo.Instance?.user;
+            if (user == null) return;
             if (user?.id == APIUser.CurrentUser.id)
             {
                 VRCUiPopupManager.Instance.ShowAlert("Error", "You cannot drop a portal to yourself!");

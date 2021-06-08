@@ -94,15 +94,23 @@ namespace BE4v.MenuEdit
             BE4V_QuickUIMenu.toggler["AntiBlock"].SetToggleToOn(Status.isAntiBlock);
             if (Status.isAntiBlock)
             {
+                foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
+                {
+                    player.Components?.RefreshState();
+                }
                 BE4V_QuickUIMenu.toggler["AntiBlock"].setOffText("on");
-                if (!Patch_AntiBlock.patch.Enabled)
-                    Patch_AntiBlock.patch.Enabled = true;
+                //if (!Patch_AntiBlock.patch.Enabled)
+                //    Patch_AntiBlock.patch.Enabled = true;
             }
             else
             {
+                foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
+                {
+                    player.OnNetworkReady();
+                }
                 BE4V_QuickUIMenu.toggler["AntiBlock"].setOffText("off");
-                if (Patch_AntiBlock.patch.Enabled)
-                    Patch_AntiBlock.patch.Enabled = false;
+                //if (Patch_AntiBlock.patch.Enabled)
+                //    Patch_AntiBlock.patch.Enabled = false;
             }
         }
     }
