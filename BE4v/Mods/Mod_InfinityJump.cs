@@ -17,7 +17,9 @@ namespace BE4v.Mods
 
         public static void Update()
         {
-            var jump = VRCPlayer.Instance?.GetComponent<GamelikeInputController>()?.inJump;
+            VRCPlayer player = VRCPlayer.Instance;
+            if (player == null || player.GetComponent<CharacterController>()?.isGrounded != false) return;
+            var jump = player.GetComponent<GamelikeInputController>()?.inJump;
             if (jump != null)
             {
                 if (jump.button)

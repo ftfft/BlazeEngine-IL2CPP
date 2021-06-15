@@ -4,10 +4,70 @@ using UnityEngine;
 using VRC.Core;
 using BE4v.SDK.CPP2IL;
 using UnityEngine.UI;
+using System.CodeDom;
 
 public class QuickMenu : MonoBehaviour
 {
     public QuickMenu(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+    unsafe static QuickMenu()
+    {
+        Instance_Class = Assembler.list["acs"].GetClasses()
+        .FirstOrDefault(x =>
+            x.GetProperty(y => y.Instance) != null &&
+            x.GetField(APIUser.Instance_Class) != null &&
+            x.GetField(VRC.Player.Instance_Class) != null &&
+            x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 9 &&
+            x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 5
+        );
+        if (Instance_Class == null)
+        {
+            throw new Exception("[QuickMenu] InstanceClass not found!");
+        }
+        //
+        /* * * SetMenuIndex * * */
+        //
+        IL2Method method = Instance_Class.GetMethod(nameof(SetMenuIndex));
+        if (method == null)
+        {
+            var instructions = VRCUiAvatarStatsPanel.Instance_Class.GetMethod("BackPressed").GetDisassembler(0x128).Disassemble().Where(x => x.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Ijmp);
+            foreach (var instruction in instructions)
+            {
+                IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
+                method = Instance_Class.GetMethod(x => !x.IsStatic && x.GetParameters().Length == 1 && *(IntPtr*)x.ptr == addr);
+                if (method != null)
+                {
+                    method.Name = nameof(SetMenuIndex);
+                    break;
+                }
+            }
+        }
+        //
+        /* * * _currentMenu * * */
+        //
+        IL2Field field = Instance_Class.GetField(nameof(_currentMenu));
+        if (field == null)
+        {
+            var instructions = Instance_Class.GetMethod(nameof(SetMenuIndex)).GetDisassembler(0x128).Disassemble();
+            int iCount = 0;
+            foreach (var instruction in instructions)
+            {
+                if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Imov)
+                {
+                    if (++iCount == 2)
+                    {
+                        var resultToken = Convert.ToInt32(instruction.ToString().Split('+').LastOrDefault().Replace("]", ""), 16);
+                        field = Instance_Class.GetField(x => !x.IsStatic && x.ReturnType.Name == GameObject.Instance_Class.FullName && x.Token == resultToken);
+                        if (field != null)
+                            field.Name = nameof(_currentMenu);
+                        break;
+                    }
+                }
+                else
+                    iCount = 0;
+            }
+        }
+    }
 
     public static QuickMenu Instance
     {
@@ -40,9 +100,36 @@ public class QuickMenu : MonoBehaviour
         }
     }
 
+    unsafe public void SetMenuIndex(int Index)
+    {
+        Instance_Class.GetMethod(nameof(SetMenuIndex))?.Invoke(ptr, new IntPtr[] { new IntPtr(&Index) });
+    }
+
+    public GameObject _infoBar
+    {
+        get
+        {
+            IL2Field field = Instance_Class.GetField(nameof(_infoBar));
+            if (field == null)
+            {
+                GameObject gameObject = transform.Find("_InfoBar")?.gameObject;
+                if (gameObject == null) return null;
+                (field = Instance_Class.GetField(x => !x.IsStatic && x.ReturnType.Name == GameObject.Instance_Class.FullName && x.GetValue(ptr).GetValue<GameObject>() == gameObject)).Name = nameof(_infoBar);
+            }
+            return field?.GetValue(ptr)?.GetValue<GameObject>();
+        }
+    }
+    
+    public GameObject _currentMenu
+    {
+        get => Instance_Class.GetField(nameof(_currentMenu))?.GetValue(ptr)?.GetValue<GameObject>();
+        set => Instance_Class.GetField(nameof(_currentMenu))?.SetValue(ptr, value?.ptr ?? IntPtr.Zero);
+    }
+
     /*
     private static IL2Method m_SetMenuIndex()
     {
+
         IL2Method method = Instance_Class.GetMethod(nameof(SetMenuIndex));
         if (method == null)
         {
@@ -181,12 +268,5 @@ public class QuickMenu : MonoBehaviour
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses()
-        .FirstOrDefault(x => 
-            x.GetProperty(y => y.Instance) != null &&
-            x.GetField(APIUser.Instance_Class) != null &&
-            x.GetField(VRC.Player.Instance_Class) != null &&
-            x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 9 &&
-            x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 5
-        );
+    public static new IL2Class Instance_Class;
 }

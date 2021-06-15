@@ -46,6 +46,7 @@ namespace BE4v.MenuEdit
                         case "VRCPlusMiniBanner": goto case "be4v_destroy";
                         case "ReportWorldButton": goto case "be4v_destroy";
                         case "DevToolsButton": goto case "be4v_destroy";
+                        case "GalleryButton": goto case "be4v_destroy";
                         case "be4v_destroy":
                             {
                                 UnityEngine.Object.Destroy(transform1.gameObject);
@@ -69,16 +70,10 @@ namespace BE4v.MenuEdit
                                 quickButton.MoveLocation(-1, 0);
                                 break;
                             }
-                        case "GalleryButton":
-                            {
-                                QuickButton quickButton = new QuickButton(transform1.gameObject);
-                                quickButton.MoveLocation(0, 1);
-                                break;
-                            }
                         case "QMInfoToggle":
                             {
                                 QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
-                                quickToggler.MoveLocation(-2, 1);
+                                quickToggler.MoveLocation(-2, 2);
                                 break;
                             }
                         case "Toggle_States_ShowTrustRank_Colors":
@@ -97,24 +92,41 @@ namespace BE4v.MenuEdit
         public static void Start()
         {
             new QuickButton("ShortcutMenu", -1, 0, "Remove\nCreated\nObjects", UserUtils.RemoveInstiatorObjects, "Clear all portals, created object's on map");
+            new QuickButton("ShortcutMenu", 4, -1, "Open GUI\nBE4v", ClickClass_OpenGUI.Click, "Open GUI Window for Cheat Client");
             ClickClass_GlowESP.quickTogglerGlowESP = new QuickToggler("ShortcutMenu", -1, 1, "Glow ESP", ClickClass_GlowESP.OnClick_GlowESP, "Off", "Toggle mod Glow ESP");
             ClickClass_LocalMirror.quickButtonLocalMirror = new QuickButton("ShortcutMenu", 4, 0, "Mrr", ClickClass_LocalMirror.OnClick_PortableMirror, "");
             BE4V_QuickUIMenu.Start();
+            BE4V_QuickUIMenu_T2.Start();
             ClickClass_GlowESP.OnClick_GlowESP_Refresh();
             ClickClass_LocalMirror.OnClick_PortableMirror_Refresh();
+            ClickClass_OpenGUI.UpdateStatus();
         }
 
     }
 
+    public static class ClickClass_OpenGUI
+    {
+        public static void Click()
+        {
+
+        }
+
+        public static void UpdateStatus()
+        {
+
+        }
+
+        public static bool isEnabled = false;
+    }
     public static class ClickClass_ChangeMenu
     {
         public static void To_UIElementsMenu_1()
         {
-
+            QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu.menuname);
         }
         public static void To_UIElementsMenu_2()
         {
-
+            QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu_T2.menuname);
         }
     }
 

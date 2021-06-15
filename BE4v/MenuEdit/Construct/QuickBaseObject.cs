@@ -20,7 +20,8 @@ namespace BE4v.MenuEdit.Construct
             if (!newEvent)
                 clickEvent.RemoveAllListeners();
 
-            clickEvent.AddListener(buttonAction);
+            if (buttonAction != null)
+                clickEvent.AddListener(buttonAction);
         }
 
         public void setAction<T, X>(UnityAction<T> buttonAction, X _this, bool newEvent = false)

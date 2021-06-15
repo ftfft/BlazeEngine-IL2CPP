@@ -12,7 +12,7 @@ namespace BE4v.MenuEdit
 {
     public static class BE4V_QuickUIMenu
     {
-        private static string @menuname;
+        public static string @menuname;
         public static Dictionary<string, QuickButton> buttons;
         public static Dictionary<string, QuickToggler> toggler;
 
@@ -36,11 +36,13 @@ namespace BE4v.MenuEdit
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / 2);
             buttons["SHButtonMinus"].MoveLocation(-1, 0.75f);
             /* * * * */
-            toggler.Add("InfinityJump", new QuickToggler(@menuname, 2, 1, "Infinity Jump", ClickClass_InfinityJump.OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
+
+            /* Col -1 */
             toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", ClickClass_InvisAPI.OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
             toggler.Add("Serilize", new QuickToggler(@menuname, -1, 1, "Serilize", ClickClass_Serilize.OnClick_SerilizeToggle, "off", "Toggle: Enabled module Serilize"));
-            toggler.Add("FakePing", new QuickToggler(@menuname, 0, 2, "Fake Ping", ClickClass_FakePing.OnClick_FakePingToggle, "off", "Toggle: Enabled module Fake Ping (777)"));
-            toggler.Add("AntiBlock", new QuickToggler(@menuname, 1, 2, "Anti Block", ClickClass_AntiBlock.OnClick_AntiBlockToggle, "off", "Toggle: Enabled module Anti-Block\nShow blocked users"));
+            toggler.Add("FakePing", new QuickToggler(@menuname, -1, 2, "Fake Ping", ClickClass_FakePing.OnClick_FakePingToggle, "off", "Toggle: Enabled module Fake Ping (777)"));
+            /* * * * */
+
             toggler.Add("GlobalDynamicBones", new QuickToggler(@menuname, 2, 2, "Global\nDynamic Bones", ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones, "off", "Toggle: Enabled module Global Dynamic Bones"));
             toggler.Add("NoPortalJoin", new QuickToggler(@menuname, 3, 2, "No Portal Join", ClickClass_NoPortalJoin.OnClick_NoPortalJoin, "off", "Toggle: Enabled module No Portal Join"));
 
@@ -48,20 +50,18 @@ namespace BE4v.MenuEdit
             GameObject gameObject = QuickMenu.Instance.transform.Find(@menuname + "/BackButton").gameObject;
             var click = gameObject.GetComponent<Button>().onClick;
             gameObject.SetActive(false);
-            buttons.Add("BackButton", new QuickButton("UIElementsMenu", 4, 2, "Back", nulled, "Go Back to the Quick Menu"));
+            buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, "Back", null, "Go Back to the Quick Menu"));
             buttons["BackButton"].gameObject.GetComponent<Button>().onClick = click;
             /* * [ SET BACK BUTTON ] * */
 
             ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
             ClickClass_FlyHack.OnClick_FlyType_Refresh();
-            ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
             ClickClass_InvisAPI.OnClick_InvisAPIToggle_Refresh();
             ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
             ClickClass_Serilize.OnClick_SerilizeToggle_Refresh();
             ClickClass_FakePing.OnClick_FakePingToggle_Refresh();
             ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
             ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
-            ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
 
             Image imgPrev = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button").GetComponentInChildren<Image>();
             Image imgNext = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button").GetComponentInChildren<Image>();
@@ -75,43 +75,6 @@ namespace BE4v.MenuEdit
             button = new QuickButton(@menuname, 4, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_2, "Change to Next menu");
             button.gameObject.GetComponentInChildren<Image>().sprite = imgNext.sprite;
             button.gameObject.GetComponentInChildren<Image>().material = imgNext.material;
-        }
-
-        private static void nulled()
-        { }
-
-    }
-
-    public static class ClickClass_AntiBlock
-    {
-        public static void OnClick_AntiBlockToggle()
-        {
-            Patch_AntiBlock.Toggle();
-        }
-
-        public static void OnClick_AntiBlockToggle_Refresh()
-        {
-            BE4V_QuickUIMenu.toggler["AntiBlock"].SetToggleToOn(Status.isAntiBlock);
-            if (Status.isAntiBlock)
-            {
-                foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
-                {
-                    player.Components?.RefreshState();
-                }
-                BE4V_QuickUIMenu.toggler["AntiBlock"].setOffText("on");
-                //if (!Patch_AntiBlock.patch.Enabled)
-                //    Patch_AntiBlock.patch.Enabled = true;
-            }
-            else
-            {
-                foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
-                {
-                    player.OnNetworkReady();
-                }
-                BE4V_QuickUIMenu.toggler["AntiBlock"].setOffText("off");
-                //if (Patch_AntiBlock.patch.Enabled)
-                //    Patch_AntiBlock.patch.Enabled = false;
-            }
         }
     }
 
@@ -164,28 +127,6 @@ namespace BE4v.MenuEdit
         }
     }
     
-
-    public static class ClickClass_InfinityJump
-    {
-        public static void OnClick_InfinityJumpToggle()
-        {
-            Mod_InfinityJump.Toggle();
-        }
-
-        public static void OnClick_InfinityJumpToggle_Refresh()
-        {
-            BE4V_QuickUIMenu.toggler["InfinityJump"].SetToggleToOn(Status.isInfinityJump);
-            if (Status.isInfinityJump)
-            {
-                BE4V_QuickUIMenu.toggler["InfinityJump"].setOffText("on");
-            }
-            else
-            {
-                BE4V_QuickUIMenu.toggler["InfinityJump"].setOffText("off");
-            }
-        }
-    }
-
     public static class ClickClass_InvisAPI
     {
         public static void OnClick_InvisAPIToggle()

@@ -28,9 +28,42 @@ namespace BE4v.MenuEdit.Construct
                 }
             }
         }
-        public static GameObject CreateQuickMenu(string name)
+
+        public static void ShowQuickmenuPage(string pagename, bool infoBar = false)
         {
-            return new GameObject(IntPtr.Zero);
+            QuickMenu menu = QuickMenu.Instance;
+            Transform transform = menu.transform.Find(pagename);
+            if (transform == null)
+            {
+                "Not found menu!".RedPrefix("QuickMenuStuff");
+                return;
+            }
+
+            menu._currentMenu = transform.gameObject;
+            foreach (Transform element in menu.transform)
+            {
+                if (element.name.Contains("QuickMenu_NewElements"))
+                    continue;
+
+                if (element.gameObject.active)
+                    element.gameObject.SetActive(false);
+            }
+
+            transform.gameObject.SetActive(true);
+            GameObject _infoBar = menu._infoBar;
+            if (_infoBar != null)
+                _infoBar.SetActive(infoBar);
+        }
+
+        public static Transform CreateQuickMenu(string name)
+        {
+            Transform menu = UnityEngine.Object.Instantiate(QuickMenu.Instance.transform.Find("CameraMenu"), QuickMenu.Instance.transform);
+            menu.name = name;
+
+            foreach (Transform transform in menu.transform)
+                UnityEngine.Object.Destroy(transform.gameObject);
+
+            return menu;
         }
 
         public static Transform BaseButton() => baseButton ?? (baseButton = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton"));
