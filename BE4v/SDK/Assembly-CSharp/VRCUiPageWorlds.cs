@@ -7,5 +7,5 @@ public class VRCUiPageWorlds : VRCSearchableUiPage
 {
     public VRCUiPageWorlds(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRCUiPlaylists.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = VRCUiPlaylists.Instance_Class.BaseType;
 }

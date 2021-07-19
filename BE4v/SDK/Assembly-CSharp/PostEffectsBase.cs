@@ -8,5 +8,5 @@ public class PostEffectsBase : MonoBehaviour
 {
     public PostEffectsBase(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(HighlightsFX.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = HighlightsFX.Instance_Class.BaseType;
 }

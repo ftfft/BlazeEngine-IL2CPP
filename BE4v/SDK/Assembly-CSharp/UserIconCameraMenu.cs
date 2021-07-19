@@ -7,5 +7,5 @@ public class UserIconCameraMenu : VRCNetworkBehaviour
 {
     public UserIconCameraMenu(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("FlipDirection") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("FlipDirection");
 }

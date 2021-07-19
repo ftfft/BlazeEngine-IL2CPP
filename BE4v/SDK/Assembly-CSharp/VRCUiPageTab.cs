@@ -7,5 +7,5 @@ public class VRCUiPageTab : MonoBehaviour
 {
     public VRCUiPageTab(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("ShowPage") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ShowPage");
 }

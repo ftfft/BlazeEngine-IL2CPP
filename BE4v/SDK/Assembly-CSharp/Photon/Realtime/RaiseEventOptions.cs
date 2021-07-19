@@ -40,6 +40,6 @@ namespace IL2Photon.Realtime
             set => Instance_Class.GetField(x => x.Token == 0x20).SetValue(ptr, value.MonoCast());
         }
         */
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(LoadBalancingClient.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == "System.Byte").First().GetParameters()[2].ReturnType.Name);
+        public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(LoadBalancingClient.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName).First().GetParameters()[2].ReturnType.Name);
     }
 }

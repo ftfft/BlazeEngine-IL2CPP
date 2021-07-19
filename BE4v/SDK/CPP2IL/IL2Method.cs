@@ -25,7 +25,6 @@ namespace BE4v.SDK.CPP2IL
         public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
         public bool IsPrivate => HasFlag(IL2BindingFlags.METHOD_PRIVATE);
         public bool IsPublic => HasFlag(IL2BindingFlags.METHOD_PUBLIC);
-        public bool IsFakeName => string.IsNullOrEmpty(Name?.Replace("\u01C5", "").Replace("Ǆ", ""));
 
         public bool Instance => IsStatic && GetParameters().Length == 0 && ReturnType.Name == ReflectedType.FullName;
 

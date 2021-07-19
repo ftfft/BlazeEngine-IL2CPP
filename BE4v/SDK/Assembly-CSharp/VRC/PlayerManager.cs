@@ -55,6 +55,6 @@ namespace VRC
             return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String(userId).ptr })?.GetValue<Player>();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPlayerDisconnected") != null);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("OnPlayerDisconnected");
     }
 }

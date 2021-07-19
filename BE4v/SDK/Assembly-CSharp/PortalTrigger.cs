@@ -8,5 +8,5 @@ public class PortalTrigger : MonoBehaviour
 {
     public PortalTrigger(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("PlayEffect") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("PlayEffect");
 }

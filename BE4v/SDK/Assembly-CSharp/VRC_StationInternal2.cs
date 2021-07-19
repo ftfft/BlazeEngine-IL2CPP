@@ -7,5 +7,5 @@ public class VRC_StationInternal2 : VRC_StationInternal
 {
     public VRC_StationInternal2(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("ProvideEvents") != null && x.BaseType.FullName == VRC_StationInternal.Instance_Class.FullName);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == VRC_StationInternal.Instance_Class && x.GetMethod("ProvideEvents") != null);
 }

@@ -8,5 +8,5 @@ public class GamelikeInputController : LocomotionInputController
 {
     public GamelikeInputController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == LocomotionInputController.Instance_Class.FullName && x.GetMethod("LateUpdate") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == LocomotionInputController.Instance_Class && x.GetMethod("LateUpdate") != null);
 }

@@ -25,5 +25,5 @@ public class MirrorReflection : MonoBehaviour
 		}
 	}
 	
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnWillRenderObject") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("OnWillRenderObject");
 }

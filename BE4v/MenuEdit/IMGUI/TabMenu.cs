@@ -144,18 +144,16 @@ namespace BE4v.MenuEdit.IMGUI
                         }
                     }
                     iPlayer++;
+                    string userName = player.user.username;
+                    if (string.IsNullOrWhiteSpace(userName))
+                        player.user.Fetch();
+
                     if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), "<b><color=" + (iSelectUser == playerId ? "red>" : "white>") + playerId + "</color></b>")
                     || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.user.displayName))
                     {
                         playerPhoton = player;
                         iSelectUser = playerId;
 
-                        string userName = player.user.username;
-                        if (string.IsNullOrWhiteSpace(userName))
-                        {
-                            player.user.Fetch();
-                            players = VRC.PlayerManager.Instance.PlayersCopy;
-                        }
                         // uSelectSteam = player.Components;
                         string text = "<b>Selected player:</b>";
                         text += "\n<b>ID:</b>\t" + playerId;
@@ -175,7 +173,10 @@ namespace BE4v.MenuEdit.IMGUI
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                players = VRC.PlayerManager.Instance.PlayersCopy;
+            }
             finally
             {
                 _delegatePhotonLagSimulationGui_OnGUI(instance);

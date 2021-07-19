@@ -12,5 +12,5 @@ public class SlowTransformEditor : MonoBehaviour
 		Instance_Class.GetMethod(nameof(SwapTransform)).Invoke(ptr, new IntPtr[] { A.ptr, B.ptr });
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SwapTransform") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SwapTransform");
 }

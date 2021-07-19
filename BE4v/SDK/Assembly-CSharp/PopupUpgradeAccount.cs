@@ -6,5 +6,5 @@ public class PopupUpgradeAccount : VRCUiPopup
 {
     public PopupUpgradeAccount(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("CopyToken") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("CopyToken");
 }

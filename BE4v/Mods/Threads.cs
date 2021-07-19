@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using BE4v.MenuEdit;
 using BE4v.MenuEdit.IMGUI;
 using BE4v.MenuOverlay;
@@ -11,6 +12,7 @@ using BE4v.SDK.CPP2IL;
 using UnityEngine;
 using VRC;
 using VRC.Animation;
+using VRC.Core;
 using VRC.SDKBase;
 using VRC.UI;
 
@@ -50,6 +52,7 @@ namespace BE4v.Mods
 
             _delegateThreads_Update.Invoke(instance);
 
+            Mod_Invisible.Update();
 
             if (isFirstControl > 0)
             {
@@ -80,6 +83,16 @@ namespace BE4v.Mods
             }
             if (Input.GetKeyDown(KeyCode.X))
             {
+                Mod_Invisible.Toggle();
+                /*
+                GameObject gameObject = VRCPlayer.Instance.avatarGameObject;
+                Transform parent = gameObject.transform.parent;
+                GameObject newObject = new GameObject(PrimitiveType.Cube);
+                newObject.transform.position = gameObject.transform.position;
+                newObject.transform.SetParent(parent);
+                gameObject.transform.SetParent(newObject.transform);
+                newObject.transform.localPosition = new Vector3(0, -1000, 0);
+                /*
                 string avatarId = GUIUtility.systemCopyBuffer;
                 if (Avatars.Utils.IsValidId(avatarId))
                     Avatars.Utils.ChangeAvatarById(avatarId);

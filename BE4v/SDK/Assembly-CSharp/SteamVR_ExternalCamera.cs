@@ -48,5 +48,5 @@ public class SteamVR_ExternalCamera : MonoBehaviour
 		public bool disableStandardAssets;
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetNestedType("Config") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("Config");
 }

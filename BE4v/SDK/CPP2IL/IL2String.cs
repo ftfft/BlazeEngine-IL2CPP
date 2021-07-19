@@ -17,8 +17,9 @@ namespace BE4v.SDK.CPP2IL
             }
             while (ptr == IntPtr.Zero || ToString() != str)
             {
-                ptr = Import.Object.il2cpp_string_new(string.Empty.PadRight(str.Length, '\u0001'));
-                for (int i = 0; i < str.Length; i++)
+                int length = str.Length;
+                ptr = Import.Object.il2cpp_string_new(string.Empty.PadRight(length, '\u0001'));
+                for (int i = 0; i < length; i++)
                 {
                     *(char*)(ptr + 0x14 + (0x2 * i)) = str[i];
                 }

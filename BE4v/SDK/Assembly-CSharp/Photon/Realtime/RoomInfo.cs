@@ -26,6 +26,6 @@ namespace IL2Photon.Realtime
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.GetValue<string>();
         }
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(Room.Instance_Class.BaseType.FullName);
+        public static IL2Class Instance_Class = Room.Instance_Class.BaseType;
     }
 }

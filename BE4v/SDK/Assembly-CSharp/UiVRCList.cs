@@ -51,5 +51,5 @@ public abstract class UiVRCList : MonoBehaviour
         method?.Invoke(ptr);
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("ToggleExtend") != null && x.BaseType.FullName == MonoBehaviour.Instance_Class.FullName);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == MonoBehaviour.Instance_Class && x.GetMethod("ToggleExtend") != null);
 }

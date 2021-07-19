@@ -17,5 +17,5 @@ public static class ParameterSerialization
 		public static IL2Class Instance_Class = ParameterSerialization.Instance_Class.GetNestedType("SerializableContainer");
 	}
 
-	public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetNestedType("SerializableContainer") != null);
+	public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("SerializableContainer");
 }

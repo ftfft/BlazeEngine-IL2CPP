@@ -9,6 +9,6 @@ namespace HeathenEngineering.OSK.v2
     {
         public OnScreenKeyboardKey(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("PressKey") != null);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("PressKey");
     }
 }

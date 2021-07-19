@@ -8,5 +8,5 @@ public class PlayerNet : VRCNetworkBehaviour
 {
     public PlayerNet(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("_SetAnimatorBool") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("_SetAnimatorBool");
 }

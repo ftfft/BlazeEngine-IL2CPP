@@ -7,5 +7,5 @@ public class VRCUiPopup : VRCUiPage
 {
     public VRCUiPopup(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(PopupReport.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = PopupReport.Instance_Class.BaseType;
 }

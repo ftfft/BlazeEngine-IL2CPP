@@ -22,6 +22,6 @@ namespace IL2Photon.Realtime
             return result.GetValuе<bool>();
         }
         */
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRCNetworkingClient.Instance_Class.BaseType.FullName);
+        public static IL2Class Instance_Class = VRCNetworkingClient.Instance_Class.BaseType;
     }
 }

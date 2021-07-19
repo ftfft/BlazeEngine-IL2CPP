@@ -37,5 +37,5 @@ public class QuickMenuSocialElement : MonoBehaviour
 		User
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.BaseType?.FullName == MonoBehaviour.Instance_Class.FullName && x.GetField(Notification.Instance_Class) != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.BaseType == MonoBehaviour.Instance_Class && x.GetField(Notification.Instance_Class) != null);
 }

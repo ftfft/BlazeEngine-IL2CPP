@@ -7,5 +7,5 @@ public class UiPlayerHeight : MonoBehaviour
 {
     public UiPlayerHeight(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("HeightDown") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("HeightDown");
 }

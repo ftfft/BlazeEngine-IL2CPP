@@ -32,9 +32,11 @@ namespace BE4v
             Patch.Patch_FakePing.Start();
             Patch.Patch_NoPortalJoin.Start();
             //Patch.Patch_NoVRDef.Start();
-            Patch.Patch_Event_OnEvent.Start();
-            Patch.Patch_Event_OnMasterConnected.Start();
-            Patch.Patch_Event_VRCPlayer_RefreshState.Start();
+            //*
+            // Patch.Patch_Event_OnEvent.Start();
+            // Patch.Patch_Event_OnMasterConnected.Start();
+            //*/
+            // Patch.Patch_Event_VRCPlayer_RefreshState.Start();
             // Patch.Patch_Event_OnShowProfile.Start();
             Patch.Patch_NoAnalytics.Start();
             Mods.Threads.Start();

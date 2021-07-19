@@ -1,3 +1,4 @@
+using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using System;
 using System.Linq;
@@ -7,6 +8,12 @@ namespace UnityEngine
     public sealed class GameObject : Object
     {
         public GameObject(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+        public GameObject(string name) : base(IntPtr.Zero)
+        {
+            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
+            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { new IL2String(name).ptr });
+        }
 
         public Component AddComponent(Type type)
         {

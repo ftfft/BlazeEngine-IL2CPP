@@ -7,5 +7,5 @@ public class VRC_TriggerInternal : MonoBehaviour
 {
     public VRC_TriggerInternal(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField("hasColliderTriggers") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByFieldName("hasColliderTriggers");
 }

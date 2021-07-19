@@ -128,5 +128,5 @@ public class ActionMenuDriver : MonoBehaviour
 		public IntPtr back;
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetNestedType("EmojiCategoryIcons") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("EmojiCategoryIcons");
 }

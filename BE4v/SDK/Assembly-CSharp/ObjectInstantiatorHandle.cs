@@ -50,5 +50,5 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 		}
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("ReapObject") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ReapObject");
 }

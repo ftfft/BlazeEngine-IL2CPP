@@ -8,5 +8,5 @@ public class ObjectInstantiator : MonoBehaviour
 {
     public ObjectInstantiator(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("_InstantiateObject") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("_InstantiateObject");
 }

@@ -1,5 +1,6 @@
 ﻿using BE4v.MenuEdit.Construct;
 using BE4v.Mods;
+using BE4v.SDK.IL2Dumper;
 using System;
 using UnityEngine;
 using VRC;
@@ -104,11 +105,29 @@ namespace BE4v.MenuEdit
 
     }
 
+
+
+    public static class MSGClass_QuickMenu
+    {
+        public static string pathPrevArrow = "QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button";
+
+        public static string pathNextArrow = "QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button";
+
+        public static string msgBackButton_name = "Back";
+
+        public static string msgBackButton_ToolTip = "Go Back to the Quick Menu";
+
+    }
+
+
+
     public static class ClickClass_OpenGUI
     {
         public static void Click()
         {
-
+            DumpForm form = new DumpForm();
+            form.Show();
+            form.Activate();
         }
 
         public static void UpdateStatus()

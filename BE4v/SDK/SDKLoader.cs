@@ -137,7 +137,7 @@ public static class Assembler
         return result;
     }
 
-    private static Dictionary<string, string> assemblers = new Dictionary<string, string>()
+    public static Dictionary<string, string> assemblers = new Dictionary<string, string>()
     {
         {  "acs", "Assembly-CSharp" },
         {  "mscorlib", "mscorlib" },

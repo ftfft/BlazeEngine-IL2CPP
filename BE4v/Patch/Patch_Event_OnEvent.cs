@@ -34,9 +34,6 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
-            //bool isSelf = false;
-            //if (VRC.Player.Instance?.PhotonPlayer?.ActorNumber == eventData.Sender)
-            //    isSelf = true;
 
             switch (eventData.Code)
             {
@@ -57,14 +54,15 @@ namespace BE4v.Patch
                         TabMenu.players = PlayerManager.Instance.PlayersCopy;
                         break;
                     }
-                    /*
                 case 6:
                     {
-                        if (!isSelf && BlazeManager.GetForPlayer<bool>("RPC Block"))
+
+                        if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
                             return;
 
                         break;
                     }
+                /*
                 case 7:
                     {
                         if (isSelf)

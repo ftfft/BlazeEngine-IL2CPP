@@ -19,7 +19,11 @@ namespace BE4v.SDK.CPP2IL
             // Map out Classes
             uint count = Import.Image.il2cpp_image_get_class_count(ptr);
             for (uint i = 0; i < count; i++)
-                ClassList.Add(new IL2Class(Import.Image.il2cpp_image_get_class(ptr, i)));
+            {
+                IL2Class klass = new IL2Class(Import.Image.il2cpp_image_get_class(ptr, i));
+                if (klass.DeclaringType == null)
+                    ClassList.Add(klass);
+            }
         }
         public IL2Class[] GetClasses() => ClassList.ToArray();
         public IL2Class[] GetClasses(IL2BindingFlags flags) => GetClasses().Where(x => x.HasFlag(flags)).ToArray();
@@ -36,6 +40,7 @@ namespace BE4v.SDK.CPP2IL
                     returnval = type;
                     break;
                 }
+                /*
                 else
                 {
                     foreach (IL2Class nestedtype in type.GetNestedTypes())
@@ -49,6 +54,7 @@ namespace BE4v.SDK.CPP2IL
                     if (returnval != null)
                         break;
                 }
+                */
             }
             return returnval;
         }
@@ -62,6 +68,7 @@ namespace BE4v.SDK.CPP2IL
                     returnval = type;
                     break;
                 }
+                /*
                 else
                 {
                     foreach (IL2Class nestedtype in type.GetNestedTypes())
@@ -75,6 +82,7 @@ namespace BE4v.SDK.CPP2IL
                     if (returnval != null)
                         break;
                 }
+                */
             }
             return returnval;
         }

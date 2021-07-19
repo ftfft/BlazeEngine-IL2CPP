@@ -205,11 +205,9 @@ namespace VRC
                                  methodTriggerEvent,
                                  methodSendMessageToChildren,
                                  methodInstantiate,
-                                 methodRPC,
-                                 methodRPCToTargetEncrypt,
-                                 methodRPCToTarget;
+                                 methodRPC;
 
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod(y => y.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName) != null && x.BaseType?.FullName != MonoBehaviour.Instance_Class.FullName);
+        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod(y => y.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName) != null && x.BaseType != MonoBehaviour.Instance_Class);
     }
 }

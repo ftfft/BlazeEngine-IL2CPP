@@ -39,6 +39,6 @@ namespace VRC.UI
             Instance_Class.GetMethod(nameof(ChangeToSelectedAvatar)).Invoke(ptr);
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("ChangeToSelectedAvatar") != null);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ChangeToSelectedAvatar");
     }
 }

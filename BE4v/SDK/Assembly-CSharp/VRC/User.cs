@@ -13,6 +13,6 @@ namespace VRC
     {
         public User(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == APIUser.Instance_Class.FullName);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == APIUser.Instance_Class);
     }
 }

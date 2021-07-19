@@ -20,6 +20,6 @@ namespace VRC.Core
             }
         }
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.GetMethod("SendOutgoingCommands") != null);
+        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SendOutgoingCommands");
     }
 }

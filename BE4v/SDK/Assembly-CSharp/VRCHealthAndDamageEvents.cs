@@ -7,5 +7,5 @@ public class VRCHealthAndDamageEvents : MonoBehaviour
 {
     public VRCHealthAndDamageEvents(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("AddDamage") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("AddDamage");
 }

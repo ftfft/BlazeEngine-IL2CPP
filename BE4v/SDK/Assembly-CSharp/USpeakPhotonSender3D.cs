@@ -7,5 +7,5 @@ public class USpeakPhotonSender3D : VRCNetworkBehaviour
 {
     public USpeakPhotonSender3D(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("InformOfBadConnection") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("InformOfBadConnection");
 }

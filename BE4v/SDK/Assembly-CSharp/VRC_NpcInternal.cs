@@ -7,5 +7,5 @@ public class VRC_NpcInternal : MonoBehaviour
 {
     public VRC_NpcInternal(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("LoadAvatar") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("LoadAvatar");
 }

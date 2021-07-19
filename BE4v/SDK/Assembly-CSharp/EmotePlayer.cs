@@ -7,5 +7,5 @@ public class EmotePlayer : MonoBehaviour
 {
     public EmotePlayer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("CancelRPC") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("CancelRPC");
 }

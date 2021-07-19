@@ -13,5 +13,5 @@ public class PortalInternal : MonoBehaviour
         Instance_Class.GetMethod(nameof(SetTimerRPC)).Invoke(ptr, new IntPtr[] { new IntPtr(&timer), player.ptr });
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SetTimerRPC") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SetTimerRPC");
 }

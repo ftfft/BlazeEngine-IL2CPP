@@ -24,7 +24,7 @@ namespace BE4v.MenuEdit
             buttons = new Dictionary<string, QuickButton>();
             toggler = new Dictionary<string, QuickToggler>();
             /* * [ Col -1 ] * */
-            toggler.Add("RPCBlock", new QuickToggler(@menuname, -1, 1, "RPC Block", ClickClass_InfinityJump.OnClick_InfinityJumpToggle, "off", "Toggle: Module RPC Block"));
+            toggler.Add("RPCBlock", new QuickToggler(@menuname, -1, 0, "RPC Block", ClickClass_RPCBlock.OnClick_RPCBlockToggle, "off", "Toggle: Module RPC Block"));
             /* * * * ** * * * */
 
             /* * [ Col 4 ] * */
@@ -36,7 +36,7 @@ namespace BE4v.MenuEdit
             GameObject gameObject = QuickMenu.Instance.transform.Find(BE4V_QuickUIMenu.@menuname + "/BackButton").gameObject;
             var click = gameObject.GetComponent<Button>().onClick;
             gameObject.SetActive(false);
-            buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, "Back", null, "Go Back to the Quick Menu"));
+            buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, MSGClass_QuickMenu.msgBackButton_name, null, MSGClass_QuickMenu.msgBackButton_ToolTip));
             buttons["BackButton"].gameObject.GetComponent<Button>().onClick = click;
             /* * [ SET BACK BUTTON ] * */
             /*
@@ -54,9 +54,10 @@ namespace BE4v.MenuEdit
 
             ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
+            ClickClass_RPCBlock.OnClick_RPCBlockToggle_Refresh();
 
-            Image imgPrev = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button").GetComponentInChildren<Image>();
-            Image imgNext = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button").GetComponentInChildren<Image>();
+            Image imgPrev = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathPrevArrow).GetComponentInChildren<Image>();
+            Image imgNext = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathNextArrow).GetComponentInChildren<Image>();
 
             QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
 
@@ -121,6 +122,28 @@ namespace BE4v.MenuEdit
             else
             {
                 BE4V_QuickUIMenu_T2.toggler["InfinityJump"].setOffText("off");
+            }
+        }
+    }
+
+    public static class ClickClass_RPCBlock
+    {
+        public static void OnClick_RPCBlockToggle()
+        {
+            Status.isRPCBlock = !Status.isRPCBlock;
+            OnClick_RPCBlockToggle_Refresh();
+        }
+
+        public static void OnClick_RPCBlockToggle_Refresh()
+        {
+            BE4V_QuickUIMenu_T2.toggler["RPCBlock"].SetToggleToOn(Status.isRPCBlock);
+            if (Status.isRPCBlock)
+            {
+                BE4V_QuickUIMenu_T2.toggler["RPCBlock"].setOffText("on");
+            }
+            else
+            {
+                BE4V_QuickUIMenu_T2.toggler["RPCBlock"].setOffText("off");
             }
         }
     }

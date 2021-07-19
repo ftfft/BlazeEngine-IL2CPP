@@ -9,6 +9,6 @@ namespace VRC.Networking
     {
         public FlatBufferNetworkSerializer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPlayerJoined") != null && x.GetMethod("OnNetworkReady") != null && x.BaseType?.FullName == VRCNetworkBehaviour.Instance_Class.FullName);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPlayerJoined") != null && x.GetMethod("OnNetworkReady") != null && x.BaseType == VRCNetworkBehaviour.Instance_Class);
     }
 }

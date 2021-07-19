@@ -34,5 +34,5 @@ public class HighlightsFXStandalone : HighlightsFX
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPreRender") != null && x.BaseType.FullName != MonoBehaviour.Instance_Class.FullName);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPreRender") != null && x.BaseType != MonoBehaviour.Instance_Class);
 }

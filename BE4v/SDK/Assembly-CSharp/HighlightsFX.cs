@@ -33,5 +33,5 @@ public abstract class HighlightsFX : PostEffectsBase
         method.Invoke(ptr, new IntPtr[] { outlineRenderer.ptr, new IntPtr(&enable) });
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(HighlightsFXStandalone.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = HighlightsFXStandalone.Instance_Class.BaseType;
 }

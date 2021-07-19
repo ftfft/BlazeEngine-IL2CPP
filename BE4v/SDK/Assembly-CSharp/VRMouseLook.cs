@@ -7,5 +7,5 @@ public class VRMouseLook : MonoBehaviour
 {
     public VRMouseLook(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField("autoRecenterRoll") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByFieldName("autoRecenterRoll");
 }

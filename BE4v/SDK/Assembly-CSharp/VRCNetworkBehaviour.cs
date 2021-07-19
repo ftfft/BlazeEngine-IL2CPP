@@ -8,5 +8,5 @@ public abstract class VRCNetworkBehaviour : MonoBehaviourPun
 {
     public VRCNetworkBehaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRC_StationInternal.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = VRC_StationInternal.Instance_Class.BaseType;
 }

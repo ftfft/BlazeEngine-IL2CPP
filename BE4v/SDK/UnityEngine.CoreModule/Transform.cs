@@ -22,11 +22,7 @@ namespace UnityEngine
         unsafe public Vector3 position
         {
             get => Instance_Class.GetProperty(nameof(position)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set
-            {
-                Vector3 arg1 = value;
-                Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&arg1) });
-            }
+            set => Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public Vector3 localPosition

@@ -24,5 +24,5 @@ public class VRCUiManager : MonoBehaviour
         return GameObject.Find(screenPath)?.GetComponent<T>();
     }
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("HideScreen") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("HideScreen");
 }

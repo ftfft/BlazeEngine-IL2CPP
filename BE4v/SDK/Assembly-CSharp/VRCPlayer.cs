@@ -332,5 +332,5 @@ public class VRCPlayer : VRCNetworkBehaviour
         VRChatTeam
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SendVoiceSetupToPlayerRPC") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SendVoiceSetupToPlayerRPC");
 }

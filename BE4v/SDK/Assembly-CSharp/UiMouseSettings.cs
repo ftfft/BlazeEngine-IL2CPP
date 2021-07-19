@@ -9,5 +9,5 @@ public class UiMouseSettings : MonoBehaviour
 
 
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SensitivitySliderChange") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SensitivitySliderChange");
 }

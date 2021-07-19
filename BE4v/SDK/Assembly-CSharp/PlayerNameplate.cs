@@ -79,5 +79,5 @@ public class PlayerNameplate : MonoBehaviour
 		Mute
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetNestedType("Anchors") != null);
+	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("Anchors");
 }

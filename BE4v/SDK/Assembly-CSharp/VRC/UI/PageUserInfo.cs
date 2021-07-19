@@ -37,6 +37,6 @@ namespace VRC.UI
             }
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("RequestInvitation") != null);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("RequestInvitation");
     }
 }

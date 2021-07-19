@@ -7,5 +7,5 @@ public class VRCUiPage : MonoBehaviour
 {
     public VRCUiPage(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRCUiPopup.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = VRCUiPopup.Instance_Class.BaseType;
 }

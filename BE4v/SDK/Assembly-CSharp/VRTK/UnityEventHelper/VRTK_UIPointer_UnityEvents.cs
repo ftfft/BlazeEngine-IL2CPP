@@ -10,6 +10,6 @@ namespace VRTK.UnityEventHelper
     {
         public VRTK_UIPointer_UnityEvents(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetNestedType("UIPointerEvent") != null);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("UIPointerEvent");
     }
 }

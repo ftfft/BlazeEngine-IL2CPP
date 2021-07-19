@@ -8,13 +8,13 @@ namespace BE4v.SDK.CPP2IL
 {
     public class IL2Class : IL2Base
     {
-        public string Name { get; private set; }
-        public string Namespace { get; private set; }
+        public string Name { get; set; }
+        public string Namespace { get; set; }
         public string FullName
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(Namespace))
+                if (string.IsNullOrEmpty(Namespace))
                     return Name;
 
                 return Namespace + "." + Name;
@@ -67,10 +67,29 @@ namespace BE4v.SDK.CPP2IL
             IntPtr property_iter = IntPtr.Zero;
             IntPtr property = IntPtr.Zero;
             while ((property = Import.Class.il2cpp_class_get_properties(ptr, ref property_iter)) != IntPtr.Zero)
-                PropertyList.Add(new IL2Property(property));
+            {
+                IL2Property p = new IL2Property(property);
+                PropertyList.Add(p);
+                if (p.GetGetMethod() != null)
+                    MethodList.Remove(p.GetGetMethod());
+                if (p.GetSetMethod() != null)
+                    MethodList.Remove(p.GetSetMethod());
+            }
         }
 
         public int Token => Import.Class.il2cpp_class_get_type_token(ptr);
+
+        public IL2Assembly Assembly
+        {
+            get
+            {
+                IntPtr pointer = Import.Class.il2cpp_class_get_image(ptr);
+                if (pointer != IntPtr.Zero)
+                    return new IL2Assembly(pointer);
+
+                return null;
+            }
+        }
 
         public IL2Class DeclaringType
         {
@@ -163,7 +182,16 @@ namespace BE4v.SDK.CPP2IL
         public IL2Field GetField(Func<IL2Field, bool> func) => GetFields().FirstOrDefault(x => func(x));
         public IL2Field GetField(string name) => GetField(name, null);
         public IL2Field GetField(string name, IL2BindingFlags flags) => GetField(name, flags, null);
-        public IL2Field GetField(IL2Class type) => GetFields().FirstOrDefault(x => x.ReturnType.Name == type.FullName);
+        public IL2Field GetField(IL2Class type)
+        {
+            IL2Field[] fields = GetFields();
+            for (int i=0;i< fields.Length;i++)
+            {
+                if (fields[i].ReturnType.Name == type.FullName)
+                    return fields[i];
+            }
+            return null;
+        }
         public IL2Field GetField(string name, Func<IL2Field, bool> func)
         {
             IL2Field returnval = null;

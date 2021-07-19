@@ -7,5 +7,5 @@ public class InputDebugDisplay_Row : MonoBehaviour
 {
     public InputDebugDisplay_Row(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField("text_inputName") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByFieldName("text_inputName");
 }

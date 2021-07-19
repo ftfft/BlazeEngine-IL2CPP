@@ -7,5 +7,5 @@ public class VRCSearchableUiPage : VRCUiPage
 {
     public VRCSearchableUiPage(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SelectSearchOptions") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SelectSearchOptions");
 }

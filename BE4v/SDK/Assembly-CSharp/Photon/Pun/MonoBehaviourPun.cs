@@ -19,6 +19,6 @@ namespace IL2Photon.Pun
             }
 		}
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRCNetworkBehaviour.Instance_Class.BaseType.FullName);
+        public static new IL2Class Instance_Class = VRCNetworkBehaviour.Instance_Class.BaseType;
     }
 }

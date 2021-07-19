@@ -22,35 +22,39 @@ namespace BE4v.MenuEdit
             @menuname = "UIElementsMenu";
             buttons = new Dictionary<string, QuickButton>();
             toggler = new Dictionary<string, QuickToggler>();
+
+            /* * [ Line 0 ] * */
+            toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", ClickClass_InvisAPI.OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
             toggler.Add("FlyToggle", new QuickToggler(@menuname, 3, 0, "Fly hack", ClickClass_FlyHack.OnClick_FlyToggle, "off", "Toggle: Module Fly Hack"));
             buttons.Add("FlyType", new QuickButton(@menuname, 4, 0, "Fly Type:", ClickClass_FlyHack.OnClick_FlyType, "Toggle:"));
+            /* * * * ** * * * */
+
+            /* * [ Line 1 ] * */
+            toggler.Add("Serilize", new QuickToggler(@menuname, -1, 1, "Serilize", ClickClass_Serilize.OnClick_SerilizeToggle, "off", "Toggle: Enabled module Serilize"));
             toggler.Add("SHToggle", new QuickToggler(@menuname, 3, 1, "SpeedHack", ClickClass_SpeedHack.OnClick_SHToggle, "off", "Toggle: Module SpeedHack"));
-            /* * * * */
+            /* -------------- */
             buttons.Add("SHButtonPlus", new QuickButton(@menuname, 5, 0, "+++", ClickClass_SpeedHack.OnClick_SHButtonPlus, "Plus xMove for SpeedHack"));
             RectTransform rectTransform = buttons["SHButtonPlus"].gameObject.transform.MonoCast<RectTransform>();
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / 2);
             buttons["SHButtonPlus"].MoveLocation(-1, 0.75f);
-            /* * * * */
+            /* -------------- */
             buttons.Add("SHButtonMinus", new QuickButton(@menuname, 5, 0.5f, "---", ClickClass_SpeedHack.OnClick_SHButtonMinus, "Minus xMove for SpeedHack"));
             rectTransform = buttons["SHButtonMinus"].gameObject.transform.MonoCast<RectTransform>();
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / 2);
             buttons["SHButtonMinus"].MoveLocation(-1, 0.75f);
-            /* * * * */
+            /* * * * ** * * * */
 
-            /* Col -1 */
-            toggler.Add("InvisAPI", new QuickToggler(@menuname, -1, 0, "Invis API", ClickClass_InvisAPI.OnClick_InvisAPIToggle, "off", "Toggle: Enabled module for offline mode"));
-            toggler.Add("Serilize", new QuickToggler(@menuname, -1, 1, "Serilize", ClickClass_Serilize.OnClick_SerilizeToggle, "off", "Toggle: Enabled module Serilize"));
+            /* * [ Line 2 ] * */
             toggler.Add("FakePing", new QuickToggler(@menuname, -1, 2, "Fake Ping", ClickClass_FakePing.OnClick_FakePingToggle, "off", "Toggle: Enabled module Fake Ping (777)"));
-            /* * * * */
-
             toggler.Add("GlobalDynamicBones", new QuickToggler(@menuname, 2, 2, "Global\nDynamic Bones", ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones, "off", "Toggle: Enabled module Global Dynamic Bones"));
             toggler.Add("NoPortalJoin", new QuickToggler(@menuname, 3, 2, "No Portal Join", ClickClass_NoPortalJoin.OnClick_NoPortalJoin, "off", "Toggle: Enabled module No Portal Join"));
+            /* * * * ** * * * */
 
             /* * [ SET BACK BUTTON ] * */
             GameObject gameObject = QuickMenu.Instance.transform.Find(@menuname + "/BackButton").gameObject;
             var click = gameObject.GetComponent<Button>().onClick;
             gameObject.SetActive(false);
-            buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, "Back", null, "Go Back to the Quick Menu"));
+            buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, MSGClass_QuickMenu.msgBackButton_name, null, MSGClass_QuickMenu.msgBackButton_ToolTip));
             buttons["BackButton"].gameObject.GetComponent<Button>().onClick = click;
             /* * [ SET BACK BUTTON ] * */
 
@@ -63,8 +67,8 @@ namespace BE4v.MenuEdit
             ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
             ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
 
-            Image imgPrev = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button").GetComponentInChildren<Image>();
-            Image imgNext = QuickMenu.Instance.transform.Find("QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button").GetComponentInChildren<Image>();
+            Image imgPrev = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathPrevArrow).GetComponentInChildren<Image>();
+            Image imgNext = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathNextArrow).GetComponentInChildren<Image>();
 
             QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_2, "Change to Prev menu");
 
@@ -91,13 +95,13 @@ namespace BE4v.MenuEdit
             if (Status.isFakePing)
             {
                 BE4V_QuickUIMenu.toggler["FakePing"].setOffText("on");
-                if (!Patch_FakePing.patch.Enabled)
+                if (Patch_FakePing.patch?.Enabled == false)
                     Patch_FakePing.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["FakePing"].setOffText("off");
-                if (Patch_FakePing.patch.Enabled)
+                if (Patch_FakePing.patch?.Enabled == true)
                     Patch_FakePing.patch.Enabled = false;
             }
         }
@@ -115,13 +119,13 @@ namespace BE4v.MenuEdit
             if (Status.isSerilize)
             {
                 BE4V_QuickUIMenu.toggler["Serilize"].setOffText("on");
-                if (!Patch_Serilize.patch.Enabled)
+                if (Patch_Serilize.patch.Enabled == true)
                     Patch_Serilize.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["Serilize"].setOffText("off");
-                if (Patch_Serilize.patch.Enabled)
+                if (Patch_Serilize.patch?.Enabled == true)
                     Patch_Serilize.patch.Enabled = false;
             }
         }
@@ -140,13 +144,13 @@ namespace BE4v.MenuEdit
             if (Status.isInvisAPI)
             {
                 BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("on");
-                if (!Patch_InvisAPI.patch.Enabled)
+                if (Patch_InvisAPI.patch?.Enabled == false)
                     Patch_InvisAPI.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("off");
-                if (Patch_InvisAPI.patch.Enabled)
+                if (Patch_InvisAPI.patch?.Enabled == true)
                     Patch_InvisAPI.patch.Enabled = false;
             }
         }
@@ -165,13 +169,13 @@ namespace BE4v.MenuEdit
             if (Status.isNoPortalJoin)
             {
                 BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("on");
-                if (!Patch_NoPortalJoin.patch.Enabled)
+                if (Patch_NoPortalJoin.patch?.Enabled == false)
                     Patch_NoPortalJoin.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("off");
-                if (Patch_NoPortalJoin.patch.Enabled)
+                if (Patch_NoPortalJoin.patch?.Enabled == true)
                     Patch_NoPortalJoin.patch.Enabled = false;
             }
         }
@@ -191,13 +195,13 @@ namespace BE4v.MenuEdit
             if (Status.isGlobalDynamicBones)
             {
                 BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("on");
-                if (!Patch_GlobalDynamicBones.patch.Enabled)
+                if (Patch_GlobalDynamicBones.patch?.Enabled == false)
                     Patch_GlobalDynamicBones.patch.Enabled = true;
             }
             else
             {
                 BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("off");
-                if (Patch_GlobalDynamicBones.patch.Enabled)
+                if (Patch_GlobalDynamicBones.patch?.Enabled == true)
                     Patch_GlobalDynamicBones.patch.Enabled = false;
             }
         }

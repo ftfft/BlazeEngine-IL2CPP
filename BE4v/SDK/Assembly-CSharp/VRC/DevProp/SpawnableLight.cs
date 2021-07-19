@@ -24,6 +24,6 @@ namespace VRC.DevProp
 			public LightShadows shadowType;
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SetPresetRPC") != null);
+		public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SetPresetRPC");
     }
 }

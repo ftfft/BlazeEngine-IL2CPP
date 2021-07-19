@@ -7,5 +7,5 @@ public class ButtonControllerBindings : MonoBehaviour
 {
     public ButtonControllerBindings(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("SetActionBinding") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SetActionBinding");
 }

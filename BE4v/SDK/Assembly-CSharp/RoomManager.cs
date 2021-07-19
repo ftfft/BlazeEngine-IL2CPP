@@ -80,5 +80,5 @@ public class RoomManager : MonoBehaviour
     }
     */
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == MonoBehaviour.Instance_Class.FullName && x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">") != null);
+    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == MonoBehaviour.Instance_Class && x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">") != null);
 }
