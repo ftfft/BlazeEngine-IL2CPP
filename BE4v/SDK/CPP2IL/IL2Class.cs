@@ -173,6 +173,18 @@ namespace BE4v.SDK.CPP2IL
             }
             return returnval;
         }
+        public IL2Method GetMethod(IL2Class type)
+        {
+            IL2Method[] methods = GetMethods();
+            int length = methods.Length;
+            for (int i = 0; i < length; i++)
+            {
+                if (methods[i].ReturnType.Name == type.FullName)
+                    return methods[i];
+            }
+            return null;
+        }
+
 
         // Fields
         public IL2Field[] GetFields() => FieldList.ToArray();

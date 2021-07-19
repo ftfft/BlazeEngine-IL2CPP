@@ -23,6 +23,7 @@ namespace BE4v
         {
             SDKLoader.Start();
             Patch.Patch_Spoofer.Start();
+            Patch.Patch_AntiCrash.Start();
             Patch.Patch_AntiBlock.Start();
             Patch.Patch_AvatarTools.Start();
             Patch.Patch_ForceCloneAvatar.Start();

@@ -77,6 +77,7 @@
     <Compile Include="Mods\Threads.cs" />
     <Compile Include="Patch\Patch_AntiBlock.cs" />
     <Compile Include="Patch\Patch_AvatarTools.cs" />
+    <Compile Include="Patch\Patch_AntiCrash.cs" />
     <Compile Include="Patch\Patch_Event_OnShowProfile.cs" />
     <Compile Include="Patch\Patch_Event_OnPlayerConnected.cs" />
     <Compile Include="Patch\Patch_Event_VRCPlayer_RefreshState.cs" />
@@ -122,6 +123,9 @@
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModerationManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Network.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Networking\FlatBufferNetworkSerializer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\SDKBase\Validation\Performance\AvatarPerformance.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\SDKBase\Validation\Performance\PerformanceScannerSet.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\SDKBase\Validation\Performance\PerformanceFilterSet.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\User.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
