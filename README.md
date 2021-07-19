@@ -1,5 +1,4 @@
 # BlazeEngine-IL2CPP (BE4V) For VRChat Build idk [Source] [NOT MILONLOADER]
-new Version: https://github.com/BlazeBest/BlazeEngine-IL2CPP
 
 # Command line
 "--dev-console" - For open DebugConsole
