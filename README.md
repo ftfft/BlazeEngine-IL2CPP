@@ -17,3 +17,5 @@ Discord: BlazeBest#4974
 - [AtiLion](https://github.com/AtiLion) for [VRCLoader/AtiRoNya](https://github.com/AtiLion/AtiRoNya)
 - Just put "https://github.com/HerpDerpinstine for NET_SDK"
 - [DubyaDude](https://github.com/DubyaDude) for [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
+# Thanks for Lib
+- [0xd4d](https://github.com/0xd4d) for [dnlib](https://github.com/0xd4d/dnlib)
