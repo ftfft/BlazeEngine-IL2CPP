@@ -19,4 +19,4 @@ Discord: BlazeBest#4974
 - [DubyaDude](https://github.com/DubyaDude) for [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
 # Thanks for Lib
 - [0xd4d](https://github.com/0xd4d) for [dnlib](https://github.com/0xd4d/dnlib)
-- [khchen](https://github.com/khchen) for [MinHook](https://github.com/khchen/minhook)
+- [khchen](https://github.com/khchen) for [minhook](https://github.com/khchen/minhook)
