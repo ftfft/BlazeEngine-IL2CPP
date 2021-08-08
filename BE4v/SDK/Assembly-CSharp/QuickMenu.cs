@@ -122,7 +122,7 @@ public class QuickMenu : MonoBehaviour
             return field?.GetValue(ptr)?.GetValue<GameObject>();
         }
     }
-    
+
     public GameObject _currentMenu
     {
         get => Instance_Class.GetField(nameof(_currentMenu))?.GetValue(ptr)?.GetValue<GameObject>();

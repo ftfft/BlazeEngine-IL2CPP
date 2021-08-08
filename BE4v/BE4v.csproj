@@ -420,8 +420,6 @@
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_AvatarDescriptor.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRCInputMethod.cs" />
     <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_Pickup.cs" />
-    <Compile Include="Unity2IL\GenDLL.cs" />
-    <Compile Include="Unity2IL\SDK.cs" />
     <Compile Include="UnityEditor\UnityEditor_Form.cs">
       <SubType>Form</SubType>
     </Compile>

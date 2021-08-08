@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitLoader", "InitLoader\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE4v", "BE4v\BE4v.csproj", "{48A98327-969A-4676-A7E7-6E8A3030F4DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -197,29 +195,6 @@ Global
 		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|Any CPU.Build.0 = Release|Any CPU
 		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|x64.ActiveCfg = Release|Any CPU
 		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|x64.Build.0 = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Debug|x64.Build.0 = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Release|x64.ActiveCfg = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Release|x64.Build.0 = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Debug|x64.ActiveCfg = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Debug|x64.Build.0 = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Release|Any CPU.Build.0 = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Release|x64.ActiveCfg = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.ServerSdk-Release|x64.Build.0 = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Debug|x64.ActiveCfg = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Debug|x64.Build.0 = Debug|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Release|Any CPU.Build.0 = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Release|x64.ActiveCfg = Release|Any CPU
-		{E2C6DDBE-589C-41B2-9F9F-46AFE0808240}.Unity-Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
