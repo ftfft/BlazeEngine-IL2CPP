@@ -5,6 +5,7 @@ using VRC.Core;
 using BE4v.SDK.CPP2IL;
 using UnityEngine.UI;
 using System.CodeDom;
+using System.Diagnostics.PerformanceData;
 
 public class QuickMenu : MonoBehaviour
 {
@@ -29,7 +30,6 @@ public class QuickMenu : MonoBehaviour
         //
         /* * * SetMenuIndex * * */
         //
-        /*
         IL2Method method = Instance_Class.GetMethod(nameof(SetMenuIndex));
         if (method == null)
         {
@@ -48,30 +48,28 @@ public class QuickMenu : MonoBehaviour
         //
         /* * * _currentMenu * * */
         //
-        /*
         IL2Field field = Instance_Class.GetField(nameof(_currentMenu));
         if (field == null)
         {
             var instructions = Instance_Class.GetMethod(nameof(SetMenuIndex)).GetDisassembler(0x128).Disassemble();
-            int iCount = 0;
             foreach (var instruction in instructions)
             {
-                if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Imov)
+                // FileDebug.AddFileDebug("assembly_quickmenu", instruction.ToString());
+                if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Ilea)
                 {
-                    if (++iCount == 2)
+                    string instruct = instruction.ToString();
+                    string hex = instruct.Split('+').LastOrDefault()?.Split(']').FirstOrDefault();
+                    if (!string.IsNullOrEmpty(hex))
                     {
-                        var resultToken = Convert.ToInt32(instruction.ToString().Split('+').LastOrDefault().Replace("]", ""), 16);
+                        var resultToken = Convert.ToInt32(hex, 16);
                         field = Instance_Class.GetField(x => !x.IsStatic && x.ReturnType.Name == GameObject.Instance_Class.FullName && x.Token == resultToken);
                         if (field != null)
                             field.Name = nameof(_currentMenu);
                         break;
                     }
                 }
-                else
-                    iCount = 0;
             }
         }
-        */
     }
 
     public static QuickMenu Instance
