@@ -20,6 +20,8 @@ public class QuickMenu : MonoBehaviour
             x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 9 &&
             x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 5
         );
+        // Console.WriteLine(QuickMenu.Instance_Class.FullName + " : " + QuickMenu.Instance_Class.BaseType?.FullName ?? "none");
+
         if (Instance_Class == null)
         {
             throw new Exception("[QuickMenu] InstanceClass not found!");
@@ -27,6 +29,7 @@ public class QuickMenu : MonoBehaviour
         //
         /* * * SetMenuIndex * * */
         //
+        /*
         IL2Method method = Instance_Class.GetMethod(nameof(SetMenuIndex));
         if (method == null)
         {
@@ -45,6 +48,7 @@ public class QuickMenu : MonoBehaviour
         //
         /* * * _currentMenu * * */
         //
+        /*
         IL2Field field = Instance_Class.GetField(nameof(_currentMenu));
         if (field == null)
         {
@@ -67,6 +71,7 @@ public class QuickMenu : MonoBehaviour
                     iCount = 0;
             }
         }
+        */
     }
 
     public static QuickMenu Instance

@@ -59,6 +59,26 @@ namespace BE4v.Mods
                 if (--isFirstControl == 0)
                 {
                     Application.targetFrameRate = 101;
+                    /*
+                    foreach (var t in Assembler.GetAssemblies())
+                    {
+                        FileDebug.AddFileDebug("tsoul_a.txt", t.Name);
+                    }
+                    /*
+                    foreach (var a in Assembler.list.Keys)
+                    {
+                        if (a == "acs")
+                        {
+                            continue;
+                        }
+                        foreach (var t in Assembler.list[a].GetClasses())
+                        {
+                            FileDebug.AddFileDebug("tsoul.txt", t.FullName + " | " + a);
+                        }
+                        /*
+                        }
+                        */
+                    //}
                     BE4V_MainMenu.Delete();
                     BE4V_MainMenu.Start();
                     BE4V_UserPanel.Start();

@@ -31,6 +31,20 @@ namespace BE4v.SDK
 
 public static class FileDebug
 {
+    public static void AddFileDebug(string file, string text)
+    {
+        try
+        {
+            using (StreamWriter streamWriter = File.AppendText(file))
+            {
+                streamWriter.WriteLine(text);
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Error: 0x00D");
+        }
+    }
     public static void debugGameObject(string file, GameObject gameObject)
     {
         try
@@ -144,6 +158,7 @@ public static class Assembler
         {  "System.Core", "System.Core" },
         {  "VRCCore-Standalone", "VRCCore-Standalone" },
         {  "UnityEngine.CoreModule", "UnityEngine.CoreModule" },
+        {  "UnityEngine.InputLegacyModule", "UnityEngine.InputLegacyModule" },
         {  "UnityEngine.Analytics", "UnityEngine.UnityAnalyticsModule" },
         {  "UnityEngine.AnimationModule", "UnityEngine.AnimationModule" },
         {  "UnityEngine.PhysicsModule", "UnityEngine.PhysicsModule" },

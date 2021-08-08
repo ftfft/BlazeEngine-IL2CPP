@@ -17,6 +17,6 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(mousePosition)).GetGetMethod().Invoke().GetValuå<Vector3>();
         }
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Input", "UnityEngine");
+        public static IL2Class Instance_Class = Assembler.list["UnityEngine.InputLegacyModule"].GetClass("Input", "UnityEngine");
     }
 }

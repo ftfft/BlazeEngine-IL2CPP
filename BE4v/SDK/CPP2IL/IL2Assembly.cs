@@ -40,7 +40,6 @@ namespace BE4v.SDK.CPP2IL
                     returnval = type;
                     break;
                 }
-                /*
                 else
                 {
                     foreach (IL2Class nestedtype in type.GetNestedTypes())
@@ -54,7 +53,6 @@ namespace BE4v.SDK.CPP2IL
                     if (returnval != null)
                         break;
                 }
-                */
             }
             return returnval;
         }
