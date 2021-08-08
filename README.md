@@ -1,4 +1,4 @@
-# BlazeEngine-IL2CPP (BE4V) For VRChat Build 1113 [Source] [NOT MILONLOADER]
+# BlazeEngine-IL2CPP (BE4V) For VRChat Build 1114 [Source] [NOT MILONLOADER]
 
 # Command line
 "--dev-console" - For open DebugConsole
@@ -15,5 +15,10 @@ Discord: BlazeBest#4974
 
 # Credits: (Вдруг опять будут плакать что я их ссылки не написал) (хотя я незнаюб что тут от них вообще есть)
 - [AtiLion](https://github.com/AtiLion) for [VRCLoader/AtiRoNya](https://github.com/AtiLion/AtiRoNya)
-- Just put "https://github.com/HerpDerpinstine for NET_SDK"
 - [DubyaDude](https://github.com/DubyaDude) for [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
+
+# Thanks for Lib
+- [0xd4d](https://github.com/0xd4d) for [dnlib](https://github.com/0xd4d/dnlib)
+- [khchen](https://github.com/khchen) for [minhook](https://github.com/khchen/minhook)
+- [spazzarama](https://github.com/spazzarama) for [SharpDisasm](https://github.com/spazzarama/SharpDisasm)
+- [HerpDerpinstine](https://github.com/HerpDerpinstine) for "NET_SDK"
