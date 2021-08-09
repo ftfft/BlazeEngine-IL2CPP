@@ -51,23 +51,42 @@ public class QuickMenu : MonoBehaviour
         IL2Field field = Instance_Class.GetField(nameof(_currentMenu));
         if (field == null)
         {
-            var instructions = Instance_Class.GetMethod(nameof(SetMenuIndex)).GetDisassembler(0x128).Disassemble();
-            foreach (var instruction in instructions)
+            try
             {
-                // FileDebug.AddFileDebug("assembly_quickmenu", instruction.ToString());
-                if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Ilea)
+                int iCount = 2;
+                string this_rbx = null;
+                var instructions = Instance_Class.GetMethod(nameof(SetMenuIndex)).GetDisassembler(0x128).Disassemble();
+                foreach (var instruction in instructions)
                 {
-                    string instruct = instruction.ToString();
-                    string hex = instruct.Split('+').LastOrDefault()?.Split(']').FirstOrDefault();
-                    if (!string.IsNullOrEmpty(hex))
+                    // FileDebug.AddFileDebug("assembly_quickmenu", instruction.ToString());
+                    if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Ipush)
                     {
-                        var resultToken = Convert.ToInt32(hex, 16);
-                        field = Instance_Class.GetField(x => !x.IsStatic && x.ReturnType.Name == GameObject.Instance_Class.FullName && x.Token == resultToken);
-                        if (field != null)
-                            field.Name = nameof(_currentMenu);
-                        break;
+                        if (string.IsNullOrEmpty(this_rbx))
+                        {
+                            this_rbx = instruction.ToString().Split(' ').LastOrDefault();
+                        }
+                    }
+                    else if (instruction.ToString().Contains(this_rbx + "+"))
+                    {
+                        if (--iCount == 0)
+                        {
+                            string instruct = instruction.ToString();
+                            string hex = instruct.Split('+').LastOrDefault()?.Split(']').FirstOrDefault();
+                            if (!string.IsNullOrEmpty(hex))
+                            {
+                                var resultToken = Convert.ToInt32(hex, 16);
+                                field = Instance_Class.GetField(x => !x.IsStatic && x.ReturnType.Name == GameObject.Instance_Class.FullName && x.Token == resultToken);
+                                if (field != null)
+                                    field.Name = nameof(_currentMenu);
+                                break;
+                            }
+                        }
                     }
                 }
+            }
+            catch
+            {
+                ("Not found " + nameof(_currentMenu)).RedPrefix("QuickMenu");
             }
         }
     }
