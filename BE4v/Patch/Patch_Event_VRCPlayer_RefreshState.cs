@@ -20,14 +20,16 @@ namespace BE4v.Patch
             {
                 unsafe
                 {
-                    var disassembler = VRC.Player.Instance_Class.GetMethod("OnNetworkReady").GetDisassembler(0x1000);
-                    var instructions = disassembler.Disassemble().Where(x => x.Mnemonic == ud_mnemonic_code.UD_Ijmp);
                     IL2Method method = null;
-                    foreach (var instruction in instructions)
+                    var disassembler = VRC.Player.Instance_Class.GetMethod("OnNetworkReady").GetDisassembler(0x1000);
+                    foreach (var instruction in disassembler.Disassemble())
                     {
+                        if (instruction.Mnemonic != ud_mnemonic_code.UD_Ijmp)
+                            continue;
+
                         IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
 
-                        method = VRCPlayer.Instance_Class.GetMethods().FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
+                        method = VRCPlayer.Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr);
                         if (method != null)
                         {
                             method.Name = "RefreshState";
