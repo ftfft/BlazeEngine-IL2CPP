@@ -1,18 +1,22 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using VRC;
 using VRC.Core;
 using VRC.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace BE4v.Mods.Avatars
+namespace BE4v.Utils
 {
-    public static class Utils
+    public static class Avatars
     {
+
         public static bool IsValidUrl(string url) => !string.IsNullOrEmpty(url) && url.Length < 90 && url.StartsWith("https://api.vrchat.cloud/api/1/file/file_") && url.EndsWith("/file");
         public static bool IsValidId(string AvatarId) => !string.IsNullOrEmpty(AvatarId) && AvatarId.Length == 41 && AvatarId.StartsWith("avtr_") && AvatarId[13] == '-' && AvatarId[18] == '-' && AvatarId[23] == '-' && AvatarId[28] == '-';
         public static void OpenUrlBrowser(string url) => System.Diagnostics.Process.Start(url);
-        
+
         public static void ChangeAvatarById(string AvatarId)
         {
             /*

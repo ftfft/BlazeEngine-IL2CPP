@@ -14,8 +14,10 @@ namespace BE4v.MenuEdit
 
             foreach (Transform transform in QuickMenu.Instance.transform)
             {
+                //Console.WriteLine(transform.gameObject.name);
                 switch (transform.gameObject.name)
                 {
+                    case "NotificationInteractMenu": continue;
                     case "EmoteMenu": goto case "be4v_destroy";
                     case "ModerationMenu": goto case "be4v_destroy";
                     case "UserIconMenu": goto case "be4v_destroy";
@@ -27,7 +29,7 @@ namespace BE4v.MenuEdit
                         }
                 }
                 foreach (Transform transform1 in transform)
-                {
+                { 
                     switch (transform1.gameObject.name)
                     {
                         case "EmoteButton": goto case "be4v_destroy";

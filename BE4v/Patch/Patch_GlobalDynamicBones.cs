@@ -84,9 +84,12 @@ namespace BE4v.Patch
             if (myBones.Length == 0 && myColliders.Length == 0) return;
 
             float num = maxDistance * maxDistance;
-            Vector3 position = currentPlayer.Components.avatarGameObject.transform.position;
+            Transform transform = currentPlayer.Components.avatarGameObject.transform;
+            Transform transformPlayer = pPlayer.transform;
+            if (transform == null || transformPlayer == null)
+                return;
 
-            if ((pPlayer.transform.position - position).sqrMagnitude < num)
+            if ((transformPlayer.position - transform.position).sqrMagnitude < num)
             {
                 if (!activePlayers.ContainsKey(instance))
                 {

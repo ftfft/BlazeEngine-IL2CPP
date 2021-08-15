@@ -1,5 +1,6 @@
 ﻿using System;
 using BE4v.Mods.Avatars;
+using BE4v.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.Core;
@@ -50,7 +51,7 @@ namespace BE4v.Mods
             }
             baseAvatarModelPosition = avatarModel.localPosition;
             baseButtonFavPosition = changeButton.localPosition;
-            favList = Utils.AddNewList("Favorite (BlazeEngine)", 1);
+            favList = Utils.Avatars.AddNewList("Favorite (BlazeEngine)", 1);
             /// FileDebug.debugGameObject("test_PageAvatar_0.txt", favList.gameObject);
             favButton.GetComponent<Button>().interactable = true;
 
@@ -135,8 +136,8 @@ namespace BE4v.Mods
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
                     string url = apiAvatar.assetUrl;
-                    if (Utils.IsValidUrl(url))
-                        Utils.OpenUrlBrowser(url);
+                    if (Utils.Avatars.IsValidUrl(url))
+                        Utils.Avatars.OpenUrlBrowser(url);
                     return;
                 }
 

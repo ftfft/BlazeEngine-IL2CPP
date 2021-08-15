@@ -8,6 +8,7 @@ using BE4v.Mods.Avatars;
 using BE4v.SDK;
 using IL2Photon.Pun.UtilityScripts;
 using System.CodeDom;
+using BE4v.Utils;
 
 namespace BE4v.MenuEdit.IMGUI
 {
@@ -134,7 +135,7 @@ namespace BE4v.MenuEdit.IMGUI
                         {
                             if (GUI.Button(new Rect(180, 112, 150, 17), strEmpty.ptr))
                             {
-                                Utils.OpenUrlBrowser("https://steamcommunity.com/profiles/" + uSelectSteam);
+                                Avatars.OpenUrlBrowser("https://steamcommunity.com/profiles/" + uSelectSteam);
                             }
                         }
                         GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), strTempText.ptr);

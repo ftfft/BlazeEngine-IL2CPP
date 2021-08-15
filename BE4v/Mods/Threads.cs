@@ -9,6 +9,7 @@ using BE4v.MenuEdit.IMGUI;
 using BE4v.MenuOverlay;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
+using BE4v.Utils;
 using UnityEngine;
 using VRC;
 using VRC.Animation;
@@ -89,21 +90,42 @@ namespace BE4v.Mods
             }
 
             if (!Input.GetKey(KeyCode.LeftControl)) return;
+            if (!Status.is3thCam)
+            {
+                float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
+                if (mouseWheel > 0.1)
+                {
+                    Camera.main.transform.localPosition += (Vector3.up * 0.1f);
+                }
+                else if (mouseWheel < -0.1)
+                {
+                    Camera.main.transform.localPosition -= (Vector3.up * 0.1f);
+                }
+            }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 Mod_Fly.Toggle();
+                return;
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
                 Mod_SpeedHack.Toggle();
+                return;
             }
             if (Input.GetKeyDown(KeyCode.Mouse2))
             {
                 Mod_FastTP.Teleport();
+                return;
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                // Notification.SendInvite(VRC.Player.Instance, "");
+                return;
             }
             if (Input.GetKeyDown(KeyCode.X))
             {
                 Mod_Invisible.Toggle();
+                return;
                 /*
                 GameObject gameObject = VRCPlayer.Instance.avatarGameObject;
                 Transform parent = gameObject.transform.parent;

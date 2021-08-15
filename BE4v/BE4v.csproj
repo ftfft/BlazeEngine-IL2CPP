@@ -63,7 +63,6 @@
     </Compile>
     <Compile Include="Mods\Avatars\Client.cs" />
     <Compile Include="Mods\Avatars\Base.cs" />
-    <Compile Include="Mods\Avatars\Utils.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Mod_Avatars.cs" />
     <Compile Include="Mods\Mod_Invisible.cs" />
@@ -99,6 +98,7 @@
     <Compile Include="SDK\Assembly-CSharp\DistortionMobile.cs" />
     <Compile Include="SDK\Assembly-CSharp\AddMaterialOnHit.cs" />
     <Compile Include="SDK\Assembly-CSharp\F3DShotgun.cs" />
+    <Compile Include="SDK\Assembly-CSharp\NotificationManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VirtualMarketplaceItem.cs" />
     <Compile Include="SDK\Assembly-CSharp\QuickMenuSocialElement.cs" />
     <Compile Include="SDK\Assembly-CSharp\Vector3Extensions.cs" />
@@ -130,6 +130,7 @@
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRTK\UICircle.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Dictionary.cs" />
     <Compile Include="SDK\CPP2IL\IL2Utils.cs" />
     <Compile Include="SDK\IL2Dumper\DumpForm.cs">
       <SubType>Form</SubType>
@@ -141,6 +142,7 @@
     <Compile Include="SDK\IL2SystemClass.cs" />
     <Compile Include="SDK\mscorlib\System\RuntimeType.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\Notification.cs" />
+    <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\NotificationDetails.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Asset.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_FontAsset.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TextMeshProUGUI.cs" />
@@ -427,6 +429,8 @@
       <DependentUpon>UnityEditor_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UserUtils.cs" />
+    <Compile Include="Utils\Avatars.cs" />
+    <Compile Include="Utils\Notification.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VRLoader\VRLoader.csproj">

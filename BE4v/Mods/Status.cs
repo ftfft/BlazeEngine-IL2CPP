@@ -32,5 +32,7 @@ namespace BE4v.Mods
         public static bool isAntiBlock = false;
 
         public static bool isRPCBlock = false;
+
+        public static bool is3thCam = false;
     }
 }
