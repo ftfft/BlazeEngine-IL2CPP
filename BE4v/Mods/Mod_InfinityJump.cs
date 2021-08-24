@@ -35,14 +35,14 @@ namespace BE4v.Mods
                     {
                         if (fPressed != fPressedLast && Status.isInfinityJump)
                         {
-                            OnJump();
+                            OnJump(player);
                         }
                     }
                     else
                     {
                         if (fPressed == fPressedLast && Status.isBHop)
                         {
-                            OnJump();
+                            OnJump(player);
                         }
                     }
                     fPressedLast = fPressed;
@@ -50,9 +50,9 @@ namespace BE4v.Mods
             }
         }
 
-        public static void OnJump()
+        public static void OnJump(VRCPlayer player)
         {
-            VRCMotionState motionState = VRCPlayer.Instance.GetComponent<VRCMotionState>();
+            VRCMotionState motionState = player.GetComponent<VRCMotionState>();
             if (motionState == null) return;
             Vector3 vector = motionState.PlayerVelocity;
             vector.y = motionState.jumpPower;
