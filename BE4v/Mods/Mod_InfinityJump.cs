@@ -14,22 +14,38 @@ namespace BE4v.Mods
             Status.isInfinityJump = !Status.isInfinityJump;
             ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
         }
-
-        public static void Update()
+        
+        public static void Toggle_Bhop()
         {
-            VRCPlayer player = VRCPlayer.Instance;
-            if (player == null || player.GetComponent<CharacterController>()?.isGrounded != false) return;
+            Status.isBHop = !Status.isBHop;
+            ClickClass_BunnyHop.OnClick_BunnyHopToggle_Refresh();
+        }
+
+        public static void Update(VRCPlayer player)
+        {
             var jump = player.GetComponent<GamelikeInputController>()?.inJump;
             if (jump != null)
             {
                 if (jump.button)
                 {
+                    CharacterController controller = player.GetComponent<CharacterController>();
+                    if (controller == null) return;
                     float fPressed = jump.timePressed;
-                    if (fPressed != fPressedLast)
+                    if (!controller.isGrounded)
                     {
-                        OnJump();
-                        fPressedLast = fPressed;
+                        if (fPressed != fPressedLast && Status.isInfinityJump)
+                        {
+                            OnJump();
+                        }
                     }
+                    else
+                    {
+                        if (fPressed == fPressedLast && Status.isBHop)
+                        {
+                            OnJump();
+                        }
+                    }
+                    fPressedLast = fPressed;
                 }
             }
         }

@@ -44,14 +44,15 @@ namespace BE4v.Mods
         public static void Update(IntPtr instance)
         {
             TabMenu.Update();
-            if (Status.isInfinityJump)
-                Mod_InfinityJump.Update();
+
+            _delegateThreads_Update.Invoke(instance);
+            VRCPlayer player = VRCPlayer.Instance;
+            if (player == null) return;
+            Mod_InfinityJump.Update(player);
             if (Status.isFly)
                 Mod_Fly.Update();
             if (Status.isSpeedHack)
                 Mod_SpeedHack.Update();
-
-            _delegateThreads_Update.Invoke(instance);
 
             Mod_Invisible.Update();
 
@@ -88,7 +89,6 @@ namespace BE4v.Mods
                 }
                 return;
             }
-
             if (!Input.GetKey(KeyCode.LeftControl)) return;
             if (!Status.is3thCam)
             {

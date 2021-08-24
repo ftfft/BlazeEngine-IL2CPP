@@ -32,29 +32,16 @@ namespace BE4v.MenuEdit.Construct
         public static void ShowQuickmenuPage(string pagename, bool infoBar = false)
         {
             QuickMenu menu = QuickMenu.Instance;
-            Transform transform = menu.transform.Find(pagename);
-            if (transform == null)
+            GameObject gameObject = menu.transform.Find(pagename)?.gameObject;
+            if (gameObject == null)
             {
                 "Not found menu!".RedPrefix("QuickMenuStuff");
                 return;
             }
 
             menu._currentMenu?.SetActive(false);
-            menu._currentMenu = transform.gameObject;
-            /*
-            foreach (Transform element in menu.transform)
-            {
-                if (element.name.Contains("QuickMenu_NewElements"))
-                    continue;
-
-                if (element.name.Contains("NotificationInteractMenu"))
-                    continue;
-
-                if (element.gameObject.active)
-                    element.gameObject.SetActive(false);
-            }
-            */
-            transform.gameObject.SetActive(true);
+            menu._currentMenu = gameObject;
+            gameObject.SetActive(true);
             GameObject _infoBar = menu._infoBar;
             if (_infoBar != null)
                 _infoBar.SetActive(infoBar);

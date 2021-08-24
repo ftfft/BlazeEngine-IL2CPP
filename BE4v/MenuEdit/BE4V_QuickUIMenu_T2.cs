@@ -27,6 +27,10 @@ namespace BE4v.MenuEdit
             toggler.Add("RPCBlock", new QuickToggler(@menuname, -1, 0, "RPC Block", ClickClass_RPCBlock.OnClick_RPCBlockToggle, "off", "Toggle: Module RPC Block"));
             /* * * * ** * * * */
 
+            /* * [ Col 3 ] * */
+            toggler.Add("BHop", new QuickToggler(@menuname, 3, 0, "Bunny Hop", ClickClass_BunnyHop.OnClick_BunnyHopToggle, "off", "Toggle: Module Bunny Hop"));
+            /* * * * ** * * * */
+
             /* * [ Col 4 ] * */
             toggler.Add("InfinityJump", new QuickToggler(@menuname, 4, 0, "Infinity Jump", ClickClass_InfinityJump.OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
             toggler.Add("AntiBlock", new QuickToggler(@menuname, 4, 1, "Anti Block", ClickClass_AntiBlock.OnClick_AntiBlockToggle, "off", "Toggle: Enabled module Anti-Block\nShow blocked users"));
@@ -52,6 +56,7 @@ namespace BE4v.MenuEdit
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
             */
 
+            ClickClass_BunnyHop.OnClick_BunnyHopToggle_Refresh();
             ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
             ClickClass_RPCBlock.OnClick_RPCBlockToggle_Refresh();
@@ -105,6 +110,27 @@ namespace BE4v.MenuEdit
         }
     }
 
+    public static class ClickClass_BunnyHop
+    {
+        public static void OnClick_BunnyHopToggle()
+        {
+            Mod_InfinityJump.Toggle_Bhop();
+        }
+
+        public static void OnClick_BunnyHopToggle_Refresh()
+        {
+            BE4V_QuickUIMenu_T2.toggler["BHop"].SetToggleToOn(Status.isBHop);
+            if (Status.isBHop)
+            {
+                BE4V_QuickUIMenu_T2.toggler["BHop"].setOffText("on");
+            }
+            else
+            {
+                BE4V_QuickUIMenu_T2.toggler["BHop"].setOffText("off");
+            }
+        }
+    }
+    
     public static class ClickClass_InfinityJump
     {
         public static void OnClick_InfinityJumpToggle()
