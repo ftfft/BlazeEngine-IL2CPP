@@ -119,7 +119,7 @@ namespace BE4v.MenuEdit
             if (Status.isSerilize)
             {
                 BE4V_QuickUIMenu.toggler["Serilize"].setOffText("on");
-                if (Patch_Serilize.patch.Enabled == true)
+                if (Patch_Serilize.patch.Enabled == false)
                     Patch_Serilize.patch.Enabled = true;
             }
             else
