@@ -98,6 +98,7 @@ namespace BE4v.MenuEdit
             // new QuickButton("ShortcutMenu", 4, -1, "Open GUI\nBE4v", ClickClass_OpenGUI.Click, "Open GUI Window for Cheat Client");
             ClickClass_GlowESP.quickTogglerGlowESP = new QuickToggler("ShortcutMenu", -1, 1, "Glow ESP", ClickClass_GlowESP.OnClick_GlowESP, "Off", "Toggle mod Glow ESP");
             ClickClass_LocalMirror.quickButtonLocalMirror = new QuickButton("ShortcutMenu", 4, 0, "Mrr", ClickClass_LocalMirror.OnClick_PortableMirror, "");
+            ClickClass_GAIN.quickTogglerGAIN = new QuickToggler("ShortcutMenu", 4, 1, "GAIN", ClickClass_GAIN.ButtonToggle, "Off", "Toggle ::: GAIN MODE :::");
             BE4V_QuickUIMenu.Start();
             BE4V_QuickUIMenu_T2.Start();
             ClickClass_GlowESP.OnClick_GlowESP_Refresh();
@@ -139,6 +140,16 @@ namespace BE4v.MenuEdit
 
         public static bool isEnabled = false;
     }
+    public static class ClickClass_GAIN
+    {
+        public static void ButtonToggle()
+        {
+            
+        }
+
+        public static QuickToggler quickTogglerGAIN;
+    }
+    
     public static class ClickClass_ChangeMenu
     {
         public static void To_UIElementsMenu_1()

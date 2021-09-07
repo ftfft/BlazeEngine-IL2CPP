@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Mods\Avatars\Client.cs" />
     <Compile Include="Mods\Avatars\Base.cs" />
+    <Compile Include="Mods\Mod_Avatars_Search.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Mod_Avatars.cs" />
     <Compile Include="Mods\Mod_Invisible.cs" />
