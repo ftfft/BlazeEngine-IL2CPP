@@ -9,6 +9,7 @@ using BE4v.SDK;
 using IL2Photon.Pun.UtilityScripts;
 using System.CodeDom;
 using BE4v.Utils;
+using BE4v.Mods;
 
 namespace BE4v.MenuEdit.IMGUI
 {
@@ -25,8 +26,10 @@ namespace BE4v.MenuEdit.IMGUI
             strDisplayNameBold.Static = true;
             strTeleport = new IL2String("Teleport");
             strTeleport.Static = true;
-            strTest = new IL2String("Test");
-            strTest.Static = true;
+            strChairInHead_Sit_On = new IL2String("Sit on");
+            strChairInHead_Sit_On.Static = true;
+            strChairInHead_Get_Up = new IL2String("Get up");
+            strChairInHead_Get_Up.Static = true;
             strEmpty = new IL2String(string.Empty);
             strEmpty.Static = true;
         }
@@ -35,7 +38,8 @@ namespace BE4v.MenuEdit.IMGUI
         private static IL2String strHashBold;
         private static IL2String strDisplayNameBold;
         private static IL2String strTeleport;
-        private static IL2String strTest;
+        private static IL2String strChairInHead_Sit_On;
+        private static IL2String strChairInHead_Get_Up;
         private static IL2String strEmpty;
         private static IL2String strTempText = null;
         public static bool isPressed = false;
@@ -43,6 +47,32 @@ namespace BE4v.MenuEdit.IMGUI
         public static void Update()
         {
             isPressed = Input.GetKey(KeyCode.Tab);
+
+            VRCPlayer sitOnPlayer = Mod_SitOnHead.selectPlayer;
+            if (sitOnPlayer == null || sitOnPlayer == VRCPlayer.Instance)
+                sitOnPlayer = null;
+            Mod_SitOnHead.selectPlayer = null;
+
+            try
+            {
+                VRC.Player[] playerArray = players;
+                foreach (var player in playerArray)
+                {
+                    if (sitOnPlayer != null)
+                    {
+                        VRCPlayer components = player?.Components;
+                        if (sitOnPlayer == components)
+                        {
+                            Mod_SitOnHead.selectPlayer = components;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                players = VRC.PlayerManager.Instance.PlayersCopy;
+            }
+
         }
 
         public static void Nulled(IntPtr instance) { }
@@ -50,7 +80,6 @@ namespace BE4v.MenuEdit.IMGUI
 
         public static void Start()
         {
-
             try
             {
 
@@ -142,6 +171,18 @@ namespace BE4v.MenuEdit.IMGUI
                         if (GUI.Button(new Rect(400, 100, 120, 20), strTeleport.ptr))
                         {
                             VRC.Player.Instance.transform.position = player.transform.position;
+                        }
+                        IntPtr ptrSitEv = IntPtr.Zero;
+                        if (Mod_SitOnHead.selectPlayer == null || Mod_SitOnHead.selectPlayer != player?.Components)
+                            ptrSitEv = strChairInHead_Sit_On.ptr;
+                        else
+                            ptrSitEv = strChairInHead_Get_Up.ptr;
+                        if (GUI.Button(new Rect(400, 120, 120, 20), ptrSitEv))
+                        {
+                            if (Mod_SitOnHead.selectPlayer == player?.Components)
+                                Mod_SitOnHead.selectPlayer = null;
+                            else
+                                Mod_SitOnHead.selectPlayer = player.Components;
                         }
                     }
                     iPlayer++;

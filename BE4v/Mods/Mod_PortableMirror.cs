@@ -76,7 +76,7 @@ namespace BE4v.Mods
 
 		private static float _mirrorScaleY = 3f;
 
-		private static bool _optimizedMirror = true;
+		private static bool _optimizedMirror = false;
 
 		private static bool _canPickupMirror = true;
 	}

@@ -24,9 +24,11 @@ namespace BE4v.Patch
                     var disassembler = VRC.Player.Instance_Class.GetMethod("OnNetworkReady").GetDisassembler(0x1000);
                     foreach (var instruction in disassembler.Disassemble())
                     {
-                        if (instruction.Mnemonic != ud_mnemonic_code.UD_Ijmp)
+                        if (instruction.Mnemonic == ud_mnemonic_code.UD_Iint3)
                             continue;
 
+                        if (instruction.Mnemonic != ud_mnemonic_code.UD_Ijmp)
+                            continue;
                         IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
 
                         method = VRCPlayer.Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr);

@@ -196,7 +196,7 @@ namespace BE4v.MenuEdit
             quickTogglerGlowESP.SetToggleToOn(Status.isGlowESP);
             foreach(var player in PlayerManager.Instance.PlayersCopy)
             {
-                player.Components?.RefreshState();
+                // player.Components?.RefreshState();
             }
         }
 

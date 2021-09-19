@@ -8,5 +8,5 @@ public abstract class VRCNetworkBehaviour : MonoBehaviourPun
 {
     public VRCNetworkBehaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-    public static new IL2Class Instance_Class = VRC_StationInternal.Instance_Class.BaseType;
+    public static new IL2Class Instance_Class = VRCPlayer.Instance_Class.BaseType;
 }

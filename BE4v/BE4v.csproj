@@ -66,6 +66,7 @@
     <Compile Include="Mods\Mod_Avatars_Search.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Mod_Avatars.cs" />
+    <Compile Include="Mods\Mod_SitOnHead.cs" />
     <Compile Include="Mods\Mod_Invisible.cs" />
     <Compile Include="Mods\Mod_GlowESP.cs" />
     <Compile Include="Mods\Mod_InfinityJump.cs" />
