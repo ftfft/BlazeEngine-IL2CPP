@@ -1,4 +1,4 @@
-# BlazeEngine-IL2CPP (BE4V) For VRChat Build 1121 [Source] [NOT MILONLOADER]
+# BlazeEngine-IL2CPP (BE4V) For VRChat Build 1121+ (LASTEST) [Source] [NOT MILONLOADER]
 
 # Command line
 "--dev-console" - For open DebugConsole
