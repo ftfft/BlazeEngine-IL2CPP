@@ -49,7 +49,6 @@ namespace BE4v.Mods
             VRCPlayer player = VRCPlayer.Instance;
             if (player == null) return;
             Mod_InfinityJump.Update(player);
-            Mod_SitOnHead.Update();
             if (Status.isFly)
                 Mod_Fly.Update();
             if (Status.isSpeedHack)

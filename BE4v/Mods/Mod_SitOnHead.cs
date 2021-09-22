@@ -14,11 +14,31 @@ namespace BE4v.Mods
             Player player = Player.Instance;
             if (player == null) return;
             if (selectPlayer == null || selectPlayer.avatarAnimator == null) return;
+            if (player == selectPlayer)
+            {
+                SelectUser = null;
+                return;
+            }
             Transform boneTransform = selectPlayer.avatarAnimator?.GetBoneTransform(HumanBodyBones.Head);
             if (boneTransform == null) return;
+            player.GetComponent<Collider>().enabled = false;
             player.transform.position = boneTransform.position;
         }
 
-        public static VRCPlayer selectPlayer = null;
+        public static VRCPlayer SelectUser
+        {
+            get
+            {
+                return selectPlayer;
+                }
+                set
+            {
+                if (value == null && Player.Instance != null)
+                    Player.Instance.GetComponent<Collider>().enabled = true;
+                selectPlayer = value;
+            }
+        }
+
+        private static VRCPlayer selectPlayer = null;
     }
 }

@@ -48,25 +48,27 @@ namespace BE4v.MenuEdit.IMGUI
         {
             isPressed = Input.GetKey(KeyCode.Tab);
 
-            VRCPlayer sitOnPlayer = Mod_SitOnHead.selectPlayer;
+            VRCPlayer sitOnPlayer = Mod_SitOnHead.SelectUser;
             if (sitOnPlayer == null || sitOnPlayer == VRCPlayer.Instance)
                 sitOnPlayer = null;
-            Mod_SitOnHead.selectPlayer = null;
 
             try
             {
-                VRC.Player[] playerArray = players;
-                foreach (var player in playerArray)
+                if (sitOnPlayer != null)
                 {
-                    if (sitOnPlayer != null)
+                    VRC.Player[] playerArray = players;
+                    foreach (var player in playerArray)
                     {
                         VRCPlayer components = player?.Components;
                         if (sitOnPlayer == components)
                         {
-                            Mod_SitOnHead.selectPlayer = components;
+                            Mod_SitOnHead.SelectUser = components;
                         }
                     }
                 }
+                if (sitOnPlayer != Mod_SitOnHead.SelectUser)
+                    Mod_SitOnHead.SelectUser = null;
+                Mod_SitOnHead.Update();
             }
             catch
             {
@@ -173,16 +175,16 @@ namespace BE4v.MenuEdit.IMGUI
                             VRC.Player.Instance.transform.position = player.transform.position;
                         }
                         IntPtr ptrSitEv = IntPtr.Zero;
-                        if (Mod_SitOnHead.selectPlayer == null || Mod_SitOnHead.selectPlayer != player?.Components)
+                        if (Mod_SitOnHead.SelectUser != player?.Components)
                             ptrSitEv = strChairInHead_Sit_On.ptr;
                         else
                             ptrSitEv = strChairInHead_Get_Up.ptr;
                         if (GUI.Button(new Rect(400, 120, 120, 20), ptrSitEv))
                         {
-                            if (Mod_SitOnHead.selectPlayer == player?.Components)
-                                Mod_SitOnHead.selectPlayer = null;
+                            if (Mod_SitOnHead.SelectUser != player?.Components)
+                                Mod_SitOnHead.SelectUser = player.Components;
                             else
-                                Mod_SitOnHead.selectPlayer = player.Components;
+                                Mod_SitOnHead.SelectUser = null;
                         }
                     }
                     iPlayer++;
