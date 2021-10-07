@@ -61,6 +61,12 @@ namespace BE4v.MenuEdit
                                 quickToggler.MoveLocation(1, 0);
                                 break;
                             }
+                        case "CalibrateButton":
+                            {
+                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
+                                quickToggler.MoveLocation(1, 0);
+                                break;
+                            }
                         case "SettingsButton":
                             {
                                 QuickButton quickButton = new QuickButton(transform1.gameObject);
