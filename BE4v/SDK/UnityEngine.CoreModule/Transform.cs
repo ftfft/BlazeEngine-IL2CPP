@@ -56,7 +56,10 @@ namespace UnityEngine
 
         public void SetParent(Transform transform)
         {
-            Instance_Class.GetMethod(nameof(SetParent), x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { transform.ptr });
+            IntPtr value = IntPtr.Zero;
+            if (transform != null)
+                value = transform.ptr;
+            Instance_Class.GetMethod(nameof(SetParent), x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { value });
         }
 
         public int childCount

@@ -22,7 +22,7 @@ namespace BE4v.Mods
             Transform boneTransform = selectPlayer.avatarAnimator?.GetBoneTransform(HumanBodyBones.Head);
             if (boneTransform == null) return;
             player.GetComponent<Collider>().enabled = false;
-            player.transform.position = boneTransform.position;
+            offsetBox.transform.position = boneTransform.position;
         }
 
         public static VRCPlayer SelectUser
@@ -30,14 +30,36 @@ namespace BE4v.Mods
             get
             {
                 return selectPlayer;
-                }
-                set
+            }
+            set
             {
                 if (value == null && Player.Instance != null)
+                {
                     Player.Instance.GetComponent<Collider>().enabled = true;
+                }
+                if (offsetBox?.transform == null)
+                    offsetBox = null;
+                if (offsetBox?.gameObject == null && value != null)
+                {
+                    offsetBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    offsetBox.GetComponent<Collider>()?.Destroy();
+                    offsetBox.GetComponent<Renderer>()?.Destroy();
+                }
+                if (value == null)
+                {
+                    VRCPlayer.Instance.transform.SetParent(null);
+                }
+                else
+                {
+                    VRCPlayer.Instance.transform.position = offsetBox.transform.position;
+                    VRCPlayer.Instance.transform.SetParent(offsetBox.transform);
+                    offsetBox.transform.position = value.transform.position;
+                }
                 selectPlayer = value;
             }
         }
+
+        private static GameObject offsetBox = null;
 
         private static VRCPlayer selectPlayer = null;
     }
