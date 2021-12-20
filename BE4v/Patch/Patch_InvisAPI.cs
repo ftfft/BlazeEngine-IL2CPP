@@ -35,10 +35,10 @@ namespace BE4v.Patch
         private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData)
         {
             string point = new IL2Object(endpoint).GetValue<string>();
-            if ((point == "visits" || point == "joins" || (point.StartsWith("avatars/avtr_") && point.EndsWith("/select"))))
+            /*if ((point == "visits" || point == "joins" || (point.StartsWith("avatars/avtr_") && point.EndsWith("/select"))))
             {
                 return;
-            }
+            }*/
 
             _delegateVRC_Core_API_SendRequestInternal.Invoke(
                 endpoint,

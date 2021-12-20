@@ -13,13 +13,10 @@ public class QuickMenu : MonoBehaviour
 
     unsafe static QuickMenu()
     {
-        Instance_Class = Assembler.list["acs"].GetClasses()
+        Instance_Class = Assembler.list["VRC.UI.Elements"].GetClasses()
         .FirstOrDefault(x =>
-            x.GetProperty(y => y.Instance) != null &&
-            x.GetField(APIUser.Instance_Class) != null &&
-            x.GetField(VRC.Player.Instance_Class) != null &&
-            x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 9 &&
-            x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 5
+            x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 9 &&
+            x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 6
         );
         // Console.WriteLine(QuickMenu.Instance_Class.FullName + " : " + QuickMenu.Instance_Class.BaseType?.FullName ?? "none");
 
@@ -30,6 +27,7 @@ public class QuickMenu : MonoBehaviour
         //
         /* * * SetMenuIndex * * */
         //
+        /*
         IL2Method method = Instance_Class.GetMethod(nameof(SetMenuIndex));
         if (method == null)
         {
@@ -48,6 +46,7 @@ public class QuickMenu : MonoBehaviour
         //
         /* * * _currentMenu * * */
         //
+        /*
         IL2Field field = Instance_Class.GetField(nameof(_currentMenu));
         if (field == null)
         {
@@ -88,17 +87,14 @@ public class QuickMenu : MonoBehaviour
             {
                 ("Not found " + nameof(_currentMenu)).RedPrefix("QuickMenu");
             }
-        }
+        }*/
     }
 
     public static QuickMenu Instance
     {
         get
         {
-            IL2Property property = Instance_Class.GetProperty(nameof(Instance));
-            if (property == null)
-                (property = Instance_Class.GetProperties().First(x => x.Instance)).Name = nameof(Instance);
-            return property?.GetGetMethod().Invoke()?.GetValue<QuickMenu>();
+            return FindObjectOfType<QuickMenu>();
         }
     }
 

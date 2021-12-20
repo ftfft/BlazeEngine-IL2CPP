@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading;
 using BE4v.MenuEdit;
 using BE4v.MenuEdit.IMGUI;
@@ -82,7 +83,6 @@ namespace BE4v.Mods
                         */
                     //}
                     /*
-                    BE4V_MainMenu.Delete();
                     BE4V_MainMenu.Start();
                     BE4V_UserPanel.Start();
                     QuickMenu.ChangeColorMenu(Color.green, Color.white);
@@ -90,6 +90,14 @@ namespace BE4v.Mods
                     */
                 }
                 return;
+            }
+            if (!isLoadedMenu)
+            {
+                if (QuickMenu.Instance != null)
+                {
+                    isLoadedMenu = true;
+                    BE4V_MainMenu.Delete();
+                }
             }
             if (!Input.GetKey(KeyCode.LeftControl)) return;
             if (!Status.is3thCam)
@@ -122,6 +130,39 @@ namespace BE4v.Mods
             if (Input.GetKeyDown(KeyCode.P))
             {
                 // Notification.SendInvite(VRC.Player.Instance, "");
+                /*
+                GameObject[] go = UnityEngine.Object.FindObjectsOfType<GameObject>();
+
+                try
+                {
+                    using (StreamWriter streamWriter = File.CreateText("test.txt"))
+                    {
+                        foreach (var g in go)
+                        {
+
+                            streamWriter.WriteLine(g.name);
+
+                        }
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Error: 0x00D");
+                }
+                /*
+                Transform transform = go.transform;
+                string name = transform.name;
+                while (true)
+                {
+                    if (transform.parent == null)
+                        break;
+                    transform = transform.parent;
+                    name = transform.name;
+                }
+                Console.WriteLine(name);
+                */
+                // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
+                FileDebug.debugGameObject("test2.txt", QuickMenu.Instance.gameObject);
                 return;
             }
             if (Input.GetKeyDown(KeyCode.X))
@@ -168,6 +209,7 @@ namespace BE4v.Mods
             // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
 
         }
+        private static bool isLoadedMenu = false;
 
         private static bool isAttack = false;
 

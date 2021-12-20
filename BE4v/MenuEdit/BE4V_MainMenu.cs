@@ -11,89 +11,16 @@ namespace BE4v.MenuEdit
     {
         public static void Delete()
         {
-
-            foreach (Transform transform in QuickMenu.Instance.transform)
+            Transform menu = QuickMenu.Instance.transform;
+            /*
+            menu.Find("ThankYouCharacter").Destroy();
+            var submenu = menu.Find("VRC+_Banners");
+            while (submenu != null)
             {
-                //Console.WriteLine(transform.gameObject.name);
-                switch (transform.gameObject.name)
-                {
-                    case "NotificationInteractMenu": continue;
-                    case "EmoteMenu": goto case "be4v_destroy";
-                    case "ModerationMenu": goto case "be4v_destroy";
-                    case "UserIconMenu": goto case "be4v_destroy";
-                    case "UserIconCameraMenu": goto case "be4v_destroy";
-                    case "be4v_destroy":
-                        {
-                            UnityEngine.Object.Destroy(transform.gameObject);
-                            break;
-                        }
-                }
-                foreach (Transform transform1 in transform)
-                { 
-                    switch (transform1.gameObject.name)
-                    {
-                        case "EmoteButton": goto case "be4v_destroy";
-                        case "UserIconButton": goto case "be4v_destroy";
-                        case "UserIconCameraButton": goto case "be4v_destroy";
-                        case "CustomizeNameplateButton": goto case "be4v_destroy";
-                        case "HeaderContainer":
-                            {
-                                foreach (Transform transform2 in transform1)
-                                {
-                                    if (transform2.gameObject.name == "VRCPlusBanner")
-                                        UnityEngine.Object.Destroy(transform2.gameObject);
-                                }
-                                break;
-                            }
-                        case "VRCPlusThankYou": goto case "be4v_destroy";
-                        case "VRCPlusMiniBanner": goto case "be4v_destroy";
-                        case "ReportWorldButton": goto case "be4v_destroy";
-                        case "DevToolsButton": goto case "be4v_destroy";
-                        case "GalleryButton": goto case "be4v_destroy";
-                        case "be4v_destroy":
-                            {
-                                UnityEngine.Object.Destroy(transform1.gameObject);
-                                break;
-                            }
-                        case "SitButton":
-                            {
-                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
-                                quickToggler.MoveLocation(1, 0);
-                                break;
-                            }
-                        case "CalibrateButton":
-                            {
-                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
-                                quickToggler.MoveLocation(1, 0);
-                                break;
-                            }
-                        case "SettingsButton":
-                            {
-                                QuickButton quickButton = new QuickButton(transform1.gameObject);
-                                quickButton.MoveLocation(-1, 0);
-                                break;
-                            }
-                        case "EmojiButton":
-                            {
-                                QuickButton quickButton = new QuickButton(transform1.gameObject);
-                                quickButton.MoveLocation(-1, 0);
-                                break;
-                            }
-                        case "QMInfoToggle":
-                            {
-                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
-                                quickToggler.MoveLocation(-2, 2);
-                                break;
-                            }
-                        case "Toggle_States_ShowTrustRank_Colors":
-                            {
-                                QuickToggler quickToggler = new QuickToggler(transform1.gameObject);
-                                quickToggler.MoveLocation(-1, 0);
-                                break;
-                            }
-                    }
-                }
+                submenu?.Destroy();
+                submenu = menu.Find("VRC+_Banners");
             }
+            */
             FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
             "QuickMenu element's".RedPrefix("Destroy");
         }
