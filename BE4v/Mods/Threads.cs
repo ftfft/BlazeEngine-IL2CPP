@@ -81,11 +81,13 @@ namespace BE4v.Mods
                         }
                         */
                     //}
+                    /*
                     BE4V_MainMenu.Delete();
                     BE4V_MainMenu.Start();
                     BE4V_UserPanel.Start();
                     QuickMenu.ChangeColorMenu(Color.green, Color.white);
                     QuickMenu.ChangeColorButtons(Color.green, Color.green);
+                    */
                 }
                 return;
             }

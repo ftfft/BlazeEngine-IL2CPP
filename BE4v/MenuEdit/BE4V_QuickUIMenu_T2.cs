@@ -86,14 +86,14 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_AntiBlockToggle_Refresh()
         {
-            BE4V_QuickUIMenu_T2.toggler["AntiBlock"].SetToggleToOn(Status.isAntiBlock);
+            // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].SetToggleToOn(Status.isAntiBlock);
             if (Status.isAntiBlock)
             {
                 foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
                 {
                     //player.Components?.RefreshState();
                 }
-                BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("on");
+                // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("on");
                 //if (!Patch_AntiBlock.patch.Enabled)
                 //    Patch_AntiBlock.patch.Enabled = true;
             }
@@ -103,7 +103,7 @@ namespace BE4v.MenuEdit
                 {
                     player.OnNetworkReady();
                 }
-                BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("off");
+                // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("off");
                 //if (Patch_AntiBlock.patch.Enabled)
                 //    Patch_AntiBlock.patch.Enabled = false;
             }
@@ -119,6 +119,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_BunnyHopToggle_Refresh()
         {
+            /*
             BE4V_QuickUIMenu_T2.toggler["BHop"].SetToggleToOn(Status.isBHop);
             if (Status.isBHop)
             {
@@ -128,6 +129,7 @@ namespace BE4v.MenuEdit
             {
                 BE4V_QuickUIMenu_T2.toggler["BHop"].setOffText("off");
             }
+            */
         }
     }
     
@@ -140,6 +142,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_InfinityJumpToggle_Refresh()
         {
+            /*
             BE4V_QuickUIMenu_T2.toggler["InfinityJump"].SetToggleToOn(Status.isInfinityJump);
             if (Status.isInfinityJump)
             {
@@ -149,6 +152,7 @@ namespace BE4v.MenuEdit
             {
                 BE4V_QuickUIMenu_T2.toggler["InfinityJump"].setOffText("off");
             }
+            */
         }
     }
 
@@ -162,6 +166,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_RPCBlockToggle_Refresh()
         {
+            /*
             BE4V_QuickUIMenu_T2.toggler["RPCBlock"].SetToggleToOn(Status.isRPCBlock);
             if (Status.isRPCBlock)
             {
@@ -171,6 +176,7 @@ namespace BE4v.MenuEdit
             {
                 BE4V_QuickUIMenu_T2.toggler["RPCBlock"].setOffText("off");
             }
+            */
         }
     }
 

@@ -91,16 +91,16 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_FakePingToggle_Refresh()
         {
-            BE4V_QuickUIMenu.toggler["FakePing"].SetToggleToOn(Status.isFakePing);
+            //BE4V_QuickUIMenu.toggler["FakePing"].SetToggleToOn(Status.isFakePing);
             if (Status.isFakePing)
             {
-                BE4V_QuickUIMenu.toggler["FakePing"].setOffText("on");
+                //BE4V_QuickUIMenu.toggler["FakePing"].setOffText("on");
                 if (Patch_FakePing.patch?.Enabled == false)
                     Patch_FakePing.patch.Enabled = true;
             }
             else
             {
-                BE4V_QuickUIMenu.toggler["FakePing"].setOffText("off");
+                // BE4V_QuickUIMenu.toggler["FakePing"].setOffText("off");
                 if (Patch_FakePing.patch?.Enabled == true)
                     Patch_FakePing.patch.Enabled = false;
             }
@@ -115,16 +115,16 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_SerilizeToggle_Refresh()
         {
-            BE4V_QuickUIMenu.toggler["Serilize"].SetToggleToOn(Status.isSerilize);
+            // BE4V_QuickUIMenu.toggler["Serilize"].SetToggleToOn(Status.isSerilize);
             if (Status.isSerilize)
             {
-                BE4V_QuickUIMenu.toggler["Serilize"].setOffText("on");
+                // BE4V_QuickUIMenu.toggler["Serilize"].setOffText("on");
                 if (Patch_Serilize.patch.Enabled == false)
                     Patch_Serilize.patch.Enabled = true;
             }
             else
             {
-                BE4V_QuickUIMenu.toggler["Serilize"].setOffText("off");
+                // BE4V_QuickUIMenu.toggler["Serilize"].setOffText("off");
                 if (Patch_Serilize.patch?.Enabled == true)
                     Patch_Serilize.patch.Enabled = false;
             }
@@ -140,16 +140,16 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_InvisAPIToggle_Refresh()
         {
-            BE4V_QuickUIMenu.toggler["InvisAPI"].SetToggleToOn(Status.isInvisAPI);
+            // BE4V_QuickUIMenu.toggler["InvisAPI"].SetToggleToOn(Status.isInvisAPI);
             if (Status.isInvisAPI)
             {
-                BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("on");
+                // BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("on");
                 if (Patch_InvisAPI.patch?.Enabled == false)
                     Patch_InvisAPI.patch.Enabled = true;
             }
             else
             {
-                BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("off");
+                // BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("off");
                 if (Patch_InvisAPI.patch?.Enabled == true)
                     Patch_InvisAPI.patch.Enabled = false;
             }
@@ -165,16 +165,16 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_NoPortalJoin_Refresh()
         {
-            BE4V_QuickUIMenu.toggler["NoPortalJoin"].SetToggleToOn(Status.isNoPortalJoin);
+            // BE4V_QuickUIMenu.toggler["NoPortalJoin"].SetToggleToOn(Status.isNoPortalJoin);
             if (Status.isNoPortalJoin)
             {
-                BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("on");
+                // BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("on");
                 if (Patch_NoPortalJoin.patch?.Enabled == false)
                     Patch_NoPortalJoin.patch.Enabled = true;
             }
             else
             {
-                BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("off");
+                // BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("off");
                 if (Patch_NoPortalJoin.patch?.Enabled == true)
                     Patch_NoPortalJoin.patch.Enabled = false;
             }
@@ -191,16 +191,16 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_GlobalDynamicBones_Refresh()
         {
-            BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].SetToggleToOn(Status.isGlobalDynamicBones);
+            // BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].SetToggleToOn(Status.isGlobalDynamicBones);
             if (Status.isGlobalDynamicBones)
             {
-                BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("on");
+                // BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("on");
                 if (Patch_GlobalDynamicBones.patch?.Enabled == false)
                     Patch_GlobalDynamicBones.patch.Enabled = true;
             }
             else
             {
-                BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("off");
+                // BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("off");
                 if (Patch_GlobalDynamicBones.patch?.Enabled == true)
                     Patch_GlobalDynamicBones.patch.Enabled = false;
             }
@@ -229,6 +229,7 @@ namespace BE4v.MenuEdit
         }
         public static void OnClick_SHToggle_Refresh()
         {
+            /*
             BE4V_QuickUIMenu.toggler["SHToggle"].SetToggleToOn(Status.isSpeedHack);
             BE4V_QuickUIMenu.buttons["SHButtonPlus"].gameObject.SetActive(Status.isSpeedHack);
             BE4V_QuickUIMenu.buttons["SHButtonMinus"].gameObject.SetActive(Status.isSpeedHack);
@@ -240,6 +241,7 @@ namespace BE4v.MenuEdit
             {
                 BE4V_QuickUIMenu.toggler["SHToggle"].setOffText("off");
             }
+            */
         }
 
     }
@@ -253,6 +255,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_FlyToggle_Refresh()
         {
+            /*
             BE4V_QuickUIMenu.toggler["FlyToggle"].SetToggleToOn(Status.isFly);
             if (Status.isFly)
             {
@@ -263,6 +266,7 @@ namespace BE4v.MenuEdit
                 BE4V_QuickUIMenu.toggler["FlyToggle"].setOffText("off");
             }
             BE4V_QuickUIMenu.buttons["FlyType"].gameObject.SetActive(Status.isFly);
+            */
         }
 
         public static void OnClick_FlyType()
@@ -272,6 +276,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_FlyType_Refresh()
         {
+            /*
             if (Status.isFlyType)
             {
                 BE4V_QuickUIMenu.buttons["FlyType"].setToolTip("Toggle: Change type fly hack to Fly");
@@ -280,6 +285,7 @@ namespace BE4v.MenuEdit
             }
             BE4V_QuickUIMenu.buttons["FlyType"].setToolTip("Toggle: Change type fly hack to NoClip");
             BE4V_QuickUIMenu.buttons["FlyType"].setButtonText("Fly Type:\n<color=red>Fly</color>");
+            */
         }
     }
 }

@@ -34,7 +34,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // --------------------------------------------------------------------------------
 
-// Do not edit. File generated from optable.xml on 05-апр-2021 01:51 
+// Do not edit. File generated from optable.xml on 20-дек-2021 10:10 
 using System;
 using System.Collections.Generic;
 using System.Linq;
