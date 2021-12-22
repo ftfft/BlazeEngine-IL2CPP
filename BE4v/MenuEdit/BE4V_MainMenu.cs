@@ -13,6 +13,36 @@ namespace BE4v.MenuEdit
         {
             Transform menu = QuickMenu.Instance.transform;
             /*
+            Transform toggle_safeMode = menu.Find("Container/Window/Toggle_SafeMode");
+            if (toggle_safeMode != null)
+                toggle_safeMode.gameObject.Destroy();
+            // Items:
+            // - Container
+            foreach(Transform menuTransform in menu)
+            {
+                // Items:
+                // Menu Collider
+                // Back Window
+                // ThankYouCharacter
+                // Window
+                foreach (Transform containerTransform in menuTransform)
+                {
+                    if (containerTransform.name == "Window")
+                    {
+
+                        foreach (Transform windowTransform in containerTransform)
+                        {
+                            if (windowTransform.name == "Toggle_SafeMode")
+                                windowTransform.gameObject.Destroy();
+                        }
+                    }
+                }
+            }
+            */
+
+            //            if (transform != null)
+            //                transform.gameObject.SetActive(false);
+            /*
             menu.Find("ThankYouCharacter").Destroy();
             var submenu = menu.Find("VRC+_Banners");
             while (submenu != null)
@@ -21,7 +51,7 @@ namespace BE4v.MenuEdit
                 submenu = menu.Find("VRC+_Banners");
             }
             */
-            FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
+            // FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
             "QuickMenu element's".RedPrefix("Destroy");
         }
 

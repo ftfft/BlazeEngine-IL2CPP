@@ -57,46 +57,16 @@ namespace BE4v.Mods
 
             Mod_Invisible.Update();
 
-            if (isFirstControl > 0)
-            {
-                if (--isFirstControl == 0)
-                {
-                    Application.targetFrameRate = 101;
-                    /*
-                    foreach (var t in Assembler.GetAssemblies())
-                    {
-                        FileDebug.AddFileDebug("tsoul_a.txt", t.Name);
-                    }
-                    /*
-                    foreach (var a in Assembler.list.Keys)
-                    {
-                        if (a == "acs")
-                        {
-                            continue;
-                        }
-                        foreach (var t in Assembler.list[a].GetClasses())
-                        {
-                            FileDebug.AddFileDebug("tsoul.txt", t.FullName + " | " + a);
-                        }
-                        /*
-                        }
-                        */
-                    //}
-                    /*
-                    BE4V_MainMenu.Start();
-                    BE4V_UserPanel.Start();
-                    QuickMenu.ChangeColorMenu(Color.green, Color.white);
-                    QuickMenu.ChangeColorButtons(Color.green, Color.green);
-                    */
-                }
-                return;
-            }
             if (!isLoadedMenu)
             {
                 if (QuickMenu.Instance != null)
                 {
                     isLoadedMenu = true;
+                    //if (--isFirstControl == 0)
+                    //{
+                    Application.targetFrameRate = 101;
                     BE4V_MainMenu.Delete();
+                    //}
                 }
             }
             if (!Input.GetKey(KeyCode.LeftControl)) return;
@@ -120,6 +90,12 @@ namespace BE4v.Mods
             if (Input.GetKeyDown(KeyCode.G))
             {
                 Mod_SpeedHack.Toggle();
+                return;
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+                    hit.collider.gameObject.SetActive(false);
                 return;
             }
             if (Input.GetKeyDown(KeyCode.Mouse2))
@@ -213,7 +189,7 @@ namespace BE4v.Mods
 
         private static bool isAttack = false;
 
-        private static int isFirstControl = 50;
+        // private static int isFirstControl = 5;
 
         private static _Threads_Update _delegateThreads_Update;
     }

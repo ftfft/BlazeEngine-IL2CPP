@@ -60,7 +60,8 @@ namespace BE4v.Mods
             avatarModel.localPosition = baseAvatarModelPosition + new Vector3(0, 60, 0);
             avatarModel.localScale *= 0.8f;
 
-            foreach (var av in Client.LoadAvatars())
+            string[] avtrs = Client.LoadAvatars();
+            foreach (var av in avtrs)
                 AddFavorite(av);
         }
 
@@ -84,7 +85,7 @@ namespace BE4v.Mods
                 return;
             }
 
-            ApiAvatar apiAvatar = pageAvatar.avatar.apiAvatar;
+            ApiAvatar apiAvatar = pageAvatar?.avatar?.apiAvatar;
             if (apiAvatar != null)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
@@ -124,13 +125,13 @@ namespace BE4v.Mods
             favList.specificListIds = Base.AvatarId.ToArray();
             favList.expandedHeight = 850f;
             favList.extendRows = 4;
-            favList.Refresh();
+            // favList.Refresh();
         }
 
         public static void onClickFavButton()
         {
 
-            ApiAvatar apiAvatar = pageAvatar.avatar.apiAvatar;
+            ApiAvatar apiAvatar = pageAvatar?.avatar?.apiAvatar;
             if (apiAvatar != null)
             {
                 if (Input.GetKey(KeyCode.LeftControl))

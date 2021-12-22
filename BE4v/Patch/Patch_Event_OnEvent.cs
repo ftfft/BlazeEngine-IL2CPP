@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BE4v.MenuEdit;
 using BE4v.Mods;
 using BE4v.SDK;
@@ -34,7 +35,7 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
-
+            /*
             switch (eventData.Code)
             {
                 case 1:
@@ -62,6 +63,7 @@ namespace BE4v.Patch
 
                         break;
                     }
+                    */
                 /*
                 case 7:
                     {
@@ -105,20 +107,18 @@ namespace BE4v.Patch
                         break;
                     }
                     */
-            }
+            // }
+            
             try
             {
-                _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
+                if (!userList.Contains(eventData.Sender))
+                    _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
             }
             catch { }
-            /*
-            if (iSender != 0 && !isSelf)
-            {
-                Console.WriteLine(iSender);
-                Console.WriteLine(a);
-            }
-            */
         }
+
+        public static List<int> userList = new List<int>();
+
         public static IL2Patch patch;
 
         public static _LoadBalancingClient_OnEvent _delegateLoadBalancingClient_OnEvent;

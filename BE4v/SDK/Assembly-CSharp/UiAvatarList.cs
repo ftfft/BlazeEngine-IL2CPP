@@ -2,6 +2,7 @@
 using System.Linq;
 using VRC.Core;
 using BE4v.SDK.CPP2IL;
+using BE4v.SDK;
 
 public class UiAvatarList : UiVRCList
 {
@@ -10,7 +11,7 @@ public class UiAvatarList : UiVRCList
     public string[] specificListIds
     {
         get => Instance_Class.GetField(x => x.ReturnType.Name == "System.String[]").GetValue(ptr).UnboxArray<string>();
-        set => Instance_Class.GetField(x => x.ReturnType.Name == "System.String[]").SetValue(ptr, value.Select(x => new IL2String(x).ptr).ArrayToIntPtr());
+        set => Instance_Class.GetField(x => x.ReturnType.Name == "System.String[]").SetValue(ptr, value.Select(x => new IL2String(x).ptr).ArrayToIntPtr(IL2SystemClass.String));
     }
 
     unsafe public Category category

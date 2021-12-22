@@ -14,17 +14,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 get
                 {
-                    foreach (Transform transform in QuickMenu.Instance.transform)
-                    {
-                        foreach (Transform transform1 in transform)
-                        {
-                            if (transform1.gameObject.name == "CloneAvatarButton")
-                            {
-                                return transform1;
-                            }
-                        }
-                    }
-                    return null;
+                    return QuickMenu.Instance?.transform.Find("Button_CloneAvatar");
                 }
             }
         }
@@ -49,7 +39,7 @@ namespace BE4v.MenuEdit.Construct
 
         public static Transform CreateQuickMenu(string name)
         {
-            Transform menu = UnityEngine.Object.Instantiate(QuickMenu.Instance.transform.Find("CameraMenu"), QuickMenu.Instance.transform);
+            Transform menu = UnityEngine.Object.Instantiate(QuickMenu.Instance.transform.Find("Menu_Camera"), QuickMenu.Instance.transform);
             menu.name = name;
 
             foreach (Transform transform in menu.transform)

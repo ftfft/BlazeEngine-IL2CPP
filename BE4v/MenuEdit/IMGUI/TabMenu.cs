@@ -30,6 +30,10 @@ namespace BE4v.MenuEdit.IMGUI
             strChairInHead_Sit_On.Static = true;
             strChairInHead_Get_Up = new IL2String("Get up");
             strChairInHead_Get_Up.Static = true;
+            strBlockData = new IL2String("Data Block");
+            strBlockData.Static = true;
+            strUnBlockData = new IL2String("Data unBlock");
+            strUnBlockData.Static = true;
             strEmpty = new IL2String(string.Empty);
             strEmpty.Static = true;
         }
@@ -40,6 +44,8 @@ namespace BE4v.MenuEdit.IMGUI
         private static IL2String strTeleport;
         private static IL2String strChairInHead_Sit_On;
         private static IL2String strChairInHead_Get_Up;
+        private static IL2String strBlockData;
+        private static IL2String strUnBlockData;
         private static IL2String strEmpty;
         private static IL2String strTempText = null;
         public static bool isPressed = false;
@@ -185,6 +191,18 @@ namespace BE4v.MenuEdit.IMGUI
                                 Mod_SitOnHead.SelectUser = player.Components;
                             else
                                 Mod_SitOnHead.SelectUser = null;
+                        }
+                        IntPtr iSelected = (Patch.Patch_Event_OnEvent.userList.Contains(playerId.Value) ? strUnBlockData : strBlockData).ptr;
+                        if (GUI.Button(new Rect(550, 100, 120, 20), iSelected))
+                        {
+                            if (Patch.Patch_Event_OnEvent.userList.Contains(playerId.Value))
+                            {
+                                Patch.Patch_Event_OnEvent.userList.Remove(playerId.Value);
+                            }
+                            else
+                            {
+                                Patch.Patch_Event_OnEvent.userList.Add(playerId.Value);
+                            }
                         }
                     }
                     iPlayer++;

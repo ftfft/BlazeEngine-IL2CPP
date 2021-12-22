@@ -135,7 +135,7 @@ namespace UnityEngine
             }
         }
         */
-        /*
+
         /// <summary>
         ///   <para>The Collider that was hit.</para>
         /// </summary>
@@ -143,10 +143,13 @@ namespace UnityEngine
         {
             get
             {
-                return Object.FindObjectFromInstanceID(m_Collider).MonoCast<Collider>();
+                var obj = Object.FindObjectFromInstanceID(m_Collider);
+                if (obj != null && obj.ptr != IntPtr.Zero)
+                    return new Collider(obj.ptr);
+                return null;
             }
         }
-        */
+
         /*
         /// <summary>
         ///   <para>The Rigidbody of the collider that was hit. If the collider is not attached to a rigidbody then it is null.</para>

@@ -18,8 +18,8 @@ namespace BE4v.Patch
                 if (method == null)
                     new Exception();
 
-                var patch = new IL2Patch(method, (_UiAvatarList_Update)UiAvatarList_Update);
-                _delegateUiAvatarList_Update = patch.CreateDelegate<_UiAvatarList_Update>();
+                _patch = new IL2Patch(method, (_UiAvatarList_Update)UiAvatarList_Update);
+                _delegateUiAvatarList_Update = _patch.CreateDelegate<_UiAvatarList_Update>();
                 "Unlimited Favorites".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
@@ -36,6 +36,8 @@ namespace BE4v.Patch
             _delegateUiAvatarList_Update.Invoke(instance);
             Mod_Avatars.Update();
         }
+
+        public static IL2Patch _patch;
 
         public static _UiAvatarList_Update _delegateUiAvatarList_Update;
     }
