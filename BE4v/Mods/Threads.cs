@@ -103,44 +103,6 @@ namespace BE4v.Mods
                 Mod_FastTP.Teleport();
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                // Notification.SendInvite(VRC.Player.Instance, "");
-                /*
-                GameObject[] go = UnityEngine.Object.FindObjectsOfType<GameObject>();
-
-                try
-                {
-                    using (StreamWriter streamWriter = File.CreateText("test.txt"))
-                    {
-                        foreach (var g in go)
-                        {
-
-                            streamWriter.WriteLine(g.name);
-
-                        }
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("Error: 0x00D");
-                }
-                /*
-                Transform transform = go.transform;
-                string name = transform.name;
-                while (true)
-                {
-                    if (transform.parent == null)
-                        break;
-                    transform = transform.parent;
-                    name = transform.name;
-                }
-                Console.WriteLine(name);
-                */
-                // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
-                FileDebug.debugGameObject("test2.txt", QuickMenu.Instance.gameObject);
-                return;
-            }
             if (Input.GetKeyDown(KeyCode.X))
             {
                 Mod_Invisible.Toggle();
