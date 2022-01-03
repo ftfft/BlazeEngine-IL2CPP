@@ -1,15 +1,19 @@
-﻿using BE4v.MenuEdit.Construct;
-using BE4v.Mods;
+﻿using BE4v.Mods;
 using BE4v.SDK.IL2Dumper;
 using System;
 using UnityEngine;
 using VRC;
 using VRC.UI.Elements;
+using BE4v.MenuEdit.Construct;
+using BE4v.MenuEdit.Construct.Horizontal;
+using BE4v.MenuEdit.Construct.Menu;
 
 namespace BE4v.MenuEdit
 {
     public static class BE4V_MainMenu
     {
+        public static ElementMenu registerMenu = null;
+
         public static void Delete()
         {
             Transform menu = QuickMenu.Instance.transform;
@@ -18,6 +22,9 @@ namespace BE4v.MenuEdit
                 toggle_safeMode.gameObject.Destroy();
 
             Transform transform = menu.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard");
+
+            registerMenu = new ElementMenu("BlazeEngine4Version");
+            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
             /*
             // Items:

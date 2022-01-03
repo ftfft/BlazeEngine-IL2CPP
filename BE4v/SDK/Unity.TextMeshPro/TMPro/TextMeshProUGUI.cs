@@ -11,7 +11,6 @@ namespace TMPro
     {
         public TextMeshProUGUI(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-
         public static new IL2Class Instance_Class = Assembler.list["Unity.TextMeshPro"].GetClass("TextMeshProUGUI", "TMPro");
     }
 }

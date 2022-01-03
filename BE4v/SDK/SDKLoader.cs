@@ -170,6 +170,7 @@ public static class Assembler
         {  "VRCSDK3", "VRCSDK3" },
         {  "VRCSDK3A", "VRCSDK3A" },
         {  "VRC.Udon", "VRC.Udon" },
+        {  "VRC.UI.Core", "VRC.UI.Core" },
         {  "VRC.UI.Elements", "VRC.UI.Elements" },
         {  "Steamworks", "Facepunch.Steamworks.Win64" },
         {  "Transmtn", "Transmtn" },
