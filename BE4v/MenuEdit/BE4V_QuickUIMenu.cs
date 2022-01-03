@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 using BE4v.Patch;
+using VRC.UI.Elements;
 
 namespace BE4v.MenuEdit
 {
@@ -79,6 +80,7 @@ namespace BE4v.MenuEdit
             button = new QuickButton(@menuname, 4, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_2, "Change to Next menu");
             button.gameObject.GetComponentInChildren<Image>().sprite = imgNext.sprite;
             button.gameObject.GetComponentInChildren<Image>().material = imgNext.material;
+            
         }
     }
 

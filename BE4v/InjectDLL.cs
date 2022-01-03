@@ -40,6 +40,7 @@ namespace BE4v
             // Patch.Patch_Event_VRCPlayer_RefreshState.Start();
             // Patch.Patch_Event_OnShowProfile.Start();
             Patch.Patch_NoAnalytics.Start();
+            Patch.Patch_QuickMenuLoaded.Start();
             Mods.Threads.Start();
             SDKLoader.Finish();
         }

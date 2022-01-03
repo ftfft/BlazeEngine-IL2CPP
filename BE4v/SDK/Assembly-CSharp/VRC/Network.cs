@@ -29,69 +29,38 @@ namespace VRC
 
         unsafe public static double CalculateServerDeltaTime(double timeInSeconds, double previousTimeInSeconds)
         {
-            if (methodCalculateServerDeltaTime == null)
+            IL2Method method = Instance_Class.GetMethod("CalculateServerDeltaTime");
+            if (method == null)
             {
-                methodCalculateServerDeltaTime = Instance_Class.GetMethods().First(
+                (method = Instance_Class.GetMethods().First(
                     x =>
                         x.ReturnType.Name == typeof(double).FullName &&
                         x.GetParameters().Length == 2
-                );
-                if (methodCalculateServerDeltaTime == null)
+                )).Name = "CalculateServerDeltaTime";
+                if (method == null)
                     return default;
             }
-            return methodCalculateServerDeltaTime.Invoke(new IntPtr[] { new IntPtr(&timeInSeconds), new IntPtr(&previousTimeInSeconds) }).GetValuå<double>();
+            return method.Invoke(new IntPtr[] { new IntPtr(&timeInSeconds), new IntPtr(&previousTimeInSeconds) }).GetValuå<double>();
         }
 
         public static double GetOwnershipTransferTime(GameObject go)
         {
-            if (methodGetOwnershipTransferTime == null)
+            IL2Method method = Instance_Class.GetMethod("GetOwnershipTransferTime");
+            if (method == null)
             {
 
-                methodGetOwnershipTransferTime = Instance_Class.GetMethods().First(
+                (method = Instance_Class.GetMethods().First(
                     x =>
                         x.ReturnType.Name == typeof(double).FullName &&
                         x.GetParameters().Length == 1 &&
                         x.GetParameters()[0].ReturnType.Name == GameObject.Instance_Class.FullName
-                );
-                if (methodGetOwnershipTransferTime == null)
+                )).Name = "GetOwnershipTransferTime";
+                if (method == null)
                     return default;
             }
-            return methodGetOwnershipTransferTime.Invoke(new IntPtr[] { go.ptr }).GetValuå<double>();
+            return method.Invoke(new IntPtr[] { go.ptr }).GetValuå<double>();
         }
 
-        /*
-        public static void TriggerEvent(VRC_EventHandler.VrcEvent e, VRC_EventHandler.VrcBroadcastType broadcast = VRC_EventHandler.VrcBroadcastType.AlwaysUnbuffered, int instagatorId = 0, float fastForward = 0f)
-        {
-            if (methodTriggerEvent == null)
-            {
-                methodTriggerEvent = Instance_Class.GetMethods()
-                    .Where(x => x.GetParameters().Length == 4)
-                    .First(x => x.GetParameters()[0].ReturnType.Name.EndsWith(".VRC_EventHandler.VrcEvent"));
-                if (methodTriggerEvent == null)
-                    return;
-            }
-            methodTriggerEvent.Invoke(IntPtr.Zero, new IntPtr[] { e.ptr, broadcast.MonoCast(), instagatorId.MonoCast(), fastForward.MonoCast() });
-        }
-
-        public static void SendMessageToChildren(GameObject obj, string message, SendMessageOptions options = SendMessageOptions.RequireReceiver, object value = null)
-        {
-            if (methodSendMessageToChildren == null)
-            {
-                methodSendMessageToChildren = Instance_Class.GetMethods().First(
-                    x =>
-                        x.GetParameters().Length == 4 &&
-                        x.GetParameters()[0].ReturnType.Name == GameObject.Instance_Class.FullName &&
-                        x.GetParameters()[1].ReturnType.Name == typeof(string).FullName &&
-                        x.GetParameters()[2].ReturnType.Name == "UnityEngine.SendMessageOptions" &&
-                        x.GetParameters()[3].ReturnType.Name == typeof(object).FullName &&
-                        x.ReturnType.Name == typeof(void).FullName
-                );
-                if (methodSendMessageToChildren == null)
-                    return;
-            }
-            methodSendMessageToChildren.Invoke(IntPtr.Zero, new IntPtr[] { obj.ptr, IL2Import.StringToIntPtr(message), options.MonoCast(), IL2Import.ObjectToIntPtr(value) });
-        }
-        */
         unsafe public static GameObject Instantiate(VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3Ex position, Quaternion rotation)
         {
             IntPtr result = Instantiate(
@@ -120,14 +89,15 @@ namespace VRC
         }
         public static IntPtr Instantiate(IntPtr broadcast, IntPtr prefabPathOrDynamicPrefabName, IntPtr position, IntPtr rotation)
         {
-            if (methodInstantiate == null)
+            IL2Method method = Instance_Class.GetMethod("Instantiate", x => x.GetParameters().Length == 4 && x.ReturnType.Name == GameObject.Instance_Class.FullName);
+            if (method == null)
             {
-                methodInstantiate = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 4 && x.ReturnType.Name == GameObject.Instance_Class.FullName).First();
-                if (methodInstantiate == null)
+                (method = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 4 && x.ReturnType.Name == GameObject.Instance_Class.FullName).First()).Name = "Instantiate";
+                if (method == null)
                     return IntPtr.Zero;
             }
 
-            return methodInstantiate.Invoke(IntPtr.Zero, new IntPtr[] {
+            return method.Invoke(IntPtr.Zero, new IntPtr[] {
                 broadcast,
                 prefabPathOrDynamicPrefabName,
                 position,
@@ -137,22 +107,23 @@ namespace VRC
 
         unsafe public static void RPC(VRC_EventHandler.VrcTargetType targetClients, GameObject targetObject, string methodName, IntPtr[] parameters)
         {
-            if (methodRPC == null)
+            IL2Method method = Instance_Class.GetMethod("RPC", x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name.EndsWith(".RPC.Destination"));
+            if (method == null)
             {
-                methodRPC = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 4 && x.ReturnType.Name == "System.Void").First(
+                (method = Instance_Class.GetMethods().Where(x => x.GetParameters().Length == 4 && x.ReturnType.Name == "System.Void").First(
                     x =>
                         x.GetParameters()[0].ReturnType.Name.EndsWith(".RPC.Destination") &&
                         x.GetParameters()[1].ReturnType.Name == GameObject.Instance_Class.FullName &&
                         x.GetParameters()[2].ReturnType.Name == typeof(string).FullName &&
                         x.GetParameters()[3].ReturnType.Name == typeof(object[]).FullName
-                );
-                if (methodRPC == null)
+                )).Name = "RPC";
+                if (method == null)
                     return;
             }
             if (targetObject == null)
                 return;
 
-            methodRPC.Invoke(IntPtr.Zero, new IntPtr[] {
+            method.Invoke(IntPtr.Zero, new IntPtr[] {
                 new IntPtr(&targetClients),
                 targetObject.ptr,
                 new IL2String(methodName).ptr,
@@ -198,15 +169,6 @@ namespace VRC
             Destroy,
             Serialization
         }
-
-
-        private static IL2Method methodCalculateServerDeltaTime,
-                                 methodGetOwnershipTransferTime,
-                                 methodTriggerEvent,
-                                 methodSendMessageToChildren,
-                                 methodInstantiate,
-                                 methodRPC;
-
 
         public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod(y => y.ReturnType.Name == ObjectInstantiator.Instance_Class.FullName) != null && x.BaseType != MonoBehaviour.Instance_Class);
     }

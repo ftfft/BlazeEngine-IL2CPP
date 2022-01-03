@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BE4v.SDK.CPP2IL;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 namespace Transmtn.DTO.Notifications
 {
@@ -21,6 +20,6 @@ namespace Transmtn.DTO.Notifications
 			return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.GetValue<string>();
 		}
 
-		public static IL2Class Instance_Class = Assembler.list["Transmtn"].GetClass("NotificationDetails", "Transmtn.DTO.Notifications");
+		public static new IL2Class Instance_Class = Assembler.list["Transmtn"].GetClass("NotificationDetails", "Transmtn.DTO.Notifications");
 	}
 }

@@ -17,6 +17,7 @@ using VRC.Animation;
 using VRC.Core;
 using VRC.SDKBase;
 using VRC.UI;
+using VRC.UI.Elements;
 
 namespace BE4v.Mods
 {
@@ -57,15 +58,14 @@ namespace BE4v.Mods
 
             Mod_Invisible.Update();
 
-            if (!isLoadedMenu)
+            if (!isLoadedCharacter)
             {
                 if (QuickMenu.Instance != null)
                 {
-                    isLoadedMenu = true;
+                    isLoadedCharacter = true;
+                    Application.targetFrameRate = 101;
                     //if (--isFirstControl == 0)
                     //{
-                    Application.targetFrameRate = 101;
-                    BE4V_MainMenu.Delete();
                     //}
                 }
             }
@@ -185,11 +185,7 @@ namespace BE4v.Mods
             // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
 
         }
-        private static bool isLoadedMenu = false;
-
-        private static bool isAttack = false;
-
-        // private static int isFirstControl = 5;
+        private static bool isLoadedCharacter = false;
 
         private static _Threads_Update _delegateThreads_Update;
     }

@@ -4,6 +4,7 @@ using BE4v.SDK.IL2Dumper;
 using System;
 using UnityEngine;
 using VRC;
+using VRC.UI.Elements;
 
 namespace BE4v.MenuEdit
 {
@@ -12,10 +13,13 @@ namespace BE4v.MenuEdit
         public static void Delete()
         {
             Transform menu = QuickMenu.Instance.transform;
-            /*
             Transform toggle_safeMode = menu.Find("Container/Window/Toggle_SafeMode");
             if (toggle_safeMode != null)
                 toggle_safeMode.gameObject.Destroy();
+
+            Transform transform = menu.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard");
+
+            /*
             // Items:
             // - Container
             foreach(Transform menuTransform in menu)

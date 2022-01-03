@@ -35,6 +35,8 @@ namespace BE4v.Patch
             }
             finally
             {
+                GC.Collect(0, GCCollectionMode.Forced);
+                GC.WaitForPendingFinalizers();
                 Process.GetCurrentProcess().Kill();
             }
         }

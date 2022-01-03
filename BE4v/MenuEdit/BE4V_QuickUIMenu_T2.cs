@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 using BE4v.Patch;
+using VRC.UI.Elements;
 
 namespace BE4v.MenuEdit
 {

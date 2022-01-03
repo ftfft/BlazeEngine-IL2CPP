@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using VRC.UI.Elements;
 
 namespace BE4v.MenuEdit.Construct
 {

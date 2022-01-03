@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using VRC.UI.Elements;
 
 namespace BE4v.MenuEdit.Construct
 {
@@ -28,6 +29,7 @@ namespace BE4v.MenuEdit.Construct
                 "Not found menu!".RedPrefix("QuickMenuStuff");
                 return;
             }
+            /*
 
             menu._currentMenu?.SetActive(false);
             menu._currentMenu = gameObject;
@@ -35,6 +37,7 @@ namespace BE4v.MenuEdit.Construct
             GameObject _infoBar = menu._infoBar;
             if (_infoBar != null)
                 _infoBar.SetActive(infoBar);
+            */
         }
 
         public static Transform CreateQuickMenu(string name)
@@ -50,9 +53,12 @@ namespace BE4v.MenuEdit.Construct
 
         public static Transform BaseButton() => baseButton ?? (baseButton = QuickMenu.Instance.transform.Find("ShortcutMenu/WorldsButton"));
         public static Transform BaseToggler() => baseToggler ?? (baseToggler = QuickMenu.Instance.transform.Find("UserInteractMenu/BlockButton"));
+        public static Transform QuickButton_PB() => baseButtonHorizontal ?? (baseButtonHorizontal = QuickMenu.Instance.transform.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard"));
 
         private static Transform baseButton;
 
         private static Transform baseToggler;
+
+        private static Transform baseButtonHorizontal;
     }
 }
