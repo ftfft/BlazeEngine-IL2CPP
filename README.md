@@ -15,7 +15,6 @@ Discord: BlazeBest#4974
 
 # Credits: (Вдруг опять будут плакать что я их ссылки не написал) (хотя я незнаюб что тут от них вообще есть)
 - [AtiLion](https://github.com/AtiLion) for [VRCLoader/AtiRoNya](https://github.com/AtiLion/AtiRoNya)
-- [DubyaDude](https://github.com/DubyaDude) for [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
 
 # Thanks for Lib
 - [0xd4d](https://github.com/0xd4d) for [dnlib](https://github.com/0xd4d/dnlib)
