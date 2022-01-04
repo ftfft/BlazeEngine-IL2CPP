@@ -55,7 +55,7 @@ namespace BE4v.MenuEdit.IMGUI
             isPressed = Input.GetKey(KeyCode.Tab);
 
             VRCPlayer sitOnPlayer = Mod_SitOnHead.SelectUser;
-            if (sitOnPlayer == null || sitOnPlayer.transform == null || sitOnPlayer == VRCPlayer.Instance)
+            if (sitOnPlayer == null || sitOnPlayer == VRCPlayer.Instance)
                 sitOnPlayer = null;
 
             try

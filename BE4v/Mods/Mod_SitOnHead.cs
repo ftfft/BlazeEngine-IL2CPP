@@ -33,26 +33,26 @@ namespace BE4v.Mods
             }
             set
             {
-                if (value == null && Player.Instance != null)
-                {
-                    Player.Instance.GetComponent<Collider>().enabled = true;
-                }
-                if (offsetBox?.transform == null)
-                    offsetBox = null;
-                if (offsetBox?.gameObject == null && value != null)
-                {
-                    offsetBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    offsetBox.GetComponent<Collider>()?.Destroy();
-                    offsetBox.GetComponent<Renderer>()?.Destroy();
-                }
+                if (Player.Instance == null) return;
+                Transform playerTransform = VRCPlayer.Instance.transform;
                 if (value == null)
                 {
-                    VRCPlayer.Instance.transform.SetParent(null);
+                    Collider collider = Player.Instance.GetComponent<Collider>();
+                    if (collider != null)
+                        collider.enabled = true;
+                    playerTransform.SetParent(null);
                 }
                 else
                 {
-                    VRCPlayer.Instance.transform.position = offsetBox.transform.position;
-                    VRCPlayer.Instance.transform.SetParent(offsetBox.transform);
+                    if (offsetBox?.gameObject == null)
+                    {
+                        offsetBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        offsetBox.GetComponent<Collider>()?.Destroy();
+                        offsetBox.GetComponent<Renderer>()?.Destroy();
+                        UnityEngine.Object.DontDestroyOnLoad(offsetBox);
+                    }
+                    playerTransform.position = offsetBox.transform.position;
+                    playerTransform.SetParent(offsetBox.transform);
                     offsetBox.transform.position = value.transform.position;
                 }
                 selectPlayer = value;
