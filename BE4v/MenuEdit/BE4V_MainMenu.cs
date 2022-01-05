@@ -14,6 +14,21 @@ namespace BE4v.MenuEdit
     {
         public static ElementMenu registerMenu = null;
 
+        public static ElementButtonGroup registerGroupMenu = null;
+
+        public static ElementButton toggleFlyType = null;
+
+        public static void BlazeEngine4VersionMenu()
+        {
+            registerMenu = new ElementMenu("BlazeEngine4Version");
+            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
+            
+            registerGroupMenu = new ElementButtonGroup("First Test GRoup", registerMenu);
+            new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+        }
+
         public static void Delete()
         {
             Transform menu = QuickMenu.Instance.transform;
@@ -21,11 +36,7 @@ namespace BE4v.MenuEdit
             if (toggle_safeMode != null)
                 toggle_safeMode.gameObject.Destroy();
 
-            Transform transform = menu.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard");
-
-            registerMenu = new ElementMenu("BlazeEngine4Version");
-            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
-
+            // Transform transform = menu.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard");
             /*
             // Items:
             // - Container

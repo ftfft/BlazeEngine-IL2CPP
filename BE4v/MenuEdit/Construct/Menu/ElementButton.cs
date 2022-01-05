@@ -13,9 +13,19 @@ namespace BE4v.MenuEdit.Construct.Menu
     {
         public ElementButton(string buttonName, ElementMenu menu, UnityEngine.Events.UnityAction action)
         {
+            gameObject = CreateElementButton(buttonName, menu.gameObject, action);
+        }
 
-            gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonTemplate.gameObject, menu.gameObject.transform);
-            
+        public ElementButton(string buttonName, ElementButtonGroup menu, UnityEngine.Events.UnityAction action)
+        {
+            gameObject = CreateElementButton(buttonName, menu.gameObject, action);
+        }
+
+        private GameObject CreateElementButton(string buttonName, GameObject menu, UnityEngine.Events.UnityAction action)
+        {
+            gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonTemplate.gameObject, menu.transform);
+            gameObject.name = buttonName;
+
             TextMeshProUGUI buttonText = gameObject.transform.Find("Text_H4").GetComponent<TextMeshProUGUI>();
             buttonText.text = buttonName;
 
@@ -27,6 +37,7 @@ namespace BE4v.MenuEdit.Construct.Menu
 
 
             gameObject.SetActive(true);
+            return gameObject;
         }
     }
 }

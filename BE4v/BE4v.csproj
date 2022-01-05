@@ -56,6 +56,7 @@
     <Compile Include="MenuEdit\BE4V_MainMenu.cs" />
     <Compile Include="MenuEdit\BE4V_QuickUIMenu.cs" />
     <Compile Include="MenuEdit\Construct\Horizontal\ElementHorizontalButton.cs" />
+    <Compile Include="MenuEdit\Construct\Menu\ElementButtonGroup.cs" />
     <Compile Include="MenuEdit\Construct\Menu\ElementButton.cs" />
     <Compile Include="MenuEdit\Construct\Menu\ElementMenu.cs" />
     <Compile Include="MenuEdit\Construct\QuickBaseObject.cs" />

@@ -36,6 +36,7 @@ namespace BE4v.Patch
             patch.Enabled = false;
 
             MenuEdit.BE4V_MainMenu.Delete();
+            MenuEdit.BE4V_MainMenu.BlazeEngine4VersionMenu();
         }
 
         public static IL2Patch patch;
