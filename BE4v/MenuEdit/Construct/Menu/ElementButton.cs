@@ -20,7 +20,9 @@ namespace BE4v.MenuEdit.Construct.Menu
             buttonText.text = buttonName;
 
             Button button = gameObject.GetComponentInChildren<Button>(true);
-            button.onClick = new Button.ButtonClickedEvent();
+            if (button.onClick == null)
+                button.onClick = new Button.ButtonClickedEvent();
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(action);
 
 

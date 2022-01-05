@@ -15,10 +15,10 @@ namespace VRC.UI.Elements
         {
             get
             {
-                IL2Property property = Instance_Class.GetProperty("MenuStateController");
+                IL2Property property = Instance_Class.GetProperty(nameof(MenuStateController));
                 if (property == null)
                 {
-                    (property = Instance_Class.GetProperty(MenuStateController.Instance_Class)).Name = "MenuStateController";
+                    (property = Instance_Class.GetProperty(MenuStateController.Instance_Class)).Name = nameof(MenuStateController);
                     if (property == null)
                         return null;
                 }

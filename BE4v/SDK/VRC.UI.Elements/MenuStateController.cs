@@ -18,7 +18,7 @@ namespace VRC.UI.Elements
             IL2Method method = Instance_Class.GetMethod(nameof(PushPage));
             if (method == null)
             {
-                (method = Instance_Class.GetMethods().FirstOrDefault(x => x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == typeof(string).FullName && x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName)).Name = nameof(PushPage);
+                (method = Instance_Class.GetMethods().LastOrDefault(x => x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == typeof(string).FullName && x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName)).Name = nameof(PushPage);
                 if (method == null)
                     return;
             }

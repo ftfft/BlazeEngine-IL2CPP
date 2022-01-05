@@ -19,7 +19,9 @@ namespace BE4v.MenuEdit.Construct.Horizontal
             gameObject.name = "Page_" + buttonName;
 
             Button button = gameObject.GetComponent<Button>();
-            button.onClick = new Button.ButtonClickedEvent();
+            if (button.onClick == null)
+                button.onClick = new Button.ButtonClickedEvent();
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(action);
 
             MenuTab menuTab = gameObject.GetComponent<MenuTab>();

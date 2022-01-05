@@ -21,15 +21,22 @@ namespace BE4v.MenuEdit.Construct.Menu
             menuName = "Menu_" + name;
             gameObject.name = menuName;
             gameObject.SetActive(false);
-            gameObject.transform.SetSiblingIndex(5);
+            Transform transform = gameObject.transform;
+            transform.SetSiblingIndex(5);
 
             gameObject.GetComponent<LaunchPadQMMenu>()?.Destroy();
 
             UIPage uiPage = gameObject.GetOrAddComponent<UIPage>();
             uiPage.Name = menuName;
             uiPage._menuStateController = QuickMenu.Instance.MenuStateController;
-
+            
             QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String(menuName).ptr, uiPage.ptr);
+
+            transform = transform.Find("ScrollRect/Viewport/VerticalLayoutGroup");
+            foreach (Transform obj in transform)
+            {
+                obj.gameObject?.Destroy();
+            }
 
             if (root)
             {
