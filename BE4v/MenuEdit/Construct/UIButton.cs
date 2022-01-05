@@ -7,18 +7,12 @@ using UnityEngine.UI;
 
 namespace BE4v.MenuEdit.Construct
 {
-    public class UIButton : QuickBaseObject
+    public class UIButton : QuickObject
     {
         public UIButton(GameObject gameObject)
         {
-            @type = "UIButton";
             base.gameObject = gameObject;
-            isCustom = false;
-            buttonSize = new float[]{ 1f, 1f };
         }
-
-
-
 
         public void setButtonText(string buttonText)
         {

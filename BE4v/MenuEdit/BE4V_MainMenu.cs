@@ -89,13 +89,13 @@ namespace BE4v.MenuEdit
 
         public static void Start()
         {
-            new QuickButton("ShortcutMenu", -1, 0, "Remove\nCreated\nObjects", UserUtils.RemoveInstiatorObjects, "Clear all portals, created object's on map");
+            // new QuickButton("ShortcutMenu", -1, 0, "Remove\nCreated\nObjects", UserUtils.RemoveInstiatorObjects, "Clear all portals, created object's on map");
             // new QuickButton("ShortcutMenu", 4, -1, "Open GUI\nBE4v", ClickClass_OpenGUI.Click, "Open GUI Window for Cheat Client");
-            ClickClass_GlowESP.quickTogglerGlowESP = new QuickToggler("ShortcutMenu", -1, 1, "Glow ESP", ClickClass_GlowESP.OnClick_GlowESP, "Off", "Toggle mod Glow ESP");
-            ClickClass_LocalMirror.quickButtonLocalMirror = new QuickButton("ShortcutMenu", 4, 0, "Mrr", ClickClass_LocalMirror.OnClick_PortableMirror, "");
+            // ClickClass_GlowESP.quickTogglerGlowESP = new QuickToggler("ShortcutMenu", -1, 1, "Glow ESP", ClickClass_GlowESP.OnClick_GlowESP, "Off", "Toggle mod Glow ESP");
+            // ClickClass_LocalMirror.quickButtonLocalMirror = new QuickButton("ShortcutMenu", 4, 0, "Mrr", ClickClass_LocalMirror.OnClick_PortableMirror, "");
             // ClickClass_GAIN.quickTogglerGAIN = new QuickToggler("ShortcutMenu", 4, 1, "GAIN", ClickClass_GAIN.ButtonToggle, "Off", "Toggle ::: GAIN MODE :::");
-            BE4V_QuickUIMenu.Start();
-            BE4V_QuickUIMenu_T2.Start();
+            // BE4V_QuickUIMenu.Start();
+            // BE4V_QuickUIMenu_T2.Start();
             ClickClass_GlowESP.OnClick_GlowESP_Refresh();
             ClickClass_LocalMirror.OnClick_PortableMirror_Refresh();
             ClickClass_OpenGUI.UpdateStatus();
@@ -142,18 +142,18 @@ namespace BE4v.MenuEdit
             
         }
 
-        public static QuickToggler quickTogglerGAIN;
+        // public static QuickToggler quickTogglerGAIN;
     }
     
     public static class ClickClass_ChangeMenu
     {
         public static void To_UIElementsMenu_1()
         {
-            QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu.menuname);
+            // QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu.menuname);
         }
         public static void To_UIElementsMenu_2()
         {
-            QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu_T2.menuname);
+            // QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu_T2.menuname);
         }
     }
 
@@ -166,6 +166,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_PortableMirror_Refresh()
         {
+            /*
             if (Mod_PortableMirror.gameObject != null)
             {
                 quickButtonLocalMirror.setButtonText("<color=red>Remove</color>\nLocal Mirror");
@@ -174,9 +175,10 @@ namespace BE4v.MenuEdit
             }
             quickButtonLocalMirror.setButtonText("<color=green>Create</color>\nLocal Mirror");
             quickButtonLocalMirror.setToolTip("Create Portable Mirror (Local)");
+            */
         }
 
-        public static QuickButton quickButtonLocalMirror;
+        //public static QuickButton quickButtonLocalMirror;
     }
 
     public static class ClickClass_GlowESP
@@ -188,13 +190,13 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_GlowESP_Refresh()
         {
-            quickTogglerGlowESP.SetToggleToOn(Status.isGlowESP);
+            // quickTogglerGlowESP.SetToggleToOn(Status.isGlowESP);
             foreach(var player in PlayerManager.Instance.PlayersCopy)
             {
                 // player.Components?.RefreshState();
             }
         }
 
-        public static QuickToggler quickTogglerGlowESP;
+        // public static QuickToggler quickTogglerGlowESP;
     }
 }

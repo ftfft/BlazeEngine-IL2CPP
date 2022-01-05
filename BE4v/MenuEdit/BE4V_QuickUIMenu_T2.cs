@@ -13,36 +13,34 @@ namespace BE4v.MenuEdit
 {
     public static class BE4V_QuickUIMenu_T2
     {
-        public static string @menuname;
-        public static Dictionary<string, QuickButton> buttons;
-        public static Dictionary<string, QuickToggler> toggler;
 
         public static void Start()
         {
+            /*
             if (buttons != null) return;
             @menuname = "UIElementsMenu_T2";
             QuickMenu_Utils.CreateQuickMenu(@menuname);
             buttons = new Dictionary<string, QuickButton>();
             toggler = new Dictionary<string, QuickToggler>();
             /* * [ Col -1 ] * */
-            toggler.Add("RPCBlock", new QuickToggler(@menuname, -1, 0, "RPC Block", ClickClass_RPCBlock.OnClick_RPCBlockToggle, "off", "Toggle: Module RPC Block"));
+            // toggler.Add("RPCBlock", new QuickToggler(@menuname, -1, 0, "RPC Block", ClickClass_RPCBlock.OnClick_RPCBlockToggle, "off", "Toggle: Module RPC Block"));
             /* * * * ** * * * */
 
             /* * [ Col 3 ] * */
-            toggler.Add("BHop", new QuickToggler(@menuname, 3, 0, "Bunny Hop", ClickClass_BunnyHop.OnClick_BunnyHopToggle, "off", "Toggle: Module Bunny Hop"));
+            // toggler.Add("BHop", new QuickToggler(@menuname, 3, 0, "Bunny Hop", ClickClass_BunnyHop.OnClick_BunnyHopToggle, "off", "Toggle: Module Bunny Hop"));
             /* * * * ** * * * */
 
             /* * [ Col 4 ] * */
-            toggler.Add("InfinityJump", new QuickToggler(@menuname, 4, 0, "Infinity Jump", ClickClass_InfinityJump.OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
-            toggler.Add("AntiBlock", new QuickToggler(@menuname, 4, 1, "Anti Block", ClickClass_AntiBlock.OnClick_AntiBlockToggle, "off", "Toggle: Enabled module Anti-Block\nShow blocked users"));
+            // toggler.Add("InfinityJump", new QuickToggler(@menuname, 4, 0, "Infinity Jump", ClickClass_InfinityJump.OnClick_InfinityJumpToggle, "off", "Toggle: Module Infinity jump"));
+            // toggler.Add("AntiBlock", new QuickToggler(@menuname, 4, 1, "Anti Block", ClickClass_AntiBlock.OnClick_AntiBlockToggle, "off", "Toggle: Enabled module Anti-Block\nShow blocked users"));
             /* * * * * * * * */
 
             /* * [ SET BACK BUTTON ] * */
-            GameObject gameObject = QuickMenu.Instance.transform.Find(BE4V_QuickUIMenu.@menuname + "/BackButton").gameObject;
-            var click = gameObject.GetComponent<Button>().onClick;
-            gameObject.SetActive(false);
-            buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, MSGClass_QuickMenu.msgBackButton_name, null, MSGClass_QuickMenu.msgBackButton_ToolTip));
-            buttons["BackButton"].gameObject.GetComponent<Button>().onClick = click;
+            // GameObject gameObject = QuickMenu.Instance.transform.Find(BE4V_QuickUIMenu.@menuname + "/BackButton").gameObject;
+            // var click = gameObject.GetComponent<Button>().onClick;
+            // gameObject.SetActive(false);
+            // buttons.Add("BackButton", new QuickButton(@menuname, 4, 2, MSGClass_QuickMenu.msgBackButton_name, null, MSGClass_QuickMenu.msgBackButton_ToolTip));
+            // buttons["BackButton"].gameObject.GetComponent<Button>().onClick = click;
             /* * [ SET BACK BUTTON ] * */
             /*
             ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
@@ -65,8 +63,8 @@ namespace BE4v.MenuEdit
             Image imgPrev = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathPrevArrow).GetComponentInChildren<Image>();
             Image imgNext = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathNextArrow).GetComponentInChildren<Image>();
 
-            QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
-
+            // QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
+            /*
             button.gameObject.GetComponentInChildren<Image>().sprite = imgPrev.sprite;
             button.gameObject.GetComponentInChildren<Image>().material = imgPrev.material;
             button.gameObject.transform.localScale = new Vector3(-1, 1);
@@ -74,6 +72,7 @@ namespace BE4v.MenuEdit
             button = new QuickButton(@menuname, 4, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Next menu");
             button.gameObject.GetComponentInChildren<Image>().sprite = imgNext.sprite;
             button.gameObject.GetComponentInChildren<Image>().material = imgNext.material;
+            */
         }
     }
 

@@ -38,7 +38,7 @@ namespace BE4v.Patch
                 return;
 
             _delegateUserInteractMenu_Update.Invoke(instance);
-            
+            /*
             var __instance = new UserInteractMenu(instance);
             var menuController = __instance.menuController;
             if (menuController == null)
@@ -83,11 +83,12 @@ namespace BE4v.Patch
                 cloneAvatarButton.gameObject.GetComponent<Button>().interactable = true;
                 cloneAvatarButton.setButtonText("Clone\nAvatar");
             }
+            */
         }
 
         private static string userId = string.Empty;
 
-        private static QuickButton cloneAvatarButton = null;
+        //private static QuickButton cloneAvatarButton = null;
 
         private static _UserInteractMenu_Update _delegateUserInteractMenu_Update = null;
     }
