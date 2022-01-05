@@ -18,6 +18,15 @@ namespace BE4v.MenuEdit.Construct.Menu
 
         public VerticalLayoutGroup verticalLayoutGroup { get; private set; }
 
+        public ElementMenu(Transform transform)
+        {
+            gameObject = transform.gameObject;
+
+            menuName = gameObject.name;
+
+            verticalLayoutGroup = transform.Find("ScrollRect/Viewport/VerticalLayoutGroup").GetComponent<VerticalLayoutGroup>();
+        }
+
         public ElementMenu(string name, bool root = true)
         {
             gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.menuTemplate.gameObject, QuickMenuUtils.menuTemplate.parent);

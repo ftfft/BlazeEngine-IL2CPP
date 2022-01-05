@@ -12,6 +12,10 @@ namespace BE4v.MenuEdit
 {
     public static class BE4V_MainMenu
     {
+        public static ElementMenu mainMenu = null;
+
+        public static ElementButtonGroup groupMainMenu = null;
+
         public static ElementMenu registerMenu = null;
 
         public static ElementButtonGroup registerGroupMenu = null;
@@ -20,20 +24,28 @@ namespace BE4v.MenuEdit
 
         public static void BlazeEngine4VersionMenu()
         {
+            mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
+            groupMainMenu = new ElementButtonGroup("Toggle's BE4v", mainMenu);
+            new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+
+
             registerMenu = new ElementMenu("BlazeEngine4Version");
             new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
             
-            registerGroupMenu = new ElementButtonGroup("First Test GRoup", registerMenu);
+            registerGroupMenu = new ElementButtonGroup("First Test GRoup 1", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
 
-            registerGroupMenu = new ElementButtonGroup("First Test GRoup 2", registerGroupMenu);
+            registerGroupMenu = new ElementButtonGroup("First Test GRoup 3", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
 
-            registerGroupMenu = new ElementButtonGroup("First Test GRoup 3", registerGroupMenu);
+            registerGroupMenu = new ElementButtonGroup("First Test GRoup 3", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
