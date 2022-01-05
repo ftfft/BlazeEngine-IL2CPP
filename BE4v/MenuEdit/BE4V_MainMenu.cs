@@ -42,48 +42,56 @@ namespace BE4v.MenuEdit
         public static void Delete()
         {
             Transform menu = QuickMenu.Instance.transform;
-            Transform toggle_safeMode = menu.Find("Container/Window/Toggle_SafeMode");
-            if (toggle_safeMode != null)
-                toggle_safeMode.gameObject.Destroy();
+            Transform transform = menu.Find("Container/Window/Toggle_SafeMode");
+            if (transform != null)
+                transform.gameObject.Destroy();
+
+            transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners");
+            if (transform != null)
+                transform.gameObject.Destroy();
+
+            transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners");
+            if (transform != null)
+                transform.gameObject.Destroy();
 
             // Transform transform = menu.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard");
-            /*
-            // Items:
-            // - Container
-            foreach(Transform menuTransform in menu)
-            {
+                /*
                 // Items:
-                // Menu Collider
-                // Back Window
-                // ThankYouCharacter
-                // Window
-                foreach (Transform containerTransform in menuTransform)
+                // - Container
+                foreach(Transform menuTransform in menu)
                 {
-                    if (containerTransform.name == "Window")
+                    // Items:
+                    // Menu Collider
+                    // Back Window
+                    // ThankYouCharacter
+                    // Window
+                    foreach (Transform containerTransform in menuTransform)
                     {
-
-                        foreach (Transform windowTransform in containerTransform)
+                        if (containerTransform.name == "Window")
                         {
-                            if (windowTransform.name == "Toggle_SafeMode")
-                                windowTransform.gameObject.Destroy();
+
+                            foreach (Transform windowTransform in containerTransform)
+                            {
+                                if (windowTransform.name == "Toggle_SafeMode")
+                                    windowTransform.gameObject.Destroy();
+                            }
                         }
                     }
                 }
-            }
-            */
+                */
 
-            //            if (transform != null)
-            //                transform.gameObject.SetActive(false);
-            /*
-            menu.Find("ThankYouCharacter").Destroy();
-            var submenu = menu.Find("VRC+_Banners");
-            while (submenu != null)
-            {
-                submenu?.Destroy();
-                submenu = menu.Find("VRC+_Banners");
-            }
-            */
-            // FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
+                //            if (transform != null)
+                //                transform.gameObject.SetActive(false);
+                /*
+                menu.Find("ThankYouCharacter").Destroy();
+                var submenu = menu.Find("VRC+_Banners");
+                while (submenu != null)
+                {
+                    submenu?.Destroy();
+                    submenu = menu.Find("VRC+_Banners");
+                }
+                */
+                // FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
             "QuickMenu element's".RedPrefix("Destroy");
         }
 

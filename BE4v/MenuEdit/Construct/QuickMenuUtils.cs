@@ -30,7 +30,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonTemplate == null)
                 {
-                    _buttonTemplate = QuickMenu.Instance.transform.Find(szButtonGroup + "/Button_Respawn");
+                    _buttonTemplate = menuTemplate?.Find(szVerticalLayoutGroup + "/Buttons_QuickActions/Button_Respawn");
                 }
                 return _buttonTemplate;
             }
@@ -43,7 +43,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonGroupHeaderTemplate == null)
                 {
-                    _buttonGroupHeaderTemplate = QuickMenu.Instance.transform.Find(szButtonGroupsGroup + "/Header_QuickActions");
+                    _buttonGroupHeaderTemplate = menuTemplate?.Find(szVerticalLayoutGroup + "/Header_QuickActions");
                 }
                 return _buttonGroupHeaderTemplate;
             }
@@ -56,7 +56,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonGroupBaseTemplate == null)
                 {
-                    _buttonGroupBaseTemplate = QuickMenu.Instance.transform.Find(szButtonGroupsGroup + "/Buttons_QuickActions");
+                    _buttonGroupBaseTemplate = menuTemplate?.Find(szVerticalLayoutGroup + "/Buttons_QuickActions");
                 }
                 return _buttonGroupBaseTemplate;
             }
@@ -77,10 +77,8 @@ namespace BE4v.MenuEdit.Construct
 
         public static string szHorizontalGroup = "Container/Window/Page_Buttons_QM/HorizontalLayoutGroup";
 
-        public static string szButtonGroup = "Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions";
-
-        public static string szButtonGroupsGroup = "Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup";
-
         public static string szMenuGroup = "Container/Window/QMParent";
+
+        public static string szVerticalLayoutGroup = "ScrollRect/Viewport/VerticalLayoutGroup";
     }
 }
