@@ -103,6 +103,15 @@ namespace BE4v.Mods
                 Mod_FastTP.Teleport();
                 return;
             }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                QuickMenu quickMenu = QuickMenu.Instance;
+                if (quickMenu != null)
+                {
+                    FileDebug.debugGameObject("QuickTestMenu", quickMenu.gameObject);
+                }
+                return;
+            }
             if (Input.GetKeyDown(KeyCode.X))
             {
                 Mod_Invisible.Toggle();

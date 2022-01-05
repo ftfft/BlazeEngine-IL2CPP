@@ -13,8 +13,17 @@ namespace BE4v.MenuEdit.Construct.Menu
     {
         public ElementButtonGroup(string groupName, ElementMenu menu)
         {
+            gameObject = CreateObject(groupName, menu.verticalLayoutGroup.gameObject);
+        }
+        public ElementButtonGroup(string groupName, ElementButtonGroup menu)
+        {
+            gameObject = CreateObject(groupName, menu.gameObject);
+        }
 
-            gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonGroupHeaderTemplate.gameObject, menu.gameObject.transform);
+        private GameObject CreateObject(string groupName, GameObject menu)
+        {
+
+            gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonGroupHeaderTemplate.gameObject, menu.transform);
             gameObject.name = "Header_" + groupName;
 
             TextMeshProUGUI buttonText = gameObject.transform.Find("LeftItemContainer/Text_Title").GetComponent<TextMeshProUGUI>();
@@ -28,6 +37,7 @@ namespace BE4v.MenuEdit.Construct.Menu
             {
                 obj.gameObject?.Destroy();
             }
+            return gameObject;
         }
     }
 }

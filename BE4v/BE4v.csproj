@@ -275,6 +275,10 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RaiseEventOptions.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
+    <Compile Include="SDK\UnityEngine.UI\HorizontalOrVerticalLayoutGroup.cs" />
+    <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
+    <Compile Include="SDK\UnityEngine.UI\RectMask2D.cs" />
+    <Compile Include="SDK\UnityEngine.UI\VerticalLayoutGroup.cs" />
     <Compile Include="SDK\VRC.UI.Core\UIContext.cs" />
     <Compile Include="SDK\VRC.UI.Core\UIElement.cs" />
     <Compile Include="SDK\VRC.UI.Elements\Controls\MenuTab.cs" />

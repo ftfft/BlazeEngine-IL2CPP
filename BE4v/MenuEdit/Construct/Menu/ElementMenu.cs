@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using VRC.UI.Elements;
 using VRC.UI.Elements.Menus;
 using BE4v.SDK.CPP2IL;
@@ -14,6 +15,9 @@ namespace BE4v.MenuEdit.Construct.Menu
     public class ElementMenu : QuickObject
     {
         public string menuName { get; private set; }
+
+        public VerticalLayoutGroup verticalLayoutGroup { get; private set; }
+
         public ElementMenu(string name, bool root = true)
         {
             gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.menuTemplate.gameObject, QuickMenuUtils.menuTemplate.parent);
@@ -37,6 +41,9 @@ namespace BE4v.MenuEdit.Construct.Menu
             {
                 obj.gameObject?.Destroy();
             }
+            verticalLayoutGroup = transform.GetComponent<VerticalLayoutGroup>();
+            if (verticalLayoutGroup != null)
+                verticalLayoutGroup.childControlHeight = false;
 
             if (root)
             {
@@ -47,6 +54,10 @@ namespace BE4v.MenuEdit.Construct.Menu
 
             TextMeshProUGUI title = gameObject.transform.Find("Header_H1/LeftItemContainer/Text_Title").GetComponent<TextMeshProUGUI>();
             title.text = name;
+
+            RectMask2D mask = verticalLayoutGroup.transform.parent.GetComponent<RectMask2D>();
+            if (mask != null)
+                mask.enabled = true;
         }
 
 

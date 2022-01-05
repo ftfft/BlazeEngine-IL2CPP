@@ -27,6 +27,16 @@ namespace BE4v.MenuEdit
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+
+            registerGroupMenu = new ElementButtonGroup("First Test GRoup 2", registerGroupMenu);
+            new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+
+            registerGroupMenu = new ElementButtonGroup("First Test GRoup 3", registerGroupMenu);
+            new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
         }
 
         public static void Delete()
