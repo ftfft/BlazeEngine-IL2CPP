@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="SDK\IL2Dumper\NodesUtils.cs" />
     <Compile Include="SDK\IL2SystemClass.cs" />
+    <Compile Include="SDK\mscorlib\System\IO\File.cs" />
     <Compile Include="SDK\mscorlib\System\RuntimeType.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\EnetPeer.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\Notification.cs" />

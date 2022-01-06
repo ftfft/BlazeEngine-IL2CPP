@@ -34,15 +34,13 @@ namespace BE4v.MenuEdit
 
             registerMenu = new ElementMenu("BlazeEngine4Version");
             ElementHorizontalButton elem =  new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
-            /*
+
             var img = elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
+            /*
             Texture2D texture = img.sprite.texture;
             Texture2D unblockTexture = FileDebug.createReadabeTexture2D(texture);
-            byte[] bytes = unblockTexture.EncodeToPNG();
-            if (bytes != null)
-                System.IO.File.WriteAllBytes("SavedScreen.png", bytes);
+            unblockTexture.EncodeToPNG_Save("SavedScreen.png");
             */
-
             registerGroupMenu = new ElementGroup("First Test GRoup 1", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });

@@ -11,6 +11,12 @@ namespace UnityEngine
         {
             return Instance_Class.GetMethod(nameof(EncodeToPNG)).Invoke(new IntPtr[] { tex.ptr })?.UnboxArraó<byte>();
         }
+        
+        public static void EncodeToPNG_Save(this Texture2D tex, string szFile)
+        {
+            IntPtr ptr = Instance_Class.GetMethod(nameof(EncodeToPNG)).Invoke(new IntPtr[] { tex.ptr }).ptr;
+            System.IO.IL2File.WriteAllBytes(szFile, ptr);
+        }
 
         public static IL2Class Instance_Class = Assembler.list["UnityEngine.ImageConversionModule"].GetClass("ImageConversion", "UnityEngine");
     }
