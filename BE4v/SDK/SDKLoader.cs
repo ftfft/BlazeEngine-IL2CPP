@@ -31,6 +31,25 @@ namespace BE4v.SDK
 
 public static class FileDebug
 {
+    public static Texture2D createReadabeTexture2D(Texture2D texture2d)
+    {
+        RenderTexture renderTexture = RenderTexture.GetTemporary(texture2d.width, texture2d.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
+        Graphics.Blit(texture2d, renderTexture);
+
+        RenderTexture previous = RenderTexture.active;
+        RenderTexture.active = renderTexture;
+
+        Texture2D readableTextur2D = new Texture2D(texture2d.width, texture2d.height);
+        readableTextur2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        readableTextur2D.Apply();
+
+        RenderTexture.active = previous;
+        RenderTexture.ReleaseTemporary(renderTexture);
+
+        return readableTextur2D;
+
+    }
+
     public static void AddFileDebug(string file, string text)
     {
         try
@@ -158,6 +177,7 @@ public static class Assembler
         {  "System.Core", "System.Core" },
         {  "VRCCore-Standalone", "VRCCore-Standalone" },
         {  "UnityEngine.CoreModule", "UnityEngine.CoreModule" },
+        {  "UnityEngine.ImageConversionModule", "UnityEngine.ImageConversionModule" },
         {  "UnityEngine.InputLegacyModule", "UnityEngine.InputLegacyModule" },
         {  "UnityEngine.Analytics", "UnityEngine.UnityAnalyticsModule" },
         {  "UnityEngine.AnimationModule", "UnityEngine.AnimationModule" },

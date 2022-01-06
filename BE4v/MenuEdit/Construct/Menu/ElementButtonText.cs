@@ -9,14 +9,14 @@ using TMPro;
 
 namespace BE4v.MenuEdit.Construct.Menu
 {
-    public class ElementButton : QuickObject
+    public class ElementButtonText : QuickObject
     {
-        public ElementButton(string buttonName, ElementMenu menu, UnityEngine.Events.UnityAction action)
+        public ElementButtonText(string buttonName, ElementMenu menu, UnityEngine.Events.UnityAction action)
         {
             gameObject = CreateElementButton(buttonName, menu.gameObject, action);
         }
 
-        public ElementButton(string buttonName, ElementGroup menu, UnityEngine.Events.UnityAction action)
+        public ElementButtonText(string buttonName, ElementGroup menu, UnityEngine.Events.UnityAction action)
         {
             gameObject = CreateElementButton(buttonName, menu.gameObject, action);
         }

@@ -9,13 +9,13 @@ using TMPro;
 
 namespace BE4v.MenuEdit.Construct.Menu
 {
-    public class ElementButtonGroup : QuickObject
+    public class ElementGroup : QuickObject
     {
-        public ElementButtonGroup(string groupName, ElementMenu menu)
+        public ElementGroup(string groupName, ElementMenu menu)
         {
             gameObject = CreateObject(groupName, menu.verticalLayoutGroup.gameObject);
         }
-        public ElementButtonGroup(string groupName, ElementButtonGroup menu)
+        public ElementGroup(string groupName, ElementGroup menu)
         {
             gameObject = CreateObject(groupName, menu.gameObject);
         }

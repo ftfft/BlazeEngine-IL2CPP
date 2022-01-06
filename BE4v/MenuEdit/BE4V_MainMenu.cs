@@ -14,18 +14,18 @@ namespace BE4v.MenuEdit
     {
         public static ElementMenu mainMenu = null;
 
-        public static ElementButtonGroup groupMainMenu = null;
+        public static ElementGroup groupMainMenu = null;
 
         public static ElementMenu registerMenu = null;
 
-        public static ElementButtonGroup registerGroupMenu = null;
+        public static ElementGroup registerGroupMenu = null;
 
         public static ElementButton toggleFlyType = null;
 
         public static void BlazeEngine4VersionMenu()
         {
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
-            groupMainMenu = new ElementButtonGroup("Toggle's BE4v", mainMenu);
+            groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
             new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
@@ -33,19 +33,26 @@ namespace BE4v.MenuEdit
 
 
             registerMenu = new ElementMenu("BlazeEngine4Version");
-            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
-            
-            registerGroupMenu = new ElementButtonGroup("First Test GRoup 1", registerMenu);
+            ElementHorizontalButton elem =  new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
+            var img = elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
+            Texture2D texture = img.sprite.texture;
+            Texture2D unblockTexture = FileDebug.createReadabeTexture2D(texture);
+            byte[] bytes = unblockTexture.EncodeToPNG();
+            if (bytes != null)
+                System.IO.File.WriteAllBytes("SavedScreen.png", bytes);
+
+
+            registerGroupMenu = new ElementGroup("First Test GRoup 1", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
 
-            registerGroupMenu = new ElementButtonGroup("First Test GRoup 3", registerMenu);
+            registerGroupMenu = new ElementGroup("First Test GRoup 3", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
 
-            registerGroupMenu = new ElementButtonGroup("First Test GRoup 3", registerMenu);
+            registerGroupMenu = new ElementGroup("First Test GRoup 3", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });

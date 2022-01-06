@@ -56,7 +56,8 @@
     <Compile Include="MenuEdit\BE4V_MainMenu.cs" />
     <Compile Include="MenuEdit\BE4V_QuickUIMenu.cs" />
     <Compile Include="MenuEdit\Construct\Horizontal\ElementHorizontalButton.cs" />
-    <Compile Include="MenuEdit\Construct\Menu\ElementButtonGroup.cs" />
+    <Compile Include="MenuEdit\Construct\Menu\ElementButtonText.cs" />
+    <Compile Include="MenuEdit\Construct\Menu\ElementGroup.cs" />
     <Compile Include="MenuEdit\Construct\Menu\ElementButton.cs" />
     <Compile Include="MenuEdit\Construct\Menu\ElementMenu.cs" />
     <Compile Include="MenuEdit\Construct\QuickMenuUtils.cs" />
@@ -270,6 +271,15 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RaiseEventOptions.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Experimental\Rendering\GraphicsFormat.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\RenderTextureFormat.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\RenderTextureReadWrite.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Graphics.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Texture.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\RenderTexture.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Texture2D.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Sprite.cs" />
+    <Compile Include="SDK\UnityEngine.ImageConversionModule\ImageConversion.cs" />
     <Compile Include="SDK\UnityEngine.UI\HorizontalOrVerticalLayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\RectMask2D.cs" />
