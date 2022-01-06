@@ -1,6 +1,7 @@
 ﻿using BE4v.Mods;
 using BE4v.SDK.IL2Dumper;
 using System;
+using System.Net;
 using UnityEngine;
 using VRC;
 using VRC.UI.Elements;
@@ -37,11 +38,25 @@ namespace BE4v.MenuEdit
 
             var img = elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
             Texture2D oldTexture = img.sprite.texture;
-            Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);
-            texture.LoadImage(ImagesToBytes.bottomButtonImg);
-            texture.Apply();
-            Sprite sprite = Sprite.Create(texture, new Rect(0,0,texture.width,texture.height), img.sprite.pivot, img.sprite.pixelsPerUnit);
+
+            IL2WebClient webClient = new IL2WebClient();
+            IntPtr bytes = webClient.DownloadData("http://icefrag.ru/public/logo.png");
+
+            Texture2D texture = new Texture2D(64, 64);
+            if (texture.LoadImage(bytes))
+                texture.Apply();
+
+            Sprite sprite = Sprite.Create(texture, img.sprite.rect, img.sprite.pivot, img.sprite.pixelsPerUnit, meshType: SpriteMeshType.FullRect);
+            sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
             img.sprite = sprite;
+            img.overrideSprite = sprite;
+
+            img.gameObject.SetActive(true);
+
+            // www = new WWW("http://icefrag.ru/public/logo.png");
+            // Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);
+            // texture.LoadImage(ImagesToBytes.bottomButtonImg);
+            // texture.Apply();
             // img.sprite.
             // img.sprite = new Sprite();
             // .texture.LoadImage(ImagesToBytes.bottomButtonImg);

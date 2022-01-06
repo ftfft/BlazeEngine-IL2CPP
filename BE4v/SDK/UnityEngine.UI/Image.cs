@@ -12,6 +12,12 @@ namespace UnityEngine.UI
             get => Instance_Class.GetProperty(nameof(sprite)).GetGetMethod().Invoke(ptr)?.GetValue<Sprite>();
             set => Instance_Class.GetProperty(nameof(sprite)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
         }
+        
+        public Sprite overrideSprite
+        {
+            get => Instance_Class.GetProperty(nameof(overrideSprite)).GetGetMethod().Invoke(ptr)?.GetValue<Sprite>();
+            set => Instance_Class.GetProperty(nameof(overrideSprite)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
+        }
 
         public Material material
         {

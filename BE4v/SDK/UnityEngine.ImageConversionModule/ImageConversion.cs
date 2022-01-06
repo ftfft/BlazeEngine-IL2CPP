@@ -36,7 +36,12 @@ namespace UnityEngine
                 }
                 result = ptrs.ArrayToIntPtr(IL2SystemClass.Byte);
             }
-            return Instance_Class.GetMethod(nameof(LoadImage), x => x.GetParameters().Length == 2).Invoke(new IntPtr[] { tex.ptr, result }).GetValuå<bool>();
+            return LoadImage(tex, result);
+        }
+        
+        unsafe public static bool LoadImage(this Texture2D tex, IntPtr data)
+        {
+            return Instance_Class.GetMethod(nameof(LoadImage), x => x.GetParameters().Length == 2).Invoke(new IntPtr[] { tex.ptr, data }).GetValuå<bool>();
         }
 
         public static IL2Class Instance_Class = Assembler.list["UnityEngine.ImageConversionModule"].GetClass("ImageConversion", "UnityEngine");

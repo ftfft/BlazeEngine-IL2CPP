@@ -17,7 +17,10 @@ namespace UnityEngine
 			Vector4 border = Vector4.zero;
 			return Create2(texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape);
 		}
-
+		public Rect rect
+		{
+			get => Instance_Class.GetProperty(nameof(rect)).GetGetMethod().Invoke(ptr).GetValuе<Rect>();
+		}
 		public Vector2 pivot
 		{
 			get => Instance_Class.GetProperty(nameof(pivot)).GetGetMethod().Invoke(ptr).GetValuе<Vector2>();

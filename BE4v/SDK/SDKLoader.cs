@@ -174,6 +174,7 @@ public static class Assembler
     {
         {  "acs", "Assembly-CSharp" },
         {  "mscorlib", "mscorlib" },
+        {  "System", "System" },
         {  "System.Core", "System.Core" },
         {  "VRCCore-Standalone", "VRCCore-Standalone" },
         {  "UnityEngine.CoreModule", "UnityEngine.CoreModule" },

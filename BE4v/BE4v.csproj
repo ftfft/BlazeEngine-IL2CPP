@@ -154,6 +154,8 @@
     <Compile Include="SDK\mscorlib\System\RuntimeType.cs" />
     <Compile Include="SDK\mscorlib\System\Text\Encoding.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\EnetPeer.cs" />
+    <Compile Include="SDK\System\Net\WebRequest.cs" />
+    <Compile Include="SDK\System\Net\IL2WebClient.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\Notification.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\NotificationDetails.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Asset.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Experimental\Rendering\GraphicsFormat.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\HideFlags.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\RenderTextureFormat.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\RenderTextureReadWrite.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Graphics.cs" />
