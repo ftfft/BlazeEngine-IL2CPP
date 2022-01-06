@@ -112,7 +112,19 @@ namespace BE4v.Mods
                     FileDebug.debugGameObject("QuickTestMenu", quickMenu.gameObject);
                 }
                 */
-                ImagesToBytes.GetDumpImage("be4v-logo.png", "dump-image");
+                /*
+                IL2Method t = Sprite.Instance_Class.GetMethodByName("Create", 3);
+                if (t == null)
+                    Console.WriteLine("Method not found");
+                else
+                    Console.WriteLine("Method is GOOD!!!!!!!!! ++++++++++++++++++++++++");
+                /*
+                foreach(var m in Sprite.Instance_Class.GetMethods())
+                {
+                    Console.WriteLine(m.Name);
+                }
+                */
+                //ImagesToBytes.GetDumpImage("be4v-logo.png", "dump-image");
                 return;
             }
             if (Input.GetKeyDown(KeyCode.X))

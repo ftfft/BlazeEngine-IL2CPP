@@ -21,9 +21,19 @@ public static class SDKUtils
 
         int length = array.Count();
         IntPtr result = Import.Object.il2cpp_array_new(typeobject.ptr, length);
-        for (int i = 0; i < length; i++)
+        if (typeobject == IL2SystemClass.Byte)
         {
-            *(IntPtr*)((IntPtr)((long*)result + 4) + i * IntPtr.Size) = array[i];
+            for (int i = 0; i < length; i++)
+            {
+                *(IntPtr*)((IntPtr)((long*)result + 4) + i * sizeof(byte)) = array[i];
+            }
+        }
+        else
+        {
+            for (int i = 0; i < length; i++)
+            {
+                *(IntPtr*)((IntPtr)((long*)result + 4) + i * IntPtr.Size) = array[i];
+            }
         }
         return result;
     }

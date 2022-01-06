@@ -140,6 +140,13 @@ namespace BE4v.SDK.CPP2IL
         public IL2Constructor GetConstructor() => GetConstructors().FirstOrDefault();
         */
         // Methods
+        public IL2Method GetMethodByName(string name, int argsCount)
+        {
+            IntPtr result = Import.Class.il2cpp_class_get_method_from_name(ptr, new IL2String(name).ptr, argsCount);
+            if (result != IntPtr.Zero)
+                return new IL2Method(result);
+            return null;
+        }
         public IL2Method[] GetMethods() => MethodList.ToArray();
         public IL2Method[] GetMethods(IL2BindingFlags flags) => GetMethods(flags, null);
         public IL2Method[] GetMethods(Func<IL2Method, bool> func) => GetMethods().Where(x => func(x)).ToArray();
