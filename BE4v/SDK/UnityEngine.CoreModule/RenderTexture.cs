@@ -9,7 +9,8 @@ namespace UnityEngine
 
 		unsafe public static RenderTexture GetTemporary(int width, int height, int depthBuffer, RenderTextureFormat format, RenderTextureReadWrite readWrite)
 		{
-			return Instance_Class.GetMethod(nameof(GetTemporary), x => x.GetParameters().Length == 5).Invoke(new IntPtr[] { new IntPtr(&width), new IntPtr(&height), new IntPtr(&depthBuffer), new IntPtr(&format), new IntPtr(&readWrite) })?.GetValue<RenderTexture>();
+			return Instance_Class.GetMethod(nameof(GetTemporary), x => x.GetParameters().Length == 5
+			&& x.GetParameters()[3].ReturnType.Name == "UnityEngine.RenderTextureFormat" && x.GetParameters()[4].ReturnType.Name == "UnityEngine.RenderTextureReadWrite").Invoke(new IntPtr[] { new IntPtr(&width), new IntPtr(&height), new IntPtr(&depthBuffer), new IntPtr(&format), new IntPtr(&readWrite) })?.GetValue<RenderTexture>();
 		}
 
 
