@@ -63,6 +63,7 @@
     <Compile Include="MenuEdit\Construct\QuickMenuUtils.cs" />
     <Compile Include="MenuEdit\Construct\QuickObject.cs" />
     <Compile Include="MenuEdit\Construct\UIButton.cs" />
+    <Compile Include="MenuEdit\ImagesToBytes.cs" />
     <Compile Include="MenuEdit\IMGUI\TabMenu.cs" />
     <Compile Include="MenuOverlay\MainForm.cs">
       <SubType>Form</SubType>

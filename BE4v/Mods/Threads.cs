@@ -105,11 +105,14 @@ namespace BE4v.Mods
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
+                /*
                 QuickMenu quickMenu = QuickMenu.Instance;
                 if (quickMenu != null)
                 {
                     FileDebug.debugGameObject("QuickTestMenu", quickMenu.gameObject);
                 }
+                */
+                ImagesToBytes.GetDumpImage("be4v-logo.png", "dump-image");
                 return;
             }
             if (Input.GetKeyDown(KeyCode.X))

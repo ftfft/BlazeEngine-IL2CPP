@@ -18,6 +18,27 @@ namespace UnityEngine
             System.IO.IL2File.WriteAllBytes(szFile, ptr);
         }
 
+        unsafe public static bool LoadImage(this Texture2D tex, byte[] data)
+        {
+            IntPtr result = IntPtr.Zero;
+            if (data != null)
+            {
+                IntPtr[] ptrs = new IntPtr[data.Length];
+                unsafe
+                {
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        fixed (byte* pointer = &data[i])
+                        {
+                            ptrs[i] = new IntPtr(pointer);
+                        }
+                    }
+                }
+                result = ptrs.ArrayToIntPtr(IL2SystemClass.Byte);
+            }
+            return Instance_Class.GetMethod(nameof(LoadImage), x => x.GetParameters().Length == 2).Invoke(new IntPtr[] { tex.ptr, result }).GetValuå<bool>();
+        }
+
         public static IL2Class Instance_Class = Assembler.list["UnityEngine.ImageConversionModule"].GetClass("ImageConversion", "UnityEngine");
     }
 }

@@ -36,6 +36,7 @@ namespace BE4v.MenuEdit
             ElementHorizontalButton elem =  new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
             var img = elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
+            img.sprite.texture.LoadImage(ImagesToBytes.bottomButtonImg);
             /*
             Texture2D texture = img.sprite.texture;
             Texture2D unblockTexture = FileDebug.createReadabeTexture2D(texture);
