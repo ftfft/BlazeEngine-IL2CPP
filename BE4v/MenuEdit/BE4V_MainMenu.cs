@@ -48,14 +48,12 @@ namespace BE4v.MenuEdit
             if (texture.LoadImage(bytes))
                 texture.Apply();
 
-            UnityEngine.Object.Destroy(iconTransform.GetComponent<UnityEngine.UI.Image>());
-
             Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect, false);
             sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
 
-            elem.gameObject.transform.Find("Background").gameObject.AddComponent<SpriteRenderer>();
-            var img = elem.gameObject.transform.Find("Background").GetComponent<SpriteRenderer>();
+            var img = iconTransform.gameObject.GetComponent<UnityEngine.UI.Image>();
             img.sprite = sprite;
+            img.overrideSprite = sprite;
 
             // www = new WWW("http://icefrag.ru/public/logo.png");
             // Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);

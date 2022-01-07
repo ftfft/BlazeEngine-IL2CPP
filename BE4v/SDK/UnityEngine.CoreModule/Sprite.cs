@@ -40,7 +40,7 @@ namespace UnityEngine
 			return CreateSprite(texture.ptr, ref ptrRect, ref ptrPivot, pixelsPerUnit, extrude, meshType, ref ptrBorder, generateFallbackPhysicsShape);
 		}
 
-		private delegate IntPtr _delegateCreateSprite(IntPtr texture, ref IntPtr rect, ref IntPtr pivot, float pixelsPerUnit, uint extrude, SpriteMeshType meshType, ref IntPtr border, bool generateFallbackPhysicsShape);
+		private delegate IntPtr _delegateCreateSprite(IntPtr texture, IntPtr rect, IntPtr pivot, float pixelsPerUnit, uint extrude, SpriteMeshType meshType, IntPtr border, bool generateFallbackPhysicsShape);
 		private static _delegateCreateSprite _CreateSprite = null;
 		private static Sprite CreateSprite(IntPtr texture, ref IntPtr rect, ref IntPtr pivot, float pixelsPerUnit, uint extrude, SpriteMeshType meshType, ref IntPtr border, bool generateFallbackPhysicsShape)
 		{
@@ -51,7 +51,7 @@ namespace UnityEngine
 					return null;
 			}
 
-			IntPtr result = _CreateSprite(texture, ref rect, ref pivot, pixelsPerUnit, extrude, meshType, ref border, generateFallbackPhysicsShape);
+			IntPtr result = _CreateSprite(texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape);
 			if (result == IntPtr.Zero)
 				return null;
 
