@@ -23,20 +23,20 @@ namespace BE4v.MenuEdit
 
         public static ElementButton toggleFlyType = null;
 
-        public static ElementButton elem = null;
+        public static ElementHorizontalButton elem = null;
 
         public static void BlazeEngine4VersionMenu()
         {
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
             groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
-            elem = new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
 
 
             registerMenu = new ElementMenu("BlazeEngine4Version");
-            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
+            elem = new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
             var iconTransform = elem.gameObject.transform.Find("Icon");
             
