@@ -88,7 +88,7 @@
     <Compile Include="Patch\Patch_AntiCrash.cs" />
     <Compile Include="Patch\Patch_Event_OnShowProfile.cs" />
     <Compile Include="Patch\Patch_Event_OnPlayerConnected.cs" />
-    <Compile Include="Patch\Patch_Event_VRCPlayer_RefreshState.cs" />
+    <Compile Include="Patch\Patch_Event_VRC_Player_OnNetworkReady.cs" />
     <Compile Include="Patch\Patch_Event_OnEvent.cs" />
     <Compile Include="Patch\Patch_ForceCloneAvatar.cs" />
     <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />

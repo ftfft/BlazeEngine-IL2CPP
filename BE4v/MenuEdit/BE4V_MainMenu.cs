@@ -17,6 +17,8 @@ namespace BE4v.MenuEdit
 
         public static ElementGroup groupMainMenu = null;
 
+        public static ElementButton buttonToggleESP = null;
+
         public static ElementMenu registerMenu = null;
 
         public static ElementGroup registerGroupMenu = null;
@@ -29,7 +31,7 @@ namespace BE4v.MenuEdit
         {
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
             groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
-            new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            buttonToggleESP = new ElementButton("Toggle ESP", groupMainMenu, delegate () { Mod_GlowESP.Toggle(); });
             new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
@@ -243,13 +245,11 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_GlowESP_Refresh()
         {
-            // quickTogglerGlowESP.SetToggleToOn(Status.isGlowESP);
-            foreach(var player in PlayerManager.Instance.PlayersCopy)
+            
+            foreach (var player in PlayerManager.Instance.PlayersCopy)
             {
-                // player.Components?.RefreshState();
+                player.OnNetworkReady();
             }
         }
-
-        // public static QuickToggler quickTogglerGlowESP;
     }
 }

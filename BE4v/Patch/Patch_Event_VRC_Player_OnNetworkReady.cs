@@ -11,54 +11,37 @@ using VRC.Management;
 
 namespace BE4v.Patch
 {
-    public delegate void _VRCPlayer_RefreshState(IntPtr instance);
-    public static class Patch_Event_VRCPlayer_RefreshState
+    public delegate void _VRC_Player_OnNetworkReady(IntPtr instance);
+    public static class Patch_Event_VRC_Player_OnNetworkReady
     {
         public static void Start()
         {
             try
             {
-                unsafe
-                {
-                    IL2Method method = null;
-                    var disassembler = VRC.Player.Instance_Class.GetMethod("OnNetworkReady").GetDisassembler(0x1000);
-                    foreach (var instruction in disassembler.Disassemble())
-                    {
-                        if (instruction.Mnemonic == ud_mnemonic_code.UD_Iint3)
-                            continue;
+                IL2Method method = VRC.Player.Instance_Class.GetMethod("OnNetworkReady");
+                if (method == null)
+                    throw new Exception();
 
-                        if (instruction.Mnemonic != ud_mnemonic_code.UD_Ijmp)
-                            continue;
-                        IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
-
-                        method = VRCPlayer.Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr);
-                        if (method != null)
-                        {
-                            method.Name = "RefreshState";
-                            break;
-                        }
-                    }
-                    var patch = new IL2Patch(method, (_VRCPlayer_RefreshState)VRCPlayer_RefreshState);
-                    _delegateVRCPlayer_RefreshState = patch.CreateDelegate<_VRCPlayer_RefreshState>();
-                }
-                "[Event] RefreshState (Patch)".GreenPrefix(TMessage.SuccessPatch);
+                var patch = new IL2Patch(method, (_VRC_Player_OnNetworkReady)VRC_Player_OnNetworkReady);
+                _delegateVRC_Player_OnNetworkReady = patch.CreateDelegate<_VRC_Player_OnNetworkReady>();
+                "[Event] OnNetworkReady (Patch)".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
             {
-                "[Event] RefreshState (Patch)".RedPrefix(TMessage.BadPatch);
+                "[Event] OnNetworkReady (Patch)".RedPrefix(TMessage.BadPatch);
             }
         }
 
-        public static void VRCPlayer_RefreshState(IntPtr instance)
+        public static void VRC_Player_OnNetworkReady(IntPtr instance)
         {
-            if (instance == IntPtr.Zero || VRCPlayer.Instance == null) return;
-            VRCPlayer vrcPlayer = new VRCPlayer(instance);
-            if (VRCPlayer.Instance != vrcPlayer)
+            if (instance == IntPtr.Zero || VRC.Player.Instance == null) return;
+            VRC.Player player = new VRC.Player(instance);
+            if (VRC.Player.Instance != player)
             {
                 if (Status.isAntiBlock)
                 {
-                    vrcPlayer.player.IsBlocked = false;
-                    vrcPlayer.player.IsBlockedBy = false;
+                    player.IsBlocked = false;
+                    player.IsBlockedBy = false;
                 }
                 /*
                 else
@@ -70,19 +53,20 @@ namespace BE4v.Patch
                 }
                 */
             }
-            _delegateVRCPlayer_RefreshState.Invoke(instance);
+            _delegateVRC_Player_OnNetworkReady.Invoke(instance);
 
-            if (VRCPlayer.Instance.ptr == instance) return;
+            if (VRC.Player.Instance.ptr == instance) return;
 
-            Renderer renderer = vrcPlayer?.playerSelector?.GetComponent<Renderer>();
+            Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
             if (renderer != null)
             {
 
-                APIUser user = vrcPlayer.player?.user;
+                APIUser user = player.user;
                 if (user == null)
                     return;
 
-                var graphic = vrcPlayer.nameplate?.uiNameBackground;
+                /*
+                var graphic = player.Components.nameplate?.uiNameBackground;
                 VRCPlayer.SocialRank rank = VRCPlayer.GetSocialRank(user);
                 if (graphic != null)
                 {
@@ -97,6 +81,7 @@ namespace BE4v.Patch
                     else if (rank == VRCPlayer.SocialRank.NewUser)
                         graphic.color = Color.blue;
                 }
+                */
                 if (highlightsYellow?.gameObject == null)
                 {
                     highlightsYellow = HighlightsFX.Instance.gameObject.AddComponent<HighlightsFXStandalone>();
@@ -120,6 +105,6 @@ namespace BE4v.Patch
 
         public static HighlightsFXStandalone highlightsYellow;
 
-        public static _VRCPlayer_RefreshState _delegateVRCPlayer_RefreshState;
+        public static _VRC_Player_OnNetworkReady _delegateVRC_Player_OnNetworkReady;
     }
 }

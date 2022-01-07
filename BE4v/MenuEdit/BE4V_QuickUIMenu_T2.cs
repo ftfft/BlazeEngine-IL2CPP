@@ -91,7 +91,7 @@ namespace BE4v.MenuEdit
             {
                 foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
                 {
-                    //player.Components?.RefreshState();
+                    player.OnNetworkReady();
                 }
                 // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("on");
                 //if (!Patch_AntiBlock.patch.Enabled)

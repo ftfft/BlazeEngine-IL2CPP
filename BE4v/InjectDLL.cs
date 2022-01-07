@@ -37,7 +37,7 @@ namespace BE4v
             Patch.Patch_Event_OnEvent.Start();
             // Patch.Patch_Event_OnMasterConnected.Start();
             //*/
-            // Patch.Patch_Event_VRCPlayer_RefreshState.Start();
+            Patch.Patch_Event_VRC_Player_OnNetworkReady.Start();
             // Patch.Patch_Event_OnShowProfile.Start();
             Patch.Patch_NoAnalytics.Start();
             Patch.Patch_QuickMenuLoaded.Start();
