@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.202
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VRCLoader", "VRCLoader\VRCLoader.vcxproj", "{4A01315C-109C-469A-97DD-F9BD8A6DDED9}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRLoader", "VRLoader\VRLoad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitManager", "InitManager\InitManager.csproj", "{BD30E606-227B-4C7E-A05B-46D04F293341}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRCheat", "VRCheat\VRCheat.csproj", "{643ADA23-A2FD-496A-AC9B-A54C02623549}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUploader", "VRCheat\WebUploader.csproj", "{643ADA23-A2FD-496A-AC9B-A54C02623549}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitLoader", "InitLoader\InitLoader.csproj", "{521C29F7-645B-4F38-843B-0BBBE31059D6}"
 EndProject
@@ -126,6 +126,7 @@ Global
 		{BD30E606-227B-4C7E-A05B-46D04F293341}.Unity-Release|x64.ActiveCfg = Release|Any CPU
 		{BD30E606-227B-4C7E-A05B-46D04F293341}.Unity-Release|x64.Build.0 = Release|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|x64.Build.0 = Debug|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -149,6 +150,7 @@ Global
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Unity-Release|x64.ActiveCfg = Release|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Unity-Release|x64.Build.0 = Release|Any CPU
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Debug|x64.Build.0 = Debug|Any CPU
 		{521C29F7-645B-4F38-843B-0BBBE31059D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
