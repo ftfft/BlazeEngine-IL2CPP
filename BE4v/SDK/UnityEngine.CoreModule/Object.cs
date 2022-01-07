@@ -85,7 +85,11 @@ namespace UnityEngine
         {
             Instance_Class.GetMethod(nameof(DontDestroyOnLoad)).Invoke(new IntPtr[] { target.ptr });
         }
-
+        unsafe public HideFlags hideFlags
+        {
+            get => Instance_Class.GetProperty(nameof(hideFlags)).GetGetMethod().Invoke(ptr).GetValuå<HideFlags>();
+            set => Instance_Class.GetProperty(nameof(hideFlags)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+        }
         public string name
         {
             get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(ptr)?.GetValue<string>();

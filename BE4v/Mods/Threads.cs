@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Net;
 using System.Threading;
 using BE4v.MenuEdit;
 using BE4v.MenuEdit.IMGUI;
@@ -105,6 +106,21 @@ namespace BE4v.Mods
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
+                var img = BE4V_MainMenu.elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
+                Texture2D oldTexture = img.sprite.texture;
+
+                IL2WebClient webClient = new IL2WebClient();
+                IntPtr bytes = webClient.DownloadData("http://icefrag.ru/public/logo.png");
+
+                Texture2D texture = new Texture2D(64, 64);
+                if (texture.LoadImage(bytes))
+                    texture.Apply();
+
+                Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect, false);
+                sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
+                img.sprite = sprite;
+                img.overrideSprite = sprite;
+
                 /*
                 QuickMenu quickMenu = QuickMenu.Instance;
                 if (quickMenu != null)
@@ -112,7 +128,19 @@ namespace BE4v.Mods
                     FileDebug.debugGameObject("QuickTestMenu", quickMenu.gameObject);
                 }
                 */
-                ImagesToBytes.GetDumpImage("be4v-logo.png", "dump-image");
+                /*
+                IL2Method t = Sprite.Instance_Class.GetMethodByName("Create", 3);
+                if (t == null)
+                    Console.WriteLine("Method not found");
+                else
+                    Console.WriteLine("Method is GOOD!!!!!!!!! ++++++++++++++++++++++++");
+                /*
+                foreach(var m in Sprite.Instance_Class.GetMethods())
+                {
+                    Console.WriteLine(m.Name);
+                }
+                */
+                //ImagesToBytes.GetDumpImage("be4v-logo.png", "dump-image");
                 return;
             }
             if (Input.GetKeyDown(KeyCode.X))

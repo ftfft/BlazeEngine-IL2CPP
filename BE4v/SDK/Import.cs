@@ -97,6 +97,8 @@ namespace BE4v.SDK
             [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_class_get_methods(IntPtr klass, ref IntPtr iter);
             [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            public extern static IntPtr il2cpp_class_get_method_from_name(IntPtr klass, IntPtr name, int argsCount);
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_class_get_fields(IntPtr klass, ref IntPtr iter);
             [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_class_get_nested_types(IntPtr klass, ref IntPtr iter);
@@ -140,6 +142,9 @@ namespace BE4v.SDK
 
         public static class Method
         {
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+            public static extern IntPtr il2cpp_resolve_icall([MarshalAs(UnmanagedType.LPStr)] string name);
+
             [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_method_get_name(IntPtr method);
             [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]

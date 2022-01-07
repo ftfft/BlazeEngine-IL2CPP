@@ -1,6 +1,7 @@
 ﻿using BE4v.Mods;
 using BE4v.SDK.IL2Dumper;
 using System;
+using System.Net;
 using UnityEngine;
 using VRC;
 using VRC.UI.Elements;
@@ -22,21 +23,46 @@ namespace BE4v.MenuEdit
 
         public static ElementButton toggleFlyType = null;
 
+        public static ElementButton elem = null;
+
         public static void BlazeEngine4VersionMenu()
         {
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
             groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
-            new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            elem = new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
 
 
             registerMenu = new ElementMenu("BlazeEngine4Version");
-            ElementHorizontalButton elem =  new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
+            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
-            var img = elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
-            img.sprite.texture.LoadImage(ImagesToBytes.bottomButtonImg);
+            var iconTransform = elem.gameObject.transform.Find("Icon");
+            
+
+            IL2WebClient webClient = new IL2WebClient();
+            IntPtr bytes = webClient.DownloadData("http://icefrag.ru/public/logo.png");
+
+            Texture2D texture = new Texture2D(64, 64);
+            if (texture.LoadImage(bytes))
+                texture.Apply();
+
+            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect, false);
+            sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
+
+            var img = iconTransform.gameObject.GetComponent<UnityEngine.UI.Image>();
+            img.sprite = sprite;
+            img.overrideSprite = sprite;
+
+            // www = new WWW("http://icefrag.ru/public/logo.png");
+            // Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);
+            // texture.LoadImage(ImagesToBytes.bottomButtonImg);
+            // texture.Apply();
+            // img.sprite.
+            // img.sprite = new Sprite();
+            // .texture.LoadImage(ImagesToBytes.bottomButtonImg);
+            // img.sprite.texture.Apply();
             /*
             Texture2D texture = img.sprite.texture;
             Texture2D unblockTexture = FileDebug.createReadabeTexture2D(texture);

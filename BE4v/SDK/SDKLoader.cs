@@ -174,6 +174,7 @@ public static class Assembler
     {
         {  "acs", "Assembly-CSharp" },
         {  "mscorlib", "mscorlib" },
+        {  "System", "System" },
         {  "System.Core", "System.Core" },
         {  "VRCCore-Standalone", "VRCCore-Standalone" },
         {  "UnityEngine.CoreModule", "UnityEngine.CoreModule" },
@@ -183,6 +184,7 @@ public static class Assembler
         {  "UnityEngine.AnimationModule", "UnityEngine.AnimationModule" },
         {  "UnityEngine.PhysicsModule", "UnityEngine.PhysicsModule" },
         {  "UnityEngine.UI", "UnityEngine.UI" },
+        {  "UnityEngine.UIModule", "UnityEngine.UIModule" },
         {  "UnityEngine.IMGUI", "UnityEngine.IMGUIModule" },
         {  "Photon", "Photon-DotNet" },
         {  "VRCSDKBase", "VRCSDKBase" },
