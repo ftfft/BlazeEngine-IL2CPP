@@ -23,21 +23,23 @@ namespace BE4v.MenuEdit
 
         public static ElementButton toggleFlyType = null;
 
+        public static ElementButton elem = null;
+
         public static void BlazeEngine4VersionMenu()
         {
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
             groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
-            new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            elem = new ElementButton("Toggle Fly Type", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
 
 
             registerMenu = new ElementMenu("BlazeEngine4Version");
-            ElementHorizontalButton elem =  new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
+            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
-            var img = elem.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>();
-            Texture2D oldTexture = img.sprite.texture;
+            var iconTransform = elem.gameObject.transform.Find("Icon");
+            
 
             IL2WebClient webClient = new IL2WebClient();
             IntPtr bytes = webClient.DownloadData("http://icefrag.ru/public/logo.png");
@@ -46,12 +48,14 @@ namespace BE4v.MenuEdit
             if (texture.LoadImage(bytes))
                 texture.Apply();
 
-            Sprite sprite = Sprite.Create(texture, img.sprite.rect, img.sprite.pivot, img.sprite.pixelsPerUnit, meshType: SpriteMeshType.FullRect);
-            sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
-            img.sprite = sprite;
-            img.overrideSprite = sprite;
+            UnityEngine.Object.Destroy(iconTransform.GetComponent<UnityEngine.UI.Image>());
 
-            img.gameObject.SetActive(true);
+            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect, false);
+            sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
+
+            elem.gameObject.transform.Find("Background").gameObject.AddComponent<SpriteRenderer>();
+            var img = elem.gameObject.transform.Find("Background").GetComponent<SpriteRenderer>();
+            img.sprite = sprite;
 
             // www = new WWW("http://icefrag.ru/public/logo.png");
             // Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);

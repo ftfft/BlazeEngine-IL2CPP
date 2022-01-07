@@ -184,6 +184,7 @@ public static class Assembler
         {  "UnityEngine.AnimationModule", "UnityEngine.AnimationModule" },
         {  "UnityEngine.PhysicsModule", "UnityEngine.PhysicsModule" },
         {  "UnityEngine.UI", "UnityEngine.UI" },
+        {  "UnityEngine.UIModule", "UnityEngine.UIModule" },
         {  "UnityEngine.IMGUI", "UnityEngine.IMGUIModule" },
         {  "Photon", "Photon-DotNet" },
         {  "VRCSDKBase", "VRCSDKBase" },
