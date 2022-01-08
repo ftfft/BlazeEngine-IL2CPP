@@ -201,4 +201,28 @@ namespace BE4v.MenuEdit
             }
         }
     }
+
+    public static class ClickClass_RPCBlock
+    {
+        public static void OnClick_RPCBlockToggle()
+        {
+            Status.isRPCBlock = !Status.isRPCBlock;
+            OnClick_RPCBlockToggle_Refresh();
+        }
+
+        public static void OnClick_RPCBlockToggle_Refresh()
+        {
+            if (BE4V_MainMenu.buttonRPCBlock != null)
+            {
+                if (Status.isRPCBlock)
+                {
+                    BE4V_MainMenu.buttonRPCBlock.SetSprite(LoadSprites.onButton);
+                }
+                else
+                {
+                    BE4V_MainMenu.buttonRPCBlock.SetSprite(LoadSprites.offButton);
+                }
+            }
+        }
+    }
 }

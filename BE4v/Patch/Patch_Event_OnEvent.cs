@@ -35,6 +35,12 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
+            int eventCode = eventData.Code;
+            if (eventCode == 6)
+            {
+                if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
+                    return;
+            }
             /*
             switch (eventData.Code)
             {
@@ -64,51 +70,51 @@ namespace BE4v.Patch
                         break;
                     }
                     */
-                /*
-                case 7:
-                    {
-                        if (isSelf)
-                            return;
-                        if ((BlazeManager.GetForPlayer<bool>("NoMove")))
-                            return;
+            /*
+            case 7:
+                {
+                    if (isSelf)
+                        return;
+                    if ((BlazeManager.GetForPlayer<bool>("NoMove")))
+                        return;
 
-                        break;
-                    }
-                case PunEvent.OwnershipRequest:
-                    {
-                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
-                            return;
+                    break;
+                }
+            case PunEvent.OwnershipRequest:
+                {
+                    if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
+                        return;
 
-                        break;
-                    }
-                case PunEvent.OwnershipTransfer:
-                    {
-                        if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
-                            return;
+                    break;
+                }
+            case PunEvent.OwnershipTransfer:
+                {
+                    if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
+                        return;
 
-                        break;
-                    }
-                case EventCode.SetProperties:
-                    {
-                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                        break;
-                    }
-                case EventCode.Leave:
-                    {
-                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                        break;
-                    }
-                case EventCode.Join:
-                    {
-                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                        if (BlazeManager.GetForPlayer<bool>("DeathMap"))
-                            return;
+                    break;
+                }
+            case EventCode.SetProperties:
+                {
+                    TabMenu.players = PlayerManager.Instance.PlayersCopy;
+                    break;
+                }
+            case EventCode.Leave:
+                {
+                    TabMenu.players = PlayerManager.Instance.PlayersCopy;
+                    break;
+                }
+            case EventCode.Join:
+                {
+                    TabMenu.players = PlayerManager.Instance.PlayersCopy;
+                    if (BlazeManager.GetForPlayer<bool>("DeathMap"))
+                        return;
 
-                        break;
-                    }
-                    */
+                    break;
+                }
+                */
             // }
-            
+
             try
             {
                 if (!userList.Contains(eventData.Sender))
