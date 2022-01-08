@@ -40,31 +40,9 @@ namespace BE4v.MenuEdit
             registerMenu = new ElementMenu("BlazeEngine4Version");
             elem = new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
-            IL2WebClient webClient = new IL2WebClient();
-            IntPtr bytes = webClient.DownloadData("http://icefrag.ru/public/logo.png");
-
-            Texture2D texture = new Texture2D(64, 64);
-            if (texture.LoadImage(bytes))
-                texture.Apply();
-
-            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect, false);
-            sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
-
+            Sprite sprite = Utils.Sprites.DownloadSprite("http://icefrag.ru/public/logo.png", 64, 64);
             elem.SetSprite(sprite);
 
-            // www = new WWW("http://icefrag.ru/public/logo.png");
-            // Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);
-            // texture.LoadImage(ImagesToBytes.bottomButtonImg);
-            // texture.Apply();
-            // img.sprite.
-            // img.sprite = new Sprite();
-            // .texture.LoadImage(ImagesToBytes.bottomButtonImg);
-            // img.sprite.texture.Apply();
-            /*
-            Texture2D texture = img.sprite.texture;
-            Texture2D unblockTexture = FileDebug.createReadabeTexture2D(texture);
-            unblockTexture.EncodeToPNG_Save("SavedScreen.png");
-            */
             registerGroupMenu = new ElementGroup("First Test GRoup 1", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
@@ -96,44 +74,6 @@ namespace BE4v.MenuEdit
             if (transform != null)
                 transform.gameObject.Destroy();
 
-            // Transform transform = menu.Find("Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Dashboard");
-                /*
-                // Items:
-                // - Container
-                foreach(Transform menuTransform in menu)
-                {
-                    // Items:
-                    // Menu Collider
-                    // Back Window
-                    // ThankYouCharacter
-                    // Window
-                    foreach (Transform containerTransform in menuTransform)
-                    {
-                        if (containerTransform.name == "Window")
-                        {
-
-                            foreach (Transform windowTransform in containerTransform)
-                            {
-                                if (windowTransform.name == "Toggle_SafeMode")
-                                    windowTransform.gameObject.Destroy();
-                            }
-                        }
-                    }
-                }
-                */
-
-                //            if (transform != null)
-                //                transform.gameObject.SetActive(false);
-                /*
-                menu.Find("ThankYouCharacter").Destroy();
-                var submenu = menu.Find("VRC+_Banners");
-                while (submenu != null)
-                {
-                    submenu?.Destroy();
-                    submenu = menu.Find("VRC+_Banners");
-                }
-                */
-                // FileDebug.debugGameObject("QuickMenu", QuickMenu.Instance.gameObject);
             "QuickMenu element's".RedPrefix("Destroy");
         }
 

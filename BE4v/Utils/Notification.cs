@@ -6,7 +6,7 @@ using Transmtn.DTO.Notifications;
 
 namespace BE4v.Utils
 {
-    public class Notification
+    public static class Notification
     {
         public static void SendInvite(VRC.Player Player, string worldId)
         {

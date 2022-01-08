@@ -63,7 +63,6 @@
     <Compile Include="MenuEdit\Construct\QuickMenuUtils.cs" />
     <Compile Include="MenuEdit\Construct\QuickObject.cs" />
     <Compile Include="MenuEdit\Construct\UIMenu\UIButton.cs" />
-    <Compile Include="MenuEdit\ImagesToBytes.cs" />
     <Compile Include="MenuEdit\IMGUI\TabMenu.cs" />
     <Compile Include="MenuOverlay\MainForm.cs">
       <SubType>Form</SubType>
@@ -470,6 +469,7 @@
     </Compile>
     <Compile Include="UserUtils.cs" />
     <Compile Include="Utils\Avatars.cs" />
+    <Compile Include="Utils\Sprites.cs" />
     <Compile Include="Utils\Notification.cs" />
   </ItemGroup>
   <ItemGroup>
