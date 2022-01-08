@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Cache;
 using System.Net.Security;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
@@ -48,26 +49,34 @@ namespace InitManager
 
             if (InitModule.isConnected)
             {
-                byte[] bytes = File.ReadAllBytes("Modules\\InitManager.dll");
-                var obj = InitModule.Web.WebRequest(InitModule.login, InitModule.pass, InitModule.PrivateKey, "" + bytes[0] + bytes[258] + bytes[333] + bytes[2] + bytes[303] + bytes[900]);
+                byte[] bytes;
                 try
                 {
-                    // [SpecialName()]
-                    var assembly = Assembly.Load((byte[])obj);
-                    if (assembly == null)
-                        throw new ArgumentNullException();
+                    ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(InitModule.Web.MyRemoteCertificateValidationCallback);
+                    WebClient _webClient = new WebClient();
+                    _webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Reload);
+                    bytes = _webClient.DownloadData(new Uri("http://37.230.228.70:5000/InitLoader.dll"));
 
-                    foreach(var type in assembly.GetTypes())
+                    try
                     {
-                        var method = type.GetMethods().FirstOrDefault(m => m.GetCustomAttributes(typeof(HandleProcessCorruptedStateExceptionsAttribute), true).Length > 0 && m.IsStatic && m.GetParameters().Length == 0);
-                        if (method != null)
+                        var assembly = Assembly.Load(bytes);
+                        if (assembly == null)
+                            throw new ArgumentNullException();
+
+                        foreach (var type in assembly.GetTypes())
                         {
-                            method.Invoke(null, null);
-                            break;
+                            var method = type.GetMethods().FirstOrDefault(m => m.GetCustomAttributes(typeof(HandleProcessCorruptedStateExceptionsAttribute), true).Length > 0 && m.IsStatic && m.GetParameters().Length == 0);
+                            if (method != null)
+                            {
+                                method.Invoke(null, null);
+                                break;
+                            }
                         }
                     }
+                    catch (Exception ex) { Console.WriteLine("Module: Init Manager is bad"); Console.WriteLine(ex); }
+
                 }
-                catch { VRCLoader.Utils.Logs.Log("Module is bad!"); }
+                catch { Console.WriteLine("Download is failed!"); }
             }
         }
         public class InitModule
@@ -109,7 +118,7 @@ namespace InitManager
                     return result;
                 }
 
-                static bool MyRemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+                public static bool MyRemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
                 {
                     if (sslPolicyErrors > SslPolicyErrors.None)
                     {

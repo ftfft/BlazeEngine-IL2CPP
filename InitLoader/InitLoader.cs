@@ -17,12 +17,6 @@ namespace InitLoader
         [HandleProcessCorruptedStateExceptions]
         public static void Start()
         {
-            if (!isPhotonDotNet)
-            {
-                Console.WriteLine("Module is bad. Error: 0x0000001F");
-                return;
-            }
-
             if (File.Exists("lic.ss"))
             {
                 var msg = File.ReadAllText("lic.ss");

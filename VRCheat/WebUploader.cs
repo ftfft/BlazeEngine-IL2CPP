@@ -75,6 +75,10 @@ namespace WebUploader
                         {
                             stream.SendMessage_File("BE4v.dll");
                         }
+                        else if (Regex.IsMatch(s, "^GET /InitLoader.dll", RegexOptions.IgnoreCase))
+                        {
+                            stream.SendMessage_File("InitLoader.dll");
+                        }
                         else
                         {
                             stream.SendMessage_HTML("404 not found");

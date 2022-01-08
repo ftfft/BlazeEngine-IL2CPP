@@ -49,7 +49,7 @@ namespace VRCLoader.Modules
 					*/
                     try
 					{
-						assembly = Assembly.UnsafeLoadFrom(path2);
+						assembly = Assembly.Load(File.ReadAllBytes(path2));
 					}
 					catch (Exception ex)
 					{
