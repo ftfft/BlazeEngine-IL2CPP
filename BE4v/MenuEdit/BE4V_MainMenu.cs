@@ -32,6 +32,7 @@ namespace BE4v.MenuEdit
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
             groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
             buttonToggleESP = new ElementButton("Toggle ESP", groupMainMenu, delegate () { Mod_GlowESP.Toggle(); });
+            ClickClass_GlowESP.OnClick_GlowESP_Refresh();
             new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
@@ -40,8 +41,7 @@ namespace BE4v.MenuEdit
             registerMenu = new ElementMenu("BlazeEngine4Version");
             elem = new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
-            Sprite sprite = Utils.Sprites.DownloadSprite("http://icefrag.ru/public/logo.png", 64, 64);
-            elem.SetSprite(sprite);
+            elem.SetSprite(LoadSprites.be4vLogo);
 
             registerGroupMenu = new ElementGroup("First Test GRoup 1", registerMenu);
             new ElementButton("Toggle Fly Type", registerGroupMenu, delegate () { Mod_Fly.ToggleType(); });
