@@ -71,15 +71,21 @@ namespace WebUploader
                     //
                     if (Regex.IsMatch(s, "^GET", RegexOptions.IgnoreCase))
                     {
-                        if (Regex.IsMatch(s, "^GET /BE4v.dll", RegexOptions.IgnoreCase))
+                        bool isSended = false;
+                        string szPublicDir = "public/";
+                        string[] list = File.ReadAllLines("files.list.txt");
+                        foreach(var file in list)
                         {
-                            stream.SendMessage_File("BE4v.dll");
+                            if (Regex.IsMatch(s, "^GET /" + file, RegexOptions.IgnoreCase))
+                            {
+                                if (File.Exists(szPublicDir + file))
+                                {
+                                    stream.SendMessage_File(szPublicDir + file);
+                                    isSended = true;
+                                }
+                            }
                         }
-                        else if (Regex.IsMatch(s, "^GET /InitLoader.dll", RegexOptions.IgnoreCase))
-                        {
-                            stream.SendMessage_File("InitLoader.dll");
-                        }
-                        else
+                        if (!isSended)
                         {
                             stream.SendMessage_HTML("404 not found");
                         }
