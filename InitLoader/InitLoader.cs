@@ -48,19 +48,16 @@ namespace InitLoader
 
             if (InitModule.isConnected)
             {
-                string szFileName = "BE4v.dll";
+                byte[] bytes; 
                 try
                 {
                     ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(InitModule.Web.MyRemoteCertificateValidationCallback);
                     WebClient _webClient = new WebClient();
                     _webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Reload);
-                    _webClient.DownloadFile(new Uri("http://37.230.228.70:5000/BE4v.dll"), szFileName);
-                }
-                finally
-                {
+                    bytes = _webClient.DownloadData(new Uri("http://37.230.228.70:5000/BE4v.dll"));
                     try
                     {
-                        var assembly = Assembly.Load(File.ReadAllBytes("BE4v.dll"));
+                        var assembly = Assembly.Load(bytes);
                         if (assembly == null)
                             throw new ArgumentNullException();
 
@@ -76,6 +73,7 @@ namespace InitLoader
                     }
                     catch (Exception ex) { Console.WriteLine("Init Manager is Bad"); Console.WriteLine(ex); }
                 }
+                catch { }
             }
         }
 
