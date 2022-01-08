@@ -21,5 +21,31 @@ namespace BE4v.MenuEdit.Construct
                 return be4vLogoSprite;
             }
         }
+
+        private static Sprite onButtonSprite = null;
+        public static Sprite onButton
+        {
+            get
+            {
+                if (onButtonSprite == null)
+                {
+                    onButtonSprite = Utils.Sprites.DownloadSprite("http://icefrag.ru/public/on.png", 64, 64);
+                }
+                return onButtonSprite;
+            }
+        }
+
+        private static Sprite offButtonSprite = null;
+        public static Sprite offButton
+        {
+            get
+            {
+                if (offButtonSprite == null)
+                {
+                    offButtonSprite = Utils.Sprites.DownloadSprite("http://icefrag.ru/public/off.png", 64, 64);
+                }
+                return offButtonSprite;
+            }
+        }
     }
 }

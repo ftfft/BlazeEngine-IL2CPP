@@ -19,6 +19,8 @@ namespace BE4v.MenuEdit
 
         public static ElementButton buttonToggleESP = null;
 
+        public static ElementButton buttonRPCBlock = null;
+
         public static ElementMenu registerMenu = null;
 
         public static ElementGroup registerGroupMenu = null;
@@ -31,9 +33,10 @@ namespace BE4v.MenuEdit
         {
             mainMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
             groupMainMenu = new ElementGroup("Toggle's BE4v", mainMenu);
-            buttonToggleESP = new ElementButton("Toggle ESP", groupMainMenu, delegate () { Mod_GlowESP.Toggle(); });
+            buttonToggleESP = new ElementButton("Toggle ESP", groupMainMenu, ClickClass_GlowESP.OnClick_GlowESP);
             ClickClass_GlowESP.OnClick_GlowESP_Refresh();
-            new ElementButton("Toggle Fly Type 2", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            buttonRPCBlock = new ElementButton("RPC Block", groupMainMenu, ClickClass_RPCBlock.OnClick_RPCBlockToggle);
+            ClickClass_RPCBlock.OnClick_RPCBlockToggle_Refresh();
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
             new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
 
@@ -180,7 +183,18 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_GlowESP_Refresh()
         {
-            
+            if (BE4V_MainMenu.buttonToggleESP != null)
+            {
+                if (Status.isGlowESP)
+                {
+                    BE4V_MainMenu.buttonToggleESP.SetSprite(LoadSprites.onButton);
+                }
+                else
+                {
+                    BE4V_MainMenu.buttonToggleESP.SetSprite(LoadSprites.offButton);
+                }
+            }
+
             foreach (var player in PlayerManager.Instance.PlayersCopy)
             {
                 player.OnNetworkReady();
