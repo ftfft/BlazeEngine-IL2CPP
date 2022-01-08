@@ -17,7 +17,6 @@ Discord: BlazeBest#4974
 - [AtiLion](https://github.com/AtiLion) for [VRCLoader/AtiRoNya](https://github.com/AtiLion/AtiRoNya)
 
 # Thanks for Lib
-- [0xd4d](https://github.com/0xd4d) for [dnlib](https://github.com/0xd4d/dnlib)
 - [khchen](https://github.com/khchen) for [minhook](https://github.com/khchen/minhook)
 - [spazzarama](https://github.com/spazzarama) for [SharpDisasm](https://github.com/spazzarama/SharpDisasm)
 - [HerpDerpinstine](https://github.com/HerpDerpinstine) for "NET_SDK"
