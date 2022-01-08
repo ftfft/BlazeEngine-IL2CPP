@@ -62,7 +62,6 @@
     <Compile Include="MenuEdit\Construct\Menu\ElementMenu.cs" />
     <Compile Include="MenuEdit\Construct\QuickMenuUtils.cs" />
     <Compile Include="MenuEdit\Construct\QuickObject.cs" />
-    <Compile Include="MenuEdit\Construct\UIButton.cs" />
     <Compile Include="MenuEdit\Construct\UIMenu\UIButton.cs" />
     <Compile Include="MenuEdit\ImagesToBytes.cs" />
     <Compile Include="MenuEdit\IMGUI\TabMenu.cs" />
