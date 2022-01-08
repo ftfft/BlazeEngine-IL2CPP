@@ -30,5 +30,12 @@ namespace BE4v.MenuEdit.Construct.Horizontal
             gameObject.SetActive(true);
 
         }
+
+        public void SetSprite(Sprite sprite)
+        {
+            Image image = gameObject.transform.Find("Icon").GetComponent<Image>();
+            image.sprite = sprite;
+            image.overrideSprite = sprite;
+        }
     }
 }

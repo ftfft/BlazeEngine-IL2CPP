@@ -40,9 +40,6 @@ namespace BE4v.MenuEdit
             registerMenu = new ElementMenu("BlazeEngine4Version");
             elem = new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); });
 
-            var iconTransform = elem.gameObject.transform.Find("Icon");
-            
-
             IL2WebClient webClient = new IL2WebClient();
             IntPtr bytes = webClient.DownloadData("http://icefrag.ru/public/logo.png");
 
@@ -53,9 +50,7 @@ namespace BE4v.MenuEdit
             Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect, false);
             sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
 
-            var img = iconTransform.gameObject.GetComponent<UnityEngine.UI.Image>();
-            img.sprite = sprite;
-            img.overrideSprite = sprite;
+            elem.SetSprite(sprite);
 
             // www = new WWW("http://icefrag.ru/public/logo.png");
             // Texture2D texture = new Texture2D(oldTexture.width, oldTexture.height);

@@ -11,7 +11,7 @@ namespace BE4v.MenuEdit
 {
     public static class BE4V_UserPanel
     {
-        public static UIButton UserDropPortal;
+        // public static UIButton UserDropPortal;
         public static void Start()
         {
             /*

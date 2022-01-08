@@ -49,11 +49,11 @@ namespace BE4v.Patch
             || user.location == "offline")
             {
                 // CloneAvatar.SetActive(false);
-                BE4V_UserPanel.UserDropPortal.gameObject.SetActive(false);
+                // BE4V_UserPanel.UserDropPortal.gameObject.SetActive(false);
                 return;
             }
             // CloneAvatar.SetActive(true);
-            BE4V_UserPanel.UserDropPortal.gameObject.SetActive(true);
+            // BE4V_UserPanel.UserDropPortal.gameObject.SetActive(true);
         }
 
 

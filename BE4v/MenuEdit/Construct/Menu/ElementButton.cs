@@ -21,20 +21,31 @@ namespace BE4v.MenuEdit.Construct.Menu
             gameObject = CreateElementButton(buttonName, menu.gameObject, action);
         }
 
+        public void SetSprite(Sprite sprite)
+        {
+            Image image = gameObject.transform.Find("Icon").GetComponent<Image>();
+            image.sprite = sprite;
+            image.overrideSprite = sprite;
+        }
+
+        public void SetText(string text)
+        {
+            TextMeshProUGUI buttonText = gameObject.transform.Find("Text_H4").GetComponent<TextMeshProUGUI>();
+            buttonText.text = text;
+        }
+
         private GameObject CreateElementButton(string buttonName, GameObject menu, UnityEngine.Events.UnityAction action)
         {
             gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonTemplate.gameObject, menu.transform);
             gameObject.name = buttonName;
 
-            TextMeshProUGUI buttonText = gameObject.transform.Find("Text_H4").GetComponent<TextMeshProUGUI>();
-            buttonText.text = buttonName;
+            SetText(buttonName);
 
             Button button = gameObject.GetComponentInChildren<Button>(true);
             if (button.onClick == null)
                 button.onClick = new Button.ButtonClickedEvent();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(action);
-
 
             gameObject.SetActive(true);
             return gameObject;
