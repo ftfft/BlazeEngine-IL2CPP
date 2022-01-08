@@ -60,9 +60,6 @@ namespace BE4v.MenuEdit
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
             ClickClass_RPCBlock.OnClick_RPCBlockToggle_Refresh();
 
-            Image imgPrev = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathPrevArrow).GetComponentInChildren<Image>();
-            Image imgNext = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathNextArrow).GetComponentInChildren<Image>();
-
             // QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
             /*
             button.gameObject.GetComponentInChildren<Image>().sprite = imgPrev.sprite;

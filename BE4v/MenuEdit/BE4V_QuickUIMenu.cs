@@ -63,20 +63,6 @@ namespace BE4v.MenuEdit
             ClickClass_FakePing.OnClick_FakePingToggle_Refresh();
             ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
             ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
-
-            Image imgPrev = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathPrevArrow).GetComponentInChildren<Image>();
-            Image imgNext = QuickMenu.Instance.transform.Find(MSGClass_QuickMenu.pathNextArrow).GetComponentInChildren<Image>();
-
-            /*QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_2, "Change to Prev menu");
-
-            button.gameObject.GetComponentInChildren<Image>().sprite = imgPrev.sprite;
-            button.gameObject.GetComponentInChildren<Image>().material = imgPrev.material;
-            button.gameObject.transform.localScale = new Vector3(-1, 1);
-
-            button = new QuickButton(@menuname, 4, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_2, "Change to Next menu");
-            button.gameObject.GetComponentInChildren<Image>().sprite = imgNext.sprite;
-            button.gameObject.GetComponentInChildren<Image>().material = imgNext.material;
-            */
         }
     }
 

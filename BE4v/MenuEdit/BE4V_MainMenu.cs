@@ -100,21 +100,6 @@ namespace BE4v.MenuEdit
     }
 
 
-
-    public static class MSGClass_QuickMenu
-    {
-        public static string pathPrevArrow = "QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/PreviousArrow_Button";
-
-        public static string pathNextArrow = "QuickMenu_NewElements/_CONTEXT/QM_Context_User_Selected/NextArrow_Button";
-
-        public static string msgBackButton_name = "Back";
-
-        public static string msgBackButton_ToolTip = "Go Back to the Quick Menu";
-
-    }
-
-
-
     public static class ClickClass_OpenGUI
     {
         public static void Click()
@@ -139,18 +124,6 @@ namespace BE4v.MenuEdit
         }
 
         // public static QuickToggler quickTogglerGAIN;
-    }
-    
-    public static class ClickClass_ChangeMenu
-    {
-        public static void To_UIElementsMenu_1()
-        {
-            // QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu.menuname);
-        }
-        public static void To_UIElementsMenu_2()
-        {
-            // QuickMenu_Utils.ShowQuickmenuPage(BE4V_QuickUIMenu_T2.menuname);
-        }
     }
 
     public static class ClickClass_LocalMirror
