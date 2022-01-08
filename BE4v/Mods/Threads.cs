@@ -61,14 +61,8 @@ namespace BE4v.Mods
 
             if (!isLoadedCharacter)
             {
-                if (QuickMenu.Instance != null)
-                {
-                    isLoadedCharacter = true;
-                    Application.targetFrameRate = 101;
-                    //if (--isFirstControl == 0)
-                    //{
-                    //}
-                }
+                isLoadedCharacter = true;
+                Application.targetFrameRate = 101;
             }
             if (!Input.GetKey(KeyCode.LeftControl)) return;
             if (!Status.is3thCam)
@@ -132,45 +126,7 @@ namespace BE4v.Mods
             {
                 Mod_Invisible.Toggle();
                 return;
-                /*
-                GameObject gameObject = VRCPlayer.Instance.avatarGameObject;
-                Transform parent = gameObject.transform.parent;
-                GameObject newObject = new GameObject(PrimitiveType.Cube);
-                newObject.transform.position = gameObject.transform.position;
-                newObject.transform.SetParent(parent);
-                gameObject.transform.SetParent(newObject.transform);
-                newObject.transform.localPosition = new Vector3(0, -1000, 0);
-                /*
-                string avatarId = GUIUtility.systemCopyBuffer;
-                if (Avatars.Utils.IsValidId(avatarId))
-                    Avatars.Utils.ChangeAvatarById(avatarId);
-                else
-                    Console.WriteLine("Not found: " + avatarId);
-                // new MainForm();
-                /*
-                GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", new Vector3Ex(new IL2String("B\0").ptr, new IL2String("B\0").ptr, new IL2String("B\0").ptr), new Quaternion(0,0,0,0));
-                if (gameObject == null)
-                    return;
-                isAttack = true;
-                VRC.Network.RPC(VRC_EventHandler.VrcTargetType.AllBufferOne, gameObject, "ConfigurePortal", new IntPtr[]
-                {
-                    new IL2String("wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde").ptr,
-                    new IL2String("B\0").ptr,
-                    Import.Object.CreateNewObject(0, IL2SystemClass.Int32)
-                });
-                isAttack = false;
-                */
             }
-            /*
-            if (Input.GetKey(KeyCode.X))
-            {
-                VRCMotionState motionState = VRCPlayer.Instance.GetComponent<VRCMotionState>();
-                if (motionState == null) return;
-                motionState.PlayerVelocity = new Vector3(float.NaN, float.NaN, float.NaN);
-            }
-            */
-            // FileDebug.debugGameObject("test.txt", QuickMenu.Instance.gameObject);
-
         }
         private static bool isLoadedCharacter = false;
 
