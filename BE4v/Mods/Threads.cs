@@ -100,26 +100,7 @@ namespace BE4v.Mods
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
-                /*
-                QuickMenu quickMenu = QuickMenu.Instance;
-                if (quickMenu != null)
-                {
-                    FileDebug.debugGameObject("QuickTestMenu", quickMenu.gameObject);
-                }
-                */
-                /*
-                IL2Method t = Sprite.Instance_Class.GetMethodByName("Create", 3);
-                if (t == null)
-                    Console.WriteLine("Method not found");
-                else
-                    Console.WriteLine("Method is GOOD!!!!!!!!! ++++++++++++++++++++++++");
-                /*
-                foreach(var m in Sprite.Instance_Class.GetMethods())
-                {
-                    Console.WriteLine(m.Name);
-                }
-                */
-                //ImagesToBytes.GetDumpImage("be4v-logo.png", "dump-image");
+                // Mod_CamMode.Toggle_Enable();
                 return;
             }
             if (Input.GetKeyDown(KeyCode.X))

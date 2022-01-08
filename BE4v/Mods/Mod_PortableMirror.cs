@@ -60,6 +60,7 @@ namespace BE4v.Mods
 			rigidbody.useGravity = false;
 			rigidbody.isKinematic = true;
 			#endregion
+			UnityEngine.Object.DontDestroyOnLoad(gameObject);
 
 			Mod_PortableMirror.gameObject = gameObject;
 		}

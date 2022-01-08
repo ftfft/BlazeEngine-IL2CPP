@@ -21,6 +21,8 @@ namespace BE4v.MenuEdit
 
         public static ElementButton buttonRPCBlock = null;
 
+        public static ElementButton buttonPortableMirror = null;
+
         public static ElementMenu registerMenu = null;
 
         public static ElementGroup registerGroupMenu = null;
@@ -38,7 +40,8 @@ namespace BE4v.MenuEdit
             buttonRPCBlock = new ElementButton("RPC Block", groupMainMenu, ClickClass_RPCBlock.OnClick_RPCBlockToggle);
             ClickClass_RPCBlock.OnClick_RPCBlockToggle_Refresh();
             new ElementButton("Toggle Fly Type 3", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
-            new ElementButton("Toggle Fly Type 4", groupMainMenu, delegate () { Mod_Fly.ToggleType(); });
+            buttonPortableMirror = new ElementButton("Portable Mirror", groupMainMenu, ClickClass_LocalMirror.OnClick_PortableMirror);
+            ClickClass_LocalMirror.OnClick_PortableMirror_Refresh();
 
 
             registerMenu = new ElementMenu("BlazeEngine4Version");
@@ -159,16 +162,17 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_PortableMirror_Refresh()
         {
-            /*
-            if (Mod_PortableMirror.gameObject != null)
+            if (BE4V_MainMenu.buttonPortableMirror != null)
             {
-                quickButtonLocalMirror.setButtonText("<color=red>Remove</color>\nLocal Mirror");
-                quickButtonLocalMirror.setToolTip("Remove Portable Mirror (Local)");
-                return;
+                if (Mod_PortableMirror.gameObject != null)
+                {
+                    BE4V_MainMenu.buttonPortableMirror.SetSprite(LoadSprites.onButton);
+                }
+                else
+                {
+                    BE4V_MainMenu.buttonPortableMirror.SetSprite(LoadSprites.offButton);
+                }
             }
-            quickButtonLocalMirror.setButtonText("<color=green>Create</color>\nLocal Mirror");
-            quickButtonLocalMirror.setToolTip("Create Portable Mirror (Local)");
-            */
         }
 
         //public static QuickButton quickButtonLocalMirror;
