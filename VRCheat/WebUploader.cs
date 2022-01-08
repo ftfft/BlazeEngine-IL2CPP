@@ -82,6 +82,7 @@ namespace WebUploader
                                 {
                                     stream.SendMessage_File(szPublicDir + file);
                                     isSended = true;
+                                    break;
                                 }
                             }
                         }
