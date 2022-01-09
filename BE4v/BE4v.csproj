@@ -143,6 +143,10 @@
     <Compile Include="SDK\Assembly-CSharp\VRTK\UICircle.cs" />
     <Compile Include="SDK\CPP2IL\IL2Dictionary.cs" />
     <Compile Include="SDK\CPP2IL\IL2Utils.cs" />
+    <Compile Include="SDK\mscorlib\System\IO\Stream.cs" />
+    <Compile Include="SDK\mscorlib\System\IO\MemoryStream.cs" />
+    <Compile Include="SDK\mscorlib\System\Runtime\Serialization\Formatters\Binary\BinaryFormatter.cs" />
+    <Compile Include="SDK\Serilize.cs" />
     <Compile Include="SDK\IL2Dumper\DumpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +164,7 @@
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\Notification.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\NotificationDetails.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Asset.cs" />
+    <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_MaterialManager.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_FontAsset.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TextMeshProUGUI.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Text.cs" />

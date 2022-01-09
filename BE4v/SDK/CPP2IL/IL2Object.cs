@@ -49,11 +49,24 @@ namespace BE4v.SDK.CPP2IL
         /// <returns></returns>
         unsafe public T1[] UnboxArraу<T1>() where T1 : unmanaged
         {
-            long length = *((long*)ptr + 3);
-            T1[] result = new T1[length];
-            for (int i = 0; i < length; i++)
+            T1[] result;
+            if (typeof(T1) == typeof(byte))
             {
-                result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i * sizeof(T1))).GetValuе<T1>();
+                uint length = Import.Object.il2cpp_array_get_byte_length(ptr);
+                result = new T1[length];
+                for (int i = 0; i < length; i++)
+                {
+                    result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i)).GetValuе<T1>();
+                }
+            }
+            else
+            {
+                long length = *((long*)ptr + 3);
+                result = new T1[length];
+                for (int i = 0; i < length; i++)
+                {
+                    result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i * sizeof(T1))).GetValuе<T1>();
+                }
             }
             return result;
         }

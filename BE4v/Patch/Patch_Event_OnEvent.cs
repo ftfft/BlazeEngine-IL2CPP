@@ -35,16 +35,26 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (eventData == null) return;
+            if (userList.Contains(eventData.Sender) || !isValidData(eventData)) return;
             int eventCode = eventData.Code;
-            if (eventCode == 6)
+            
+            switch (eventCode)
             {
-                if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
-                    return;
-            }
-            else if (eventCode == EventCode.Join)
-            {
-                if (BE4V_ModeMenu.DeathMap.isEnabled)
-                    return;
+                case 6:
+                    {
+                        if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
+                            return;
+
+                        break;
+                    }
+                case EventCode.Join:
+                    {
+                        if (BE4V_ModeMenu.DeathMap.isEnabled)
+                            return;
+
+                        break;
+                    }
+                
             }
             /*
             switch (eventData.Code)
@@ -122,10 +132,39 @@ namespace BE4v.Patch
 
             try
             {
-                if (!userList.Contains(eventData.Sender))
-                    _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
+                _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
             }
             catch { }
+        }
+
+        public static bool isValidData(EventData eventData)
+        {
+            // Thanks Nemox
+            int eventCode = eventData.Code;
+            int maxLength;
+            switch (eventCode)
+            {
+                default:
+                    {
+                        maxLength = 200;
+                        break;
+                    }
+            }
+            if (eventCode != 1 && eventCode != 7 && eventCode != 9)
+            {
+                IL2Object customData = eventData.CustomData;
+                if (customData != null)
+                {
+                    uint len = Import.Object.il2cpp_array_get_byte_length(customData.ptr);
+                    if (len > maxLength)
+                    {
+                        userList.Add(eventData.Sender);
+                        Console.WriteLine($"User {eventData.Sender} is blocked by packet #{eventData.Code} (Size of {len})");
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         public static List<int> userList = new List<int>();
