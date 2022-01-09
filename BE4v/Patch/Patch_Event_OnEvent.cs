@@ -56,79 +56,6 @@ namespace BE4v.Patch
                     }
                 
             }
-            /*
-            switch (eventData.Code)
-            {
-                case 1:
-                    {
-                        //if (player.IsMuted)
-                        //    return;
-                        break;
-                        //break;
-                    }
-                case EventCode.SetProperties:
-                    {
-                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                        break;
-                    }
-                case EventCode.Leave:
-                    {
-                        TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                        break;
-                    }
-                case 6:
-                    {
-
-                        if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
-                            return;
-
-                        break;
-                    }
-                    */
-            /*
-            case 7:
-                {
-                    if (isSelf)
-                        return;
-                    if ((BlazeManager.GetForPlayer<bool>("NoMove")))
-                        return;
-
-                    break;
-                }
-            case PunEvent.OwnershipRequest:
-                {
-                    if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
-                        return;
-
-                    break;
-                }
-            case PunEvent.OwnershipTransfer:
-                {
-                    if (!isSelf && (BlazeManager.GetForPlayer<bool>("Hide Pickup")))
-                        return;
-
-                    break;
-                }
-            case EventCode.SetProperties:
-                {
-                    TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                    break;
-                }
-            case EventCode.Leave:
-                {
-                    TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                    break;
-                }
-            case EventCode.Join:
-                {
-                    TabMenu.players = PlayerManager.Instance.PlayersCopy;
-                    if (BlazeManager.GetForPlayer<bool>("DeathMap"))
-                        return;
-
-                    break;
-                }
-                */
-            // }
 
             try
             {
@@ -140,28 +67,58 @@ namespace BE4v.Patch
         public static bool isValidData(EventData eventData)
         {
             // Thanks Nemox
+            if (eventData.Sender == 0) return true;
             int eventCode = eventData.Code;
             int maxLength;
             switch (eventCode)
             {
+                case 1:
+                    {
+                        maxLength = 960;
+                        break;
+                    }
+                case 4:
+                    {
+                        maxLength = 32;
+                        break;
+                    }
+                case 6:
+                    {
+                        maxLength = 128;
+                        break;
+                    }
+                case 7:
+                    {
+                        maxLength = 224;
+                        break;
+                    }
+                case 9:
+                    {
+                        maxLength = 256;
+                        break;
+                    }
+                case 210:
+                    {
+                        maxLength = 8;
+                        break;
+                    }
                 default:
                     {
                         maxLength = 200;
                         break;
                     }
             }
-            if (eventCode != 1 && eventCode != 7 && eventCode != 9)
+            uint len;
+            IL2Object customData = eventData.CustomData;
+            if (customData != null)
             {
-                IL2Object customData = eventData.CustomData;
-                if (customData != null)
+                len = Import.Object.il2cpp_array_get_byte_length(customData.ptr);
+                if (len > maxLength)
                 {
-                    uint len = Import.Object.il2cpp_array_get_byte_length(customData.ptr);
-                    if (len > maxLength)
-                    {
+                    if (eventCode != 1)
                         userList.Add(eventData.Sender);
-                        Console.WriteLine($"User {eventData.Sender} is blocked by packet #{eventData.Code} (Size of {len})");
-                        return false;
-                    }
+                    ($"User {eventData.Sender} is blocked by packet #{eventData.Code} (Size of {len})").RedPrefix("Packet block");
+                    return false;
                 }
             }
             return true;
