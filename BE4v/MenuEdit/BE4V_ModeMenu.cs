@@ -111,7 +111,7 @@ namespace BE4v.MenuEdit
             {
                 if (button != null)
                 {
-                    if (Status.isRPCBlock)
+                    if (Status.isFakePing)
                     {
                         button.SetSprite(LoadSprites.onButton);
                     }

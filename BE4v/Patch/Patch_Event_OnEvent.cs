@@ -30,12 +30,16 @@ namespace BE4v.Patch
             }
         }
 
+        private static int timestamp = 0;
+        private static int timestampPost = 0;
+
         public static void LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData)
         {
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
-            if (eventData == null) return;
+            if (pEventData == IntPtr.Zero || eventData == null) return;
             if (userList.Contains(eventData.Sender) || !isValidData(eventData)) return;
+            timestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             int eventCode = eventData.Code;
             
             switch (eventCode)
@@ -64,10 +68,18 @@ namespace BE4v.Patch
             catch { }
         }
 
+        public static Dictionary<int, int> floodList = new Dictionary<int, int>();
+
         public static bool isValidData(EventData eventData)
         {
             // Thanks Nemox
             if (eventData.Sender == 0) return true;
+            if (timestamp != timestampPost)
+            {
+                timestampPost = timestamp;
+                floodList.Clear();
+            }
+
             int eventCode = eventData.Code;
             int maxLength;
             switch (eventCode)
@@ -104,16 +116,29 @@ namespace BE4v.Patch
                     }
                 default:
                     {
-                        maxLength = 200;
+                        maxLength = 0;
                         break;
                     }
             }
             uint len;
             IL2Object customData = eventData.CustomData;
+            int sender = eventData.Sender;
+            if (floodList.TryGetValue(sender, out int value))
+            {
+                if (value > 200)
+                {
+                    ($"User {eventData.Sender} is blocked by limit packet's").RedPrefix("Packet block");
+                    userList.Add(eventData.Sender);
+                }
+            }
+            else
+            {
+                floodList.Add(sender, 1);
+            }
             if (customData != null)
             {
                 len = Import.Object.il2cpp_array_get_byte_length(customData.ptr);
-                if (len > maxLength)
+                if (len > maxLength || len < 0)
                 {
                     if (eventCode != 1)
                         userList.Add(eventData.Sender);

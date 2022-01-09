@@ -109,6 +109,7 @@ namespace BE4v.Mods
                 return;
             }
         }
+
         private static bool isLoadedCharacter = false;
 
         private static _Threads_Update _delegateThreads_Update;
