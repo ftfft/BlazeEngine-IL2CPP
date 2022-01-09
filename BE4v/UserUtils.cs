@@ -28,7 +28,7 @@ public static class UserUtils
         return gameObject;
     }
     #endregion CreatePortal
-    /*
+
     public static GameObject SpawnDynLight(Transform transform)
     {
         string[] arrayString = ObjectInstantiator.adminOnlyPrefabs;
@@ -37,7 +37,7 @@ public static class UserUtils
         ObjectInstantiator.adminOnlyPrefabs = arrayString;
         return gameObject;
     }
-    */
+
     public static void RemoveInstiatorObjects()
     {
         foreach(var obj in UnityEngine.Object.FindObjectsOfType<ObjectInstantiatorHandle>())
