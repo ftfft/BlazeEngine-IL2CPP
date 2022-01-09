@@ -6,6 +6,7 @@
 # Functions
 <details>
   <summary>Show spoiler</summary>
+```
 - AntiCrash
 - Unlimited Favorites
 - ESP
@@ -18,6 +19,7 @@
 - Death Map
 - Fly Hack / NoClip
 - Mouse TP
+```
 </details>
 - Еще какая та херня
 - Короче сами разбирайтесь
