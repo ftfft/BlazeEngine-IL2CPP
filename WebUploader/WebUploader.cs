@@ -96,6 +96,7 @@ namespace WebUploader
             }
             finally
             {
+                
                 client.Close();
             }
         }
