@@ -14,7 +14,7 @@ namespace BE4v.Patch
         public static void Toggle()
         {
             Status.isSerilize = !Status.isSerilize;
-            ClickClass_Serilize.OnClick_SerilizeToggle_Refresh();
+            BE4V_MainMenu.Serilize.Refresh();
         }
 
         public static void Start()

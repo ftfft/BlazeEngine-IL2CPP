@@ -16,7 +16,7 @@ namespace BE4v.Mods
 				OnDestroy();
 			else
 				OnCreate();
-			ClickClass_LocalMirror.OnClick_PortableMirror_Refresh();
+			BE4V_MainMenu.LocalMirror.Refresh();
 		}
 
 		public static void OnCreate()

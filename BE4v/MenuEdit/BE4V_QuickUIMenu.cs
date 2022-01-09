@@ -57,64 +57,12 @@ namespace BE4v.MenuEdit
 
             ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
             ClickClass_FlyHack.OnClick_FlyType_Refresh();
-            ClickClass_InvisAPI.OnClick_InvisAPIToggle_Refresh();
             ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
-            ClickClass_Serilize.OnClick_SerilizeToggle_Refresh();
-            ClickClass_FakePing.OnClick_FakePingToggle_Refresh();
             ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
             ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
         }
     }
 
-    public static class ClickClass_FakePing
-    {
-        public static void OnClick_FakePingToggle()
-        {
-            Patch_FakePing.Toggle();
-        }
-
-        public static void OnClick_FakePingToggle_Refresh()
-        {
-            //BE4V_QuickUIMenu.toggler["FakePing"].SetToggleToOn(Status.isFakePing);
-            if (Status.isFakePing)
-            {
-                //BE4V_QuickUIMenu.toggler["FakePing"].setOffText("on");
-                if (Patch_FakePing.patch?.Enabled == false)
-                    Patch_FakePing.patch.Enabled = true;
-            }
-            else
-            {
-                // BE4V_QuickUIMenu.toggler["FakePing"].setOffText("off");
-                if (Patch_FakePing.patch?.Enabled == true)
-                    Patch_FakePing.patch.Enabled = false;
-            }
-        }
-    }
-    public static class ClickClass_Serilize
-    {
-        public static void OnClick_SerilizeToggle()
-        {
-            Patch_Serilize.Toggle();
-        }
-
-        public static void OnClick_SerilizeToggle_Refresh()
-        {
-            // BE4V_QuickUIMenu.toggler["Serilize"].SetToggleToOn(Status.isSerilize);
-            if (Status.isSerilize)
-            {
-                // BE4V_QuickUIMenu.toggler["Serilize"].setOffText("on");
-                if (Patch_Serilize.patch.Enabled == false)
-                    Patch_Serilize.patch.Enabled = true;
-            }
-            else
-            {
-                // BE4V_QuickUIMenu.toggler["Serilize"].setOffText("off");
-                if (Patch_Serilize.patch?.Enabled == true)
-                    Patch_Serilize.patch.Enabled = false;
-            }
-        }
-    }
-    
     public static class ClickClass_InvisAPI
     {
         public static void OnClick_InvisAPIToggle()

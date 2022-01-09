@@ -58,8 +58,7 @@ namespace BE4v.MenuEdit
             ClickClass_BunnyHop.OnClick_BunnyHopToggle_Refresh();
             ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
-            ClickClass_RPCBlock.OnClick_RPCBlockToggle_Refresh();
-
+            
             // QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
             /*
             button.gameObject.GetComponentInChildren<Image>().sprite = imgPrev.sprite;

@@ -16,7 +16,7 @@ namespace BE4v.Patch
         public static void Toggle()
         {
             Status.isFakePing = !Status.isFakePing;
-            ClickClass_FakePing.OnClick_FakePingToggle_Refresh();
+            BE4V_ModeMenu.FakePing.Refresh();
         }
 
         public static void Start()

@@ -11,7 +11,7 @@ namespace BE4v.Mods
         public static void Toggle()
         {
             Status.isGlowESP = !Status.isGlowESP;
-            ClickClass_GlowESP.OnClick_GlowESP_Refresh();
+            BE4V_MainMenu.GlowESP.Refresh();
         }
     }
 }

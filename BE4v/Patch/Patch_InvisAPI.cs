@@ -11,7 +11,7 @@ namespace BE4v.Patch
         public static void Toggle()
         {
             Mods.Status.isInvisAPI = !Mods.Status.isInvisAPI;
-            ClickClass_InvisAPI.OnClick_InvisAPIToggle_Refresh();
+            BE4V_ModeMenu.InvisAPI.Refresh();
         }
 
         public static void Start()
