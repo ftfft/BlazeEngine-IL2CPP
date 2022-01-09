@@ -16,6 +16,14 @@ namespace BE4v.SDK
 
         public static void Start()
         {
+            Console.WriteLine("Welcome to BE4v");
+            Console.WriteLine("GitHub: https://github.com/BlazeBest/BlazeEngine-IL2CPP");
+            Console.WriteLine("Donate: http://paypal.me/blazebesy");
+            Console.WriteLine("Discord: https://discord.gg/8mMGM43");
+            Console.WriteLine("Developer: BlazeBest#4974");
+
+            Mods.Avatars.Client.LoadAvatars();
+
             if (!Directory.Exists(mainDir))
                 Directory.CreateDirectory(mainDir);
 

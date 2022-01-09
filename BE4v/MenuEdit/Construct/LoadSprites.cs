@@ -47,5 +47,18 @@ namespace BE4v.MenuEdit.Construct
                 return offButtonSprite;
             }
         }
+
+        private static Sprite trashIcoSprite = null;
+        public static Sprite trashIco
+        {
+            get
+            {
+                if (trashIcoSprite == null)
+                {
+                    trashIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/trash.png", 64, 64);
+                }
+                return trashIcoSprite;
+            }
+        }
     }
 }

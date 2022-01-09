@@ -23,7 +23,7 @@ namespace BE4v.MenuEdit
             GlowESP.Refresh();
             Serilize.button = new ElementButton("Serilize", elementGroup, Serilize.OnClick);
             Serilize.Refresh();
-            new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects);
+            new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects).SetSprite(LoadSprites.trashIco);
             LocalMirror.button = new ElementButton("Portable Mirror", elementGroup, LocalMirror.OnClick);
             LocalMirror.Refresh();
         }
