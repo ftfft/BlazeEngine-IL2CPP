@@ -7,7 +7,6 @@ using VRC;
 using VRC.UI.Elements;
 using BE4v.Patch;
 using BE4v.MenuEdit.Construct;
-using BE4v.MenuEdit.Construct.Horizontal;
 using BE4v.MenuEdit.Construct.Menu;
 
 namespace BE4v.MenuEdit
