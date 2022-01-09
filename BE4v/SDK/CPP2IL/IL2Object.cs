@@ -53,10 +53,14 @@ namespace BE4v.SDK.CPP2IL
             if (typeof(T1) == typeof(byte))
             {
                 uint length = Import.Object.il2cpp_array_get_byte_length(ptr);
+
                 result = new T1[length];
-                for (int i = 0; i < length; i++)
+                fixed (T1* b = result)
                 {
-                    result[i] = new IL2Object(*(IntPtr*)((IntPtr)((long*)ptr + 4) + i)).GetValuе<T1>();
+                    for (int i = 0; i < length; i++)
+                    {
+                        b[i] = *(T1*)(((IntPtr)(long*)ptr + 4) + i * sizeof(T1)).ToPointer();
+                    }
                 }
             }
             else

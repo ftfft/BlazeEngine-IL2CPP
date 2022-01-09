@@ -91,7 +91,7 @@ namespace BE4v.Patch
                     }
                 case 4:
                     {
-                        maxLength = 32;
+                        maxLength = 256;
                         break;
                     }
                 case 6:
@@ -101,6 +101,18 @@ namespace BE4v.Patch
                     }
                 case 7:
                     {
+                        if (UnityEngine.Input.GetKey(UnityEngine.KeyCode.P))
+                        {
+                            if (eventData.CustomData != null)
+                            {
+                                byte[] bytes = eventData.CustomData.UnboxArraу<byte>();
+                                Console.WriteLine(bytes.Length);
+                                string text = string.Empty;
+                                foreach (byte b in bytes)
+                                    text += b + ", ";
+                                Console.WriteLine(text);
+                            }
+                        }
                         maxLength = 256;
                         break;
                     }
@@ -141,7 +153,7 @@ namespace BE4v.Patch
                 len = Import.Object.il2cpp_array_get_byte_length(customData.ptr);
                 if (len > maxLength || len < 0)
                 {
-                    if (eventCode != 1)
+                    if (eventCode != 1 &&  maxLength != 0)
                         userList.Add(eventData.Sender);
                     ($"User {eventData.Sender} is blocked by packet #{eventData.Code} (Size of {len})").RedPrefix("Packet block");
                     return false;
