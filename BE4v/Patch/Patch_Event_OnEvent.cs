@@ -96,7 +96,7 @@ namespace BE4v.Patch
                     }
                 case 6:
                     {
-                        maxLength = 128;
+                        maxLength = 256;
                         break;
                     }
                 case 7:
