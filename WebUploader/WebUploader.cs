@@ -43,12 +43,13 @@ namespace WebUploader
         {
             TcpClient client = instance.AcceptTcpClient();
             new Thread(() => { ConnectToServer(); }).Start();
-            Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " is connected.");
-            NetworkStream stream = client.GetStream();
-
-            client.ReceiveTimeout = 0;
             try
             {
+                Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " is connected.");
+                NetworkStream stream = client.GetStream();
+
+                client.ReceiveTimeout = 0;
+
                 while (client.Connected)
                 {
                     try
@@ -74,7 +75,7 @@ namespace WebUploader
                         bool isSended = false;
                         string szPublicDir = "public/";
                         string[] list = File.ReadAllLines("files.list.txt");
-                        foreach(var file in list)
+                        foreach (var file in list)
                         {
                             if (Regex.IsMatch(s, "^GET /" + file, RegexOptions.IgnoreCase))
                             {
