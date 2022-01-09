@@ -6,18 +6,40 @@
 # Functions
 <details>
   <summary>Show spoiler</summary>
-```javascript
+```
 - AntiCrash
+```
+```
 - Unlimited Favorites
+```
+```
 - ESP
+```
+```
 - Serilize
+```
+```
 - Portable Mirror
+```
+```
 - Invis API
+```
+```
 - Invis Mode
+```
+```
 - RPC Block
+```
+```
 - Fake Ping
+```
+```
 - Death Map
+```
+```
 - Fly Hack / NoClip
+```
+```
 - Mouse TP
 ```
 </details>
