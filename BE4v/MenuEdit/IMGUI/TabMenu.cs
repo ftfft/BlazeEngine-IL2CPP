@@ -210,7 +210,14 @@ namespace BE4v.MenuEdit.IMGUI
                     if (string.IsNullOrWhiteSpace(userName))
                         player.user.Fetch();
 
-                    if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), "<b><color=" + (iSelectUser == playerId ? "red>" : "white>") + playerId + "</color></b>")
+                    string userIdMessage = string.Empty;
+                    if (iSelectUser == playerId)
+                        userIdMessage += "<b><color=red>" + playerId + "</color></b>";
+                    else if (Patch.Patch_Event_OnEvent.userList.Contains(playerId.Value))
+                        userIdMessage += "<b><color=yellow>" + playerId + "</color></b>";
+                    else
+                        userIdMessage += "<b><color=white>" + playerId + "</color></b>";
+                    if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), userIdMessage)
                     || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.user.displayName))
                     {
                         playerPhoton = player;

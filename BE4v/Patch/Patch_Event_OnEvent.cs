@@ -101,7 +101,7 @@ namespace BE4v.Patch
                     }
                 case 7:
                     {
-                        maxLength = 224;
+                        maxLength = 256;
                         break;
                     }
                 case 9:
@@ -129,6 +129,7 @@ namespace BE4v.Patch
                 {
                     ($"User {eventData.Sender} is blocked by limit packet's").RedPrefix("Packet block");
                     userList.Add(eventData.Sender);
+                    return false;
                 }
             }
             else
