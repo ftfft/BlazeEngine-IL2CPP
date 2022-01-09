@@ -65,37 +65,6 @@ namespace BE4v.MenuEdit
                 }
             }
         }
-        
-        public static class FakePing
-        {
-            public static ElementButton button = null;
-
-            public static void OnClick()
-            {
-                Status.isFakePing = !Status.isFakePing;
-                Patch_FakePing.Toggle();
-            }
-
-            public static void Refresh()
-            {
-                if (Status.isFakePing)
-                {
-                    if (button != null)
-                        button.SetSprite(LoadSprites.onButton);
-
-                    if (Patch_FakePing.patch?.Enabled == false)
-                        Patch_FakePing.patch.Enabled = true;
-                }
-                else
-                {
-                    if (button != null)
-                        button.SetSprite(LoadSprites.offButton);
-
-                    if (Patch_FakePing.patch?.Enabled == true)
-                        Patch_FakePing.patch.Enabled = false;
-                }
-            }
-        }
 
         public static class InvisAPI
         {
@@ -103,7 +72,6 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Status.isInvisAPI = !Status.isInvisAPI;
                 Patch_InvisAPI.Toggle();
             }
 
@@ -124,6 +92,36 @@ namespace BE4v.MenuEdit
 
                     if (Patch_InvisAPI.patch?.Enabled == true)
                         Patch_InvisAPI.patch.Enabled = false;
+                }
+            }
+        }
+
+        public static class FakePing
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Patch_FakePing.Toggle();
+            }
+
+            public static void Refresh()
+            {
+                if (Status.isFakePing)
+                {
+                    if (button != null)
+                        button.SetSprite(LoadSprites.onButton);
+
+                    if (Patch_FakePing.patch?.Enabled == false)
+                        Patch_FakePing.patch.Enabled = true;
+                }
+                else
+                {
+                    if (button != null)
+                        button.SetSprite(LoadSprites.offButton);
+
+                    if (Patch_FakePing.patch?.Enabled == true)
+                        Patch_FakePing.patch.Enabled = false;
                 }
             }
         }
