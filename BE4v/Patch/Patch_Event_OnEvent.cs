@@ -41,6 +41,11 @@ namespace BE4v.Patch
                 if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
                     return;
             }
+            else if (eventCode == EventCode.Join)
+            {
+                if (BE4V_ModeMenu.DeathMap.isEnabled)
+                    return;
+            }
             /*
             switch (eventData.Code)
             {

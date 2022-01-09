@@ -28,6 +28,8 @@ namespace BE4v.MenuEdit
             RPCBlock.Refresh();
             FakePing.button = new ElementButton("Fake Ping", elementGroup, FakePing.OnClick);
             FakePing.Refresh();
+            DeathMap.button = new ElementButton("Death Map", elementGroup, DeathMap.OnClick);
+            DeathMap.Refresh();
 
             elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
             new ElementButton("Toggle Fly Type", elementGroup, delegate () { Mod_Fly.ToggleType(); });
@@ -107,21 +109,44 @@ namespace BE4v.MenuEdit
 
             public static void Refresh()
             {
-                if (Status.isFakePing)
+                if (button != null)
                 {
-                    if (button != null)
+                    if (Status.isRPCBlock)
+                    {
                         button.SetSprite(LoadSprites.onButton);
-
-                    if (Patch_FakePing.patch?.Enabled == false)
-                        Patch_FakePing.patch.Enabled = true;
-                }
-                else
-                {
-                    if (button != null)
+                    }
+                    else
+                    {
                         button.SetSprite(LoadSprites.offButton);
+                    }
+                }
+            }
+        }
 
-                    if (Patch_FakePing.patch?.Enabled == true)
-                        Patch_FakePing.patch.Enabled = false;
+        public static class DeathMap
+        {
+            public static ElementButton button = null;
+
+            public static bool isEnabled = false;
+
+            public static void OnClick()
+            {
+                isEnabled = !isEnabled;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (isEnabled)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
+                    }
                 }
             }
         }
