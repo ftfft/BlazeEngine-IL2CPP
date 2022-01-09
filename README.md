@@ -5,6 +5,17 @@
 
 # Functions
 - AntiCrash
+- Unlimited Favorites
+- Players ESP
+- Serilize
+- Portable Mirror
+- Invis API
+- Invis Mode
+- RPC Block
+- Fake Ping
+- Death Map
+- Fly Hack / NoClip
+- Mouse TP
 - Еще какая та херня
 - Короче сами разбирайтесь
 
