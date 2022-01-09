@@ -4,45 +4,18 @@
 "--dev-console" - For open DebugConsole
 
 # Functions
-<details>
-  <summary>Show spoiler</summary>
-```
 - AntiCrash
-```
-```
 - Unlimited Favorites
-```
-```
-- ESP
-```
-```
+- Players ESP
 - Serilize
-```
-```
 - Portable Mirror
-```
-```
 - Invis API
-```
-```
 - Invis Mode
-```
-```
 - RPC Block
-```
-```
 - Fake Ping
-```
-```
 - Death Map
-```
-```
 - Fly Hack / NoClip
-```
-```
 - Mouse TP
-```
-</details>
 - Еще какая та херня
 - Короче сами разбирайтесь
 
