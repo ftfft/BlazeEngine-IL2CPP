@@ -4,6 +4,8 @@
 "--dev-console" - For open DebugConsole
 
 # Functions
+- AntiCrash
+- Еще какая та херня
 - Короче сами разбирайтесь
 
 # Donate
