@@ -6,7 +6,7 @@
 # Functions
 <details>
   <summary>Show spoiler</summary>
-```
+```javascript
 - AntiCrash
 - Unlimited Favorites
 - ESP
