@@ -123,18 +123,21 @@ namespace BE4v.Patch
             uint len;
             IL2Object customData = eventData.CustomData;
             int sender = eventData.Sender;
-            if (floodList.TryGetValue(sender, out int value))
+            if (eventCode != 1 && eventCode != 7 && eventCode != 9)
             {
-                if (value > 200)
+                if (floodList.TryGetValue(sender, out int value))
                 {
-                    ($"User {eventData.Sender} is blocked by limit packet's").RedPrefix("Packet block");
-                    userList.Add(eventData.Sender);
-                    return false;
+                    if (value > 50)
+                    {
+                        ($"User {eventData.Sender} is blocked by limit packet's").RedPrefix("Packet block");
+                        userList.Add(eventData.Sender);
+                        return false;
+                    }
                 }
-            }
-            else
-            {
-                floodList.Add(sender, 1);
+                else
+                {
+                    floodList.Add(sender, 1);
+                }
             }
             if (customData != null)
             {
