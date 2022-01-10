@@ -299,6 +299,9 @@
     <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\RectMask2D.cs" />
     <Compile Include="SDK\UnityEngine.UI\VerticalLayoutGroup.cs" />
+    <Compile Include="SDK\VRC.Udon.Common\Enums\EventTiming.cs" />
+    <Compile Include="SDK\VRC.Udon.Common\Interfaces\NetworkEventTarget.cs" />
+    <Compile Include="SDK\VRC.Udon\UdonBehaviour.cs" />
     <Compile Include="SDK\VRC.UI.Core\Styles\StyleElement.cs" />
     <Compile Include="SDK\VRC.UI.Core\UIContext.cs" />
     <Compile Include="SDK\VRC.UI.Core\UIElement.cs" />
