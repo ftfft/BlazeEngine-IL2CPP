@@ -18,6 +18,39 @@ namespace VRC
             }
         }
 
+        [Obsolete]
+        public static Player MasterPlayer
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(MasterPlayer));
+                if (property == null)
+                {
+                    (property = Instance_Class.GetProperties(x => x.GetGetMethod().ReturnType.Name == GameObject.Instance_Class.FullName).FirstOrDefault()).Name = nameof(MasterPlayer);
+                    if (property == null)
+                        return null;
+                }
+                return property.GetGetMethod().Invoke()?.GetValue<Player>();
+            }
+        }
+
+        [Obsolete]
+        public static Player LocalPlayer
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(LocalPlayer));
+                if (property == null)
+                {
+                    (property = Instance_Class.GetProperties(x => x.GetGetMethod().ReturnType.Name == GameObject.Instance_Class.FullName).LastOrDefault()).Name = nameof(LocalPlayer);
+                    if (property == null)
+                        return null;
+                }
+                return property.GetGetMethod().Invoke()?.GetValue<Player>();
+            }
+        }
+
+
         unsafe public static DateTime _networkDateTime
         {
             get
@@ -52,24 +85,6 @@ namespace VRC
             return method.Invoke(new IntPtr[] { new IntPtr(&timeInSeconds), new IntPtr(&previousTimeInSeconds) }).GetValuå<double>();
         }
 
-        public static double GetOwnershipTransferTime(GameObject go)
-        {
-            IL2Method method = Instance_Class.GetMethod(nameof(GetOwnershipTransferTime));
-            if (method == null)
-            {
-
-                (method = Instance_Class.GetMethods().First(
-                    x =>
-                        x.ReturnType.Name == typeof(double).FullName &&
-                        x.GetParameters().Length == 1 &&
-                        x.GetParameters()[0].ReturnType.Name == GameObject.Instance_Class.FullName
-                )).Name = nameof(GetOwnershipTransferTime);
-                if (method == null)
-                    return default;
-            }
-            return method.Invoke(new IntPtr[] { go.ptr }).GetValuå<double>();
-        }
-
         unsafe public static GameObject Instantiate(VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(Instantiate), x => x.GetParameters().Length == 4 && x.ReturnType.Name == GameObject.Instance_Class.FullName);
@@ -98,27 +113,53 @@ namespace VRC
                 if (method == null)
                     return;
             }
-            if (targetObject == null)
-                return;
 
             method.Invoke(IntPtr.Zero, new IntPtr[] {
                 new IntPtr(&targetClients),
-                targetObject.ptr,
+                targetObject == null ? IntPtr.Zero : targetObject.ptr,
                 new IL2String(methodName).ptr,
                 parameters.ArrayToIntPtr()
             }, ex: true);
         }
 
-        unsafe public static bool SetOwner(Player player, GameObject obj, Network.OwnershipModificationType modificationType = Network.OwnershipModificationType.Request, bool skipOwnerTest = false)
+        unsafe public static GameObject FindGameObject(string path, bool suppressErrors = false)
         {
-            IL2Method method = Instance_Class.GetMethod(nameof(SetOwner));
+            IL2Method method = Instance_Class.GetMethod(nameof(FindGameObject));
             if (method == null)
-                (method = Instance_Class.GetMethods().FirstOrDefault(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == Player.Instance_Class.FullName && x.GetParameters()[1].ReturnType.Name == GameObject.Instance_Class.FullName)).Name = nameof(SetOwner);
-            IL2Object result = method.Invoke(new IntPtr[] { player.ptr, obj.ptr, new IntPtr(&modificationType), new IntPtr(&skipOwnerTest) });
-            if (result == null)
-                return default;
+            {
+                (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 2
+                    && x.GetParameters()[0].ReturnType.Name == typeof(string).FullName
+                    && x.GetParameters()[1].ReturnType.Name == typeof(bool).FullName)).Name = nameof(FindGameObject);
+                if (method == null)
+                    return null;
+            }
+            return method.Invoke(new IntPtr[] { new IL2String(path).ptr, new IntPtr(&suppressErrors) })?.GetValue<GameObject>();
+        }
 
-            return result.GetValuå<bool>();
+        public static GameObject SceneDispatcherObject
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(SceneDispatcherObject));
+                if (property == null)
+                {
+                    (property = Instance_Class.GetProperty(GameObject.Instance_Class)).Name = nameof(SceneDispatcherObject);
+                    if (property == null)
+                        return null;
+                }
+                return property.GetGetMethod().Invoke()?.GetValue<GameObject>();
+            }
+            set
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(SceneDispatcherObject));
+                if (property == null)
+                {
+                    (property = Instance_Class.GetProperty(GameObject.Instance_Class)).Name = nameof(SceneDispatcherObject);
+                    if (property == null)
+                        return;
+                }
+                property.GetGetMethod().Invoke(new IntPtr[] { value == null ? IntPtr.Zero : value.ptr });
+            }
         }
 
         public static ObjectInstantiator Instantiator
@@ -137,15 +178,6 @@ namespace VRC
                     (field = Instance_Class.GetField(ObjectInstantiator.Instance_Class)).Name = nameof(Instantiator);
                 field.SetValue(value.ptr);
             }
-        }
-
-        public enum OwnershipModificationType
-        {
-            Request,
-            Collision,
-            Pickup,
-            Destroy,
-            Serialization
         }
 
         public static IL2Class Instance_Class;
