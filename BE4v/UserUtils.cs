@@ -13,7 +13,7 @@ public static class UserUtils
     #region SpawnPortal
     public static GameObject SpawnPortal(Transform transform, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde", string instanceId = "Banned Instance\nTupper\0")
     {
-        GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", transform.position + (transform.forward * 2), new Quaternion(0,0,0,0));
+        GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", transform.position + (transform.forward * 2), Quaternion.identity);
         if (gameObject == null)
             return null;
 

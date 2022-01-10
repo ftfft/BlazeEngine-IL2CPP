@@ -101,6 +101,7 @@ namespace BE4v.Mods
             if (Input.GetKeyDown(KeyCode.P))
             {
                 // Mod_CamMode.Toggle_Enable();
+                UserUtils.SpawnPortal(VRCPlayer.Instance.transform, "wrld_26758d47-a511-441a-85d2-83d16936b1a0", "123456");
                 return;
             }
             if (Input.GetKeyDown(KeyCode.X))

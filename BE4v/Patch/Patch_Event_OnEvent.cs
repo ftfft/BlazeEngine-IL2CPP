@@ -101,18 +101,6 @@ namespace BE4v.Patch
                     }
                 case 7:
                     {
-                        if (UnityEngine.Input.GetKey(UnityEngine.KeyCode.P))
-                        {
-                            if (eventData.CustomData != null)
-                            {
-                                byte[] bytes = eventData.CustomData.UnboxArraу<byte>();
-                                Console.WriteLine(bytes.Length);
-                                string text = string.Empty;
-                                foreach (byte b in bytes)
-                                    text += b + ", ";
-                                Console.WriteLine(text);
-                            }
-                        }
                         maxLength = 256;
                         break;
                     }
@@ -121,7 +109,7 @@ namespace BE4v.Patch
                         maxLength = 256;
                         break;
                     }
-                case 210:
+                case PunEvent.OwnershipTransfer:
                     {
                         maxLength = 8;
                         break;
