@@ -129,6 +129,19 @@ namespace BE4v.Mods
             }
             if (Input.GetKey(KeyCode.T))
             {
+                foreach (var x in UnityEngine.Object.FindObjectsOfType<VRC.Udon.UdonBehaviour>())
+                {
+                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "_start"))
+                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_start");
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Ownership").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("VRCPickup").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("VRCObjectSync").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("UdonBehaviour.RequestSerialization").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("OnDeserialization").ptr });
+                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "Play"))
+                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "Play");
+                }
                 return;
             }
             if (Input.GetKeyDown(KeyCode.P))

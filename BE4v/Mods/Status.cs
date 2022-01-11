@@ -36,5 +36,7 @@ namespace BE4v.Mods
         public static bool is3thCam = false;
 
         public static bool isBHop = false;
+
+        public static bool isRPCLogger = false;
     }
 }

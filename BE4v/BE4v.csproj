@@ -91,6 +91,7 @@
     <Compile Include="Patch\Patch_Event_OnPlayerConnected.cs" />
     <Compile Include="Patch\Patch_Event_VRC_Player_OnNetworkReady.cs" />
     <Compile Include="Patch\Patch_Event_OnEvent.cs" />
+    <Compile Include="Patch\Patch_EventLogger.cs" />
     <Compile Include="Patch\Patch_ForceCloneAvatar.cs" />
     <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />
     <Compile Include="Patch\Patch_FakePing.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Patch\Patch_Spoofer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BVault.cs" />
+    <Compile Include="SDK\Assembly-CSharp\BinarySerializer.cs" />
     <Compile Include="SDK\Assembly-CSharp\EffectSettings.cs" />
     <Compile Include="SDK\Assembly-CSharp\DistortionMobile.cs" />
     <Compile Include="SDK\Assembly-CSharp\AddMaterialOnHit.cs" />
@@ -130,6 +132,8 @@
     <Compile Include="SDK\Assembly-CSharp\VRCFlowManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\USpeaker.cs" />
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Core\ParameterSerialization.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModerationManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Network.cs" />
@@ -282,6 +286,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RaiseEventOptions.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\Room.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\RoomInfo.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Color32.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Experimental\Rendering\GraphicsFormat.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\HideFlags.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\SpriteRenderer.cs" />
@@ -464,13 +469,14 @@
     <Compile Include="SDK\VRCSDK2\VRC_Pickup.cs" />
     <Compile Include="SDK\VRCSDK2\VRC_Station.cs" />
     <Compile Include="SDK\VRCSDK3A\VRC\SDK3\Avatars\Components\VRCAvatarDescriptor.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRCPlayerApi.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRCStation.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_EventHandler.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_MirrorReflection.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_AvatarDescriptor.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRCInputMethod.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC\SDKBase\VRC_Pickup.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRCPlayerApi.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRC_EventDispatcher.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRCStation.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRC_EventHandler.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRC_MirrorReflection.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRC_AvatarDescriptor.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRCInputMethod.cs" />
+    <Compile Include="SDK\VRCSDKBase\VRC_Pickup.cs" />
     <Compile Include="UnityEditor\UnityEditor_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -479,6 +485,7 @@
     </Compile>
     <Compile Include="UserUtils.cs" />
     <Compile Include="Utils\Avatars.cs" />
+    <Compile Include="Utils\ByteSerilizer.cs" />
     <Compile Include="Utils\Sprites.cs" />
     <Compile Include="Utils\Notification.cs" />
   </ItemGroup>

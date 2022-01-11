@@ -35,6 +35,7 @@ namespace BE4v
             //Patch.Patch_NoVRDef.Start();
             //*
             Patch.Patch_Event_OnEvent.Start();
+            Patch.Patch_EventLogger.Start();
             // Patch.Patch_Event_OnMasterConnected.Start();
             //*/
             Patch.Patch_Event_VRC_Player_OnNetworkReady.Start();
