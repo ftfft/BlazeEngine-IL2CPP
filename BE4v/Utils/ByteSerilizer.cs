@@ -7,7 +7,7 @@ using VRC.SDKBase;
 
 namespace BE4v.Utils
 {
-    public static class ByteSerilizer
+	public static class ByteSerilizer
 	{
 		private static void Clear()
 		{
