@@ -13,17 +13,22 @@ public class USpeaker : MonoBehaviour
         {
             IL2Field field = Instance_Class.GetField(nameof(LocalGain));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.Token == 0x4)).Name = nameof(LocalGain);
-            IL2Object result = field.GetValue();
-            if (result == null)
-                return default;
-            return result.GetValuе<float>();
+            {
+                (field = Instance_Class.GetFields().Skip(3).FirstOrDefault()).Name = nameof(LocalGain);
+                if (field == null)
+                    return default;
+            }
+            return field.GetValue().GetValuе<float>();
         }
         set
         {
             IL2Field field = Instance_Class.GetField(nameof(LocalGain));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.Token == 0x4)).Name = nameof(LocalGain);
+            {
+                (field = Instance_Class.GetFields().Skip(3).FirstOrDefault()).Name = nameof(LocalGain);
+                if (field == null)
+                    return;
+            }
             field?.SetValue(new IntPtr(&value));
         }
     }

@@ -38,6 +38,15 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero) return;
             EventData eventData = new EventData(pEventData);
             if (pEventData == IntPtr.Zero || eventData == null) return;
+            if (eventData.Code == EventCode.Leave)
+            {
+                try
+                {
+                    _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
+                }
+                catch {  }
+                return;
+            }
             if (userList.Contains(eventData.Sender) || !isValidData(eventData)) return;
             timestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             int eventCode = eventData.Code;
@@ -123,16 +132,17 @@ namespace BE4v.Patch
             uint len;
             IL2Object customData = eventData.CustomData;
             int sender = eventData.Sender;
-            if (eventCode != 1 && eventCode != 7 && eventCode != 9)
+            if (eventCode == 6 || eventCode == 8)
             {
                 if (floodList.TryGetValue(sender, out int value))
                 {
-                    if (value > 50)
+                    if (++value > 50)
                     {
-                        ($"User {eventData.Sender} is blocked by limit packet's").RedPrefix("Packet block");
+                        ($"User {eventData.Sender} is blocked by limit packet's. Last (#{eventCode})").RedPrefix("Packet block");
                         userList.Add(eventData.Sender);
                         return false;
                     }
+                    floodList[sender] = value;
                 }
                 else
                 {

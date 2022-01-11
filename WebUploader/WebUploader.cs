@@ -45,13 +45,13 @@ namespace WebUploader
             new Thread(() => { ConnectToServer(); }).Start();
             try
             {
-                Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " is connected.");
                 NetworkStream stream = client.GetStream();
 
                 client.ReceiveTimeout = 0;
 
                 while (client.Connected)
                 {
+                    // Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " is connected.");
                     try
                     {
                         while (!stream.DataAvailable) ;

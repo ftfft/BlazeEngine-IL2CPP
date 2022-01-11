@@ -31,6 +31,16 @@ namespace VRC.Udon
             Instance_Class.GetMethod(nameof(SendCustomEventDelayedFrames)).Invoke(ptr, new IntPtr[] { new IL2String(eventName).ptr, new IntPtr(&delayFrames), new IntPtr(&eventTiming) });
         }
 
+        unsafe public bool DisableInteractive
+        {
+            get => Instance_Class.GetProperty(nameof(DisableInteractive)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
+            set => Instance_Class.GetProperty(nameof(DisableInteractive)).GetSetMethod().Invoke(ptr, new IntPtr(&value));
+        }
+
+        public bool IsInteractive
+        {
+            get => Instance_Class.GetProperty(nameof(IsInteractive)).GetGetMethod().Invoke(ptr).GetValuе<bool>(); 
+        }
 
         public static new IL2Class Instance_Class = Assembler.list["VRC.Udon"].GetClass("UdonBehaviour", "VRC.Udon");
     }

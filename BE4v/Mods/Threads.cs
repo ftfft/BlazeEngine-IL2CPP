@@ -19,6 +19,8 @@ using VRC.Core;
 using VRC.SDKBase;
 using VRC.UI;
 using VRC.UI.Elements;
+using VRC.Udon;
+using VRC.Udon.Common.Interfaces;
 
 namespace BE4v.Mods
 {
@@ -64,6 +66,33 @@ namespace BE4v.Mods
                 isLoadedCharacter = true;
                 Application.targetFrameRate = 101;
             }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                /*
+                UdonBehaviour[] behaviours = UnityEngine.Object.FindObjectsOfType<UdonBehaviour>();
+                foreach (var udon in behaviours)
+                {
+                    Console.WriteLine("--------- " + udon.gameObject.name);
+                    string[] cmds = udon.GetPrograms();
+                    foreach(var cmd in cmds)
+                    {
+                        Console.WriteLine(cmd);
+                    }
+                }
+                */
+                float volume = USpeaker.LocalGain;
+                if (volume <= 1f)
+                {
+                    USpeaker.LocalGain = float.MaxValue;
+                    "Enabled Max Volume".RedPrefix("MaxGain");
+                }
+                else
+                {
+                    USpeaker.LocalGain = 1f;
+                    "Disabled Max Volume".RedPrefix("MaxGain");
+                }
+                return;
+            }
             if (!Input.GetKey(KeyCode.LeftControl)) return;
             if (!Status.is3thCam)
             {
@@ -96,6 +125,10 @@ namespace BE4v.Mods
             if (Input.GetKeyDown(KeyCode.Mouse2))
             {
                 Mod_FastTP.Teleport();
+                return;
+            }
+            if (Input.GetKey(KeyCode.T))
+            {
                 return;
             }
             if (Input.GetKeyDown(KeyCode.P))
