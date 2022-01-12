@@ -15,6 +15,11 @@ namespace VRC.Udon
         {
             Instance_Class.GetMethod(nameof(SendCustomNetworkEvent)).Invoke(ptr, new IntPtr[] { new IntPtr(&target), new IL2String(eventName).ptr });
         }
+        
+        unsafe public void SendCustomEvent(string eventName)
+        {
+            Instance_Class.GetMethod(nameof(SendCustomEvent)).Invoke(ptr, new IntPtr[] { new IL2String(eventName).ptr });
+        }
 
         public string[] GetPrograms()
         {

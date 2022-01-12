@@ -9,6 +9,7 @@ namespace BE4v.Patch
 {
     // public delegate void TriggerEvent(VRC_EventHandler handler, VRC_EventHandler.VrcEvent e, VRC_EventHandler.VrcBroadcastType broadcast, int instagatorId, float fastForward)
     public delegate void _TriggerEvent(IntPtr instance, IntPtr handler, IntPtr e, VRC_EventHandler.VrcBroadcastType broadcast, int instagatorId, float fastForward);
+    public delegate void _SendCustomEvent(IntPtr instance, IntPtr eventName);
     public static class Patch_EventLogger
     {
         public static void Start()
@@ -25,6 +26,19 @@ namespace BE4v.Patch
             {
                 "Event Logger".RedPrefix(TMessage.BadPatch);
             }
+            /*
+            try
+            {
+                IL2Method method = VRC.Udon.UdonBehaviour.Instance_Class.GetMethod("SendCustomEvent");
+                patch2 = new IL2Patch(method, (_SendCustomEvent)SendCustomEvent);
+                _delegateSendCustomEvent = patch2.CreateDelegate<_SendCustomEvent>();
+                "Event Logger Udon".GreenPrefix(TMessage.SuccessPatch);
+            }
+            catch
+            {
+                "Event Logger Udon".RedPrefix(TMessage.BadPatch);
+            }
+            */
         }
 
         public static void TriggerEvent(IntPtr instance, IntPtr handler, IntPtr e, VRC_EventHandler.VrcBroadcastType broadcast, int instagatorId, float fastForward)
@@ -46,8 +60,20 @@ namespace BE4v.Patch
             catch { }
         }
 
+        public static void SendCustomEvent(IntPtr instance, IntPtr eventName)
+        {
+            Console.WriteLine("UDON LOG: " + new IL2String(eventName));
+            try
+            {
+                _delegateSendCustomEvent.Invoke(instance, eventName);
+            }
+            catch { }
+        }
+
         public static IL2Patch patch;
+        public static IL2Patch patch2;
 
         public static _TriggerEvent _delegateTriggerEvent = null;
+        public static _SendCustomEvent _delegateSendCustomEvent = null;
     }
 }

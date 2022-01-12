@@ -133,6 +133,7 @@
     <Compile Include="SDK\Assembly-CSharp\USpeaker.cs" />
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\ParameterSerialization.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC_XZ_CHTO_ZA_CLASS.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModerationManager.cs" />
@@ -469,14 +470,15 @@
     <Compile Include="SDK\VRCSDK2\VRC_Pickup.cs" />
     <Compile Include="SDK\VRCSDK2\VRC_Station.cs" />
     <Compile Include="SDK\VRCSDK3A\VRC\SDK3\Avatars\Components\VRCAvatarDescriptor.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRCPlayerApi.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC_EventDispatcher.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRCStation.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC_EventHandler.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC_MirrorReflection.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC_AvatarDescriptor.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRCInputMethod.cs" />
-    <Compile Include="SDK\VRCSDKBase\VRC_Pickup.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRCPlayerApi.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_DataStorage.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_EventDispatcher.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRCStation.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_EventHandler.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_MirrorReflection.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_AvatarDescriptor.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRCInputMethod.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_Pickup.cs" />
     <Compile Include="UnityEditor\UnityEditor_Form.cs">
       <SubType>Form</SubType>
     </Compile>
