@@ -14,6 +14,62 @@ public class BinarySerializer : IL2Base
 
     public BinarySerializer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
+    unsafe public int bytePos
+    {
+        get
+        {
+            IL2Field field = Instance_Class.GetField(nameof(bytePos));
+            if (field == null)
+            {
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(int).FullName)).Name = nameof(bytePos);
+                if (field == null)
+                    return default;
+            }
+            return field.GetValue(ptr).GetValuе<int>();
+        }
+        set
+        {
+            IL2Field field = Instance_Class.GetField(nameof(bytePos));
+            if (field == null)
+            {
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(int).FullName)).Name = nameof(bytePos);
+                if (field == null)
+                    return;
+            }
+            field.SetValue(ptr, new IntPtr(&value));
+        }
+    }
+
+    public IL2Array<byte> decBuffer
+    {
+        get
+        {
+            IL2Field field = Instance_Class.GetField(nameof(decBuffer));
+            if (field == null)
+            {
+                (field = Instance_Class.GetField(x => x.ReturnType.Name.StartsWith(typeof(byte).FullName))).Name = nameof(decBuffer);
+                if (field == null)
+                    return null;
+            }
+            IL2Object result = field.GetValue(ptr);
+            if (result == null)
+                return null;
+
+            return new IL2Array<byte>(result.ptr);
+        }
+        set
+        {
+            IL2Field field = Instance_Class.GetField(nameof(decBuffer));
+            if (field == null)
+            {
+                (field = Instance_Class.GetField(x => x.ReturnType.Name.StartsWith(typeof(byte).FullName))).Name = nameof(decBuffer);
+                if (field == null)
+                    return;
+            }
+            field.SetValue(ptr, value.ptr);
+        }
+    }
+
     private static BinarySerializer serializer
     {
         get
@@ -39,7 +95,6 @@ public class BinarySerializer : IL2Base
             field.SetValue(value == null ? IntPtr.Zero : value.ptr);
         }
     }
-
 
     public enum TypeCode : byte
 	{

@@ -38,5 +38,7 @@ namespace BE4v.Mods
         public static bool isBHop = false;
 
         public static bool isRPCLogger = false;
+
+        public static bool isRPCInject = false;
     }
 }

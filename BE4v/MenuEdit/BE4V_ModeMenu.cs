@@ -131,7 +131,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                isEnabled = !isEnabled;
+                Status.isRPCInject = !Status.isRPCInject;
                 Refresh();
             }
 
@@ -139,13 +139,19 @@ namespace BE4v.MenuEdit
             {
                 if (button != null)
                 {
-                    if (isEnabled)
+                    if (Status.isRPCInject)
                     {
                         button.SetSprite(LoadSprites.onButton);
+
+                        if (Patch_Serilize.patch.Enabled == false)
+                            Patch_Serilize.patch.Enabled = true;
                     }
                     else
                     {
                         button.SetSprite(LoadSprites.offButton);
+
+                        if (Patch_Serilize.patch?.Enabled == true)
+                            Patch_Serilize.patch.Enabled = false;
                     }
                 }
             }

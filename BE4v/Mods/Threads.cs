@@ -27,6 +27,8 @@ namespace BE4v.Mods
     public delegate void _Threads_Update(IntPtr instance);
     public static class Threads
     {
+        public static UdonBehaviour[] udons;
+
         public static void Start()
         {
 
@@ -127,9 +129,10 @@ namespace BE4v.Mods
                 Mod_FastTP.Teleport();
                 return;
             }
-            if (Input.GetKey(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                foreach (var x in UnityEngine.Object.FindObjectsOfType<UdonBehaviour>())
+                udons = UnityEngine.Object.FindObjectsOfType<UdonBehaviour>();
+                foreach (var x in udons)
                 {
                     //if (null != x.GetPrograms().FirstOrDefault(y => y == "_start"))
                     //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_start");
@@ -141,13 +144,16 @@ namespace BE4v.Mods
             }
             if (Input.GetKey(KeyCode.Y))
             {
-                foreach (var x in UnityEngine.Object.FindObjectsOfType<UdonBehaviour>())
+                if (udons != null)
                 {
-                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
-                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
-                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
-                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
-                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    foreach (var x in udons)
+                    {
+                        Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, ".", new IntPtr[] { new IL2String("Play").ptr });
+                        Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, ".", new IntPtr[] { new IL2String("Play").ptr });
+                        Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, ".", new IntPtr[] { new IL2String("Play").ptr });
+                        Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, ".", new IntPtr[] { new IL2String("Play").ptr });
+                        Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, ".", new IntPtr[] { new IL2String("Play").ptr });
+                    }
                 }
                 return;
             }

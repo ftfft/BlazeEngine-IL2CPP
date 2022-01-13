@@ -14,7 +14,7 @@ namespace BE4v.Patch
     {
         public static void Start()
         {
-
+            /*
             try
             {
                 IL2Method method = VRC_EventDispatcherRFC.Instance_Class.GetMethod("TriggerEvent");

@@ -6,10 +6,13 @@ using IL2Photon.Realtime;
 using BE4v.Mods;
 using IL2ExitGames.Client.Photon;
 using BE4v.MenuEdit;
+using VRC.SDKBase;
 
 namespace BE4v.Patch
 {
     public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
+    // public delegate void _TriggerEvent(IntPtr instance, IntPtr e, IntPtr ev, VRC_EventHandler.VrcBroadcastType type, int i, float f);
+    public delegate void _TriggerEventNew(IntPtr instance, IntPtr vrcPlayer, IntPtr ev, VRC_EventHandler.VrcBroadcastType type, int i, float f);
     public static class Patch_Serilize
     {
         public static void Toggle()
@@ -35,28 +38,34 @@ namespace BE4v.Patch
             {
                 "Serilize".RedPrefix(TMessage.BadPatch);
             }
+            try
+            {
+                IL2Method method = null;
+                method = VRC_EventDispatcherRFC.Instance_Class.GetMethod(x => 
+                    x.ReturnType.Name == typeof(void).FullName
+                    && x.GetParameters().Length == 5
+                    && x.GetParameters()[0].ReturnType.Name == VRC.Player.Instance_Class.FullName
+                );
+                if (method == null)
+                    new Exception();
+
+                patch2 = new IL2Patch(method, (_TriggerEventNew)TriggerEvent);
+                _delegateTriggerEvent = patch2.CreateDelegate<_TriggerEventNew>();
+                "ByteCrash".GreenPrefix(TMessage.SuccessPatch);
+            }
+            catch (Exception ex)
+            {
+                "ByteCrash".RedPrefix(TMessage.BadPatch);
+                ex.Message.RedPrefix("Ex:");
+            }
         }
 
 
         public static bool OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions)
-    {
-            if (operationParameters != IntPtr.Zero)
-            {
-                if (operationCode == 6)
-                {
-                    try
-                    {
-                        Console.WriteLine("ByteCode: " + operationCode);
-                        Console.WriteLine("Type Param: " + new IL2ObjectSystem(operationParameters).ToString() + " (Len: " + Import.Object.il2cpp_array_get_byte_length(operationParameters) + ")");
-                        byte[] bytes = new IL2Object(operationParameters).UnboxArraу<byte>();
-                        Console.WriteLine("str: " + System.Text.Encoding.UTF8.GetString(bytes));
-                    }
-                    catch { }
-                }
-            }
+        {
             if (Status.isSerilize)
             {
-                if (operationCode != 1)
+                if (operationCode != 1 && operationCode != EventCode.Join && operationCode != EventCode.Leave)
                 {
                     return true;
                 }
@@ -68,8 +77,26 @@ namespace BE4v.Patch
             catch { return false; }
         }
 
+        public static void TriggerEvent(IntPtr instance, IntPtr vrcPlayer, IntPtr ev, VRC_EventHandler.VrcBroadcastType type, int i, float f)
+        {
+            if (Status.isRPCInject)
+            {
+                return;
+            }
+            try
+            {
+                _delegateTriggerEvent(instance, vrcPlayer, ev, type, i, f);
+            }
+            catch { }
+        }
+        
+
         public static IL2Patch patch;
 
+        public static IL2Patch patch2;
+
         public static _OpRaiseEvent _delegateOpRaiseEvent;
+
+        public static _TriggerEventNew _delegateTriggerEvent;
     }
 }

@@ -23,11 +23,22 @@ namespace BE4v.Utils
 			bytePos += 4;
 			return BitConverter.ToSingle(decBuffer, bytePos - 4);
 		}
+		private static void SerializeShort(short obj)
+		{
+			encBuffer.AddRange(BitConverter.GetBytes(obj));
+		}
 
 		private static short DeserializeShort()
 		{
 			bytePos += 2;
 			return BitConverter.ToInt16(decBuffer, bytePos - 2);
+		}
+
+		private static void SerializeString(string obj)
+		{
+			byte[] bytes = Encoding.UTF8.GetBytes(obj);
+			SerializeShort((short)bytes.Length);
+			encBuffer.AddRange(bytes);
 		}
 
 		private static string DeserializeString()
