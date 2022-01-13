@@ -143,66 +143,66 @@ namespace BE4v.Utils
 			}
 			if (decBuffer.Length < bytePos)
 			{
-				throw new Exception("  i:");
+				throw new Exception("Overread of buffer");
 			}
 			switch (type)
 			{
-				case 0:
-					return null;
-				case (BinarySerializer.TypeCode)92:
+				case BinarySerializer.TypeCode.VECTOR2:
 					return DeserializeVector2();
-				case (BinarySerializer.TypeCode)93:
+				case BinarySerializer.TypeCode.VECTOR3:
 					return DeserializeVector3();
-				case (BinarySerializer.TypeCode)94:
+				case BinarySerializer.TypeCode.VECTOR4:
 					return DeserializeVector4();
-				case (BinarySerializer.TypeCode)95:
-					return DeserializeQuaternion();
-				case (BinarySerializer.TypeCode)96:
-					return DeserializeColor();
-				case (BinarySerializer.TypeCode)97:
-					return DeserializeColor32();
-				// case (BinarySerializer.TypeCode)98:
-				//	return DeserializeEventLogEntry();
-				// case (BinarySerializer.TypeCode)99:
-				//	return DeserializePlayerVideoEntry();
-				// case BinarySerializer.TypeCode.VECTOR2:
-				//	return DeserializeSerializableBehaviour();
-				// case BinarySerializer.TypeCode.VECTOR3:
-				//	return DeserializeSerializableContainer();
-				/*case BinarySerializer.TypeCode.VECTOR4:
-					return this.MIHPDNKKPIG();
 				case BinarySerializer.TypeCode.QUATERNION:
-					return this.CKCGNEMANID();
+					return DeserializeQuaternion();
 				case BinarySerializer.TypeCode.COLOR:
-					return this.BDJBNMCJMDE();
+					return DeserializeColor();
 				case BinarySerializer.TypeCode.COLOR32:
-					return this.DMLFILDIMEJ();
+					return DeserializeColor32();
+				/* case BinarySerializer.TypeCode.EVENTLOG_ENTRY:
+					return DeserializeEventLogEntry();
+				case BinarySerializer.TypeCode.PLAYER_VIDEO_ENTRY:
+					return DeserializePlayerVideoEntry();
+				case BinarySerializer.TypeCode.STREAM_VIDEO_ENTRY:
+					return this.ABPBIBONCMA();
+				case BinarySerializer.TypeCode.DATA_ELEMENT:
+					return this.KHAOBGNONHE();
+				case BinarySerializer.TypeCode.SERIALIZABLE_BEHAVIOR:
+					return this.MIHPDNKKPIG();
+				case BinarySerializer.TypeCode.SERIALIZABLE_CONTAINER:
+					return this.CKCGNEMANID();
+				case BinarySerializer.TypeCode.GAMEOBJECT:
+					return this.BDJBNMCJMDE();
+				case BinarySerializer.TypeCode.TRANSFORM:
+					return this.KHIPMPFFHAD();
 				case BinarySerializer.TypeCode.NULL:
-					return this.CFIBOPGIOKO[this.JOKIHFPBEAE++];
+					return null;
 				case BinarySerializer.TypeCode.BYTE:
-					return this.PIHGFOEHOAL();
+					return this.CFIBOPGIOKO[this.JOKIHFPBEAE++];
 				case BinarySerializer.TypeCode.DOUBLE:
-					return this.LDKPJIMKKCJ();
+					return this.MAHKNMFEION();
 				case BinarySerializer.TypeCode.FLOAT:
-					return this.BACJFDEODHB();
+					return this.LDKPJIMKKCJ();
 				case BinarySerializer.TypeCode.INT:
-					return this.FMKEJGOPJNL();
+					return this.BACJFDEODHB();
 				case BinarySerializer.TypeCode.SHORT:
-					return this.JDMLLPPLPKF();
+					return this.EPADFFGGHFG();
 				case BinarySerializer.TypeCode.LONG:
-					return this.JOKLNCHAMFF();
+					return this.OMHHAEDEEDP();
 				case BinarySerializer.TypeCode.BOOL:
-					return this.PJBOPGBGFAD();
+					return this.BPPCFCGAAOJ();
 				case BinarySerializer.TypeCode.STRING:
-					return this.FEMCEHBHINO();
+					return ODPCLECAHGC();
 				case BinarySerializer.TypeCode.OBJECT_ARRAY:
-					return this.BEDAOHHGOHE();*/
+					return DPPNCLGNFEO();
+				case BinarySerializer.TypeCode.TYPE_ARRAY:
+					return BEDAOHHGOHE();*/
 				default:
-					throw new Exception(",balance=" + type);
+					throw new Exception("Deserializer encountered unhandled type: " + type);
 			}
 		}
 
-		private const short ObjectCountLimit = 2048;
+		private const short ObjectCountLimit = 512;
 
 		private static int bytePos;
 
