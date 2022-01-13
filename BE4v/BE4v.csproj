@@ -146,10 +146,13 @@
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRTK\UICircle.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Array.cs" />
     <Compile Include="SDK\CPP2IL\IL2Dictionary.cs" />
     <Compile Include="SDK\CPP2IL\IL2Utils.cs" />
+    <Compile Include="SDK\mscorlib\System\Collections\Hashtable.cs" />
     <Compile Include="SDK\mscorlib\System\IO\Stream.cs" />
     <Compile Include="SDK\mscorlib\System\IO\MemoryStream.cs" />
+    <Compile Include="SDK\mscorlib\System\IL2ObjectSystem.cs" />
     <Compile Include="SDK\mscorlib\System\Runtime\Serialization\Formatters\Binary\BinaryFormatter.cs" />
     <Compile Include="SDK\Serilize.cs" />
     <Compile Include="SDK\IL2Dumper\DumpForm.cs">
