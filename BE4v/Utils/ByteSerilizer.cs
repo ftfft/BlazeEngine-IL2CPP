@@ -18,6 +18,29 @@ namespace BE4v.Utils
 			objectCount = 1;
 		}
 
+		private static bool DeserializeBool()
+		{
+			bytePos++;
+			return BitConverter.ToBoolean(decBuffer, bytePos - 1);
+		}
+		private static long DeserializeLong()
+		{
+			bytePos += 8;
+			return BitConverter.ToInt64(decBuffer, bytePos - 8);
+		}
+
+		private static int DeserializeInt()
+		{
+			bytePos += 4;
+			return BitConverter.ToInt32(decBuffer, bytePos - 4);
+		}
+
+		private static double DeserializeDouble()
+		{
+			bytePos += 8;
+			return BitConverter.ToDouble(decBuffer, bytePos - 8);
+		}
+
 		private static float DeserializeFloat()
 		{
 			bytePos += 4;
@@ -61,7 +84,6 @@ namespace BE4v.Utils
 			return array;
 		}
 		*/
-
 		private static Vector2 DeserializeVector2()
 		{
 			return new Vector2(DeserializeFloat(), DeserializeFloat());
@@ -174,25 +196,26 @@ namespace BE4v.Utils
 				case BinarySerializer.TypeCode.GAMEOBJECT:
 					return this.BDJBNMCJMDE();
 				case BinarySerializer.TypeCode.TRANSFORM:
-					return this.KHIPMPFFHAD();
+					return this.KHIPMPFFHAD();*/
 				case BinarySerializer.TypeCode.NULL:
 					return null;
 				case BinarySerializer.TypeCode.BYTE:
-					return this.CFIBOPGIOKO[this.JOKIHFPBEAE++];
+					return decBuffer[bytePos++];
 				case BinarySerializer.TypeCode.DOUBLE:
-					return this.MAHKNMFEION();
+					return DeserializeDouble();
 				case BinarySerializer.TypeCode.FLOAT:
-					return this.LDKPJIMKKCJ();
+					return DeserializeFloat();
 				case BinarySerializer.TypeCode.INT:
-					return this.BACJFDEODHB();
+					return DeserializeInt();
 				case BinarySerializer.TypeCode.SHORT:
-					return this.EPADFFGGHFG();
+					return DeserializeShort();
 				case BinarySerializer.TypeCode.LONG:
-					return this.OMHHAEDEEDP();
+					return DeserializeLong();
 				case BinarySerializer.TypeCode.BOOL:
-					return this.BPPCFCGAAOJ();
+					return DeserializeBool();
 				case BinarySerializer.TypeCode.STRING:
-					return ODPCLECAHGC();
+					return DeserializeString();
+				/*
 				case BinarySerializer.TypeCode.OBJECT_ARRAY:
 					return DPPNCLGNFEO();
 				case BinarySerializer.TypeCode.TYPE_ARRAY:
