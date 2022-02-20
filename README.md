@@ -8,6 +8,7 @@
 - Unlimited Favorites
 - Players ESP
 - Serilize
+- Global Udon Events
 - Portable Mirror
 - Invis API
 - Invis Mode
