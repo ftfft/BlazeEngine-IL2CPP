@@ -33,13 +33,14 @@ namespace IL2Photon.Realtime
             get => Instance_Class.GetField(x => x.Token == 0x18).GetValue(ptr)?.UnboxArraу<int>();
             set => Instance_Class.GetField(x => x.Token == 0x18).SetValue(ptr, (value == null) ? IntPtr.Zero : value.Select(x => CreateNewObject(x, IL2SystemClass.Int32)).ToArray().ArrayToIntPtr(IL2SystemClass.Int32));
         }
-        
-        public ReceiverGroup Receivers
+        */
+
+        unsafe public ReceiverGroup Receivers
         {
             get => Instance_Class.GetField(x => x.Token == 0x20).GetValue(ptr).GetValuе<ReceiverGroup>();
-            set => Instance_Class.GetField(x => x.Token == 0x20).SetValue(ptr, value.MonoCast());
+            set => Instance_Class.GetField(x => x.Token == 0x20).SetValue(ptr, new IntPtr(&value));
         }
-        */
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(LoadBalancingClient.Instance_Class?.GetMethods(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName).First().GetParameters()[2].ReturnType.Name);
+
+        public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(LoadBalancingClient.Instance_Class?.GetMethod("OpRaiseEvent").GetParameters()[2].ReturnType.Name);
     }
 }

@@ -32,7 +32,7 @@ namespace BE4v.Patch
 
         public static void QuickMenu_OnEnable(IntPtr instance)
         {
-            _delegateQuickMenu_OnEnable.Invoke(instance);
+            _delegateQuickMenu_OnEnable(instance);
             patch.Enabled = false;
 
             MenuEdit.BE4V_MainMenu.Delete();

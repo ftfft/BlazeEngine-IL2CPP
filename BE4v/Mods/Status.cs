@@ -40,5 +40,9 @@ namespace BE4v.Mods
         public static bool isRPCLogger = false;
 
         public static bool isRPCInject = false;
+
+        public static bool isAutoClear = false;
+
+        public static bool isGlobalUdonEvent = false;
     }
 }

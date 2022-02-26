@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using BE4v.SDK.CPP2IL;
-// using IL2ExitGames.Client.Photon;
+using IL2ExitGames.Client.Photon;
+using IL2Photon.Pun;
 using IL2Photon.Realtime;
 
 namespace IL2Photon.Pun
@@ -25,17 +26,6 @@ namespace IL2Photon.Pun
         // <!---------- ------- ---------->
         // <!---------- FIELD'S ---------->
         // <!---------- ------- ---------->
-        public static LoadBalancingClient NetworkingClient
-        {
-            get
-            {
-                IL2Field field = Instance_Class.GetField(nameof(NetworkingClient));
-                if (field == null)
-                    (field = Instance_Class.GetField(LoadBalancingClient.Instance_Class)).Name = nameof(NetworkingClient);
-                return field?.GetValue()?.GetValue<LoadBalancingClient>();
-            }
-        }
-
         unsafe public static void RequestOwnership(int viewId, int fromId)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(RequestOwnership));
@@ -75,18 +65,49 @@ namespace IL2Photon.Pun
                 (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 6 && x.GetParameters()[3].ReturnType.Name == IL2Photon.Realtime.Player.Instance_Class.FullName)).Name = nameof(RPC);
             method?.Invoke(new IntPtr[] { view.ptr, new IL2String(methodName).ptr, target.MonoCast(), player.ptr, encrypt.MonoCast(), parameters.ArrayToIntPtr() });
         }
+        */
 
-        public static bool RaiseEvent(byte operationCode, IntPtr operationParameters, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
+        unsafe public static bool RaiseEvent(byte operationCode, IntPtr operationParameters, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(RaiseEvent));
             if (method == null)
+            {
                 (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName && x.IsPrivate)).Name = nameof(RaiseEvent);
-            IL2Object result = method?.Invoke(new IntPtr[] { operationCode.MonoCast(), operationParameters, raiseEventOptions.ptr, sendOptions.MonoCast() });
-            if (result == null)
-                return default;
-            return result.GetValuе<bool>();
+                if (method == null)
+                    return false;
+            }
+            return method.Invoke(new IntPtr[] { new IntPtr(&operationCode), operationParameters, raiseEventOptions == null ? IntPtr.Zero : raiseEventOptions.ptr, new IntPtr(&sendOptions) }).GetValuе<bool>();
         }
-        */
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.GetFields().Where(y => y.ReturnType.Name == RaiseEventOptions.Instance_Class.FullName).Count() > 0);
+
+
+
+        public static LoadBalancingClient NetworkingClient
+        {
+            get
+            {
+                IL2Field field = Instance_Class.GetField(nameof(NetworkingClient));
+                if (field == null)
+                {
+                    (field = Instance_Class.GetField(LoadBalancingClient.Instance_Class)).Name = nameof(NetworkingClient);
+                    if (field == null)
+                        return null;
+                }
+                return field.GetValue().GetValue<LoadBalancingClient>();
+            }
+            set
+            {
+                IL2Field field = Instance_Class.GetField(nameof(NetworkingClient));
+                if (field == null)
+                {
+                    (field = Instance_Class.GetField(LoadBalancingClient.Instance_Class)).Name = nameof(NetworkingClient);
+                    if (field == null)
+                        return;
+                }
+                field.GetValue(value == null ? IntPtr.Zero : value.ptr);
+            }
+        }
+
+
+        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField(LoadBalancingClient.Instance_Class) != null);
     }
 }

@@ -44,7 +44,7 @@ namespace BE4v.Patch
             // if (moderationType == ApiPlayerModeration.ModerationType.Block)
             //    return true;
 
-            return _delegateVRC_Management_ModerationManager_HasPlayerModeration.Invoke(instance, userId, moderationType);
+            return _delegateVRC_Management_ModerationManager_HasPlayerModeration(instance, userId, moderationType);
         }
 
         public static IL2Patch patch;

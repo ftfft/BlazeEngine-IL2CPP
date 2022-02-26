@@ -22,8 +22,11 @@ namespace VRC.SDKBase
             set => Instance_Class.GetProperty(nameof(NetworkID)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
         }
 
-
-        /*
+		unsafe public void TriggerEvent(VrcEvent e, VrcBroadcastType broadcast, GameObject instagator, float fastForward = 0f)
+		{
+			Instance_Class.GetMethod(nameof(TriggerEvent)).Invoke(ptr, new IntPtr[] { (e == null) ? IntPtr.Zero : e.ptr, new IntPtr(&broadcast), (instagator == null) ? IntPtr.Zero : instagator.ptr, new IntPtr(&fastForward) });
+		}
+		/*
 		public static bool BooleanOp(VRC_EventHandler.VrcBooleanOp Op, bool Current)
 		{
 		}
@@ -190,7 +193,7 @@ namespace VRC.SDKBase
 		private Coroutine DeferredEventProcessor;
 		*/
 
-        public enum VrcEventType
+		public enum VrcEventType
 		{
 			MeshVisibility,
 			AnimationFloat,
@@ -327,32 +330,41 @@ namespace VRC.SDKBase
                 get => Instance_Class.GetField(nameof(ParameterObjects)).GetValue(ptr)?.UnboxArray<GameObject>();
                 set => Instance_Class.GetField(nameof(ParameterObjects)).SetValue(ptr, (value == null) ? IntPtr.Zero : value.Select(x => x.ptr).ToArray().ArrayToIntPtr(GameObject.Instance_Class));
             }
-			/*
+
             public byte[] ParameterBytes
 			{
-                get => Instance_Class.GetField(nameof(ParameterBytes)).GetValue(ptr)?.UnboxArraу<byte>();
+				get
+				{
+					byte[] result = null;
+					IL2Object obj = Instance_Class.GetField(nameof(ParameterBytes)).GetValue(ptr);
+					if (obj != null)
+					{
+						IL2Array<byte> bytes = new IL2Array<byte>(obj.ptr);
+						int len = bytes.Length;
+						result = new byte[len];
+						for (int i = 0; i < len; i++)
+						{
+							result[i] = bytes[i];
+						}
+					}
+					return result;
+				}
 				set
 				{
-					IntPtr result = IntPtr.Zero;
+					IL2Array<byte> bytes = new IL2Array<byte>(IntPtr.Zero);
 					if (value != null)
-					{
-						IntPtr[] ptrs = new IntPtr[value.Length];
-						unsafe
-						{
-							for (int i = 0; i < value.Length; i++)
-							{
-								fixed (byte* pointer = &value[i])
-								{
-									ptrs[i] = new IntPtr(pointer);
-								}
-							}
-						}
-						result = ptrs.ArrayToIntPtr(BlazeTools.IL2SystemClass.Byte);
-					}
-					Instance_Class.GetField(nameof(ParameterBytes)).SetValue(ptr, result);
+                    {
+						int len = value.Length;
+						bytes = new IL2Array<byte>(len);
+						for (int i = 0; i < len; i++)
+                        {
+							bytes[i] = value[i];
+                        }
+                    }
+					Instance_Class.GetField(nameof(ParameterBytes)).SetValue(ptr, bytes.ptr);
 				}
 			}
-			*/
+
 			unsafe public int? ParameterBytesVersion
 			{
 				get => Instance_Class.GetField(nameof(ParameterBytesVersion)).GetValue(ptr)?.GetValuе<int>();

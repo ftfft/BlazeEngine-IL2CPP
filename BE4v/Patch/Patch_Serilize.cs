@@ -11,8 +11,6 @@ using VRC.SDKBase;
 namespace BE4v.Patch
 {
     public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
-    // public delegate void _TriggerEvent(IntPtr instance, IntPtr e, IntPtr ev, VRC_EventHandler.VrcBroadcastType type, int i, float f);
-    public delegate void _TriggerEventNew(IntPtr instance, IntPtr vrcPlayer, IntPtr ev, VRC_EventHandler.VrcBroadcastType type, int i, float f);
     public static class Patch_Serilize
     {
         public static void Toggle()
@@ -38,26 +36,6 @@ namespace BE4v.Patch
             {
                 "Serilize".RedPrefix(TMessage.BadPatch);
             }
-            try
-            {
-                IL2Method method = null;
-                method = VRC_EventDispatcherRFC.Instance_Class.GetMethod(x => 
-                    x.ReturnType.Name == typeof(void).FullName
-                    && x.GetParameters().Length == 5
-                    && x.GetParameters()[0].ReturnType.Name == VRC.Player.Instance_Class.FullName
-                );
-                if (method == null)
-                    new Exception();
-
-                patch2 = new IL2Patch(method, (_TriggerEventNew)TriggerEvent);
-                _delegateTriggerEvent = patch2.CreateDelegate<_TriggerEventNew>();
-                "ByteCrash".GreenPrefix(TMessage.SuccessPatch);
-            }
-            catch (Exception ex)
-            {
-                "ByteCrash".RedPrefix(TMessage.BadPatch);
-                ex.Message.RedPrefix("Ex:");
-            }
         }
 
 
@@ -65,11 +43,52 @@ namespace BE4v.Patch
         {
             if (Status.isSerilize)
             {
-                if (operationCode != 1 && operationCode != EventCode.Join && operationCode != EventCode.Leave)
+                if (operationCode != 1
+                && operationCode != 6
+                && operationCode != EventCode.Join
+                && operationCode != EventCode.Leave
+                )
                 {
                     return true;
                 }
             }
+            /*
+            if (Mod_Console.crashToggle)
+            {
+                if (operationCode == 6)
+                {
+                    IL2Array<byte> array = new IL2Array<byte>(operationParameters);
+                    int len = array.Length;
+                    int ifCount = 0;
+                    short sh = 0;
+                    for (int i = len - 1; i <= 0; i--)
+                    {
+                        if (array[i] == 4)
+                        {
+                            if (i + 5 < len)
+                            {
+                                // 80, 108, 97, 121
+                                if (
+                                    array[i + 2] == 80
+                                && array[i + 3] == 108
+                                && array[i + 4] == 97
+                                && array[i + 5] == 121
+                                )
+                                {
+                                    byte[] bytes = new byte[2];
+                                    sh = 80;
+                                    bytes = BitConverter.GetBytes(sh);
+
+                                    array[i] = bytes[0];
+                                    array[i + 1] = bytes[1];
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            */
             try
             {
                 return _delegateOpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
@@ -77,26 +96,8 @@ namespace BE4v.Patch
             catch { return false; }
         }
 
-        public static void TriggerEvent(IntPtr instance, IntPtr vrcPlayer, IntPtr ev, VRC_EventHandler.VrcBroadcastType type, int i, float f)
-        {
-            if (Status.isRPCInject)
-            {
-                return;
-            }
-            try
-            {
-                _delegateTriggerEvent(instance, vrcPlayer, ev, type, i, f);
-            }
-            catch { }
-        }
-        
-
         public static IL2Patch patch;
 
-        public static IL2Patch patch2;
-
         public static _OpRaiseEvent _delegateOpRaiseEvent;
-
-        public static _TriggerEventNew _delegateTriggerEvent;
     }
 }

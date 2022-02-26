@@ -65,18 +65,18 @@ namespace BE4v.SDK
 
             
 
-            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_string_new_len(string str, int length);
 
-            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_object_new(IntPtr klass);
-            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-            public extern static IntPtr il2cpp_array_new(IntPtr elementTypeInfo, int length);
-            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+            public extern static IntPtr il2cpp_array_new(IntPtr elementTypeInfo, ulong length);
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
             public extern static IntPtr il2cpp_array_class_get(IntPtr element_class, uint rank);
-            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
             public extern static int il2cpp_array_length(IntPtr pArray);
-            [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
             public extern static uint il2cpp_array_get_byte_length(IntPtr pArray);
             unsafe public static IntPtr CreateNewObject<T>(T value, IL2Class type) where T : unmanaged
             {

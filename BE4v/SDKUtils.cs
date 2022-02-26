@@ -20,7 +20,7 @@ public static class SDKUtils
             typeobject = Assembler.list["mscorlib"].GetClass("Object", "System");
 
         int length = array.Count();
-        IntPtr result = Import.Object.il2cpp_array_new(typeobject.ptr, length);
+        IntPtr result = Import.Object.il2cpp_array_new(typeobject.ptr, (ulong)length);
         if (typeobject == IL2SystemClass.Byte)
         {
             for (int i = 0; i < length; i++)

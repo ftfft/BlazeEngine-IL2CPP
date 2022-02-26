@@ -33,7 +33,7 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero)
                 return;
 
-            _delegateUiAvatarList_Update.Invoke(instance);
+            _delegateUiAvatarList_Update(instance);
             Mod_Avatars.Update();
         }
 

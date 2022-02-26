@@ -10,26 +10,39 @@ using TMPro;
 namespace BE4v.Patch
 {
     public delegate IntPtr _TMP_MaterialManager_GetMaterialForRendering(IntPtr graphic, IntPtr baseMaterial);
-    public delegate bool _VRCAvatarManager_SwitchAvatar(IntPtr instance, IntPtr ptrApiAvatar, IntPtr ptrCurrentVariations, float fLocalScale, IntPtr ptrEvent);
+    public delegate IntPtr _VRCAvatarManager_SwitchAvatar(IntPtr instance, IntPtr apiAvatar, float scale = 1f);
     public static class Patch_AntiCrash
     {
+        public static string[] blockedAvtr = new string[]
+        {
+            "avtr_4104e354-4ca5-4a2f-8fd7-1ab5711b7843",
+            "avtr_13787bee-7f25-4d37-9c51-510d419b5484",
+            "avtr_006e843a-c849-4973-8fd8-56285ea37b1d",
+            "avtr_4a963b1b-42e1-4a9c-ab29-cf45e6f646b8",
+            "avtr_ad897367-c6ee-4ef6-8af8-c90d45e2cb9e",
+            "avtr_ff16af4a-c3cf-4a7b-aaf3-c532d3f2ee14",
+            "avtr_d0c68735-44df-480c-b368-97f9b01d71b9",
+            "avtr_059de223-ba9f-447b-9f70-07a138e7528f",
+            "avtr_49744928-9fc4-4c87-b34b-60b9611d210e",
+            "avtr_a4b26812-0ab3-48c7-a2e4-10e4b6aaebba",
+            "avtr_9a21aff8-e1f9-461b-8969-b9d1dde9d1cf",
+            "avtr_bbef3872-06ba-405d-a1d1-e1b15d035f1d",
+            "avtr_e45dcd04-99e1-4123-83c0-2b4168ab7017",
+            "avtr_ebdc0946-b435-41b7-9e17-e74a0fca379a",
+            "avtr_966e46d7-c8f5-450b-9a10-e428d63c2c03",
+            "avtr_33939c5a-24e3-475f-a321-49dd01cfd5da",
+            "avtr_4104e354-4ca5-4a2f-8fd7-1ab5711b7843",
+            "avtr_d7f94133-adbe-43f6-b7ba-5bd8b4393c4c",
+            "avtr_b246f080-284a-4342-bc57-41de634cddc9",
+            "avtr_966e46d7-c8f5-450b-9a10-e428d63c2c03"
+        };
+
         public static void Start()
         {
             /*
             try
             {
-
-                int methodCount = 0;
-                IL2Method method = null;
-                foreach (var m in VRCAvatarManager.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == ApiAvatar.Instance_Class.FullName))
-                {
-                    var instructions = m.GetDisassembler().Disassemble().TakeWhile(x => x.Mnemonic != ud_mnemonic_code.UD_Iint3);
-                    if (instructions.Count() > methodCount)
-                    {
-                        methodCount = instructions.Count();
-                        method = m;
-                    }
-                }
+                IL2Method method = VRCAvatarManager.Instance_Class.GetMethod(x => x.ReturnType.Name == "Cysharp.Threading.Tasks.UniTask<" + typeof(bool).FullName + ">" && x.GetParameters().Length == 2 && x.IsPublic);
                 if (method == null)
                     throw new Exception();
 
@@ -37,14 +50,13 @@ namespace BE4v.Patch
 
                 var patch = new IL2Patch(method, (_VRCAvatarManager_SwitchAvatar)VRCAvatarManager_SwitchAvatar);
                 _VRCAvatarManager_SwitchAvatar = patch.CreateDelegate<_VRCAvatarManager_SwitchAvatar>();
-                "AntiCrash".GreenPrefix(TMessage.SuccessPatch);
+                "AntiCrash (1)".GreenPrefix(TMessage.SuccessPatch);
             }
             catch (Exception ex)
             {
-                "AntiCrash".RedPrefix(TMessage.BadPatch);
+                "AntiCrash (1)".RedPrefix(TMessage.BadPatch);
                 Console.WriteLine(ex.ToString());
             }
-            */
             // --------------
             /* AntiCrash
             System.NullReferenceException: Object reference not set to an instance of an object.
@@ -54,6 +66,7 @@ namespace BE4v.Patch
               at ǅǄǅǄǅǄǅǅǅǄǅǄǅǄǅǄǅǄǄǅǅǄǅǄǅǅǅǄǄǄǅǅǅǄǄǅǅǄǅǄǄǄǅǅǅǄǅ.LateUpdate () [0x00000] in <00000000000000000000000000000000>:0 
             */
             // --------------
+            /*
             try
             {
                 IL2Method method = TMPro.TMP_MaterialManager.Instance_Class.GetMethod("GetMaterialForRendering");
@@ -67,9 +80,10 @@ namespace BE4v.Patch
                 "AntiCrash (2)".RedPrefix(TMessage.BadPatch);
                 Console.WriteLine(ex.ToString());
             }
+            */
         }
 
-        private static bool VRCAvatarManager_SwitchAvatar(IntPtr instance, IntPtr ptrApiAvatar, IntPtr ptrCurrentVariations, float fLocalScale, IntPtr ptrEvent)
+        private static IntPtr VRCAvatarManager_SwitchAvatar(IntPtr instance, IntPtr apiAvatar, float scale = 1f)
         {
             // Logger
             /*
@@ -82,25 +96,40 @@ namespace BE4v.Patch
                 return false;
             }
             */
-            bool result = false;
+            IntPtr result = IntPtr.Zero;
             try
             {
-                result = _VRCAvatarManager_SwitchAvatar(instance,
-                    ptrApiAvatar,
-                    ptrCurrentVariations,
-                    fLocalScale,
-                    ptrEvent
-                );
+                if (apiAvatar != IntPtr.Zero)
+                {
+                    ApiAvatar avatar = new ApiAvatar(apiAvatar);
+                    if (!blockedAvtr.Contains(avatar.id))
+                    {
+                        result = _VRCAvatarManager_SwitchAvatar(instance,
+                            apiAvatar,
+                            scale
+                        );
+                    }
+                    if (Mods.Mod_Console.isLog)
+                    {
+                        Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
+                        Console.WriteLine("AvatarID: " + avatar.id);
+                        Console.WriteLine("AvatarName: " + avatar.name);
+                        Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
+                    }
+                }
             }
             catch
             {
-                if (ptrApiAvatar != IntPtr.Zero)
+                if (apiAvatar != IntPtr.Zero)
                 {
-                    ApiAvatar avatar = new ApiAvatar(ptrApiAvatar);
-                    Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ / BAD LOAD");
-                    Console.WriteLine("AvatarID: " + avatar?.id);
-                    Console.WriteLine("AvatarName: " + avatar?.name);
-                    Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
+                    ApiAvatar avatar = new ApiAvatar(apiAvatar);
+                    if (Mods.Mod_Console.isLog)
+                    {
+                        Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ / BAD LOAD");
+                        Console.WriteLine("AvatarID: " + avatar.id);
+                        Console.WriteLine("AvatarName: " + avatar.name);
+                        Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
+                    }
                 }
             }
             return result;

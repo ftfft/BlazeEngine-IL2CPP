@@ -3,27 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BE4v.SDK.CPP2IL;
-using IL2Photon.Pun;
-using VRC.Core;
 using IL2ExitGames.Client.Photon;
+using VRC.Core;
 
 
 namespace IL2Photon.Realtime
 {
-    public class LoadBalancingClient : IL2Base
+    public class LoadBalancingPeer : PhotonPeer
     {
-        public LoadBalancingClient(IntPtr ptr) : base(ptr) => base.ptr = ptr;
-
-        public LoadBalancingPeer LoadBalancingPeer
-        {
-            get
-            {
-                IL2Property property = Instance_Class.GetProperty(nameof(LoadBalancingPeer));
-                if (property == null)
-                    (property = Instance_Class.GetProperty(LoadBalancingPeer.Instance_Class)).Name = nameof(LoadBalancingPeer);
-                return property?.GetGetMethod()?.Invoke(ptr)?.GetValue<LoadBalancingPeer>();
-            }
-        }
+        public LoadBalancingPeer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
         unsafe public bool OpRaiseEvent(byte eventCode, IntPtr customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
@@ -42,6 +30,6 @@ namespace IL2Photon.Realtime
             return method.Invoke(ptr, new IntPtr[] { new IntPtr(&eventCode), customEventContent, raiseEventOptions.ptr, new IntPtr(&sendOptions) }).GetValuе<bool>();
         }
 
-        public static IL2Class Instance_Class = VRCNetworkingClient.Instance_Class.BaseType;
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == PhotonPeer.Instance_Class);
     }
 }

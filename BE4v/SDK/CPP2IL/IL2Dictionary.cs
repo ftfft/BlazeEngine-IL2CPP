@@ -21,6 +21,22 @@ namespace BE4v.SDK.CPP2IL
 		public static IL2Class Instance_Class = Assembler.list["mscorlib"].GetClass("Dictionary`2", "System.Collections.Generic");
 	}
 
+	public class IL2DictinaryNew<TKey, TValue> : IL2Dictionary
+	{
+		public IL2DictinaryNew(IntPtr ptr) : base(ptr) =>
+			base.ptr = ptr;
+
+		public IntPtr this[IntPtr key]
+		{
+			get => Instance_Class.GetProperty("Item").GetGetMethod().Invoke(ptr, new IntPtr[] { key, Instance_Class.GetProperty("Item").GetGetMethod().ptr }).ptr;
+			set => Instance_Class.GetProperty("Item").GetSetMethod().Invoke(ptr, new IntPtr[] { key, value, Instance_Class.GetProperty("Item").GetSetMethod().ptr });
+		}
+
+
+
+		public static new IL2Class Instance_Class = IL2Dictionary.Instance_Class.MakeGenericType(new Type[] { typeof(TKey), typeof(TValue) });
+	}
+
 	unsafe public class IL2Dictionary<TKey, TValue> : IL2Dictionary
 	{
 		public IL2Dictionary(IntPtr ptrNew) : base(ptrNew) =>

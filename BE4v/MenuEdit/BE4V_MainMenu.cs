@@ -93,7 +93,7 @@ namespace BE4v.MenuEdit
                     if (button != null)
                         button.SetSprite(LoadSprites.onButton);
 
-                    if (Patch_Serilize.patch.Enabled == false)
+                    if (Patch_Serilize.patch?.Enabled == false)
                         Patch_Serilize.patch.Enabled = true;
                 }
                 else

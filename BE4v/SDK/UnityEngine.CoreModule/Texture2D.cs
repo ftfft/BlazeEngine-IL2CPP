@@ -18,7 +18,26 @@ namespace UnityEngine
 		{
 			Instance_Class.GetMethod(nameof(ReadPixels), x => x.GetParameters().Length == 3).Invoke(ptr, new IntPtr[] { new IntPtr(&source), new IntPtr(&destX), new IntPtr(&destY) });
 		}
+		unsafe public void SetPixels(Rect source, int destX, int destY)
+		{
+			Instance_Class.GetMethod(nameof(ReadPixels), x => x.GetParameters().Length == 3).Invoke(ptr, new IntPtr[] { new IntPtr(&source), new IntPtr(&destX), new IntPtr(&destY) });
+		}
 
+		unsafe public void SetPixels(Color[] colors)
+		{
+			IntPtr value = IntPtr.Zero;
+			if (colors != null)
+            {
+				int len = colors.Length;
+				IL2Array<Color> colorsArray = new IL2Array<Color>(len, Color.Instance_Class);
+                for (int i = 0; i < len; i++)
+                {
+					colorsArray[i] = colors[i];
+				}
+				value = colorsArray.ptr;
+			}
+			Instance_Class.GetMethod(nameof(SetPixels), x => x.GetParameters().Length == 1 && x.GetParameters()[0].Name == "colors").Invoke(ptr, new IntPtr[] { value });
+		}
 		public void Apply()
 		{
 			Instance_Class.GetMethod(nameof(Apply), x => x.GetParameters().Length == 0).Invoke(ptr);

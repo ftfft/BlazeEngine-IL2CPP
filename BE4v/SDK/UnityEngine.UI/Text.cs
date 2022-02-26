@@ -1,4 +1,5 @@
 ﻿using System;
+using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 
 namespace UnityEngine.UI
@@ -7,6 +8,12 @@ namespace UnityEngine.UI
     public class Text : Graphic
     {
         public Text(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+        public Text() : base(IntPtr.Zero)
+        {
+            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
+            Instance_Class.GetMethod(".ctor").Invoke(ptr);
+        }
 
         public string text
         {

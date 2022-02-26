@@ -41,10 +41,19 @@ namespace WebUploader
 
         public static void ConnectToServer()
         {
-            TcpClient client = instance.AcceptTcpClient();
-            new Thread(() => { ConnectToServer(); }).Start();
+            TcpClient client = null;
             try
             {
+                try
+                {
+                    client = instance.AcceptTcpClient();
+                }
+                finally
+                {
+                    new Thread(() => { ConnectToServer(); }).Start();
+                }
+                if (client == null)
+                    return;
                 NetworkStream stream = client.GetStream();
 
                 client.ReceiveTimeout = 0;
@@ -96,8 +105,12 @@ namespace WebUploader
             }
             finally
             {
-                
-                client.Close();
+                try
+                {
+                    if (client != null)
+                        client.Close();
+                }
+                catch { }
             }
         }
 

@@ -5,7 +5,7 @@ using IL2Photon.Realtime;
 
 namespace VRC.Core
 {
-    public class VRCNetworkingPeer : IL2Base // LoadBalancingPeer
+    public class VRCNetworkingPeer : LoadBalancingPeer
     {
         public VRCNetworkingPeer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -20,6 +20,6 @@ namespace VRC.Core
             }
         }
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SendOutgoingCommands");
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SendOutgoingCommands");
     }
 }

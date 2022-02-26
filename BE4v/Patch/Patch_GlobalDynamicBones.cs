@@ -43,7 +43,7 @@ namespace BE4v.Patch
             if (instance == IntPtr.Zero)
                 return;
 
-            _delegateVRC_Player_Update.Invoke(instance);
+            _delegateVRC_Player_Update(instance);
 
             if (!Status.isGlobalDynamicBones)
                 return;

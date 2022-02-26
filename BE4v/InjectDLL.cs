@@ -28,9 +28,11 @@ namespace BE4v
             Patch.Patch_AvatarTools.Start();
             // Patch.Patch_ForceCloneAvatar.Start();
             // Patch.Patch_GlobalDynamicBones.Start();
-            // Patch.Patch_InvisAPI.Start();
+            Patch.Patch_InvisAPI.Start();
             Patch.Patch_Serilize.Start();
+            // Patch.Patch_DeathRPC.Start();
             Patch.Patch_FakePing.Start();
+            Patch.Patch_MorePortals.Start();
             // Patch.Patch_NoPortalJoin.Start();
             //Patch.Patch_NoVRDef.Start();
             //*
@@ -41,6 +43,7 @@ namespace BE4v
             Patch.Patch_Event_VRC_Player_OnNetworkReady.Start();
             // Patch.Patch_Event_OnShowProfile.Start();
             Patch.Patch_NoAnalytics.Start();
+            Patch.Patch_GlobalUdonEvents.Start();
             Patch.Patch_QuickMenuLoaded.Start();
             Mods.Threads.Start();
             SDKLoader.Finish();

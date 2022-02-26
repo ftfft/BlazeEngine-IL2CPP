@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace BE4v.SDK.CPP2IL
 {
@@ -9,7 +10,7 @@ namespace BE4v.SDK.CPP2IL
 			if (typeobject == null)
 				typeobject = Assembler.list["mscorlib"].GetClass("Object", "System");
 
-			ptr = Import.Object.il2cpp_array_new(typeobject.ptr, length);
+			ptr = Import.Object.il2cpp_array_new(typeobject.ptr, (ulong)length);
 		}
 
 		public IL2Array(IntPtr ptr) : base(ptr)
@@ -25,7 +26,8 @@ namespace BE4v.SDK.CPP2IL
 				{
 					throw new ArgumentOutOfRangeException();
 				}
-				return *(T*)((IntPtr)((long*)ptr + 4) + index * sizeof(T));
+				// return *(T*)((IntPtr)((long*)ptr + 4) + index * sizeof(T));
+				return *(T*)((byte*)IntPtr.Add(ptr, 4 * IntPtr.Size).ToPointer() + index * sizeof(T));
 			}
 			set
 			{
@@ -33,7 +35,8 @@ namespace BE4v.SDK.CPP2IL
 				{
 					throw new ArgumentOutOfRangeException();
 				}
-				*(IntPtr*)((IntPtr)((long*)ptr + 4) + index * sizeof(T)) = new IntPtr(&value);
+				// *(IntPtr*)((IntPtr)((long*)ptr + 4) + index * sizeof(T)) = new IntPtr(&value);
+				*(T*)((byte*)IntPtr.Add(ptr, 4 * IntPtr.Size).ToPointer() + index * sizeof(T)) = value;
 			}
 		}
 
@@ -64,5 +67,41 @@ namespace BE4v.SDK.CPP2IL
 			}
 			return result;
         }
+
+
+		private bool isStatic = false;
+		private IntPtr handleStatic = IntPtr.Zero;
+		public bool Static
+		{
+			get => isStatic;
+			set
+			{
+				isStatic = value;
+				if (value)
+				{
+					if (handleStatic == IntPtr.Zero)
+					{
+						handleStatic = Import.Handler.il2cpp_gchandle_new(ptr, true);
+					}
+				}
+				else
+				{
+					if (handleStatic != IntPtr.Zero)
+					{
+						Import.Handler.il2cpp_gchandle_free(handleStatic);
+						handleStatic = IntPtr.Zero;
+					}
+				}
+			}
+		}
+
+		unsafe public byte[] ToBytesArray()
+        {
+			int size = Length;
+			byte[] result = new byte[size];
+			if (size > 0)
+				Marshal.Copy((IntPtr)((long*)ptr + 4), result, 0, size);
+			return result;
+		}
 	}
 }

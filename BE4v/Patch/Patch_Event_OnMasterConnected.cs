@@ -30,11 +30,9 @@ namespace BE4v.Patch
 
         private static void RoomManagerBase_OnConnectedToMaster(IntPtr instance)
         {
-            _delegateRoomManagerBase_OnConnectedToMaster.Invoke(instance);
+            _delegateRoomManagerBase_OnConnectedToMaster(instance);
             Patch_GlobalDynamicBones.currentPlayer = null;
             Patch_GlobalDynamicBones.timeToUpdate = 10f;
-            Status.isSerilize = false;
-            Mod_PortableMirror.OnDestroy();
         }
 
         public static IL2Patch patch;

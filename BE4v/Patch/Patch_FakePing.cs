@@ -52,7 +52,7 @@ namespace BE4v.Patch
         {
             int result = 777;
             if (!Status.isFakePing || VRC.Player.Instance == null)
-                result = _delegateNetworkPing.Invoke();
+                result = _delegateNetworkPing();
             return result;
         }
 

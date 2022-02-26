@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using BE4v.MenuEdit;
 using BE4v.MenuEdit.IMGUI;
 using BE4v.MenuOverlay;
@@ -21,6 +22,9 @@ using VRC.UI;
 using VRC.UI.Elements;
 using VRC.Udon;
 using VRC.Udon.Common.Interfaces;
+using IL2Photon.Pun;
+using IL2Photon.Realtime;
+using IL2ExitGames.Client.Photon;
 
 namespace BE4v.Mods
 {
@@ -46,13 +50,42 @@ namespace BE4v.Mods
                 ex.ToString().WriteMessage("Patch");
             }
             TabMenu.Start();
+            new Thread(() => { ThreadConsoleRead(); }).Start();
         }
+
+        public static async Task ThreadConsoleRead()
+        {
+            while(true)
+            {
+                consoleRead = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(consoleRead))
+                {
+                    consoleRead = null;
+                }
+                else
+                {
+                    Mod_Console.CommandToClient(consoleRead);
+                }
+            }
+        }
+
+        public static string consoleRead = null;
 
         public static void Update(IntPtr instance)
         {
             TabMenu.Update();
 
-            _delegateThreads_Update.Invoke(instance);
+            if (consoleRead != null)
+            {
+                Mod_Console.Command(consoleRead);
+                consoleRead = null;
+            }
+            _delegateThreads_Update(instance);
+            if (Status.isAutoClear)
+            {
+                if (Mod_AutoClearRAM.CheckTime())
+                    Mod_AutoClearRAM.Clear();
+            }
             VRCPlayer player = VRCPlayer.Instance;
             if (player == null) return;
             Mod_InfinityJump.Update(player);
@@ -67,6 +100,10 @@ namespace BE4v.Mods
             {
                 isLoadedCharacter = true;
                 Application.targetFrameRate = 101;
+
+                GameObject gameObject = new GameObject("BE4V_GUI");
+                gameObject.AddComponent<GUI_NONAME_CLASS>();
+                UnityEngine.Object.DontDestroyOnLoad(gameObject);
             }
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -131,19 +168,12 @@ namespace BE4v.Mods
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
-                udons = UnityEngine.Object.FindObjectsOfType<UdonBehaviour>();
-                foreach (var x in udons)
-                {
-                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "_start"))
-                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_start");
-                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
-                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "Play"))
-                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "Play");
-                }
+                UserUtils.SpawnPortal(VRCPlayer.Instance.transform, Mod_Console.worldId, Mod_Console.instanceId);
                 return;
             }
-            if (Input.GetKey(KeyCode.Y))
-            {
+            // if (Input.GetKey(KeyCode.Y))
+            // {
+                /*  
                 if (udons != null)
                 {
                     foreach (var x in udons)
@@ -155,14 +185,23 @@ namespace BE4v.Mods
                         Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, ".", new IntPtr[] { new IL2String("Play").ptr });
                     }
                 }
-                return;
-            }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                // Mod_CamMode.Toggle_Enable();
-                UserUtils.SpawnPortal(VRCPlayer.Instance.transform, "wrld_26758d47-a511-441a-85d2-83d16936b1a0", "123456");
-                return;
-            }
+                udons = UnityEngine.Object.FindObjectsOfType<UdonBehaviour>();
+                foreach (var x in udons)
+                {
+                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "_start"))
+                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "_start");
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    Network.RPC(VRC_EventHandler.VrcTargetType.All, x.gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String("Play").ptr });
+                    //if (null != x.GetPrograms().FirstOrDefault(y => y == "Play"))
+                    //    x.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "Play");
+                }
+                */
+            //    return;
+            //}
             if (Input.GetKeyDown(KeyCode.X))
             {
                 Mod_Invisible.Toggle();

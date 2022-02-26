@@ -71,9 +71,11 @@
     </Compile>
     <Compile Include="Mods\Avatars\Client.cs" />
     <Compile Include="Mods\Avatars\Base.cs" />
+    <Compile Include="Mods\Mod_AutoClearRAM.cs" />
     <Compile Include="Mods\Mod_Avatars_Search.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Mod_Avatars.cs" />
+    <Compile Include="Mods\Mod_Console.cs" />
     <Compile Include="Mods\Mod_SitOnHead.cs" />
     <Compile Include="Mods\Mod_Invisible.cs" />
     <Compile Include="Mods\Mod_GlowESP.cs" />
@@ -87,8 +89,8 @@
     <Compile Include="Patch\Patch_AntiBlock.cs" />
     <Compile Include="Patch\Patch_AvatarTools.cs" />
     <Compile Include="Patch\Patch_AntiCrash.cs" />
+    <Compile Include="Patch\Patch_GlobalUdonEvents.cs" />
     <Compile Include="Patch\Patch_Event_OnShowProfile.cs" />
-    <Compile Include="Patch\Patch_Event_OnPlayerConnected.cs" />
     <Compile Include="Patch\Patch_Event_VRC_Player_OnNetworkReady.cs" />
     <Compile Include="Patch\Patch_Event_OnEvent.cs" />
     <Compile Include="Patch\Patch_EventLogger.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />
     <Compile Include="Patch\Patch_FakePing.cs" />
     <Compile Include="Patch\Patch_Event_OnMasterConnected.cs" />
+    <Compile Include="Patch\Patch_MorePortals.cs" />
     <Compile Include="Patch\Patch_NoAnalytics.cs" />
     <Compile Include="Patch\Patch_NoVRDef.cs" />
     <Compile Include="Patch\Patch_NoPortalJoin.cs" />
@@ -106,12 +109,15 @@
     <Compile Include="Patch\Patch_Spoofer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BVault.cs" />
+    <Compile Include="RandomGenerator.cs" />
     <Compile Include="SDK\Assembly-CSharp\BinarySerializer.cs" />
     <Compile Include="SDK\Assembly-CSharp\EffectSettings.cs" />
     <Compile Include="SDK\Assembly-CSharp\DistortionMobile.cs" />
     <Compile Include="SDK\Assembly-CSharp\AddMaterialOnHit.cs" />
     <Compile Include="SDK\Assembly-CSharp\F3DShotgun.cs" />
     <Compile Include="SDK\Assembly-CSharp\NotificationManager.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\LoadBalancingPeer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\ReceiverGroup.cs" />
     <Compile Include="SDK\Assembly-CSharp\VirtualMarketplaceItem.cs" />
     <Compile Include="SDK\Assembly-CSharp\QuickMenuSocialElement.cs" />
     <Compile Include="SDK\Assembly-CSharp\Vector3Extensions.cs" />
@@ -133,6 +139,7 @@
     <Compile Include="SDK\Assembly-CSharp\USpeaker.cs" />
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\ParameterSerialization.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Core\GC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_XZ_CHTO_ZA_CLASS.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />
@@ -154,6 +161,7 @@
     <Compile Include="SDK\mscorlib\System\IO\MemoryStream.cs" />
     <Compile Include="SDK\mscorlib\System\IL2ObjectSystem.cs" />
     <Compile Include="SDK\mscorlib\System\Runtime\Serialization\Formatters\Binary\BinaryFormatter.cs" />
+    <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\SupportClass.cs" />
     <Compile Include="SDK\Serilize.cs" />
     <Compile Include="SDK\IL2Dumper\DumpForm.cs">
       <SubType>Form</SubType>
@@ -277,7 +285,7 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonView.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PunEvent.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\RpcTarget.cs" />
-    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\PhotonLagSimulationGui.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\GUI_NONAME_CLASS.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\ViewSynchronization.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\ActorProperties.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\AppSettings.cs" />
@@ -293,6 +301,9 @@
     <Compile Include="SDK\UnityEngine.CoreModule\Color32.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Experimental\Rendering\GraphicsFormat.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\HideFlags.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\Coroutine.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\WaitForSeconds.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\YieldInstruction.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\SpriteRenderer.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\RenderTextureFormat.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\RenderTextureReadWrite.cs" />
@@ -303,6 +314,8 @@
     <Compile Include="SDK\UnityEngine.CoreModule\Texture2D.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Sprite.cs" />
     <Compile Include="SDK\UnityEngine.ImageConversionModule\ImageConversion.cs" />
+    <Compile Include="SDK\UnityEngine.TextRenderingModule\TextAnchor.cs" />
+    <Compile Include="SDK\UnityEngine.UIModule\CanvasGroup.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\CanvasRenderer.cs" />
     <Compile Include="SDK\UnityEngine.UI\HorizontalOrVerticalLayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
@@ -523,6 +536,9 @@
       <DependentUpon>UnityEditor_Form.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SDK\Assembly-CSharp\Photon\Pun\UtilityScripts\" />
+    <Folder Include="SDK\UniTask\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

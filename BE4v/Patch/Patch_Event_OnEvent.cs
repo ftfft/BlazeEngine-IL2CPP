@@ -30,133 +30,135 @@ namespace BE4v.Patch
             }
         }
 
-        private static int timestamp = 0;
-        private static int timestampPost = 0;
-
         public static void LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData)
         {
-            if (instance == IntPtr.Zero) return;
-            EventData eventData = new EventData(pEventData);
-            if (pEventData == IntPtr.Zero || eventData == null) return;
-            if (eventData.Code == EventCode.Leave)
-            {
-                try
-                {
-                    _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
-                }
-                catch {  }
-                return;
-            }
-            if (userList.Contains(eventData.Sender) || !isValidData(eventData)) return;
-            timestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            int eventCode = eventData.Code;
-            
-            switch (eventCode)
-            {
-                case 6:
-                    {
-                        if (Status.isRPCBlock && VRC.Player.Instance?.PhotonPlayer?.ActorNumber != eventData.Sender)
-                            return;
-
-                        break;
-                    }
-                case EventCode.Join:
-                    {
-                        if (BE4V_ModeMenu.DeathMap.isEnabled)
-                            return;
-
-                        break;
-                    }
-                
-            }
-
+            if (instance == IntPtr.Zero || pEventData == IntPtr.Zero) return;
             try
             {
-                _delegateLoadBalancingClient_OnEvent.Invoke(instance, pEventData);
+                if (isValidData(new EventData(pEventData)))
+                    _delegateLoadBalancingClient_OnEvent(instance, pEventData);
             }
             catch { }
         }
 
-        public static Dictionary<int, int> floodList = new Dictionary<int, int>();
+        public static Dictionary<int, uint> LenEvent = new Dictionary<int, uint>();
 
         public static bool isValidData(EventData eventData)
         {
-            // Thanks Nemox
-            if (eventData.Sender == 0) return true;
-            if (timestamp != timestampPost)
-            {
-                timestampPost = timestamp;
-                floodList.Clear();
-            }
-
-            int eventCode = eventData.Code;
-            int maxLength;
-            switch (eventCode)
-            {
-                case 1:
-                    {
-                        maxLength = 960;
-                        break;
-                    }
-                case 4:
-                    {
-                        maxLength = 256;
-                        break;
-                    }
-                case 6:
-                    {
-                        maxLength = 256;
-                        break;
-                    }
-                case 7:
-                    {
-                        maxLength = 256;
-                        break;
-                    }
-                case 9:
-                    {
-                        maxLength = 256;
-                        break;
-                    }
-                case PunEvent.OwnershipTransfer:
-                    {
-                        maxLength = 8;
-                        break;
-                    }
-                default:
-                    {
-                        maxLength = 0;
-                        break;
-                    }
-            }
-            uint len;
-            IL2Object customData = eventData.CustomData;
             int sender = eventData.Sender;
-            if (eventCode == 6 || eventCode == 8)
+            if (sender < 1) return true;
+            int eventCode = eventData.Code;
+            if (eventCode == EventCode.Leave)
             {
-                if (floodList.TryGetValue(sender, out int value))
-                {
-                    if (++value > 50)
-                    {
-                        ($"User {eventData.Sender} is blocked by limit packet's. Last (#{eventCode})").RedPrefix("Packet block");
-                        userList.Add(eventData.Sender);
-                        return false;
-                    }
-                    floodList[sender] = value;
-                }
-                else
-                {
-                    floodList.Add(sender, 1);
-                }
+                if (userList.Contains(sender))
+                    userList.Remove(sender);
+                return true;
+            }
+            if (userList.Contains(sender)) return false;
+            if (eventCode == 7) return true;
+            IL2Object customData = eventData.CustomData;
+            int len = 0;
+            int maxLength = 0;
+            if (Status.isRPCBlock)
+            {
+                if (eventCode == 6)
+                    return false;
+            }
+            if (BE4V_ModeMenu.DeathMap.isEnabled)
+            {
+                if (eventCode == EventCode.Join)
+                    return false;
             }
             if (customData != null)
             {
-                len = Import.Object.il2cpp_array_get_byte_length(customData.ptr);
-                if (len > maxLength || len < 0)
+                len = Convert.ToInt32(Import.Object.il2cpp_array_get_byte_length(customData.ptr));
+            }
+            if (Mod_Console.isLog)
+            {
+                if (eventCode != 1)
                 {
-                    if (eventCode != 1 &&  maxLength != 0)
-                        userList.Add(eventData.Sender);
-                    ($"User {eventData.Sender} is blocked by packet #{eventData.Code} (Size of {len})").RedPrefix("Packet block");
+                    ($"User {sender} sended packet {eventCode} (Size of {len})").RedPrefix("Packet Tracer");
+                    if (Mod_Console.isLogDetail)
+                    {
+                        if (len > 0)
+                        {
+                            string stringBytes = string.Empty;
+                            IL2Array<byte> bytes = new IL2Array<byte>(customData.ptr);
+                            for (int i = 0; i < len; i++)
+                            {
+                                if (!string.IsNullOrEmpty(stringBytes))
+                                    stringBytes += "-";
+                                stringBytes += bytes[i];
+                            }
+                            ("[" + stringBytes + "]").RedPrefix("Packet Tracer");
+                        }
+                    }
+                }
+            }
+            if (len > 0)
+            {
+                switch (eventCode)
+                {
+                    case 1:
+                        {
+                            maxLength = 1050;
+                            break;
+                        }
+                    case 4:
+                        {
+                            maxLength = 512;
+                            break;
+                        }
+                    case 6:
+                        {
+                            maxLength = 256;
+                            break;
+                        }
+                    case 9:
+                        {
+                            maxLength = 201;
+                            break;
+                        }
+                    case PunEvent.OwnershipRequest:
+                        {
+                            maxLength = 8;
+                            break;
+                        }
+                    case PunEvent.OwnershipTransfer:
+                        {
+                            maxLength = 8;
+                            break;
+                        }
+                }
+                if (maxLength == 0) return false;
+                IL2Array<byte> bytes = new IL2Array<byte>(customData.ptr);
+                if (len > 4)
+                {
+                    if (bytes[len - 1] == 0 && bytes[len - 2] == 0 && bytes[len - 3] == 0 && bytes[len - 4] == 0)
+                        return false;
+                    if (eventCode == 9)
+                    {
+                        if (len > 200)
+                        {
+                            if (Mod_Console.isLog)
+                            {
+                                byte[] bytesArray = new byte[len];
+                                for(int i=0;i<len;i++)
+                                {
+                                    bytesArray[i] = bytes[i];
+                                }
+                                System.IO.File.WriteAllBytes("testBytes", bytesArray);
+                            }
+                            return false;
+                        }
+                    }
+                }
+
+                if (len > maxLength)
+                {
+                    if (eventCode != 1)
+                        userList.Add(sender);
+                    ($"User {sender} is blocked by packet #{eventCode} (Size of {len})").RedPrefix("Packet block");
                     return false;
                 }
             }

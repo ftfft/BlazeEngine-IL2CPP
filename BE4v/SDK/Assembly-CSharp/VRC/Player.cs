@@ -37,7 +37,6 @@ namespace VRC
             }
         }
 
-        /*
         public PlayerNet playerNet
         {
             get
@@ -45,10 +44,10 @@ namespace VRC
                 IL2Property property = Instance_Class.GetProperty(nameof(playerNet));
                 if (property == null)
                     (property = Instance_Class.GetProperty(PlayerNet.Instance_Class)).Name = nameof(playerNet);
-                return property?.GetGetMethod().Invoke(ptr)?.unbox<PlayerNet>();
+                return property?.GetGetMethod().Invoke(ptr)?.GetValue<PlayerNet>();
             }
         }
-        */
+
         public IL2Photon.Realtime.Player PhotonPlayer
         {
             get
@@ -79,6 +78,17 @@ namespace VRC
                 if (property == null)
                     (property = Instance_Class.GetProperty(VRCPlayerApi.Instance_Class)).Name = nameof(playerApi);
                 return property?.GetGetMethod().Invoke(ptr)?.GetValue<VRCPlayerApi>();
+            }
+        }
+
+        public bool IsBot
+        {
+            get
+            {
+                PlayerNet net = playerNet;
+                if (net != null)
+                    return (net.Ping == 0 && net.ApproxDeltaTimeMS == 0) || transform.position == Vector3.zero;
+                return true;
             }
         }
 

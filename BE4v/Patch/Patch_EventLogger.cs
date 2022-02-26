@@ -7,9 +7,7 @@ using VRC.SDKBase;
 
 namespace BE4v.Patch
 {
-    // public delegate void TriggerEvent(VRC_EventHandler handler, VRC_EventHandler.VrcEvent e, VRC_EventHandler.VrcBroadcastType broadcast, int instagatorId, float fastForward)
     public delegate void _TriggerEvent(IntPtr instance, IntPtr handler, IntPtr e, VRC_EventHandler.VrcBroadcastType broadcast, int instagatorId, float fastForward);
-    public delegate void _SendCustomEvent(IntPtr instance, IntPtr eventName);
     public static class Patch_EventLogger
     {
         public static void Start()
@@ -55,7 +53,7 @@ namespace BE4v.Patch
             }
             try
             {
-                _delegateTriggerEvent.Invoke(instance, handler, e, broadcast, instagatorId, fastForward);
+                _delegateTriggerEvent(instance, handler, e, broadcast, instagatorId, fastForward);
             }
             catch { }
         }
@@ -65,7 +63,7 @@ namespace BE4v.Patch
             Console.WriteLine("UDON LOG: " + new IL2String(eventName));
             try
             {
-                _delegateSendCustomEvent.Invoke(instance, eventName);
+                _delegateSendCustomEvent(instance, eventName);
             }
             catch { }
         }

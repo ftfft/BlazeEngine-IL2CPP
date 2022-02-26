@@ -9,18 +9,6 @@ namespace BE4v.Mods
     public static class Mod_InfinityJump
     {
         private static float fPressedLast = 0f;
-        public static void Toggle()
-        {
-            Status.isInfinityJump = !Status.isInfinityJump;
-            ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
-        }
-        
-        public static void Toggle_Bhop()
-        {
-            Status.isBHop = !Status.isBHop;
-            ClickClass_BunnyHop.OnClick_BunnyHopToggle_Refresh();
-        }
-
         public static void Update(VRCPlayer player)
         {
             var jump = player.GetComponent<GamelikeInputController>()?.inJump;

@@ -161,6 +161,23 @@ namespace VRC
                 property.GetGetMethod().Invoke(new IntPtr[] { value == null ? IntPtr.Zero : value.ptr });
             }
         }
+        public static VRC_EventHandler SceneEventHandler
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(SceneEventHandler));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(VRC_EventHandler.Instance_Class)).Name = nameof(SceneEventHandler);
+                return property.GetGetMethod().Invoke()?.GetValue<VRC_EventHandler>();
+            }
+            set
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(SceneEventHandler));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(VRC_EventHandler.Instance_Class)).Name = nameof(SceneEventHandler);
+                property.GetSetMethod().Invoke(new IntPtr[] { value.ptr });
+            }
+        }
 
         public static ObjectInstantiator Instantiator
         {

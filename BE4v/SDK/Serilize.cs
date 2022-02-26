@@ -21,10 +21,10 @@ namespace BE4v.SDK
         public static byte[] ToByteArray(object obj)
         {
             if (obj == null) return null;
-            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            var ms = new System.IO.MemoryStream();
-            bf.Serialize(ms, obj);
-            return ms.ToArray();
+            var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            var memoryStream = new System.IO.MemoryStream();
+            binaryFormatter.Serialize(memoryStream, obj);
+            return memoryStream.ToArray();
         }
 
         public static T FromByteArray<T>(byte[] data)

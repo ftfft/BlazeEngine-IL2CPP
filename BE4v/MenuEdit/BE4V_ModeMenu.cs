@@ -31,10 +31,15 @@ namespace BE4v.MenuEdit
             DeathMap.button = new ElementButton("Death Map", elementGroup, DeathMap.OnClick);
             DeathMap.Refresh();
 
-            elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
-            new ElementButton("Toggle Fly Type", elementGroup, delegate () { Mod_Fly.ToggleType(); });
-            new ElementButton("Toggle Fly Type 2", elementGroup, delegate () { Mod_Fly.ToggleType(); });
-            new ElementButton("Toggle Fly Type 3", elementGroup, delegate () { Mod_Fly.ToggleType(); });
+            elementGroup = new ElementGroup("Other tools", registerMenu);
+            AutoClearRAM.button = new ElementButton("AutoClear RAM", elementGroup, delegate () { AutoClearRAM.OnClick(); });
+            AutoClearRAM.Refresh();
+            InfinityJump.button = new ElementButton("Infinity Jump", elementGroup, delegate () { InfinityJump.OnClick(); });
+            InfinityJump.Refresh();
+            BunnyHop.button = new ElementButton("BunnyHop", elementGroup, delegate () { BunnyHop.OnClick(); });
+            BunnyHop.Refresh();
+            GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
+            GlobalUdonEvent.Refresh();
 
             elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
             new ElementButton("Toggle Fly Type", elementGroup, delegate () { Mod_Fly.ToggleType(); });
@@ -114,10 +119,16 @@ namespace BE4v.MenuEdit
                     if (Status.isFakePing)
                     {
                         button.SetSprite(LoadSprites.onButton);
+
+                        if (Patch_FakePing.patch?.Enabled == false)
+                            Patch_FakePing.patch.Enabled = true;
                     }
                     else
                     {
                         button.SetSprite(LoadSprites.offButton);
+
+                        if (Patch_FakePing.patch?.Enabled == true)
+                            Patch_FakePing.patch.Enabled = false;
                     }
                 }
             }
@@ -131,7 +142,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Status.isRPCInject = !Status.isRPCInject;
+                isEnabled = !isEnabled;
                 Refresh();
             }
 
@@ -139,19 +150,130 @@ namespace BE4v.MenuEdit
             {
                 if (button != null)
                 {
-                    if (Status.isRPCInject)
+                    if (isEnabled)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
+                    }
+                }
+            }
+        }
+        
+        public static class AutoClearRAM
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isAutoClear = !Status.isAutoClear;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isAutoClear)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
+                    }
+                }
+            }
+        }
+        
+        public static class InfinityJump
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isInfinityJump = !Status.isInfinityJump;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isInfinityJump)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
+                    }
+                }
+            }
+        }
+        
+        
+        public static class BunnyHop
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isBHop = !Status.isBHop;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isBHop)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
+                    }
+                }
+            }
+        }
+        
+        public static class GlobalUdonEvent
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isGlobalUdonEvent = !Status.isGlobalUdonEvent;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isGlobalUdonEvent)
                     {
                         button.SetSprite(LoadSprites.onButton);
 
-                        if (Patch_Serilize.patch.Enabled == false)
-                            Patch_Serilize.patch.Enabled = true;
+                        foreach (var patch in Patch_GlobalUdonEvents.patch)
+                        {
+                            if (patch?.Enabled == false)
+                                patch.Enabled = true;
+                        }
                     }
                     else
                     {
                         button.SetSprite(LoadSprites.offButton);
 
-                        if (Patch_Serilize.patch?.Enabled == true)
-                            Patch_Serilize.patch.Enabled = false;
+                        foreach(var patch in Patch_GlobalUdonEvents.patch)
+                        {
+                            if (patch?.Enabled == true)
+                                patch.Enabled = false;
+                        }
                     }
                 }
             }

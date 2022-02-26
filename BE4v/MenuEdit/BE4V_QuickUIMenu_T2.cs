@@ -55,8 +55,6 @@ namespace BE4v.MenuEdit
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
             */
 
-            ClickClass_BunnyHop.OnClick_BunnyHopToggle_Refresh();
-            ClickClass_InfinityJump.OnClick_InfinityJumpToggle_Refresh();
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
             
             // QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
@@ -105,51 +103,6 @@ namespace BE4v.MenuEdit
             }
         }
     }
-
-    public static class ClickClass_BunnyHop
-    {
-        public static void OnClick_BunnyHopToggle()
-        {
-            Mod_InfinityJump.Toggle_Bhop();
-        }
-
-        public static void OnClick_BunnyHopToggle_Refresh()
-        {
-            /*
-            BE4V_QuickUIMenu_T2.toggler["BHop"].SetToggleToOn(Status.isBHop);
-            if (Status.isBHop)
-            {
-                BE4V_QuickUIMenu_T2.toggler["BHop"].setOffText("on");
-            }
-            else
-            {
-                BE4V_QuickUIMenu_T2.toggler["BHop"].setOffText("off");
-            }
-            */
-        }
-    }
     
-    public static class ClickClass_InfinityJump
-    {
-        public static void OnClick_InfinityJumpToggle()
-        {
-            Mod_InfinityJump.Toggle();
-        }
-
-        public static void OnClick_InfinityJumpToggle_Refresh()
-        {
-            /*
-            BE4V_QuickUIMenu_T2.toggler["InfinityJump"].SetToggleToOn(Status.isInfinityJump);
-            if (Status.isInfinityJump)
-            {
-                BE4V_QuickUIMenu_T2.toggler["InfinityJump"].setOffText("on");
-            }
-            else
-            {
-                BE4V_QuickUIMenu_T2.toggler["InfinityJump"].setOffText("off");
-            }
-            */
-        }
-    }
 
 }

@@ -20,23 +20,16 @@ namespace UnityEngine
 
         unsafe public static bool LoadImage(this Texture2D tex, byte[] data)
         {
-            IntPtr result = IntPtr.Zero;
+            IL2Array<byte> result = null;
             if (data != null)
             {
-                IntPtr[] ptrs = new IntPtr[data.Length];
-                unsafe
+                result = new IL2Array<byte>(data.Length, IL2SystemClass.Byte);
+                for (int i = 0; i < data.Length; i++)
                 {
-                    for (int i = 0; i < data.Length; i++)
-                    {
-                        fixed (byte* pointer = &data[i])
-                        {
-                            ptrs[i] = new IntPtr(pointer);
-                        }
-                    }
+                    result[i] = data[i];
                 }
-                result = ptrs.ArrayToIntPtr(IL2SystemClass.Byte);
             }
-            return LoadImage(tex, result);
+            return LoadImage(tex, result.ptr);
         }
         
         unsafe public static bool LoadImage(this Texture2D tex, IntPtr data)

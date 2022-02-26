@@ -6,10 +6,17 @@ using System.Text;
 using UnityEngine;
 using BE4v.Mods.Avatars;
 using BE4v.SDK;
-using IL2Photon.Pun.UtilityScripts;
 using System.CodeDom;
 using BE4v.Utils;
 using BE4v.Mods;
+using VRC;
+using IL2Photon.Pun;
+using IL2Photon.Realtime;
+using IL2ExitGames.Client.Photon;
+using VRC.Core;
+using VRC.SDKBase;
+using VRC.UI;
+using VRC.UI.Elements;
 
 namespace BE4v.MenuEdit.IMGUI
 {
@@ -58,6 +65,7 @@ namespace BE4v.MenuEdit.IMGUI
             if (sitOnPlayer == null || sitOnPlayer == VRCPlayer.Instance)
                 sitOnPlayer = null;
 
+            Mod_Console.CrashUpdate();
             try
             {
                 if (sitOnPlayer != null)
@@ -91,21 +99,33 @@ namespace BE4v.MenuEdit.IMGUI
             try
             {
 
-                IL2Method method = PhotonLagSimulationGui.Instance_Class.GetMethod("Start");
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("Start");
                 if (method == null)
                     throw new Exception("BE4V: Not found a thread Photon.(Start)");
 
-                new IL2Patch(method, (_Nulled_Arg1)Nulled_Arg1);
+                new IL2Patch(method, (_Nulled)Nulled);
             }
             catch (Exception ex)
             {
                 ex.ToString().WriteMessage("Patch");
             }
-
             try
             {
 
-                IL2Method method = PhotonLagSimulationGui.Instance_Class.GetMethod("Awake");
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("Update");
+                if (method == null)
+                    throw new Exception("BE4V: Not found a thread Photon.(Update)");
+
+                new IL2Patch(method, (_Nulled)Nulled);
+            }
+            catch (Exception ex)
+            {
+                ex.ToString().WriteMessage("Patch");
+            }
+            try
+            {
+
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("Awake");
                 if (method == null)
                     throw new Exception("BE4V: Not found a thread Photon.(Awake)");
 
@@ -115,15 +135,12 @@ namespace BE4v.MenuEdit.IMGUI
             {
                 ex.ToString().WriteMessage("Patch");
             }
-
-
             try
             {
 
-                IL2Method method = PhotonLagSimulationGui.Instance_Class.GetMethod("Reset");
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnDisable");
                 if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(Reset)");
-
+                    throw new Exception("BE4V: Not found a thread Photon.(OnDisable)");
 
                 new IL2Patch(method, (_Nulled)Nulled);
             }
@@ -131,10 +148,35 @@ namespace BE4v.MenuEdit.IMGUI
             {
                 ex.ToString().WriteMessage("Patch");
             }
-
             try
             {
-                IL2Method method = PhotonLagSimulationGui.Instance_Class.GetMethod("OnGUI");
+
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnApplicationPause");
+                if (method == null)
+                    throw new Exception("BE4V: Not found a thread Photon.(OnApplicationPause)");
+
+                new IL2Patch(method, (_Nulled_Arg1)Nulled_Arg1);
+            }
+            catch (Exception ex)
+            {
+                ex.ToString().WriteMessage("Patch");
+            }
+            try
+            {
+
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnApplicationFocus");
+                if (method == null)
+                    throw new Exception("BE4V: Not found a thread Photon.(OnApplicationFocus)");
+
+                new IL2Patch(method, (_Nulled_Arg1)Nulled_Arg1);
+            }
+            catch (Exception ex)
+            {
+                ex.ToString().WriteMessage("Patch");
+            }
+            try
+            {
+                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnGUI");
                 if (method == null)
                     throw new Exception("BE4V: Not found a thread Photon.(OnGUI)");
 
@@ -151,10 +193,12 @@ namespace BE4v.MenuEdit.IMGUI
 
         public static void OnGUI(IntPtr instance)
         {
-            if (instance == null || instance == IntPtr.Zero) return;
+            if (instance == IntPtr.Zero) return;
+            Mod_Console.CrashUpdate();
             try
             {
                 if (!isPressed) throw new Exception();
+                GUI.backgroundColor = new Color(0, 255, 0);
                 int SizeX1 = Screen.width - (iLeftMargin * 2);
                 // GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), strTabMenuBold.ptr);
                 GUI.Label(new Rect(120, iTopMargin, 40, 20), strHashBold.ptr);
