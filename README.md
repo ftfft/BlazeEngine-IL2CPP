@@ -21,7 +21,7 @@
 - Короче сами разбирайтесь
 
 # Donate
-- http://paypal.me/blazebesy
+- Ask on Discord
 
 # Contacts
 Discord: BlazeBest#4974
