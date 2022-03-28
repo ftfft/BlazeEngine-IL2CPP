@@ -21,7 +21,7 @@
 - Короче сами разбирайтесь
 
 # Donate
-- Ask on Discord
+- Ask on Discord: BlazeBest#4974
 
 # Contacts
 Discord: BlazeBest#4974
