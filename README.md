@@ -34,3 +34,4 @@ Discord: BlazeBest#4974
 - [khchen](https://github.com/khchen) for [minhook](https://github.com/khchen/minhook)
 - [spazzarama](https://github.com/spazzarama) for [SharpDisasm](https://github.com/spazzarama/SharpDisasm)
 - [HerpDerpinstine](https://github.com/HerpDerpinstine) for "NET_SDK"
+- [DubyaDude](https://github.com/DubyaDude) for [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
