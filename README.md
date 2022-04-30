@@ -1,24 +1,10 @@
-# BlazeEngine-IL2CPP (BE4V) For VRChat Build 1169+ (LASTEST) [Source] [NOT MILONLOADER]
+# BlazeEngine-IL2CPP (BE4V) For VRChat Build Any (LASTEST) [Source] [NOT MILONLOADER]
+
+- We stop support on Github due to "mother's provocateurs" and all sorts of "clowns"
+- New Version: http://icefrag.ru/
 
 # Command line
 "--dev-console" - For open DebugConsole
-
-# Functions
-- AntiCrash
-- Unlimited Favorites
-- Players ESP
-- Serilize
-- Global Udon Events
-- Portable Mirror
-- Invis API
-- Invis Mode
-- RPC Block
-- Fake Ping
-- Death Map
-- Fly Hack / NoClip
-- Mouse TP
-- Еще какая та херня
-- Короче сами разбирайтесь
 
 # Donate
 - Ask on Discord: BlazeBest#4974
