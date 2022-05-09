@@ -21,3 +21,4 @@ Discord: BlazeBest#4974
 - [spazzarama](https://github.com/spazzarama) for [SharpDisasm](https://github.com/spazzarama/SharpDisasm)
 - [HerpDerpinstine](https://github.com/HerpDerpinstine) for "NET_SDK"
 - [DubyaDude](https://github.com/DubyaDude) for [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
+- [RequiDev](https://github.com/RequiDev) for [NetworkSanity](https://github.com/RequiDev/NetworkSanity)
