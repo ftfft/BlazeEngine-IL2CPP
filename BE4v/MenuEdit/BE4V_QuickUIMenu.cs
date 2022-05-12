@@ -1,13 +1,7 @@
-﻿using BE4v.MenuEdit.Construct;
-using BE4v.Mods;
-using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using BE4v.Mods;
+using BE4v.Mods.Min;
 using BE4v.Patch;
-using VRC.UI.Elements;
+using BE4v.Patch.List;
 
 namespace BE4v.MenuEdit
 {
@@ -58,7 +52,6 @@ namespace BE4v.MenuEdit
             ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
             ClickClass_FlyHack.OnClick_FlyType_Refresh();
             ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
-            ClickClass_GlobalDynamicBones.OnClick_GlobalDynamicBones_Refresh();
             ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
         }
     }
@@ -67,7 +60,7 @@ namespace BE4v.MenuEdit
     {
         public static void OnClick_InvisAPIToggle()
         {
-            Patch_InvisAPI.Toggle();
+            //InvisAPI.Toggle();
         }
 
         public static void OnClick_InvisAPIToggle_Refresh()
@@ -76,14 +69,14 @@ namespace BE4v.MenuEdit
             if (Status.isInvisAPI)
             {
                 // BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("on");
-                if (Patch_InvisAPI.patch?.Enabled == false)
-                    Patch_InvisAPI.patch.Enabled = true;
+                // if (InvisAPI.patch?.Enabled == false)
+                //    InvisAPI.patch.Enabled = true;
             }
             else
             {
                 // BE4V_QuickUIMenu.toggler["InvisAPI"].setOffText("off");
-                if (Patch_InvisAPI.patch?.Enabled == true)
-                    Patch_InvisAPI.patch.Enabled = false;
+                // if (InvisAPI.patch?.Enabled == true)
+                //    InvisAPI.patch.Enabled = false;
             }
         }
     }
@@ -92,7 +85,7 @@ namespace BE4v.MenuEdit
     {
         public static void OnClick_NoPortalJoin()
         {
-            Patch_NoPortalJoin.Toggle();
+            NoPortalJoin.Toggle();
         }
 
         public static void OnClick_NoPortalJoin_Refresh()
@@ -101,40 +94,14 @@ namespace BE4v.MenuEdit
             if (Status.isNoPortalJoin)
             {
                 // BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("on");
-                if (Patch_NoPortalJoin.patch?.Enabled == false)
-                    Patch_NoPortalJoin.patch.Enabled = true;
+                if (NoPortalJoin.patch?.Enabled == false)
+                    NoPortalJoin.patch.Enabled = true;
             }
             else
             {
                 // BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("off");
-                if (Patch_NoPortalJoin.patch?.Enabled == true)
-                    Patch_NoPortalJoin.patch.Enabled = false;
-            }
-        }
-    }
-    
-    
-    public static class ClickClass_GlobalDynamicBones
-    {
-        public static void OnClick_GlobalDynamicBones()
-        {
-            Patch_GlobalDynamicBones.Toggle();
-        }
-
-        public static void OnClick_GlobalDynamicBones_Refresh()
-        {
-            // BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].SetToggleToOn(Status.isGlobalDynamicBones);
-            if (Status.isGlobalDynamicBones)
-            {
-                // BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("on");
-                if (Patch_GlobalDynamicBones.patch?.Enabled == false)
-                    Patch_GlobalDynamicBones.patch.Enabled = true;
-            }
-            else
-            {
-                // BE4V_QuickUIMenu.toggler["GlobalDynamicBones"].setOffText("off");
-                if (Patch_GlobalDynamicBones.patch?.Enabled == true)
-                    Patch_GlobalDynamicBones.patch.Enabled = false;
+                if (NoPortalJoin.patch?.Enabled == true)
+                    NoPortalJoin.patch.Enabled = false;
             }
         }
     }
@@ -157,7 +124,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_SHToggle()
         {
-            Mod_SpeedHack.Toggle();
+            SpeedHack.Toggle();
         }
         public static void OnClick_SHToggle_Refresh()
         {
@@ -182,7 +149,7 @@ namespace BE4v.MenuEdit
     {
         public static void OnClick_FlyToggle()
         {
-            Mod_Fly.Toggle();
+            FlyHack.Toggle();
         }
 
         public static void OnClick_FlyToggle_Refresh()
@@ -203,7 +170,7 @@ namespace BE4v.MenuEdit
 
         public static void OnClick_FlyType()
         {
-            Mod_Fly.ToggleType();
+            FlyHack.ToggleType();
         }
 
         public static void OnClick_FlyType_Refresh()

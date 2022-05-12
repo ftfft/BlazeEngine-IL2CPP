@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BE4v</RootNamespace>
     <AssemblyName>BE4v</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -71,42 +71,66 @@
     </Compile>
     <Compile Include="Mods\Avatars\Client.cs" />
     <Compile Include="Mods\Avatars\Base.cs" />
-    <Compile Include="Mods\Mod_AutoClearRAM.cs" />
+    <Compile Include="Mods\Core\Installer.cs" />
+    <Compile Include="Mods\Core\IOnGUI.cs" />
+    <Compile Include="Mods\Core\IThread.cs" />
+    <Compile Include="Mods\Core\IUpdate.cs" />
+    <Compile Include="Mods\Min\AutoClearRAM.cs" />
+    <Compile Include="Mods\Min\CameraHeight.cs" />
+    <Compile Include="Mods\Min\ClientConsole.cs" />
+    <Compile Include="Mods\Min\CreatePortal.cs" />
+    <Compile Include="Mods\Min\ModifyQuickMenu.cs" />
     <Compile Include="Mods\Mod_Avatars_Search.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Mod_Avatars.cs" />
-    <Compile Include="Mods\Mod_Console.cs" />
-    <Compile Include="Mods\Mod_SitOnHead.cs" />
-    <Compile Include="Mods\Mod_Invisible.cs" />
-    <Compile Include="Mods\Mod_GlowESP.cs" />
-    <Compile Include="Mods\Mod_InfinityJump.cs" />
-    <Compile Include="Mods\Mod_FastTP.cs" />
-    <Compile Include="Mods\Mod_Fly.cs" />
-    <Compile Include="Mods\Mod_SpeedHack.cs" />
+    <Compile Include="Mods\Min\SitOnHead.cs" />
+    <Compile Include="Mods\Min\Invisible.cs" />
+    <Compile Include="Mods\Min\InfinityJump.cs" />
+    <Compile Include="Mods\Min\MouseTP.cs" />
+    <Compile Include="Mods\Min\FlyHack.cs" />
+    <Compile Include="Mods\Min\SpeedHack.cs" />
     <Compile Include="Mods\Mod_PortableMirror.cs" />
     <Compile Include="Mods\Status.cs" />
     <Compile Include="Mods\Threads.cs" />
+    <Compile Include="NetworkSanity\Core\ISanitizer.cs" />
+    <Compile Include="NetworkSanity\Core\RateLimiter.cs" />
+    <Compile Include="NetworkSanity\NetworkSanity.cs" />
+    <Compile Include="NetworkSanity\Sanitizers\FlatBufferSanitizer.cs" />
+    <Compile Include="NetworkSanity\Sanitizers\ValidData.cs" />
+    <Compile Include="NetworkSanity\Sanitizers\USpeakSanitizer.cs" />
+    <Compile Include="NetworkSanity\Sanitizers\OwnershipTransfer.cs" />
+    <Compile Include="NetworkSanity\Sanitizers\VrcEventSanitizer.cs" />
+    <Compile Include="NotifySystem\Notify.cs" />
+    <Compile Include="NotifySystem\Settings.cs" />
+    <Compile Include="Patch\Core\Installer.cs" />
+    <Compile Include="Patch\Core\IPatch.cs" />
+    <Compile Include="Patch\Core\PatchUtils.cs" />
+    <Compile Include="Patch\Core\oldPatch.cs" />
+    <Compile Include="Patch\List\NoAnalytics_LogEvent.cs" />
+    <Compile Include="Patch\List\NoAnalytics_SendGen.cs" />
+    <Compile Include="Patch\List\NoAnalytics_Send.cs" />
+    <Compile Include="Patch\List\NoAnalytics_Interface.cs" />
+    <Compile Include="Patch\List\OnPlayerUpdateSync.cs" />
+    <Compile Include="Patch\List\VRCNetworkingClient.cs" />
     <Compile Include="Patch\Patch_AntiBlock.cs" />
-    <Compile Include="Patch\Patch_AvatarTools.cs" />
+    <Compile Include="Patch\List\UnlimitedAvatars.cs" />
     <Compile Include="Patch\Patch_AntiCrash.cs" />
-    <Compile Include="Patch\Patch_GlobalUdonEvents.cs" />
+    <Compile Include="Patch\List\GlobalUdonEvents.cs" />
     <Compile Include="Patch\Patch_Event_OnShowProfile.cs" />
-    <Compile Include="Patch\Patch_Event_VRC_Player_OnNetworkReady.cs" />
-    <Compile Include="Patch\Patch_Event_OnEvent.cs" />
-    <Compile Include="Patch\Patch_EventLogger.cs" />
+    <Compile Include="Patch\List\OnPlayerReady.cs" />
+    <Compile Include="Patch\List\LoadBalancingClient.cs" />
+    <Compile Include="Patch\List\EventLogger.cs" />
     <Compile Include="Patch\Patch_ForceCloneAvatar.cs" />
-    <Compile Include="Patch\Patch_GlobalDynamicBones.cs" />
-    <Compile Include="Patch\Patch_FakePing.cs" />
+    <Compile Include="Patch\List\FakePing.cs" />
     <Compile Include="Patch\Patch_Event_OnMasterConnected.cs" />
-    <Compile Include="Patch\Patch_MorePortals.cs" />
-    <Compile Include="Patch\Patch_NoAnalytics.cs" />
-    <Compile Include="Patch\Patch_NoVRDef.cs" />
-    <Compile Include="Patch\Patch_NoPortalJoin.cs" />
-    <Compile Include="Patch\Patch_QuickMenuLoaded.cs" />
-    <Compile Include="Patch\Patch_QuitFix.cs" />
-    <Compile Include="Patch\Patch_InvisAPI.cs" />
-    <Compile Include="Patch\Patch_Serilize.cs" />
-    <Compile Include="Patch\Patch_Spoofer.cs" />
+    <Compile Include="Patch\List\MorePortals.cs" />
+    <Compile Include="Patch\List\NoAnalytics_Unity.cs" />
+    <Compile Include="Patch\List\NoPortalJoin.cs" />
+    <Compile Include="Patch\List\QuickMenu.cs" />
+    <Compile Include="Patch\List\QuitFix.cs" />
+    <Compile Include="Patch\List\InvisAPI.cs" />
+    <Compile Include="Patch\List\Serilize.cs" />
+    <Compile Include="Patch\List\HWID_Spoofer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BVault.cs" />
     <Compile Include="RandomGenerator.cs" />
@@ -115,9 +139,12 @@
     <Compile Include="SDK\Assembly-CSharp\DistortionMobile.cs" />
     <Compile Include="SDK\Assembly-CSharp\AddMaterialOnHit.cs" />
     <Compile Include="SDK\Assembly-CSharp\F3DShotgun.cs" />
+    <Compile Include="SDK\Assembly-CSharp\MoPhoGames\USpeak\Core\USpeakFrameContainer.cs" />
+    <Compile Include="SDK\Assembly-CSharp\MoPhoGames\USpeak\Core\Utils\USpeakPoolUtils.cs" />
     <Compile Include="SDK\Assembly-CSharp\NotificationManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\LoadBalancingPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\ReceiverGroup.cs" />
+    <Compile Include="SDK\Assembly-CSharp\OVRLipSyncMicInput.cs" />
     <Compile Include="SDK\Assembly-CSharp\VirtualMarketplaceItem.cs" />
     <Compile Include="SDK\Assembly-CSharp\QuickMenuSocialElement.cs" />
     <Compile Include="SDK\Assembly-CSharp\Vector3Extensions.cs" />
@@ -140,7 +167,7 @@
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\ParameterSerialization.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\GC.cs" />
-    <Compile Include="SDK\Assembly-CSharp\VRC_XZ_CHTO_ZA_CLASS.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC_EventLog.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Management\ModerationManager.cs" />
@@ -169,7 +196,7 @@
     <Compile Include="SDK\IL2Dumper\DumpForm.Designer.cs">
       <DependentUpon>DumpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SDK\IL2Dumper\NodesUtils.cs" />
+    <Compile Include="NodesUtils.cs" />
     <Compile Include="SDK\IL2SystemClass.cs" />
     <Compile Include="SDK\mscorlib\System\IO\File.cs" />
     <Compile Include="SDK\mscorlib\System\RuntimeType.cs" />
@@ -315,7 +342,9 @@
     <Compile Include="SDK\UnityEngine.CoreModule\Sprite.cs" />
     <Compile Include="SDK\UnityEngine.ImageConversionModule\ImageConversion.cs" />
     <Compile Include="SDK\UnityEngine.TextRenderingModule\TextAnchor.cs" />
+    <Compile Include="SDK\UnityEngine.UIModule\RenderMode.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\CanvasGroup.cs" />
+    <Compile Include="SDK\UnityEngine.UIModule\Canvas.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\CanvasRenderer.cs" />
     <Compile Include="SDK\UnityEngine.UI\HorizontalOrVerticalLayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
@@ -406,7 +435,6 @@
     <Compile Include="SDK\SharpDisasm\Udis86\ud_operand_size.cs" />
     <Compile Include="SDK\SharpDisasm\Udis86\ud_type.cs" />
     <Compile Include="SDK\SharpDisasm\Vendor.cs" />
-    <Compile Include="SDK\TMessage.cs" />
     <Compile Include="SDK\UnityEngine.AnimationModule\Animator.cs" />
     <Compile Include="SDK\UnityEngine.AnimationModule\HumanBodyBones.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Application.cs" />
@@ -495,6 +523,7 @@
     <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_AvatarDescriptor.cs" />
     <Compile Include="SDK\VRCSDKBase\SDKBase\VRCInputMethod.cs" />
     <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_Pickup.cs" />
+    <Compile Include="Serilize\BinarySerializer.cs" />
     <Compile Include="UnityEditor\UnityEditor_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -503,7 +532,8 @@
     </Compile>
     <Compile Include="UserUtils.cs" />
     <Compile Include="Utils\Avatars.cs" />
-    <Compile Include="Utils\ByteSerilizer.cs" />
+    <Compile Include="Utils\Sploits.cs" />
+    <Compile Include="Utils\HighlightUtils.cs" />
     <Compile Include="Utils\Sprites.cs" />
     <Compile Include="Utils\Notification.cs" />
   </ItemGroup>

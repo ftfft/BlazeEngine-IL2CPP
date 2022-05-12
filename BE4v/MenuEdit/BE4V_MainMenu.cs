@@ -14,38 +14,47 @@ namespace BE4v.MenuEdit
     public static class BE4V_MainMenu
     {
         public static ElementMenu registerMenu = null;
+        public static ElementGroup elementGroup = null;
+        public static ElementButton buttonRemoveObjects = null;
 
-        public static void BlazeEngine4VersionMenu()
+        public static bool BlazeEngine4VersionMenu()
         {
-            registerMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
-            ElementGroup elementGroup = new ElementGroup("Toggle's BE4v", registerMenu);
-            GlowESP.button = new ElementButton("Toggle ESP", elementGroup, GlowESP.OnClick);
-            GlowESP.Refresh();
-            Serilize.button = new ElementButton("Serilize", elementGroup, Serilize.OnClick);
-            Serilize.Refresh();
-            new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects).SetSprite(LoadSprites.trashIco);
-            LocalMirror.button = new ElementButton("Portable Mirror", elementGroup, LocalMirror.OnClick);
-            LocalMirror.Refresh();
+            if (registerMenu == null)
+            {
+                registerMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
+                return false;
+            }
+            if (elementGroup == null)
+            {
+                elementGroup = new ElementGroup("Toggle's BE4v", registerMenu);
+                return false;
+            }
+            if (GlowESP.button == null)
+            {
+                GlowESP.button = new ElementButton("Toggle ESP", elementGroup, GlowESP.OnClick);
+                GlowESP.Refresh();
+                return false;
+            }
+            if (Serilize.button == null)
+            {
+                Serilize.button = new ElementButton("Serilize", elementGroup, Serilize.OnClick);
+                Serilize.Refresh();
+                return false;
+            }
+            if (buttonRemoveObjects == null)
+            {
+                buttonRemoveObjects = new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects);
+                buttonRemoveObjects.SetSprite(LoadSprites.trashIco);
+                return false;
+            }
+            if (LocalMirror.button == null)
+            {
+                LocalMirror.button = new ElementButton("Portable Mirror", elementGroup, LocalMirror.OnClick);
+                LocalMirror.Refresh();
+                return false;
+            }
+            return true;
         }
-
-        public static void Delete()
-        {
-            Transform menu = QuickMenu.Instance.transform;
-            Transform transform = menu.Find("Container/Window/Toggle_SafeMode");
-            if (transform != null)
-                transform.gameObject.Destroy();
-
-            transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners");
-            if (transform != null)
-                transform.gameObject.Destroy();
-
-            transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners");
-            if (transform != null)
-                transform.gameObject.Destroy();
-
-            "QuickMenu element's".RedPrefix("Destroy");
-        }
-
 
         public static class GlowESP
         {
@@ -53,7 +62,8 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Mod_GlowESP.Toggle();
+                Status.isGlowESP = !Status.isGlowESP;
+                Refresh();
             }
 
             public static void Refresh()
@@ -70,9 +80,14 @@ namespace BE4v.MenuEdit
                     }
                 }
 
-                foreach (var player in PlayerManager.Instance.PlayersCopy)
+                VRC.Player localPlayer = VRC.Player.Instance;
+                if (localPlayer != null)
                 {
-                    player.OnNetworkReady();
+                    foreach (var player in PlayerManager.Instance.PlayersCopy)
+                    {
+                        if (player == localPlayer) continue;
+                        Patch.List.OnPlayerUpdateSync.ESPUpdate(player);
+                    }
                 }
             }
         }
@@ -83,7 +98,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Patch_Serilize.Toggle();
+                Patch.List.Serilize.Toggle();
             }
 
             public static void Refresh()
@@ -93,16 +108,16 @@ namespace BE4v.MenuEdit
                     if (button != null)
                         button.SetSprite(LoadSprites.onButton);
 
-                    if (Patch_Serilize.patch?.Enabled == false)
-                        Patch_Serilize.patch.Enabled = true;
+                    if (Patch.List.Serilize.patch?.Enabled == false)
+                        Patch.List.Serilize.patch.Enabled = true;
                 }
                 else
                 {
                     if (button != null)
                         button.SetSprite(LoadSprites.offButton);
 
-                    if (Patch_Serilize.patch?.Enabled == true)
-                        Patch_Serilize.patch.Enabled = false;
+                    if (Patch.List.Serilize.patch?.Enabled == true)
+                        Patch.List.Serilize.patch.Enabled = false;
                 }
             }
         }

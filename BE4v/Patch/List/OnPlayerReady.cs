@@ -1,0 +1,43 @@
+﻿using System;
+using UnityEngine;
+using VRC.Core;
+using BE4v.Mods;
+using BE4v.SDK.CPP2IL;
+using BE4v.Patch.Core;
+using BE4v.Utils;
+
+namespace BE4v.Patch.List
+{
+    public class OnPlayerReady : IPatch
+    {
+        public delegate void _VRC_Player_OnNetworkReady(IntPtr instance);
+        public void Start()
+        {
+            IL2Method method = VRC.Player.Instance_Class.GetMethod("OnNetworkReady");
+            if (method != null)
+            {
+                _OnNetworkReady = PatchUtils.FastPatch<_VRC_Player_OnNetworkReady>(method, VRC_Player_OnNetworkReady);
+            }
+            else
+                throw new NullReferenceException();
+        }
+
+        public static void VRC_Player_OnNetworkReady(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero) return;
+            VRC.Player localPlayer = VRC.Player.Instance;
+            if (localPlayer != null && instance != localPlayer.ptr)
+            {
+                VRC.Player player = new VRC.Player(instance);
+                if (Status.isAntiBlock)
+                {
+                    player.IsBlocked = false;
+                    player.IsBlockedBy = false;
+                }
+            }
+            _OnNetworkReady(instance);
+        }
+
+        public static _VRC_Player_OnNetworkReady _OnNetworkReady;
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using UnityEngine;
 
@@ -13,6 +14,32 @@ public class BinarySerializer : IL2Base
     }
 
     public BinarySerializer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+    unsafe public static IL2Object Deserialize(byte[] bytes)
+    {
+        IL2Object result = null;
+
+        IL2Method method = Instance_Class.GetMethod(nameof(Deserialize));
+        if (method == null)
+        {
+            (method = Instance_Class.GetMethod(x => x.ReturnType.Name == typeof(bool).FullName
+                && x.GetParameters().Length == 2
+                && x.GetParameters()[0].ReturnType.Name == typeof(byte[]).FullName
+                && x.GetParameters()[1].ReturnType.Name == typeof(object).FullName + "&"
+                )
+            ).Name = nameof(Deserialize);
+            if (method == null)
+                return null;
+
+            IntPtr res = IntPtr.Zero;
+            int len = bytes.Length;
+            IL2Array<byte> b = new IL2Array<byte>(len, IL2SystemClass.Byte);
+            method.Invoke(new IntPtr[] { b.ptr, res });
+        }
+
+        return result;
+    }
+
 
     unsafe public int bytePos
     {

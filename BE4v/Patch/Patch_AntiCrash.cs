@@ -109,6 +109,7 @@ namespace BE4v.Patch
                             scale
                         );
                     }
+                    /*
                     if (Mods.Mod_Console.isLog)
                     {
                         Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
@@ -116,6 +117,7 @@ namespace BE4v.Patch
                         Console.WriteLine("AvatarName: " + avatar.name);
                         Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
                     }
+                    */
                 }
             }
             catch
@@ -123,6 +125,7 @@ namespace BE4v.Patch
                 if (apiAvatar != IntPtr.Zero)
                 {
                     ApiAvatar avatar = new ApiAvatar(apiAvatar);
+                    /*
                     if (Mods.Mod_Console.isLog)
                     {
                         Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ / BAD LOAD");
@@ -130,6 +133,7 @@ namespace BE4v.Patch
                         Console.WriteLine("AvatarName: " + avatar.name);
                         Console.WriteLine("/ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ /");
                     }
+                    */
                 }
             }
             return result;

@@ -26,11 +26,11 @@ namespace BE4v.Patch
 
                 patch = new IL2Patch(method, (_VRC_UI_PageUserInfo_SetUserRelationshipState)VRC_UI_PageUserInfo_SetUserRelationshipState);
                 _delegateVRC_UI_PageUserInfo_SetUserRelationshipState = patch.CreateDelegate<_VRC_UI_PageUserInfo_SetUserRelationshipState>();
-                "[Event] PUI State (Patch)".GreenPrefix(TMessage.SuccessPatch);
+                // "[Event] PUI State (Patch)".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
             {
-                "[Event] PUI State (Patch)".RedPrefix(TMessage.BadPatch);
+                // "[Event] PUI State (Patch)".RedPrefix(TMessage.BadPatch);
             }
         }
         public static void VRC_UI_PageUserInfo_SetUserRelationshipState(IntPtr instance, IntPtr friendType)

@@ -3,7 +3,7 @@ using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Text;
 using System.IO;
 using UnityEngine;
@@ -26,13 +26,11 @@ namespace BE4v.SDK
 
             if (!Directory.Exists(mainDir))
                 Directory.CreateDirectory(mainDir);
-
-            Patch_QuitFix.Start();
         }
 
         public static void Finish()
         {
-            BVault.Load();
+            new Thread(() => { BVault.Load(); }).Start();
         }
     }
 }

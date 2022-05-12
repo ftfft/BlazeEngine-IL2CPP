@@ -1,29 +1,14 @@
 ﻿using BE4v.SDK.CPP2IL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-using BE4v.Mods.Avatars;
-using BE4v.SDK;
-using System.CodeDom;
 using BE4v.Utils;
 using BE4v.Mods;
-using VRC;
-using IL2Photon.Pun;
-using IL2Photon.Realtime;
-using IL2ExitGames.Client.Photon;
-using VRC.Core;
-using VRC.SDKBase;
-using VRC.UI;
-using VRC.UI.Elements;
+using BE4v.Mods.Core;
+using BE4v.Mods.Min;
 
 namespace BE4v.MenuEdit.IMGUI
 {
-    public delegate void _Nulled(IntPtr instance);
-    public delegate IntPtr _Nulled_Arg1(IntPtr instance);
-    public delegate void _PhotonLagSimulationGui_OnGUI(IntPtr instance);
-    public static class TabMenu
+    public class TabMenu : IUpdate, IOnGUI
     {
         static TabMenu()
         {
@@ -56,16 +41,15 @@ namespace BE4v.MenuEdit.IMGUI
         private static IL2String strEmpty;
         private static IL2String strTempText = null;
         public static bool isPressed = false;
-        public static _PhotonLagSimulationGui_OnGUI _delegatePhotonLagSimulationGui_OnGUI;
-        public static void Update()
+        
+        public void Update()
         {
             isPressed = Input.GetKey(KeyCode.Tab);
 
-            VRCPlayer sitOnPlayer = Mod_SitOnHead.SelectUser;
+            VRCPlayer sitOnPlayer = SitOnHead.SelectUser;
             if (sitOnPlayer == null || sitOnPlayer == VRCPlayer.Instance)
                 sitOnPlayer = null;
 
-            Mod_Console.CrashUpdate();
             try
             {
                 if (sitOnPlayer != null)
@@ -76,13 +60,12 @@ namespace BE4v.MenuEdit.IMGUI
                         VRCPlayer components = player?.Components;
                         if (sitOnPlayer == components)
                         {
-                            Mod_SitOnHead.SelectUser = components;
+                            SitOnHead.SelectUser = components;
                         }
                     }
                 }
-                if (sitOnPlayer != Mod_SitOnHead.SelectUser)
-                    Mod_SitOnHead.SelectUser = null;
-                Mod_SitOnHead.Update();
+                if (sitOnPlayer != SitOnHead.SelectUser)
+                    SitOnHead.SelectUser = null;
             }
             catch
             {
@@ -91,110 +74,9 @@ namespace BE4v.MenuEdit.IMGUI
 
         }
 
-        public static void Nulled(IntPtr instance) { }
-        public static IntPtr Nulled_Arg1(IntPtr instance) { return IntPtr.Zero; }
-
-        public static void Start()
+        public void OnGUI()
         {
-            try
-            {
-
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("Start");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(Start)");
-
-                new IL2Patch(method, (_Nulled)Nulled);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-            try
-            {
-
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("Update");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(Update)");
-
-                new IL2Patch(method, (_Nulled)Nulled);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-            try
-            {
-
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("Awake");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(Awake)");
-
-                new IL2Patch(method, (_Nulled)Nulled);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-            try
-            {
-
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnDisable");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(OnDisable)");
-
-                new IL2Patch(method, (_Nulled)Nulled);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-            try
-            {
-
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnApplicationPause");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(OnApplicationPause)");
-
-                new IL2Patch(method, (_Nulled_Arg1)Nulled_Arg1);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-            try
-            {
-
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnApplicationFocus");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(OnApplicationFocus)");
-
-                new IL2Patch(method, (_Nulled_Arg1)Nulled_Arg1);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-            try
-            {
-                IL2Method method = GUI_NONAME_CLASS.Instance_Class.GetMethod("OnGUI");
-                if (method == null)
-                    throw new Exception("BE4V: Not found a thread Photon.(OnGUI)");
-
-                var patch = new IL2Patch(method, (_PhotonLagSimulationGui_OnGUI)OnGUI);
-                _delegatePhotonLagSimulationGui_OnGUI = patch.CreateDelegate<_PhotonLagSimulationGui_OnGUI>();
-                if (_delegatePhotonLagSimulationGui_OnGUI == null)
-                    throw new Exception("BE4V: Not found a delegate (OnGUI)");
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
-        }
-
-        public static void OnGUI(IntPtr instance)
-        {
-            if (instance == IntPtr.Zero) return;
-            Mod_Console.CrashUpdate();
+            NotifySystem.Notify.OnGUI();
             try
             {
                 if (!isPressed) throw new Exception();
@@ -225,27 +107,27 @@ namespace BE4v.MenuEdit.IMGUI
                             VRC.Player.Instance.transform.position = player.transform.position;
                         }
                         IntPtr ptrSitEv = IntPtr.Zero;
-                        if (Mod_SitOnHead.SelectUser != player?.Components)
+                        if (SitOnHead.SelectUser != player?.Components)
                             ptrSitEv = strChairInHead_Sit_On.ptr;
                         else
                             ptrSitEv = strChairInHead_Get_Up.ptr;
                         if (GUI.Button(new Rect(400, 120, 120, 20), ptrSitEv))
                         {
-                            if (Mod_SitOnHead.SelectUser != player?.Components)
-                                Mod_SitOnHead.SelectUser = player.Components;
+                            if (SitOnHead.SelectUser != player?.Components)
+                                SitOnHead.SelectUser = player.Components;
                             else
-                                Mod_SitOnHead.SelectUser = null;
+                                SitOnHead.SelectUser = null;
                         }
-                        IntPtr iSelected = (Patch.Patch_Event_OnEvent.userList.Contains(playerId.Value) ? strUnBlockData : strBlockData).ptr;
+                        IntPtr iSelected = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? strUnBlockData : strBlockData).ptr;
                         if (GUI.Button(new Rect(550, 100, 120, 20), iSelected))
                         {
-                            if (Patch.Patch_Event_OnEvent.userList.Contains(playerId.Value))
+                            if (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value))
                             {
-                                Patch.Patch_Event_OnEvent.userList.Remove(playerId.Value);
+                                NetworkSanity.NetworkSanity.userList.Remove(playerId.Value);
                             }
                             else
                             {
-                                Patch.Patch_Event_OnEvent.userList.Add(playerId.Value);
+                                NetworkSanity.NetworkSanity.userList.Add(playerId.Value);
                             }
                         }
                     }
@@ -257,7 +139,7 @@ namespace BE4v.MenuEdit.IMGUI
                     string userIdMessage = string.Empty;
                     if (iSelectUser == playerId)
                         userIdMessage += "<b><color=red>" + playerId + "</color></b>";
-                    else if (Patch.Patch_Event_OnEvent.userList.Contains(playerId.Value))
+                    else if (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value))
                         userIdMessage += "<b><color=yellow>" + playerId + "</color></b>";
                     else
                         userIdMessage += "<b><color=white>" + playerId + "</color></b>";
@@ -289,10 +171,6 @@ namespace BE4v.MenuEdit.IMGUI
             catch
             {
                 players = VRC.PlayerManager.Instance.PlayersCopy;
-            }
-            finally
-            {
-                _delegatePhotonLagSimulationGui_OnGUI(instance);
             }
         }
 

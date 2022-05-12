@@ -13,6 +13,7 @@ namespace BE4v.Mods.Avatars
     {
         public static string[] LoadAvatars()
         {
+            /*
             CheckResource();
 
             NameValueCollection nameValueCollection = new NameValueCollection();
@@ -20,6 +21,8 @@ namespace BE4v.Mods.Avatars
             nameValueCollection.Add("lt", "tr");
             string result = PostRequest(nameValueCollection);
             return result.Split(',');
+            */
+            return new string[0];
         }
 
         public static bool AddAvatar(string AvatarId) => AvatarEvent(AvatarId, "add");

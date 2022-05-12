@@ -20,19 +20,17 @@ namespace BE4v.Patch
 
                 patch = new IL2Patch(method, (_RoomManagerBase_OnConnectedToMaster)RoomManagerBase_OnConnectedToMaster);
                 _delegateRoomManagerBase_OnConnectedToMaster = patch.CreateDelegate<_RoomManagerBase_OnConnectedToMaster>();
-                "[Event] OnConnectedToMaster (Patch)".GreenPrefix(TMessage.SuccessPatch);
+                // "[Event] OnConnectedToMaster (Patch)".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
             {
-                "[Event] OnConnectedToMaster (Patch)".RedPrefix(TMessage.BadPatch);
+                // "[Event] OnConnectedToMaster (Patch)".RedPrefix(TMessage.BadPatch);
             }
         }
 
         private static void RoomManagerBase_OnConnectedToMaster(IntPtr instance)
         {
             _delegateRoomManagerBase_OnConnectedToMaster(instance);
-            Patch_GlobalDynamicBones.currentPlayer = null;
-            Patch_GlobalDynamicBones.timeToUpdate = 10f;
         }
 
         public static IL2Patch patch;

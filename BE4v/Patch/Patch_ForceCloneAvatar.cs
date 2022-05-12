@@ -24,11 +24,11 @@ namespace BE4v.Patch
 
                 IL2Patch patch = new IL2Patch(method, (_UserInteractMenu_Update)UserInteractMenu_Update);
                 _delegateUserInteractMenu_Update = patch.CreateDelegate<_UserInteractMenu_Update>();
-                "Force Clone Avatar".GreenPrefix(TMessage.SuccessPatch);
+                // "Force Clone Avatar".GreenPrefix(TMessage.SuccessPatch);
             }
             catch
             {
-                "Force Clone Avatar".RedPrefix(TMessage.BadPatch);
+                // "Force Clone Avatar".RedPrefix(TMessage.BadPatch);
             }
         }
 

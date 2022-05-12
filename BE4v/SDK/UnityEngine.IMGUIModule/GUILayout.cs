@@ -33,6 +33,39 @@ namespace UnityEngine
 			Instance_Class.GetMethod(nameof(EndHorizontal)).Invoke();
 		}
 
+		unsafe public static void BeginArea(Rect screenRect)
+		{
+			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { new IntPtr(&screenRect) });
+		}
+
+		unsafe public static void BeginArea(Rect screenRect, GUIStyle style)
+		{
+			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "style").Invoke(new IntPtr[] { new IntPtr(&screenRect), style == null ? IntPtr.Zero : style.ptr });
+		}
+
+		unsafe public static void BeginArea(Rect screenRect, Texture image)
+		{
+			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "image").Invoke(new IntPtr[] { new IntPtr(&screenRect), image == null ? IntPtr.Zero : image.ptr });
+		}
+
+		public static void EndArea()
+		{
+			Instance_Class.GetMethod(nameof(EndArea)).Invoke();
+		}
+
+		public static bool Button(string text, params GUILayoutOption[] options)
+		{
+			IL2Object obj = Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+			if (obj == null)
+				return false;
+
+			return obj.GetValuе<bool>();
+		}
+
+		public static void Box(Texture image, params GUILayoutOption[] options)
+		{
+			Instance_Class.GetMethod(nameof(Box), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "image").Invoke(new IntPtr[] { image == null ? IntPtr.Zero : image.ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+		}
 
 		public static IL2Class Instance_Class = Assembler.list["UnityEngine.IMGUI"].GetClass("GUILayout", "UnityEngine");
 	}

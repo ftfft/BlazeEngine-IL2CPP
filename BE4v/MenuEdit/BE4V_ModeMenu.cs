@@ -1,11 +1,8 @@
 ﻿using BE4v.Mods;
-using BE4v.SDK.IL2Dumper;
-using System;
-using System.Net;
-using UnityEngine;
-using VRC;
-using VRC.UI.Elements;
+using BE4v.Mods.Min;
 using BE4v.Patch;
+using BE4v.Patch.Core;
+using BE4v.Patch.List;
 using BE4v.MenuEdit.Construct;
 using BE4v.MenuEdit.Construct.Horizontal;
 using BE4v.MenuEdit.Construct.Menu;
@@ -42,9 +39,9 @@ namespace BE4v.MenuEdit
             GlobalUdonEvent.Refresh();
 
             elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
-            new ElementButton("Toggle Fly Type", elementGroup, delegate () { Mod_Fly.ToggleType(); });
-            new ElementButton("Toggle Fly Type 2", elementGroup, delegate () { Mod_Fly.ToggleType(); });
-            new ElementButton("Toggle Fly Type 3", elementGroup, delegate () { Mod_Fly.ToggleType(); });
+            new ElementButton("Toggle Fly Type", elementGroup, delegate () { FlyHack.ToggleType(); });
+            new ElementButton("Toggle Fly Type 2", elementGroup, delegate () { FlyHack.ToggleType(); });
+            new ElementButton("Toggle Fly Type 3", elementGroup, delegate () { FlyHack.ToggleType(); });
         }
 
         public static class RPCBlock
@@ -79,7 +76,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Patch_InvisAPI.Toggle();
+                Patch.List.InvisAPI.Toggle();
             }
 
             public static void Refresh()
@@ -89,16 +86,16 @@ namespace BE4v.MenuEdit
                     if (button != null)
                         button.SetSprite(LoadSprites.onButton);
 
-                    if (Patch_InvisAPI.patch?.Enabled == false)
-                        Patch_InvisAPI.patch.Enabled = true;
+                    if (Patch.List.InvisAPI.patch?.Enabled == false)
+                        Patch.List.InvisAPI.patch.Enabled = true;
                 }
                 else
                 {
                     if (button != null)
                         button.SetSprite(LoadSprites.offButton);
 
-                    if (Patch_InvisAPI.patch?.Enabled == true)
-                        Patch_InvisAPI.patch.Enabled = false;
+                    if (Patch.List.InvisAPI.patch?.Enabled == true)
+                        Patch.List.InvisAPI.patch.Enabled = false;
                 }
             }
         }
@@ -109,7 +106,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Patch_FakePing.Toggle();
+                Patch.List.FakePing.Toggle();
             }
 
             public static void Refresh()
@@ -120,15 +117,15 @@ namespace BE4v.MenuEdit
                     {
                         button.SetSprite(LoadSprites.onButton);
 
-                        if (Patch_FakePing.patch?.Enabled == false)
-                            Patch_FakePing.patch.Enabled = true;
+                        if (Patch.List.FakePing.patch?.Enabled == false)
+                            Patch.List.FakePing.patch.Enabled = true;
                     }
                     else
                     {
                         button.SetSprite(LoadSprites.offButton);
 
-                        if (Patch_FakePing.patch?.Enabled == true)
-                            Patch_FakePing.patch.Enabled = false;
+                        if (Patch.List.FakePing.patch?.Enabled == true)
+                            Patch.List.FakePing.patch.Enabled = false;
                     }
                 }
             }
@@ -259,7 +256,7 @@ namespace BE4v.MenuEdit
                     {
                         button.SetSprite(LoadSprites.onButton);
 
-                        foreach (var patch in Patch_GlobalUdonEvents.patch)
+                        foreach (var patch in GlobalUdonEvents.patch)
                         {
                             if (patch?.Enabled == false)
                                 patch.Enabled = true;
@@ -269,7 +266,7 @@ namespace BE4v.MenuEdit
                     {
                         button.SetSprite(LoadSprites.offButton);
 
-                        foreach(var patch in Patch_GlobalUdonEvents.patch)
+                        foreach(var patch in GlobalUdonEvents.patch)
                         {
                             if (patch?.Enabled == true)
                                 patch.Enabled = false;

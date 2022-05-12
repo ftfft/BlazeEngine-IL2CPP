@@ -73,9 +73,9 @@ namespace BE4v.Mods
 
 		public static GameObject gameObject = null;
 
-		private static float _mirrorScaleX = 5f;
+		private static readonly float _mirrorScaleX = 5f;
 
-		private static float _mirrorScaleY = 3f;
+		private static readonly float _mirrorScaleY = 3f;
 
 		private static bool _optimizedMirror = false;
 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using MoPhoGames.USpeak.Core;
 using BE4v.SDK.CPP2IL;
 using UnityEngine;
 
@@ -31,6 +33,24 @@ public class USpeaker : MonoBehaviour
             }
             field?.SetValue(new IntPtr(&value));
         }
+    }
+    
+    public struct EncodeInfo
+    {
+        public USpeakFrameContainer frameContainer;
+
+        public float[] pcmData;
+
+        public float pcmDataLength;
+
+        public ushort frameIndex;
+
+        public static IL2Class Instance_Class = USpeaker.Instance_Class.GetNestedTypes()
+            .FirstOrDefault(x => x.GetFields().Length == 4
+                && x.GetField(y => y.ReturnType.Name == typeof(float).FullName) != null
+                && x.GetField(y => y.ReturnType.Name == typeof(float[]).FullName) != null
+                && x.GetField(y => y.ReturnType.Name == typeof(ushort).FullName) != null
+            );
     }
 
     public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRC.Player.Instance_Class.GetField("_USpeaker")?.ReturnType.Name);

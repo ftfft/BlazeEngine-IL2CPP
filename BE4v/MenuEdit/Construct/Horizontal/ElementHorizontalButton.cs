@@ -24,8 +24,8 @@ namespace BE4v.MenuEdit.Construct.Horizontal
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(action);
 
-            MenuTab menuTab = gameObject.GetComponent<MenuTab>();
-            menuTab.pageName = "QuickMenu" + buttonName;
+            // MenuTab menuTab = gameObject.GetComponent<MenuTab>();
+            // menuTab.pageName = "QuickMenu" + buttonName;
 
             gameObject.SetActive(true);
 

@@ -9,6 +9,19 @@ namespace BE4v.MenuEdit.Construct
 {
     public static class LoadSprites
     {
+        public static void DownloadAll()
+        {
+            var props = typeof(LoadSprites).GetProperties();
+            foreach(var prop in props)
+            {
+                if (prop != null)
+                {
+                    prop.GetGetMethod().Invoke(null, null);
+                    $"Load sprite: {prop.Name}".GreenPrefix("ISprite");
+                }
+            }
+        }
+
         private static Sprite be4vLogoSprite = null;
         public static Sprite be4vLogo
         {
@@ -58,6 +71,19 @@ namespace BE4v.MenuEdit.Construct
                     trashIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/trash.png", 64, 64);
                 }
                 return trashIcoSprite;
+            }
+        }
+
+        private static Sprite notifyIcoSprite = null;
+        public static Sprite notifyIco
+        {
+            get
+            {
+                if (notifyIcoSprite == null)
+                {
+                    notifyIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/notify.png", 64, 64);
+                }
+                return notifyIcoSprite;
             }
         }
     }

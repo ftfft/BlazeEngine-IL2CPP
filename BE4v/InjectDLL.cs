@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.ExceptionServices;
 using VRCLoader.Attributes;
 using VRCLoader.Modules;
-using System.Threading;
+using BE4v.MenuEdit.Construct;
 using BE4v.SDK;
 
 namespace BE4v
@@ -22,31 +22,21 @@ namespace BE4v
         public static void Main()
         {
             SDKLoader.Start();
-            Patch.Patch_Spoofer.Start();
+            Patch.Core.Installer.Start();
             Patch.Patch_AntiCrash.Start();
-            // Patch.Patch_AntiBlock.Start();
-            Patch.Patch_AvatarTools.Start();
-            // Patch.Patch_ForceCloneAvatar.Start();
-            // Patch.Patch_GlobalDynamicBones.Start();
-            Patch.Patch_InvisAPI.Start();
-            Patch.Patch_Serilize.Start();
-            // Patch.Patch_DeathRPC.Start();
-            Patch.Patch_FakePing.Start();
-            Patch.Patch_MorePortals.Start();
-            // Patch.Patch_NoPortalJoin.Start();
-            //Patch.Patch_NoVRDef.Start();
-            //*
-            Patch.Patch_Event_OnEvent.Start();
-            Patch.Patch_EventLogger.Start();
-            // Patch.Patch_Event_OnMasterConnected.Start();
-            //*/
-            Patch.Patch_Event_VRC_Player_OnNetworkReady.Start();
-            // Patch.Patch_Event_OnShowProfile.Start();
-            Patch.Patch_NoAnalytics.Start();
-            Patch.Patch_GlobalUdonEvents.Start();
-            Patch.Patch_QuickMenuLoaded.Start();
-            Mods.Threads.Start();
+            Mods.Core.Installer.Start();
+            NetworkSanity.NetworkSanity.Start();
             SDKLoader.Finish();
+            Mods.Min.ClientConsole.Start();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("--- Color For ESP ---");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("[Cyan]   - You blocked or blocked by you");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[Yellow] - You Friends");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("[Red]    - Others");
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
