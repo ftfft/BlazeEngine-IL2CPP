@@ -1,7 +1,5 @@
 # BlazeEngine-IL2CPP (BE4V) For VRChat Build Any (LASTEST) [Source] [NOT MILONLOADER]
 
-- We stop support on Github due to "mother's provocateurs" and all sorts of "clowns"
-- New Version: http://icefrag.ru/
 
 # Command line
 "--dev-console" - For open DebugConsole
