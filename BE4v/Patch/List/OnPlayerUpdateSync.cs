@@ -26,10 +26,10 @@ namespace BE4v.Patch.List
         public static void VRC_Player_Update(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
+            VRC_PlayerUpdate(instance);
             VRC.Player localPlayer = VRC.Player.Instance;
             if (localPlayer == null || localPlayer.ptr == instance) return;
             VRC.Player player = new VRC.Player(instance);
-            VRC_PlayerUpdate(instance);
 
             bool blockUpdate = false;
             #region blocked

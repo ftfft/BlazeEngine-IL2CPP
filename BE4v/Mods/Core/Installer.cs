@@ -76,20 +76,6 @@ namespace BE4v.Mods.Core
             {
                 ex.ToString().WriteMessage("Patch");
             }
-            try
-            {
-                IL2Method method = OVRLipSyncMicInput.Instance_Class.GetMethod(x => x.Token == 0x6001E6C);
-                if (method != null)
-                {
-                    PatchUtils.FastPatch<_OVRLipSyncMicInput_OnGUI>(method, Nulled);
-                }
-                else
-                    $"Installer: Method Nulled not found!".RedPrefix("Patch");
-            }
-            catch (Exception ex)
-            {
-                ex.ToString().WriteMessage("Patch");
-            }
         }
 
         private static IUpdate[] updates = new IUpdate[0];
