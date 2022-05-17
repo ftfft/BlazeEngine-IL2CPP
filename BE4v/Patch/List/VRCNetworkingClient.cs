@@ -20,8 +20,12 @@ namespace BE4v.Patch.List
 
         public static void VRCNetworkingClient_OnEvent(IntPtr instance, IntPtr pEventData)
         {
-            if (NetworkSanity.NetworkSanity.VRCNetworkingClient.OnEvent(pEventData))
-                _OnEvent(instance, pEventData);
+            try
+            {
+                if (NetworkSanity.NetworkSanity.VRCNetworkingClient.OnEvent(pEventData))
+                    _OnEvent(instance, pEventData);
+            }
+            catch { }
         }
 
         public static _VRCNetworkingClient_OnEvent _OnEvent;

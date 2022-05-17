@@ -9,7 +9,7 @@ using BE4v.Utils;
 
 namespace BE4v.Patch.List
 {
-    public class OnPlayerUpdateSync : IPatch
+    public class OnPlayerUpdateSync // : IPatch
     {
         public delegate void _VRC_Player_Update(IntPtr instance);
         public void Start()

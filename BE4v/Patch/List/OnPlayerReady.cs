@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VRC.Core;
 using BE4v.Mods;
@@ -34,9 +35,43 @@ namespace BE4v.Patch.List
                     player.IsBlocked = false;
                     player.IsBlockedBy = false;
                 }
+                ESPUpdate(player);
             }
             _OnNetworkReady(instance);
         }
+
+
+        public static void ESPUpdate(VRC.Player player)
+        {
+            Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
+
+            if (renderer != null)
+            {
+                APIUser user = player.user;
+                if (user == null)
+                    return;
+
+                HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, false);
+                HighlightUtils.GetLight(Color.red).EnableOutline(renderer, false);
+                HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, false);
+                // if (blocked[player.ptr] || blockedBy[player.ptr])
+               // {
+                //    HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, Status.isGlowESP);
+                //}
+                if (APIUser.IsFriendsWith(user.id))
+                {
+                    HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, Status.isGlowESP);
+                }
+                else
+                {
+                    HighlightUtils.GetLight(Color.red).EnableOutline(renderer, Status.isGlowESP);
+                }
+            }
+        }
+
+        public static Dictionary<IntPtr, bool> blocked = new Dictionary<IntPtr, bool>();
+        public static Dictionary<IntPtr, bool> blockedBy = new Dictionary<IntPtr, bool>();
+
 
         public static _VRC_Player_OnNetworkReady _OnNetworkReady;
     }

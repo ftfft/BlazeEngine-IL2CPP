@@ -20,8 +20,12 @@ namespace BE4v.Patch.List
 
         public static void LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData)
         {
-            if (NetworkSanity.NetworkSanity.LoadBalancingClient.OnEvent(pEventData))
-                _OnEvent(instance, pEventData);
+            try
+            {
+                if (NetworkSanity.NetworkSanity.LoadBalancingClient.OnEvent(pEventData))
+                    _OnEvent(instance, pEventData);
+            }
+            catch { }
         }
         
         public static _LoadBalancingClient_OnEvent _OnEvent;

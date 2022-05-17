@@ -86,7 +86,7 @@ namespace BE4v.MenuEdit
                     foreach (var player in PlayerManager.Instance.PlayersCopy)
                     {
                         if (player == localPlayer) continue;
-                        Patch.List.OnPlayerUpdateSync.ESPUpdate(player);
+                        Patch.List.OnPlayerReady.ESPUpdate(player);
                     }
                 }
             }
