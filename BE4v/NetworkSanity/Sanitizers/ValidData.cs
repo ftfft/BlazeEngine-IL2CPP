@@ -16,7 +16,7 @@ using BE4v.Serilize;
 
 namespace NetworkSanity.Sanitizers
 {
-    internal class ValidData : ISanitizer
+    internal class ValidData  //: ISanitizer
     {
         private readonly RateLimiter _rateLimiter = new RateLimiter();
         private readonly Dictionary<int, (long, int)> limit = new Dictionary<int, (long, int)>();
