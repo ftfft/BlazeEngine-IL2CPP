@@ -1,6 +1,5 @@
 # BlazeEngine-IL2CPP (BE4V) For VRChat Build Any (LASTEST) [Source] [NOT MILONLOADER]
-- Release
-Register for Client: https://client.icefrag.ru
+Register for Client (Release): https://client.icefrag.ru
 
 # Command line
 "--dev-console" - For open DebugConsole
