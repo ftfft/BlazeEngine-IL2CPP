@@ -33,13 +33,14 @@ namespace BE4v.MenuEdit.Construct.Menu
 
             menuName = "Menu_" + name;
             gameObject.name = menuName;
-            gameObject.SetActive(false);
+            // gameObject.SetActive(true);
             Transform transform = gameObject.transform;
-            transform.SetSiblingIndex(5);
+            // transform.SetSiblingIndex(5);
 
             gameObject.GetComponent<LaunchPadQMMenu>()?.Destroy();
+            gameObject.GetOrAddComponent<UIPage>()?.Destroy();
 
-            UIPage uiPage = gameObject.GetOrAddComponent<UIPage>();
+            UIPage uiPage = gameObject.AddComponent<UIPage>();
             uiPage.Name = menuName;
             uiPage._menuStateController = QuickMenu.Instance.MenuStateController;
             

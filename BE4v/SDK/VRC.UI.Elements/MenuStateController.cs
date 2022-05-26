@@ -3,7 +3,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using VRC.Core;
+using BE4v;
+using BE4v.Utils;
+using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
+using BE4v.SDK.IL2Dumper;
 using VRC.UI.Core;
 
 
@@ -11,23 +15,71 @@ namespace VRC.UI.Elements
 {
     public class MenuStateController : MonoBehaviour
     {
+        static MenuStateController()
+        {
+            try
+            {
+                // ------------------ [ Find By PushPage ] args:
+                // contentIndex or pageName
+                // uiContext
+                // clearPageStack
+                // inPlace
+                // 
+                IL2Method showTabContent = Instance_Class.GetMethod("ShowTabContent");
+                var instruction = showTabContent.GetDisassembler(0x100).Disassemble().FirstOrDefault(x => x.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Icall);
+                IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
+                IL2Method method = null;
+                unsafe
+                {
+                    method = Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr);
+                }
+                if (method != null)
+                {
+                    string methodName = method.Name;
+                    foreach(var m in Instance_Class.GetMethods(x => x.Name == methodName))
+                    {
+                        m.Name = nameof(PushPage);
+                    }
+                }
+            }
+            catch
+            {
+                "Failed find!".RedPrefix("MenuStateController::PushPage");
+            }
+        }
+
         public MenuStateController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public unsafe void PushPage(string pageName, UIContext uiContext = null, bool clearPageStack = false)
+        public unsafe void PushPage(string pageName, UIContext uiContext = null, bool clearPageStack = false, bool inPlace = false)
         {
-            IL2Method method = Instance_Class.GetMethod(nameof(PushPage));
+            IL2Method method = Instance_Class.GetMethod(nameof(PushPage), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName);
             if (method == null)
             {
-                (method = Instance_Class.GetMethods().LastOrDefault(x => x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == typeof(string).FullName && x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName)).Name = nameof(PushPage);
-                if (method == null)
-                    return;
+                "Not found function!".RedPrefix("MenuStateController::PushPage");
+                return;
             }
 
             IntPtr uiContextPtr = IntPtr.Zero;
             if (uiContext != null)
                 uiContextPtr = uiContext.ptr;
 
-            method.Invoke(ptr, new IntPtr[] { new IL2String(pageName).ptr, uiContextPtr, new IntPtr(&clearPageStack) });
+            method.Invoke(ptr, new IntPtr[] { new IL2String(pageName).ptr, uiContextPtr, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
+        }
+        
+        public unsafe void PushPage(int contentIndex, UIContext uiContext = null, bool clearPageStack = false, bool inPlace = false)
+        {
+            IL2Method method = Instance_Class.GetMethod(nameof(PushPage), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName);
+            if (method == null)
+            {
+                "Not found function!".RedPrefix("MenuStateController::PushPage");
+                return;
+            }
+
+            IntPtr uiContextPtr = IntPtr.Zero;
+            if (uiContext != null)
+                uiContextPtr = uiContext.ptr;
+
+            method.Invoke(ptr, new IntPtr[] { new IntPtr(&contentIndex), uiContextPtr, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
         }
 
 
