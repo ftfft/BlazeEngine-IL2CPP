@@ -33,9 +33,9 @@ namespace BE4v.MenuEdit.Construct.Menu
 
             menuName = "Menu_" + name;
             gameObject.name = menuName;
-            // gameObject.SetActive(true);
+            gameObject.SetActive(true);
             Transform transform = gameObject.transform;
-            // transform.SetSiblingIndex(5);
+            transform.SetSiblingIndex(5);
 
             gameObject.GetComponent<LaunchPadQMMenu>()?.Destroy();
             gameObject.GetOrAddComponent<UIPage>()?.Destroy();
@@ -67,7 +67,7 @@ namespace BE4v.MenuEdit.Construct.Menu
 
             RectMask2D mask = verticalLayoutGroup.transform.parent.GetComponent<RectMask2D>();
             if (mask != null)
-                mask.enabled = true;
+                mask.enabled = false;
         }
 
 
