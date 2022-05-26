@@ -215,6 +215,6 @@ namespace VRC
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
         */
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRCPlayer.Instance_Class.GetMethod("SpawnEmojiRPC").GetParameters()[1].ReturnType.Name);
+        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRCPlayer.Instance_Class.GetMethod(m => m.Name.EndsWith("RPC")).GetParameters().LastOrDefault().ReturnType.Name);
     }
 }

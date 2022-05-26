@@ -54,7 +54,7 @@ namespace BE4v.MenuEdit.IMGUI
             {
                 if (sitOnPlayer != null)
                 {
-                    VRC.Player[] playerArray = players;
+                    VRC.Player[] playerArray = Patch.List.OnPlayerReady.players;
                     foreach (var player in playerArray)
                     {
                         VRCPlayer components = player?.Components;
@@ -69,7 +69,6 @@ namespace BE4v.MenuEdit.IMGUI
             }
             catch
             {
-                players = VRC.PlayerManager.Instance.PlayersCopy;
             }
 
         }
@@ -79,7 +78,7 @@ namespace BE4v.MenuEdit.IMGUI
             NotifySystem.Notify.OnGUI();
             try
             {
-                if (!isPressed) throw new Exception();
+                if (!isPressed) return;
                 GUI.backgroundColor = new Color(0, 255, 0);
                 int SizeX1 = Screen.width - (iLeftMargin * 2);
                 // GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), strTabMenuBold.ptr);
@@ -87,7 +86,7 @@ namespace BE4v.MenuEdit.IMGUI
                 GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.ptr);
 
                 int iPlayer = 0;
-                VRC.Player[] playerArray = players;
+                VRC.Player[] playerArray = Patch.List.OnPlayerReady.players;
                 foreach (var player in playerArray)
                 {
                     int? playerId = player?.PhotonPlayer?.ActorNumber;
@@ -170,7 +169,7 @@ namespace BE4v.MenuEdit.IMGUI
             }
             catch
             {
-                players = VRC.PlayerManager.Instance.PlayersCopy;
+                
             }
         }
 
@@ -183,7 +182,5 @@ namespace BE4v.MenuEdit.IMGUI
         private static readonly int iTopMargin = 160;
 
         private static readonly int iLeftMargin = 160;
-
-        public static VRC.Player[] players = new VRC.Player[0];
     }
 }

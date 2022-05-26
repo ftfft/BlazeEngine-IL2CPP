@@ -20,15 +20,9 @@ namespace VRC
             }
         }
 
-        public Player[] PlayersCopy
+        public static Player[] PlayersCopy
         {
-            get
-            {
-                IL2Property property = Instance_Class.GetProperty(nameof(PlayersCopy));
-                if (property == null)
-                    (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == Player.Instance_Class.FullName + "[]")).Name = nameof(PlayersCopy);
-                return property?.GetGetMethod().Invoke(ptr)?.UnboxArray<Player>();
-            }
+            get => FindObjectsOfType<Player>();
         }
 
         unsafe public static Player GetPlayer(int playerId)

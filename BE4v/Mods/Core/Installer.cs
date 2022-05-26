@@ -6,6 +6,7 @@ using UnityEngine;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
+using SharpDisasm.Udis86;
 
 namespace BE4v.Mods.Core
 {
@@ -71,6 +72,19 @@ namespace BE4v.Mods.Core
                 }
                 else
                     $"Installer: Method OnGUI not found!".RedPrefix("Patch");
+            }
+            catch (Exception ex)
+            {
+                ex.ToString().WriteMessage("Patch");
+            }
+            try
+            {
+                //IL2Method method = OVRLipSyncMicInput.Instance_Class.GetMethod(x => x.Token == 0x6001E6C);
+                IL2Method[] methods = OVRLipSyncMicInput.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 0 && x.GetDisassembler(0x512).Disassemble().Where(y => y.Mnemonic == ud_mnemonic_code.UD_Icall).Count() == 50);
+                foreach(var method in methods)
+                {
+                    new IL2Patch(method, (_OVRLipSyncMicInput_OnGUI)Nulled);
+                }
             }
             catch (Exception ex)
             {

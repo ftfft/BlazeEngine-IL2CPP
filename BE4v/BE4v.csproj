@@ -510,6 +510,7 @@
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiWorld.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\ApiWorldInstance.cs" />
     <Compile Include="SDK\VRCCore-Standalone\VRC\Core\BestHTTP\HTTPMethods.cs" />
+    <Compile Include="SDK\VRCCore-Standalone\VRC\Core\Pool\PooledArray.cs" />
     <Compile Include="SDK\VRCSDK2\VRC_MirrorReflection.cs" />
     <Compile Include="SDK\VRCSDK2\VRC_Pickup.cs" />
     <Compile Include="SDK\VRCSDK2\VRC_Station.cs" />

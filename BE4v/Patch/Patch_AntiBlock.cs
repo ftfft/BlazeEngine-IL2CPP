@@ -16,7 +16,6 @@ namespace BE4v.Patch
         public static void Toggle()
         {
             Status.isAntiBlock = !Status.isAntiBlock;
-            ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
         }
 
         public static void Start()

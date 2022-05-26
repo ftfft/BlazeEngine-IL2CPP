@@ -83,7 +83,7 @@ namespace BE4v.MenuEdit
                 VRC.Player localPlayer = VRC.Player.Instance;
                 if (localPlayer != null)
                 {
-                    foreach (var player in PlayerManager.Instance.PlayersCopy)
+                    foreach (var player in Patch.List.OnPlayerReady.players)
                     {
                         if (player == localPlayer) continue;
                         Patch.List.OnPlayerReady.ESPUpdate(player);

@@ -55,8 +55,6 @@ namespace BE4v.MenuEdit
             ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
             */
 
-            ClickClass_AntiBlock.OnClick_AntiBlockToggle_Refresh();
-            
             // QuickButton button = new QuickButton(@menuname, -1, -1, string.Empty, ClickClass_ChangeMenu.To_UIElementsMenu_1, "Change to Prev menu");
             /*
             button.gameObject.GetComponentInChildren<Image>().sprite = imgPrev.sprite;
@@ -70,39 +68,6 @@ namespace BE4v.MenuEdit
         }
     }
 
-
-    public static class ClickClass_AntiBlock
-    {
-        public static void OnClick_AntiBlockToggle()
-        {
-            Patch_AntiBlock.Toggle();
-        }
-
-        public static void OnClick_AntiBlockToggle_Refresh()
-        {
-            // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].SetToggleToOn(Status.isAntiBlock);
-            if (Status.isAntiBlock)
-            {
-                foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
-                {
-                    player.OnNetworkReady();
-                }
-                // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("on");
-                //if (!Patch_AntiBlock.patch.Enabled)
-                //    Patch_AntiBlock.patch.Enabled = true;
-            }
-            else
-            {
-                foreach (var player in VRC.PlayerManager.Instance.PlayersCopy)
-                {
-                    player.OnNetworkReady();
-                }
-                // BE4V_QuickUIMenu_T2.toggler["AntiBlock"].setOffText("off");
-                //if (Patch_AntiBlock.patch.Enabled)
-                //    Patch_AntiBlock.patch.Enabled = false;
-            }
-        }
-    }
-    
+        
 
 }
