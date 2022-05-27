@@ -51,7 +51,7 @@ namespace BE4v.Mods
             }
             baseAvatarModelPosition = avatarModel.localPosition;
             baseButtonFavPosition = changeButton.localPosition;
-            favList = Utils.Avatars.AddNewList("Favorite (BlazeEngine)", 1);
+            favList = Utils.Avatars.AddNewList("Favorite (BlazeEngine)", 0);
             /// FileDebug.debugGameObject("test_PageAvatar_0.txt", favList.gameObject);
             favButton.GetComponent<Button>().interactable = true;
 
@@ -60,9 +60,9 @@ namespace BE4v.Mods
             avatarModel.localPosition = baseAvatarModelPosition + new Vector3(0, 60, 0);
             avatarModel.localScale *= 0.8f;
 
-            string[] avtrs = Client.LoadAvatars();
-            foreach (var av in avtrs)
-                AddFavorite(av);
+            // string[] avtrs = Client.LoadAvatars();
+            // foreach (var av in avtrs)
+            //    AddFavorite(av);
         }
 
 
@@ -121,11 +121,12 @@ namespace BE4v.Mods
             if (favList == null)
                 return;
 
-            // favList.specificListValues.Clear();
+            favList.ClearAll();
+            favList.specificListValues.Clear();
             favList.specificListIds = Base.AvatarId.ToArray();
             favList.expandedHeight = 850f;
             favList.extendRows = 4;
-            // favList.Refresh();
+            favList.Refresh();
         }
 
         public static void onClickFavButton()
@@ -145,7 +146,7 @@ namespace BE4v.Mods
                 if (Base.AvatarId.Contains(apiAvatar.id))
                 {
                     RemoveFavorite(apiAvatar.id);
-                    Client.DelAvatar(apiAvatar.id);
+                    // Client.DelAvatar(apiAvatar.id);
                     return;
                 }
 
@@ -160,7 +161,7 @@ namespace BE4v.Mods
                 }
 
                 AddFavorite(apiAvatar.id);
-                Client.AddAvatar(apiAvatar.id);
+                // Client.AddAvatar(apiAvatar.id);
             }
         }
 

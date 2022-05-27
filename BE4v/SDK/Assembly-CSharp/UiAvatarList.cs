@@ -20,7 +20,6 @@ public class UiAvatarList : UiVRCList
         set => Instance_Class.GetField(x => x.ReturnType.Name.StartsWith(Instance_Class.FullName)).SetValue(ptr, new IntPtr(&value));
     }
 
-    /*
     public IL2Dictionary<string, ApiAvatar> specificListValues
     {
         get
@@ -34,7 +33,6 @@ public class UiAvatarList : UiVRCList
             return new IL2Dictionary<string, ApiAvatar>(result.ptr);
         }
     }
-    */
 
     public enum Category
     {

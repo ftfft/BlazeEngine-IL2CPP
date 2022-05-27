@@ -47,7 +47,7 @@ public abstract class UiVRCList : MonoBehaviour
     {
         IL2Method method = Instance_Class.GetMethod(nameof(ClearAll));
         if (method == null)
-            (method = Instance_Class.GetMethod(x => !x.IsStatic && x.IsPublic && x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 0 && x.Name.Length > 20)).Name = nameof(ClearAll);
+            (method = Instance_Class.GetMethod(x => !x.IsStatic && x.IsPublic && x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 0 && x.Name.Length > 10)).Name = nameof(ClearAll);
         method?.Invoke(ptr);
     }
 

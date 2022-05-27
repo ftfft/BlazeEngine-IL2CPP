@@ -57,7 +57,8 @@ namespace BE4v.Utils
 
         public static UiAvatarList AddNewList(string title, int index)
         {
-            UiAvatarList[] uiAvatarLists = Resources.FindObjectsOfTypeAll<UiAvatarList>();
+            UiAvatarList[] uiAvatarLists = UnityEngine.Object.FindObjectsOfType<UiAvatarList>();
+            // UiAvatarList[] uiAvatarLists = Resources.FindObjectsOfTypeAll<UiAvatarList>();
 
             if (uiAvatarLists.Length == 0)
             {
@@ -68,7 +69,8 @@ namespace BE4v.Utils
             UiAvatarList gameFavList = null;
             foreach (UiAvatarList list in uiAvatarLists)
             {
-                if (list.name.Contains("Favorite") && !list.name.Contains("Quest"))
+                // list.name.RedPrefix("Debug");
+                if (list.name.Contains("Personal"))
                 {
                     gameFavList = list;
                     break;
@@ -80,17 +82,15 @@ namespace BE4v.Utils
                 "gameFavList not found!".RedPrefix("[Error]");
                 return null;
             }
-            UiAvatarList newList = GameObject.Instantiate<UiAvatarList>(gameFavList, gameFavList.transform.parent);
+            UiAvatarList newList = UnityEngine.Object.Instantiate(gameFavList, gameFavList.transform.parent);
 
 
             newList.GetComponentInChildren<Button>(true).GetComponentInChildren<Text>().text = title;
             newList.gameObject.SetActive(true);
 
             newList.transform.SetSiblingIndex(index);
-            newList.transform.Find("GetMoreFavorites")?.gameObject.SetActive(false);
-
+            
             newList.category = UiAvatarList.Category.SpecificList;
-
             return newList;
         }
     }
