@@ -58,8 +58,7 @@ namespace BE4v.Utils
         public static UiAvatarList AddNewList(string title, int index)
         {
             UiAvatarList[] uiAvatarLists = UnityEngine.Object.FindObjectsOfType<UiAvatarList>();
-            // UiAvatarList[] uiAvatarLists = Resources.FindObjectsOfTypeAll<UiAvatarList>();
-
+            
             if (uiAvatarLists.Length == 0)
             {
                 "uiAvatarLists == 0!".RedPrefix("[Error]");

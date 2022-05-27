@@ -123,6 +123,7 @@ namespace BE4v.Mods
 
             favList.ClearAll();
             favList.specificListValues.Clear();
+            favList.Refresh();
             favList.specificListIds = Base.AvatarId.ToArray();
             favList.expandedHeight = 850f;
             favList.extendRows = 4;
