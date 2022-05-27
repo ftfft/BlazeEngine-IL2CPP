@@ -44,6 +44,7 @@ namespace BE4v.Patch.List
 
         public static void ESPUpdate(VRC.Player player)
         {
+            if (player == VRC.Player.Instance) return;
             Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
 
             if (renderer != null)
