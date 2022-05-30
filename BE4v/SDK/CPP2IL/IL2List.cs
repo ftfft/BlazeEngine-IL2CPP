@@ -7,6 +7,11 @@ namespace BE4v.SDK.CPP2IL
         public IL2List(IntPtr ptrNew) : base(ptrNew) =>
             ptr = ptrNew;
 
+        public void Clear()
+        {
+            Instance_Class.GetMethod(nameof(Clear)).Invoke(ptr, ex: false);
+        }
+
         public static IL2Class Instance_Class = Assembler.list["mscorlib"].GetClass("List`1", "System.Collections.Generic");
     }
     unsafe public class IL2List<T> : IL2List

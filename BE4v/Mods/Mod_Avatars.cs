@@ -74,7 +74,7 @@ namespace BE4v.Mods
                 if (favList == null)
                     return;
 
-                resfresh = 3;
+                resfresh = 100;
             }
 
             if (resfresh > 0)
@@ -84,7 +84,6 @@ namespace BE4v.Mods
                     UpdateAvatarList();
                 return;
             }
-
             ApiAvatar apiAvatar = pageAvatar?.avatar?.apiAvatar;
             if (apiAvatar != null)
             {
@@ -121,12 +120,11 @@ namespace BE4v.Mods
             if (favList == null)
                 return;
 
-            favList.ClearAll();
             favList.specificListValues.Clear();
-            favList.Refresh();
             favList.specificListIds = Base.AvatarId.ToArray();
             favList.expandedHeight = 850f;
             favList.extendRows = 4;
+            favList.ClearList();
             favList.Refresh();
         }
 
