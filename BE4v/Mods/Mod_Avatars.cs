@@ -54,7 +54,7 @@ namespace BE4v.Mods
             favList = Utils.Avatars.AddNewList("Favorite (BlazeEngine)", 0);
             /// FileDebug.debugGameObject("test_PageAvatar_0.txt", favList.gameObject);
             favButton.GetComponent<Button>().interactable = true;
-
+            
             favButton.gameObject.SetActive(true);
             favButton.localPosition = baseButtonFavPosition + new Vector3(0, 80, 0);
             avatarModel.localPosition = baseAvatarModelPosition + new Vector3(0, 60, 0);

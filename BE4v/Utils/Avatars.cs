@@ -83,13 +83,15 @@ namespace BE4v.Utils
             }
             UiAvatarList newList = UnityEngine.Object.Instantiate(gameFavList, gameFavList.transform.parent);
 
-
-            newList.GetComponentInChildren<Button>(true).GetComponentInChildren<Text>().text = title;
-            newList.gameObject.SetActive(true);
+            newList.name = title;
 
             newList.transform.SetSiblingIndex(index);
-            
             newList.category = UiAvatarList.Category.SpecificList;
+
+            newList.GetComponentInChildren<Button>(true).GetComponentInChildren<Text>().text = title;
+
+            newList.gameObject.SetActive(true);
+
             return newList;
         }
     }

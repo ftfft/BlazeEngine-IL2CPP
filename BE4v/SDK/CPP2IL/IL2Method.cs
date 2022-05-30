@@ -14,11 +14,13 @@ namespace BE4v.SDK.CPP2IL
             get
             {
                 if (string.IsNullOrEmpty(szName))
-                    szName = Marshal.PtrToStringAnsi(Import.Method.il2cpp_method_get_name(ptr));
+                    szName = OriginalName;
                 return szName;
             }
             set => szName = value;
         }
+
+        public string OriginalName => Marshal.PtrToStringAnsi(Import.Method.il2cpp_method_get_name(ptr));
 
         public int Token => Import.Method.il2cpp_method_get_token(ptr);
         public bool IsAbstract => HasFlag(IL2BindingFlags.METHOD_ABSTRACT);
