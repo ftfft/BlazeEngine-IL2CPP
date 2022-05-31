@@ -32,7 +32,7 @@ namespace BE4v.Mods.API
             IsLicense = true;
         }
 
-        public static bool IsLicense { get; set; }
+        public static bool? IsLicense = null;
         public static string _api_url = "https://client.icefrag.ru/";
     }
 }

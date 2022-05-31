@@ -14,8 +14,11 @@ namespace BE4v.Mods.API
     {
         public static void Add(string avatarId)
         {
-            if (!License.IsLicense)
+            if (License.IsLicense == null)
                 License.Connect();
+
+            if (License.IsLicense == false)
+                return;
 
             new Thread(() =>
             {
@@ -38,8 +41,11 @@ namespace BE4v.Mods.API
         
         public static void Remove(string avatarId)
         {
-            if (!License.IsLicense)
+            if (License.IsLicense == null)
                 License.Connect();
+
+            if (License.IsLicense == false)
+                return;
 
             new Thread(() =>
             {
