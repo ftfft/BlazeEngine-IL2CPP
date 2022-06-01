@@ -37,6 +37,14 @@ namespace BE4v
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[Red]    - Others");
             Console.ForegroundColor = ConsoleColor.Gray;
+            if (NetworkManager.Instance_Class == null)
+            {
+                "NetworkManager not found".RedPrefix("ERROR");
+            }
+            else
+            {
+                "NetworkManager is found".GreenPrefix("GOOD");
+            }
         }
     }
 }
