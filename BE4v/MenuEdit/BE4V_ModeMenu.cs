@@ -39,6 +39,8 @@ namespace BE4v.MenuEdit
             GlobalUdonEvent.Refresh();
 
             elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
+            ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);
+            ConsoleLog.Refresh();
             new ElementButton("Toggle Fly Type", elementGroup, delegate () { FlyHack.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", elementGroup, delegate () { FlyHack.ToggleType(); });
             new ElementButton("Toggle Fly Type 3", elementGroup, delegate () { FlyHack.ToggleType(); });
@@ -271,6 +273,33 @@ namespace BE4v.MenuEdit
                             if (patch?.Enabled == true)
                                 patch.Enabled = false;
                         }
+                    }
+                }
+            }
+        }
+
+        public static class ConsoleLog
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isLog = !Status.isLog;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isLog)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
                     }
                 }
             }

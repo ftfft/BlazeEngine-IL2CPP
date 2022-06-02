@@ -13,6 +13,15 @@ namespace UnityEngine
 			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
 			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 2).Invoke(ptr, new IntPtr[] { new IntPtr(&width), new IntPtr(&height) });
 		}
+		unsafe public Texture2D(int width, int height, TextureFormat textureFormat, bool mipChain) : base(IntPtr.Zero)
+		{
+			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
+			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 4).Invoke(ptr, new IntPtr[] { new IntPtr(&width), new IntPtr(&height), new IntPtr(&textureFormat), new IntPtr(&mipChain) });
+		}
+		unsafe public void SetPixel(int x, int y, Color color)
+		{
+			Instance_Class.GetMethod(nameof(SetPixel), m => m.GetParameters().Length == 3).Invoke(ptr, new IntPtr[] { new IntPtr(&x), new IntPtr(&y), new IntPtr(&color) });
+		}
 
 		unsafe public void ReadPixels(Rect source, int destX, int destY)
 		{

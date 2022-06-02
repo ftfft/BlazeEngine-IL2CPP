@@ -65,6 +65,7 @@
     <Compile Include="MenuEdit\Construct\LoadSprites.cs" />
     <Compile Include="MenuEdit\Construct\QuickObject.cs" />
     <Compile Include="MenuEdit\Construct\UIMenu\UIButton.cs" />
+    <Compile Include="MenuEdit\IMGUI\Console.cs" />
     <Compile Include="MenuEdit\IMGUI\TabMenu.cs" />
     <Compile Include="MenuOverlay\MainForm.cs">
       <SubType>Form</SubType>
@@ -332,6 +333,7 @@
     <Compile Include="SDK\UnityEngine.CoreModule\Experimental\Rendering\GraphicsFormat.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\HideFlags.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Coroutine.cs" />
+    <Compile Include="SDK\UnityEngine.CoreModule\TextureFormat.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\WaitForSeconds.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\YieldInstruction.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\SpriteRenderer.cs" />
@@ -344,6 +346,11 @@
     <Compile Include="SDK\UnityEngine.CoreModule\Texture2D.cs" />
     <Compile Include="SDK\UnityEngine.CoreModule\Sprite.cs" />
     <Compile Include="SDK\UnityEngine.ImageConversionModule\ImageConversion.cs" />
+    <Compile Include="SDK\UnityEngine.IMGUIModule\EventType.cs" />
+    <Compile Include="SDK\UnityEngine.IMGUIModule\GUIContent.cs" />
+    <Compile Include="SDK\UnityEngine.IMGUIModule\Event.cs" />
+    <Compile Include="SDK\UnityEngine.IMGUIModule\GUIStyleState.cs" />
+    <Compile Include="SDK\UnityEngine.TextRenderingModule\FontStyle.cs" />
     <Compile Include="SDK\UnityEngine.TextRenderingModule\TextAnchor.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\RenderMode.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\CanvasGroup.cs" />

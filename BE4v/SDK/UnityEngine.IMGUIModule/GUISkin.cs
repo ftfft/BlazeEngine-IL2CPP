@@ -1,4 +1,5 @@
 ﻿using System;
+using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 
 namespace UnityEngine
@@ -6,6 +7,12 @@ namespace UnityEngine
 	public sealed class GUISkin : ScriptableObject
 	{
 		public GUISkin(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+
+		public GUISkin() : base(IntPtr.Zero)
+		{
+			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
+			Instance_Class.GetMethod(".ctor").Invoke(ptr);
+		}
 
 		public GUIStyle label
 		{

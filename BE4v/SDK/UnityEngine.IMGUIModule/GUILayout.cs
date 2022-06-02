@@ -13,6 +13,11 @@ namespace UnityEngine
 			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
 		}
 
+		public static void Label(string text, GUIStyle style, params GUILayoutOption[] options)
+		{
+			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 3 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).ptr, style == null ? IntPtr.Zero : style.ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+		}
+
 		unsafe public static Vector2 BeginScrollView(Vector2 scrollPosition, params GUILayoutOption[] options)
 		{
 			return Instance_Class.GetMethod(nameof(BeginScrollView), x => x.GetParameters().Length == 2).Invoke(new IntPtr[] { new IntPtr(&scrollPosition), (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) }).GetValuе<Vector2>();

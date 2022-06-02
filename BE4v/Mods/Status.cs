@@ -44,5 +44,7 @@ namespace BE4v.Mods
         public static bool isAutoClear = false;
 
         public static bool isGlobalUdonEvent = false;
+
+        public static bool isLog = false;
     }
 }

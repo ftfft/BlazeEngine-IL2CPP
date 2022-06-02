@@ -58,6 +58,12 @@ namespace UnityEngine
 			return Instance_Class.GetMethod(nameof(Button), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { position, text }).GetValuе<bool>();
 		}
 
+		unsafe public static bool Button(Rect position, string text, GUIStyle style) => Button(position, new GUIContent(text), style);
+		unsafe public static bool Button(Rect position, GUIContent content, GUIStyle style)
+		{
+			return Instance_Class.GetMethod(nameof(Button), m => m.GetParameters().Length == 3).Invoke(new IntPtr[] { new IntPtr(&position), content == null ? IntPtr.Zero : content.ptr, style == null ? IntPtr.Zero : style.ptr }).GetValuе<bool>();
+		}
+
 		/*
 		// Token: 0x06000050 RID: 80 RVA: 0x0000218C File Offset: 0x0000038C
 		[Address(RVA = "0x18182E560", Offset = "0x182CB60")]
