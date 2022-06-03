@@ -37,13 +37,16 @@ namespace BE4v
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[Red]    - Others");
             Console.ForegroundColor = ConsoleColor.Gray;
-            if (NetworkManager.Instance_Class == null)
+            if (System.IO.File.Exists("enable_test"))
             {
-                "NetworkManager not found".RedPrefix("ERROR");
-            }
-            else
-            {
-                "NetworkManager is found".GreenPrefix("GOOD");
+                var instructions = NetworkManager.Instance_Class.GetMethod("OnJoinedRoom").GetDisassembler(0x256).Disassemble();
+                foreach(var instruction in instructions)
+                {
+                    foreach(var operand in instruction.Operands)
+                    {
+                        Console.WriteLine(instruction.Mnemonic.ToString() + " | " + operand.ToString()  + " | " + operand.Base)
+                    }
+                }
             }
         }
     }

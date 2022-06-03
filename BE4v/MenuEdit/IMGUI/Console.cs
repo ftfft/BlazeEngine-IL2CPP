@@ -23,16 +23,22 @@ namespace BE4v.MenuEdit.IMGUI
 
         public static void LoadStyle()
         {
-            NormalStyle = new GUIStyle();
+            if (NormalStyle == null)
+            {
+                NormalStyle = new GUIStyle();
+                NormalStyle.Static = true;
+            }
             NormalStyle.normal.background = GenTexture2D(new Color32(0, 153, 153, 120));
-            NormalStyle.Static = true;
 
             // TextStyle
-            TextStyle = new GUIStyle();
+            if (TextStyle == null)
+            {
+                TextStyle = new GUIStyle();
+                TextStyle.Static = true;
+            }
             TextStyle.fontSize = 12;
             TextStyle.normal.textColor = Color.white;
             // style.margin.left = 10;
-            TextStyle.Static = true;
         }
 
         public bool OnSize()
