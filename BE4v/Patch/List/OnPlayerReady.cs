@@ -27,6 +27,13 @@ namespace BE4v.Patch.List
         {
             if (instance == IntPtr.Zero) return;
             players = VRC.PlayerManager.PlayersCopy;
+            int len = players.Length;
+            if (len > 0)
+            {
+                Threads.MasterId = players[len - 1].PhotonPlayer.ActorNumber;
+            }
+            else
+                Threads.MasterId = 0;
             VRC.Player localPlayer = VRC.Player.Instance;
             if (localPlayer != null && instance != localPlayer.ptr)
             {

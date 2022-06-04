@@ -22,8 +22,6 @@ namespace BE4v.SDK
             Console.WriteLine("Discord: https://discord.gg/8mMGM43");
             Console.WriteLine("Developer: BlazeBest#4974");
 
-            Mods.Avatars.Client.LoadAvatars();
-
             if (!Directory.Exists(mainDir))
                 Directory.CreateDirectory(mainDir);
         }

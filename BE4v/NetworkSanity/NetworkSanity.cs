@@ -100,6 +100,36 @@ namespace NetworkSanity
                 return true;
             }
         }
+        
+        public static class PhotonNetwork
+        {
+            public static bool OnEvent(IntPtr eventDataPtr)
+            {
+                if (eventDataPtr == IntPtr.Zero)
+                    return false;
+
+                var eventData = new EventData(eventDataPtr);
+
+                int sender = eventData.Sender;
+                if (sender < 1) return true;
+                int eventCode = eventData.Code;
+                if (eventCode == EventCode.Leave)
+                {
+                    if (userList.Contains(sender))
+                        userList.Remove(sender);
+
+                    return true;
+                }
+
+                foreach (var i in Sanitizers)
+                {
+                    if (i.OnPhotonEvent(eventData))
+                        return false;
+                }
+
+                return true;
+            }
+        }
 
         private static ISanitizer[] Sanitizers = new ISanitizer[0];
 

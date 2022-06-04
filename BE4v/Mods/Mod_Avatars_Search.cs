@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.Mods.Avatars;
+using BE4v.Mods;
 using BE4v.Utils;
 using UnityEngine;
 using UnityEngine.UI;

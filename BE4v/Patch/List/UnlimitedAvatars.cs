@@ -1,5 +1,6 @@
 ﻿using System;
 using BE4v.Mods;
+using BE4v.Mods.API;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
@@ -28,7 +29,8 @@ namespace BE4v.Patch.List
                 return;
 
             _delegateUiAvatarList_Update(instance);
-            Mod_Avatars.Update();
+            if (License.IsLicense == true)
+                Mod_Avatars.Update();
         }
 
         public static IL2Patch _patch;

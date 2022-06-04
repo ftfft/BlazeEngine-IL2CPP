@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +9,8 @@ using VRCLoader.Attributes;
 using VRCLoader.Modules;
 using BE4v.MenuEdit.Construct;
 using BE4v.SDK;
+using BE4v.SDK.CPP2IL;
+using BE4v.Mods.API;
 
 namespace BE4v
 {
@@ -17,6 +21,47 @@ namespace BE4v
         public static void Start()
         {
             Main();
+        }
+
+        private static void InitLicense()
+        {
+            if (string.IsNullOrEmpty(License.GetLicense))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("---- LICENSE NOT FOUND ----");
+                Console.WriteLine("---------------------------");
+                "Please update license from site: https://client.icefrag.ru/".RedPrefix("License");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("---- LICENSE IS LOADED ----");
+                Console.WriteLine("---------------------------");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                try
+                {
+                    License.Connect();
+                    if (License.IsLicense == true)
+                    {
+                        "Success auth in server!".GreenPrefix("License");
+                        Avatars.LoadAvatars();
+                    }
+                    else if (License.IsLicense == false)
+                    {
+                        "Failed auth in server!".RedPrefix("License");
+                        "Please update license from site: https://client.icefrag.ru/".RedPrefix("License");
+                    }
+                    else
+                        throw new Exception();
+                }
+                catch (Exception ex)
+                {
+                    "Failed API Load...".RedPrefix("License");
+                    Console.WriteLine(ex);
+                }
+            }
         }
 
         public static void Main()
@@ -37,16 +82,53 @@ namespace BE4v
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[Red]    - Others");
             Console.ForegroundColor = ConsoleColor.Gray;
-            if (System.IO.File.Exists("enable_test"))
+            new Thread(() => { InitLicense(); }).Start();
+            if (ClientDebug.IsEnableDebug())
             {
+                /*
                 var instructions = NetworkManager.Instance_Class.GetMethod("OnJoinedRoom").GetDisassembler(0x256).Disassemble();
-                foreach(var instruction in instructions)
+                int u = 0;
+                foreach (var instruction in instructions)
                 {
-                    foreach(var operand in instruction.Operands)
+                    if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Imov)
                     {
-                        Console.WriteLine(instruction.Mnemonic.ToString() + " | " + operand.ToString()  + " | " + operand.Base)
+                        try
+                        {
+                            unsafe
+                            {
+                                if (instruction.Operands.Length > 1)
+                                {
+                                    if (instruction.Operands[1].Size == 32 && instruction.Operands[1].Base == SharpDisasm.Udis86.ud_type.UD_R_RIP)
+                                    {
+                                        Console.WriteLine(instruction.Operands[1].Base.ToString());
+                                        IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[1].LvalSDWord);
+                                        if (addr != IntPtr.Zero)
+                                        {
+                                            IntPtr ptr = *(IntPtr*)addr;
+                                            // Console.WriteLine(ptr.ToString());
+                                            if (ptr != IntPtr.Zero)
+                                            {
+                                                string test = new string((char*)(ptr + 0x14));
+                                                Console.WriteLine(test);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            int i = 0;
+                            Console.WriteLine("Error: " + instruction.ToString());
+                            foreach (var operand in instruction.Operands)
+                            {
+                                i++;
+                                Console.WriteLine("[" + i + "]" + operand.ToString());
+                            }
+                        }
                     }
                 }
+                */
             }
         }
     }

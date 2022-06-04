@@ -71,9 +71,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Mods\API\Avatars.cs" />
+    <Compile Include="Mods\API\Core.cs" />
     <Compile Include="Mods\API\License.cs" />
-    <Compile Include="Mods\Avatars\Client.cs" />
-    <Compile Include="Mods\Avatars\Base.cs" />
     <Compile Include="Mods\Core\Installer.cs" />
     <Compile Include="Mods\Core\IOnGUI.cs" />
     <Compile Include="Mods\Core\IThread.cs" />
@@ -109,6 +108,8 @@
     <Compile Include="Patch\Core\IPatch.cs" />
     <Compile Include="Patch\Core\PatchUtils.cs" />
     <Compile Include="Patch\Core\oldPatch.cs" />
+    <Compile Include="Patch\List\OnMasterClientSwitched.cs" />
+    <Compile Include="Patch\List\PhotonNetwork.cs" />
     <Compile Include="Patch\List\NoAnalytics_LogEvent.cs" />
     <Compile Include="Patch\List\NoAnalytics_SendGen.cs" />
     <Compile Include="Patch\List\NoAnalytics_Send.cs" />

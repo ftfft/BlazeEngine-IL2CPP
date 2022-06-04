@@ -2,7 +2,6 @@
 using System.Linq;
 using BE4v.MenuEdit;
 using BE4v.Mods;
-using BE4v.Mods.Avatars;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using VRC.Core;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,10 +31,12 @@ namespace BE4v.Mods.API
 
         public static void Connect()
         {
-            IsLicense = true;
+            string result = Core.Request("api/license");
+            IsLicense = result.Contains("Success");
         }
 
+
+        public static List<string> AvatarId = new List<string>();
         public static bool? IsLicense = null;
-        public static string _api_url = "https://client.icefrag.ru/";
     }
 }

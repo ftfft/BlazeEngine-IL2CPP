@@ -48,5 +48,7 @@ namespace BE4v.Mods
         }
 
         private static bool isLoadedCharacter = false;
+
+        public static int MasterId = 0;
     }
 }

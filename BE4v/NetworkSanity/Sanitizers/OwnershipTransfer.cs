@@ -16,7 +16,7 @@ using BE4v.Serilize;
 
 namespace NetworkSanity.Sanitizers
 {
-    internal class OwnershipTransfer // : ISanitizer
+    internal class OwnershipTransfer : ISanitizer
     {
         private readonly RateLimiter _rateLimiter = new RateLimiter();
         private readonly Dictionary<int, (long, int)> limit = new Dictionary<int, (long, int)>();
@@ -25,38 +25,28 @@ namespace NetworkSanity.Sanitizers
         // OwnershipTransfer 210
         public bool OnPhotonEvent(EventData eventData)
         {
-            /*
-            if (eventData.CustomData != null)
-            {
-                byte[] bytes = new IL2Array<byte>(eventData.CustomData.ptr).ToBytesArray();
-                if (bytes.Length == 8)
-                {
-
-                    var i1 = BitConverter.ToInt32(bytes, 0);
-                    var i2 = BitConverter.ToInt32(bytes, 4);
-                    Console.WriteLine($"Sender: {eventData.Sender} code: {eventData.Code} ownership: arg1 {i1} arg2 {i2}");
-                }
-            }
-            */
-            if (eventData.Code != 209 && eventData.Code != 210)
+            if (eventData.Code == 209)
+                return true;
+            
+            if (eventData.Code != 210)
                 return false;
 
-            return true;
-            // return IsOwnershipTransfer(eventData);
+            return IsOwnershipTransfer(eventData);
         }
 
         public bool VRCNetworkingClientOnPhotonEvent(EventData eventData)
         {
-            if (eventData.Code != 209 && eventData.Code != 210)
+            if (eventData.Code == 209)
+                return true;
+
+            if (eventData.Code != 210)
                 return false;
 
-            return true;
-            //return _rateLimiter.IsRateLimited(eventData.Sender);
+            return _rateLimiter.IsRateLimited(eventData.Sender);
         }
 
         private bool IsOwnershipTransfer(EventData eventData)
         {
-            return true;
             IL2Object obj = eventData.CustomData;
             if (obj == null)
             {
@@ -73,6 +63,19 @@ namespace NetworkSanity.Sanitizers
 
             int transObj = BitConverter.ToInt32(bytes, 0);
             int sender = BitConverter.ToInt32(bytes, 4);
+            if (Threads.MasterId == eventData.Sender)
+                return false;
+
+            if (sender != eventData.Sender)
+            {
+                _rateLimiter.BlacklistUser(eventData.Sender, eventData.Code, "Sender != Sender");
+                return true;
+            }
+            if (transObj < 1)
+            {
+                _rateLimiter.BlacklistUser(eventData.Sender, eventData.Code, "object < 1");
+                return true;
+            }
             /*
             if (transObj.ToString().StartsWith(sender.ToString()))
             {
@@ -85,13 +88,9 @@ namespace NetworkSanity.Sanitizers
                 }
             }
             */
-            if (transObj <= 0 || transObj > 100000)
-            {
-                return true;
-            }
 
             // [Debug 210] Sender: 521 | TransObject: 62800004 | Sender: 628
-            $"Sender: {eventData.Sender} | TransObject: {transObj} | Sender: {sender}".RedPrefix("Debug " + eventData.Code);
+            // $"Sender: {eventData.Sender} | TransObject: {transObj} | Sender: {sender}".RedPrefix("Debug " + eventData.Code);
             /*
             int sender = eventData.Sender;
             var argObject = BitConverter.ToInt32(bytes, 0);

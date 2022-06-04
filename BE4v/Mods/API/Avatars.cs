@@ -12,58 +12,42 @@ namespace BE4v.Mods.API
 {
     public static class Avatars
     {
+        public static List<string> AvatarId = new List<string>();
+
+        public static void LoadAvatars()
+        {
+            try
+            {
+                AvatarId = Core.Request("api/license/avatarlist").Split(',').ToList();
+                ("Loaded is " + AvatarId.Count() + " avatars").GreenPrefix("BE4v Avatars");
+            }
+            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
+        }
+
         public static void Add(string avatarId)
         {
-            if (License.IsLicense == null)
-                License.Connect();
-
-            if (License.IsLicense == false)
-                return;
-
-            new Thread(() =>
+            try
             {
-                try
+                NameValueCollection collection = new NameValueCollection()
                 {
-                    NameValueCollection nameValueCollection = new NameValueCollection();
-                    nameValueCollection.Add("be4v", License.GetLicense);
-                    using (WebClient webClient = new WebClient())
-                    {
-                        webClient.BaseAddress = License._api_url;
-                        webClient.UploadValues("/api/avatar/add", nameValueCollection);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ("Ex: " + ex.ToString()).RedPrefix("Avatars::Web::Add");
-                }
-            }).Start();
+                    { "if-avatar", avatarId },
+                };
+                Core.Request("api/license/avatar/add", collection);
+            }
+            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
         }
         
         public static void Remove(string avatarId)
         {
-            if (License.IsLicense == null)
-                License.Connect();
-
-            if (License.IsLicense == false)
-                return;
-
-            new Thread(() =>
+            try
             {
-                try
+                NameValueCollection collection = new NameValueCollection()
                 {
-                    NameValueCollection nameValueCollection = new NameValueCollection();
-                    nameValueCollection.Add("be4v", License.GetLicense);
-                    using (WebClient webClient = new WebClient())
-                    {
-                        webClient.BaseAddress = License._api_url;
-                        webClient.UploadValues("/api/avatar/remove", nameValueCollection);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ("Ex: " + ex.ToString()).RedPrefix("Avatars::Web::Remove");
-                }
-            }).Start();
+                    { "if-avatar", avatarId },
+                };
+                Core.Request("api/license/avatar/remove", collection);
+            }
+            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
         }
     }
 }

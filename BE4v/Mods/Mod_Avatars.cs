@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.Mods.Avatars;
+using System.Threading;
 using BE4v.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -93,7 +93,7 @@ namespace BE4v.Mods
                     return;
                 }
 
-                if (Base.AvatarId.Contains(apiAvatar.id))
+                if (API.Avatars.AvatarId.Contains(apiAvatar.id))
                 {
                     if (!apiAvatar.releaseStatus.Equals("public") && apiAvatar.authorId != APIUser.CurrentUser.id)
                         favButton.GetComponentInChildren<Text>().text = "<color=red>Unfavorite</color>";
@@ -121,7 +121,7 @@ namespace BE4v.Mods
                 return;
 
             favList.specificListValues.Clear();
-            favList.specificListIds = Base.AvatarId.ToArray();
+            favList.specificListIds = API.Avatars.AvatarId.ToArray();
             favList.expandedHeight = 850f;
             favList.extendRows = 4;
             favList.ClearList();
@@ -142,10 +142,9 @@ namespace BE4v.Mods
                     return;
                 }
 
-                if (Base.AvatarId.Contains(apiAvatar.id))
+                if (API.Avatars.AvatarId.Contains(apiAvatar.id))
                 {
                     RemoveFavorite(apiAvatar.id);
-                    // Client.DelAvatar(apiAvatar.id);
                     return;
                 }
 
@@ -160,26 +159,27 @@ namespace BE4v.Mods
                 }
 
                 AddFavorite(apiAvatar.id);
-                // Client.AddAvatar(apiAvatar.id);
             }
         }
 
         public static void AddFavorite(string avatarId)
         {
-            if (Base.AvatarId.Contains(avatarId))
+            if (API.Avatars.AvatarId.Contains(avatarId))
                 return;
 
-            Base.AvatarId.Insert(0, avatarId);
+            API.Avatars.AvatarId.Insert(0, avatarId);
             UpdateAvatarList();
+            new Thread(() => { API.Avatars.Add(avatarId); }).Start();
         }
 
         public static void RemoveFavorite(string avatarId)
         {
-            if (!Base.AvatarId.Contains(avatarId))
+            if (!API.Avatars.AvatarId.Contains(avatarId))
                 return;
 
-            Base.AvatarId.Remove(avatarId);
+            API.Avatars.AvatarId.Remove(avatarId);
             UpdateAvatarList();
+            new Thread(() => { API.Avatars.Remove(avatarId); }).Start();
         }
 
         public static int resfresh = 3;

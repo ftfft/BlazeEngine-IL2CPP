@@ -7,6 +7,12 @@ using System.Runtime.InteropServices;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 
+
+public static class ClientDebug
+{
+    public static bool IsEnableDebug() => System.IO.File.Exists("enable_test");
+}
+
 public static class SDKUtils
 {
     unsafe public static IntPtr ArrayToIntPtr(this IEnumerable<IntPtr> array, IL2Class typeobject = null)

@@ -9,6 +9,17 @@ namespace IL2Photon.Pun
 {
     public static class PhotonNetwork
     {
+        static PhotonNetwork()
+        {
+            Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == EventData.Instance_Class.FullName).Name = nameof(OnEvent);
+        }
+
+        private static void OnEvent(EventData photonEvent)
+        {
+            Instance_Class.GetMethod(nameof(OnEvent)).Invoke(new IntPtr[] { photonEvent == null ? IntPtr.Zero : photonEvent.ptr });
+        }
+
+
         // <!---------- ---------- ---------->
         // <!---------- PROPERTY'S ---------->
         // <!---------- ---------- ---------->

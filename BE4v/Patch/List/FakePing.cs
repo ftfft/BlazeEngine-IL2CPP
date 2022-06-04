@@ -23,7 +23,7 @@ namespace BE4v.Patch.List
         public void Start()
         {
             IL2Method method = VRC.UI.DebugDisplayText.Instance_Class.GetMethod("Update");
-            var methods = PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
+            var methods = IL2Photon.Pun.PhotonNetwork.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(int).FullName && x.GetParameters().Length == 0);
 
             unsafe
             {
