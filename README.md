@@ -13,7 +13,7 @@ Register for Client (Release): https://client.icefrag.ru
 # Contacts
 | Group In Dirscord | Developer |
 |----------------|:-----------:|
-| [IF Community](http://discord.gg/8mMGM43) | BlazeBest#4974 |
+| http://discord.gg/8mMGM43 | BlazeBest#4974 |
 
 # Command line
 "--dev-console" - For open DebugConsole
