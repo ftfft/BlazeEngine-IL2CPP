@@ -131,8 +131,8 @@ namespace BE4v.Mods.Core
             }
             finally
             {
-                if (instance != IntPtr.Zero)
-                    __OnGUI(instance);
+                // if (instance != IntPtr.Zero)
+                //    __OnGUI(instance);
             }
         }
     }
