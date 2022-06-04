@@ -2,13 +2,13 @@
 Register for Client (Release): https://client.icefrag.ru
 
 # Links
-| LEFT | CENTER |
-|----------------|:---------:|
-| [- Instruction](https://client.icefrag.ru/instruction) | |
-| [- Avatars](https://client.icefrag.ru/avatars) | |
-| [- Binds](https://client.icefrag.ru/binds) | |
-| [- FAQ](https://client.icefrag.ru/faq) | |
-| [- Donate](https://client.icefrag.ru/donate) | |
+| LEFT |
+|----------------|
+| [- Instruction](https://client.icefrag.ru/instruction) |
+| [- Avatars](https://client.icefrag.ru/avatars) |
+| [- Binds](https://client.icefrag.ru/binds) |
+| [- FAQ](https://client.icefrag.ru/faq) |
+| [- Donate](https://client.icefrag.ru/donate) |
 
 ___Contacts:___
 [Discord [IF Community]](http://discord.gg/8mMGM43)
