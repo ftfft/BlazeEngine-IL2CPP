@@ -80,6 +80,7 @@
     <Compile Include="Mods\Min\AutoClearRAM.cs" />
     <Compile Include="Mods\Min\CameraHeight.cs" />
     <Compile Include="Mods\Min\ClientConsole.cs" />
+    <Compile Include="Mods\Min\PortableObject.cs" />
     <Compile Include="Mods\Min\CreatePortal.cs" />
     <Compile Include="Mods\Min\ModifyQuickMenu.cs" />
     <Compile Include="Mods\Mod_Avatars_Search.cs" />

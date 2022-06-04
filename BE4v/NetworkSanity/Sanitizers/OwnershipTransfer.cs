@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -19,16 +20,15 @@ namespace NetworkSanity.Sanitizers
     internal class OwnershipTransfer : ISanitizer
     {
         private readonly RateLimiter _rateLimiter = new RateLimiter();
-        private readonly Dictionary<int, (long, int)> limit = new Dictionary<int, (long, int)>();
+
+        public static int fps = 0;
+        public static readonly ConcurrentDictionary<int, int> limit = new ConcurrentDictionary<int, int>();
 
         // OwnershipRequest 209
         // OwnershipTransfer 210
         public bool OnPhotonEvent(EventData eventData)
         {
-            if (eventData.Code == 209)
-                return true;
-            
-            if (eventData.Code != 210)
+            if (eventData.Code != 209 && eventData.Code != 210)
                 return false;
 
             return IsOwnershipTransfer(eventData);
@@ -36,10 +36,7 @@ namespace NetworkSanity.Sanitizers
 
         public bool VRCNetworkingClientOnPhotonEvent(EventData eventData)
         {
-            if (eventData.Code == 209)
-                return true;
-
-            if (eventData.Code != 210)
+            if (eventData.Code != 209 && eventData.Code != 210)
                 return false;
 
             return _rateLimiter.IsRateLimited(eventData.Sender);
@@ -74,6 +71,13 @@ namespace NetworkSanity.Sanitizers
             if (transObj < 1)
             {
                 _rateLimiter.BlacklistUser(eventData.Sender, eventData.Code, "object < 1");
+                return true;
+            }
+
+            int value = limit.AddOrUpdate(sender, 0, (key, oldValue) => oldValue + 1);
+            if (value > 2)
+            {
+                _rateLimiter.BlacklistUser(eventData.Sender, eventData.Code, "Anti-flood");
                 return true;
             }
             /*

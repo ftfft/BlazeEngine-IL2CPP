@@ -23,6 +23,11 @@ namespace BE4v.Mods
                 gameObject.AddComponent<OVRLipSyncMicInput>();
                 UnityEngine.Object.DontDestroyOnLoad(gameObject);
             }
+            if (--NetworkSanity.Sanitizers.OwnershipTransfer.fps < 0)
+            {
+                NetworkSanity.Sanitizers.OwnershipTransfer.fps = 5;
+                NetworkSanity.Sanitizers.OwnershipTransfer.limit.Clear();
+            }
             timestamp = UnixTimeNow();
             if (Input.GetKeyDown(KeyCode.I))
             {

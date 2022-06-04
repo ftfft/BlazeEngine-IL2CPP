@@ -10,13 +10,13 @@ using SharpDisasm.Udis86;
 
 namespace BE4v.Mods.Core
 {
-    public delegate void _InteractivePlayer_Update(IntPtr instance);
-    public delegate void _OVRLipSyncMicInput_OnGUI(IntPtr instance);
-    public delegate void _OVRLipSyncMicInput_0x6001E6C(IntPtr instance);
+    public delegate void _Update(IntPtr instance);
+    public delegate void _OnGUI(IntPtr instance);
+    public delegate void _null(IntPtr instance);
     public static class Installer
     {
-        public static _InteractivePlayer_Update _delegateInteractivePlayer_Update;
-        public static _OVRLipSyncMicInput_OnGUI _delegateOVRLipSyncMicInput_OnGUI;
+        public static _Update __Update;
+        public static _OnGUI __OnGUI;
 
         private static T1[] LoadInterfaces<T1>() where T1 : IThread
         {
@@ -52,7 +52,7 @@ namespace BE4v.Mods.Core
                 if (method != null)
                 {
                     updates = LoadInterfaces<IUpdate>();
-                    _delegateInteractivePlayer_Update = PatchUtils.FastPatch<_InteractivePlayer_Update>(method, Update);
+                    __Update = PatchUtils.FastPatch<_Update>(method, Update);
                 }
                 else
                     $"Installer: Method Update not found!".RedPrefix("Patch");
@@ -68,7 +68,7 @@ namespace BE4v.Mods.Core
                 if (method != null)
                 {
                     onGUIs = LoadInterfaces<IOnGUI>();
-                    _delegateOVRLipSyncMicInput_OnGUI = PatchUtils.FastPatch<_OVRLipSyncMicInput_OnGUI>(method, OnGUI);
+                    __OnGUI = PatchUtils.FastPatch<_OnGUI>(method, OnGUI);
                 }
                 else
                     $"Installer: Method OnGUI not found!".RedPrefix("Patch");
@@ -77,13 +77,18 @@ namespace BE4v.Mods.Core
             {
                 ex.ToString().WriteMessage("Patch");
             }
+
             try
             {
-                //IL2Method method = OVRLipSyncMicInput.Instance_Class.GetMethod(x => x.Token == 0x6001E6C);
-                IL2Method[] methods = OVRLipSyncMicInput.Instance_Class.GetMethods(x => x.ReturnType.Name == typeof(void).FullName && x.GetParameters().Length == 0 && x.GetDisassembler(0x512).Disassemble().Where(y => y.Mnemonic == ud_mnemonic_code.UD_Icall).Count() == 50);
+                IL2Method[] methods = OVRLipSyncMicInput.Instance_Class.GetMethods(x => !x.IsStatic && x.GetParameters().Length == 0 && x.Name != "OnGUI");
                 foreach(var method in methods)
                 {
-                    new IL2Patch(method, (_OVRLipSyncMicInput_OnGUI)Nulled);
+                    if (method != null)
+                    {
+                        new IL2Patch(method, (_null)StopMicrophone);
+                    }
+                    else
+                        throw new NullReferenceException();
                 }
             }
             catch (Exception ex)
@@ -105,11 +110,14 @@ namespace BE4v.Mods.Core
             }
             finally
             {
-                _delegateInteractivePlayer_Update(instance);
+                if (instance != IntPtr.Zero)
+                    __Update(instance);
             }
         }
 
-        public static void Nulled(IntPtr instance) { }
+        public static void StopMicrophone(IntPtr instance)
+        {
+        }
 
         private static IOnGUI[] onGUIs = new IOnGUI[0];
         public static void OnGUI(IntPtr instance)
@@ -123,7 +131,8 @@ namespace BE4v.Mods.Core
             }
             finally
             {
-                _delegateOVRLipSyncMicInput_OnGUI(instance);
+                if (instance != IntPtr.Zero)
+                    __OnGUI(instance);
             }
         }
     }

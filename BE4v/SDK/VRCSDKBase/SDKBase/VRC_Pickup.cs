@@ -26,6 +26,20 @@ namespace VRC.SDKBase
 			set => Instance_Class.GetField(nameof(allowManipulationWhenEquipped)).SetValue(ptr, new IntPtr(&value));
 		}
 
+		unsafe public PickupOrientation orientation
+		{
+			get => Instance_Class.GetField(nameof(orientation)).GetValue(ptr).GetValuе<PickupOrientation>();
+			set => Instance_Class.GetField(nameof(orientation)).SetValue(ptr, new IntPtr(&value));
+		}
+
+		public enum PickupOrientation
+		{
+			Any,
+			Grip,
+			Gun
+		}
+
+
 		public static new IL2Class Instance_Class = Assembler.list["VRCSDKBase"].GetClass("VRC_Pickup", "VRC.SDKBase");
 	}
 }
