@@ -9,7 +9,7 @@ Register for Client (Release): https://client.icefrag.ru
 [- Donate](https://client.icefrag.ru/donate)
 
 ___Contacts:___
-[Discord [~IF Community~]](http://discord.gg/8mMGM43)
+[Discord [IF Community]](http://discord.gg/8mMGM43)
 Discord: BlazeBest#4974
 
 # Command line
