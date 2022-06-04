@@ -11,7 +11,7 @@ Register for Client (Release): https://client.icefrag.ru
 | [- Donate](https://client.icefrag.ru/donate) |
 
 # Contacts
-| Group In Dirscord | Developer |
+| IF Community | Developer |
 |----------------|:-----------:|
 | http://discord.gg/8mMGM43 | BlazeBest#4974 |
 
