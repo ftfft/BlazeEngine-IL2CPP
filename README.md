@@ -2,8 +2,6 @@
 Register for Client (Release): https://client.icefrag.ru
 
 # Links
-| LEFT |
-|----------------|
 | [- Instruction](https://client.icefrag.ru/instruction) |
 | [- Avatars](https://client.icefrag.ru/avatars) |
 | [- Binds](https://client.icefrag.ru/binds) |
