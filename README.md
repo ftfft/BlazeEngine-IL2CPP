@@ -5,7 +5,7 @@ Register for Client (Release): https://client.icefrag.ru
 "--dev-console" - For open DebugConsole
 
 # Donate
-- Ask on Discord: BlazeBest#4974
+https://client.icefrag.ru/donate
 
 # Contacts
 Discord: BlazeBest#4974
