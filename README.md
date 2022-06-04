@@ -10,10 +10,10 @@ Register for Client (Release): https://client.icefrag.ru
 | [- FAQ](https://client.icefrag.ru/faq) |
 | [- Donate](https://client.icefrag.ru/donate) |
 
-| ___Contacts:___ |
-|----------------|
-| [Discord [IF Community]](http://discord.gg/8mMGM43) |
-| Discord: BlazeBest#4974 |
+# Contacts
+| Group In Dirscord | Developer |
+|----------------|:-----------:|
+| [IF Community](http://discord.gg/8mMGM43) | BlazeBest#4974 |
 
 # Command line
 "--dev-console" - For open DebugConsole
