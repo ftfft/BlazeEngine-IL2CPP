@@ -25,7 +25,7 @@ public class VRCUiPopupManager : MonoBehaviour
             }
         }
         var parameters = method.GetParameters();
-        if (parameters.Length == 11)
+        if (parameters.Length != 12)
         {
             "VRCUiPopupManager::ShowUnityInputPopupWithCancel".RedPrefix("Failed");
 
