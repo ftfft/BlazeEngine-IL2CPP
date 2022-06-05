@@ -29,15 +29,15 @@ public class VRCUiPopupManager : MonoBehaviour
         {
             "VRCUiPopupManager::ShowUnityInputPopupWithCancel".RedPrefix("Failed");
 
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                parameters[i].ReturnType.Name.RedPrefix("" + i);
+            }
         }
         else
         {
             method.Name = nameof(ShowUnityInputPopupWithCancel);
         }
-        for (int i=0;i< parameters.Length;i++)
-        {
-            parameters[i].ReturnType.Name.RedPrefix("" + i);
-        } 
     }
 
     public static VRCUiPopupManager Instance
@@ -95,7 +95,7 @@ public class VRCUiPopupManager : MonoBehaviour
             return;
         }
         IL2Delegate _submitButtonAction = null;
-        IL2Delegate _cancelButtonAction = null; // IL2Delegate.CreateDelegate(cancelButtonAction);
+        IL2Delegate _cancelButtonAction = IL2Delegate.CreateDelegate(cancelButtonAction);
         IL2Delegate _additionalSetup = null;
         method.Invoke(ptr, new IntPtr[] {
             new IL2String(title).ptr, // string
