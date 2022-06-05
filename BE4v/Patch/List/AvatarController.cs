@@ -119,20 +119,20 @@ namespace BE4v.Patch.List
                 avatarModel.localPosition = baseAvatarModelPosition + new Vector3(0, 60, 0);
                 avatarModel.localScale *= 0.8f;
 
-                UpdateAvatarList();
+                UpdateAvatarList(favList);
             }
 
-            public static void UpdateAvatarList()
+            public static void UpdateAvatarList(UiAvatarList list)
             {
-                if (favList == null)
+                if (list == null)
                     return;
 
-                favList.specificListValues.Clear();
-                favList.specificListIds = Avatars.AvatarId.ToArray();
-                favList.expandedHeight = 850f;
-                favList.extendRows = 4;
-                favList.ClearList();
-                favList.Refresh();
+                list.specificListValues.Clear();
+                list.specificListIds = Avatars.AvatarId.ToArray();
+                list.expandedHeight = 850f;
+                list.extendRows = 4;
+                list.ClearList();
+                list.Refresh();
             }
 
             public static void Update()
@@ -207,7 +207,7 @@ namespace BE4v.Patch.List
                     return;
 
                 Avatars.AvatarId.Insert(0, avatarId);
-                UpdateAvatarList();
+                UpdateAvatarList(favList);
                 new Thread(() => { Avatars.Add(avatarId); }).Start();
             }
 
@@ -217,7 +217,7 @@ namespace BE4v.Patch.List
                     return;
 
                 Avatars.AvatarId.Remove(avatarId);
-                UpdateAvatarList();
+                UpdateAvatarList(favList);
                 new Thread(() => { Avatars.Remove(avatarId); }).Start();
             }
 
