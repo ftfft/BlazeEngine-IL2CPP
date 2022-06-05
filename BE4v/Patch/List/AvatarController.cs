@@ -118,6 +118,8 @@ namespace BE4v.Patch.List
                 favButton.localPosition = baseButtonFavPosition + new Vector3(0, 80, 0);
                 avatarModel.localPosition = baseAvatarModelPosition + new Vector3(0, 60, 0);
                 avatarModel.localScale *= 0.8f;
+
+                UpdateAvatarList();
             }
 
             public static void UpdateAvatarList()
