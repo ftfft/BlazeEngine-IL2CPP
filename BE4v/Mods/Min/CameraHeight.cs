@@ -22,7 +22,7 @@ namespace BE4v.Mods.Min
             }
             if (Input.GetKeyDown(KeyCode.U))
             {
-                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Test title", "body content...", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", null, () => { "Clicked cancel button".RedPrefix("Test"); }, "Enter avatar name");
+                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", (a, b, c) => { ("Arg1" + a + "Arg2" + b + "Arg3" + c).RedPrefix("Test"); }, null, "Enter avatar name");
             }
         }
     }

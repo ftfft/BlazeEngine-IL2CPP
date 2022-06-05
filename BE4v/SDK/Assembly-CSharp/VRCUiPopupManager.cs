@@ -58,21 +58,7 @@ public class VRCUiPopupManager : MonoBehaviour
             (method = Instance_Class.GetMethods(x => x.GetParameters().Length == 3 && x.GetParameters()[2].ReturnType.Name == typeof(float).FullName).First(x => x.GetDisassembler().Disassemble().Count() == 1010)).Name = nameof(ShowAlert);
         method.Invoke(ptr, new IntPtr[] { new IL2String(title).ptr, new IL2String(body).ptr, new IntPtr(&timeout) });
     }
-
-    /*
-[0] System.String
-[1] System.String
-[2] UnityEngine.UI.InputField.InputType
-[3] System.Boolean
-[4] System.String
-[5] System.Action<System.String,System.Collections.Generic.List<UnityEngine.KeyCode>,UnityEngine.UI.Text>
-[6] System.Action
-[7] System.String
-[8] System.Boolean
-[9] System.Action<VRCUiPopup>
-[10] System.Boolean
-[11] System.Int32
-     */
+    ///
     unsafe public void ShowUnityInputPopupWithCancel(
         string title,
         string body,
@@ -94,7 +80,20 @@ public class VRCUiPopupManager : MonoBehaviour
             "Method not found!".RedPrefix("VRCUiPopupManager::ShowUnityInputPopupWithCancel");
             return;
         }
-        IL2Delegate _submitButtonAction = null;
+        IL2Delegate _submitButtonAction = IL2Delegate.CreateDelegate((new Action<IntPtr, IntPtr, IntPtr>((a, b, c) => {
+            string text = null;
+            IL2List<KeyCode> keyCodeList = null;
+            Text uiText = null;
+
+            if (a != IntPtr.Zero)
+                text = new IL2String(a).ToString();
+            if (b != IntPtr.Zero)
+                keyCodeList = new IL2List<KeyCode>(b);
+            if (c != IntPtr.Zero)
+                uiText = new Text(c);
+
+            submitButtonAction(text, keyCodeList, uiText);
+        })), Assembler.list["mscorlib"].GetClass("Action`3", typeof(Action).Namespace));
         IL2Delegate _cancelButtonAction = IL2Delegate.CreateDelegate(cancelButtonAction);
         IL2Delegate _additionalSetup = null;
         method.Invoke(ptr, new IntPtr[] {
