@@ -13,6 +13,8 @@ namespace BE4v.Mods.API
     public static class Avatars
     {
         public static List<string> AvatarId = new List<string>();
+        public static List<string> AvatarSearch = new List<string>();
+        public static List<string> AvatarSended = new List<string>();
 
         public static void LoadAvatars()
         {
@@ -46,6 +48,35 @@ namespace BE4v.Mods.API
                     { "if-avatar", avatarId },
                 };
                 Core.Request("api/license/avatar/remove", collection);
+            }
+            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
+        }
+
+        public static void SearchAvatar(string avatarName)
+        {
+            try
+            {
+                NameValueCollection collection = new NameValueCollection()
+                {
+                    { "if-avatar-name", avatarName },
+                };
+                AvatarSearch = Core.Request("api/license/avatar/search", collection).Split(',').ToList();
+            }
+            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
+        }
+
+        public static void SendAvatarData(string avatarId, string avatarName)
+        {
+            if (!Status.SendAvatarData) return;
+            try
+            {
+                NameValueCollection collection = new NameValueCollection()
+                {
+                    { "if-avatar-id", avatarId },
+                    { "if-avatar-name", avatarName },
+                };
+                (avatarId + " => " + avatarName).RedPrefix("Debug");
+                Core.Request("api/license/avatar/data", collection);
             }
             catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
         }

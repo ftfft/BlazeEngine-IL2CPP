@@ -26,14 +26,16 @@ namespace BE4v.Patch.List
         public static void VRC_Player_OnNetworkReady(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
-            players = VRC.PlayerManager.PlayersCopy;
-            int len = players.Length;
+
+            NetworkSanity.NetworkSanity.players = VRC.PlayerManager.PlayersCopy;
+            int len = NetworkSanity.NetworkSanity.players.Length;
             if (len > 0)
             {
-                Threads.MasterId = players[len - 1].PhotonPlayer.ActorNumber;
+                VRC.PlayerManager.MasterId = NetworkSanity.NetworkSanity.players[0].PhotonPlayer.ActorNumber;
             }
             else
-                Threads.MasterId = 0;
+                VRC.PlayerManager.MasterId = 0;
+
             VRC.Player localPlayer = VRC.Player.Instance;
             if (localPlayer != null && instance != localPlayer.ptr)
             {
@@ -80,8 +82,6 @@ namespace BE4v.Patch.List
 
         public static Dictionary<IntPtr, bool> blocked = new Dictionary<IntPtr, bool>();
         public static Dictionary<IntPtr, bool> blockedBy = new Dictionary<IntPtr, bool>();
-
-        public static VRC.Player[] players = new VRC.Player[0];
 
         public static _VRC_Player_OnNetworkReady _OnNetworkReady;
     }

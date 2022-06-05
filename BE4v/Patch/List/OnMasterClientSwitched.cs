@@ -31,8 +31,8 @@ namespace BE4v.Patch.List
             if (instance == IntPtr.Zero)
                 return;
             IL2Photon.Realtime.Player player = new IL2Photon.Realtime.Player(newMasterClient);
-            Threads.MasterId = player.ActorNumber;
-            ("New master Instance: " + Threads.MasterId).RedPrefix("Debug");
+            VRC.PlayerManager.MasterId = player.ActorNumber;
+            ("New master Instance: " + VRC.PlayerManager.MasterId).RedPrefix("Debug");
             __OnMasterClientSwitched(instance, newMasterClient);
         }
 

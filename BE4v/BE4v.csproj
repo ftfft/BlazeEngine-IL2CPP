@@ -109,6 +109,9 @@
     <Compile Include="Patch\Core\IPatch.cs" />
     <Compile Include="Patch\Core\PatchUtils.cs" />
     <Compile Include="Patch\Core\oldPatch.cs" />
+    <Compile Include="Patch\List\AvatarSearch.cs" />
+    <Compile Include="Patch\List\AvatarData.cs" />
+    <Compile Include="Patch\List\UnityInstantiate.cs" />
     <Compile Include="Patch\List\OnMasterClientSwitched.cs" />
     <Compile Include="Patch\List\PhotonNetwork.cs" />
     <Compile Include="Patch\List\NoAnalytics_LogEvent.cs" />

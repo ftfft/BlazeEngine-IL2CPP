@@ -54,7 +54,7 @@ namespace BE4v.MenuEdit.IMGUI
             {
                 if (sitOnPlayer != null)
                 {
-                    VRC.Player[] playerArray = Patch.List.OnPlayerReady.players;
+                    VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
                     foreach (var player in playerArray)
                     {
                         VRCPlayer components = player?.Components;
@@ -86,7 +86,7 @@ namespace BE4v.MenuEdit.IMGUI
                 GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.ptr);
 
                 int iPlayer = 0;
-                VRC.Player[] playerArray = Patch.List.OnPlayerReady.players;
+                VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
                 foreach (var player in playerArray)
                 {
                     int? playerId = player?.PhotonPlayer?.ActorNumber;

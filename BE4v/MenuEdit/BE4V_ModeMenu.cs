@@ -41,9 +41,10 @@ namespace BE4v.MenuEdit
             elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
             ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);
             ConsoleLog.Refresh();
+            SendAvatarData.button = new ElementButton("Send Avatars Data", elementGroup, SendAvatarData.OnClick);
+            SendAvatarData.Refresh();
             new ElementButton("Toggle Fly Type", elementGroup, delegate () { FlyHack.ToggleType(); });
             new ElementButton("Toggle Fly Type 2", elementGroup, delegate () { FlyHack.ToggleType(); });
-            new ElementButton("Toggle Fly Type 3", elementGroup, delegate () { FlyHack.ToggleType(); });
         }
 
         public static class RPCBlock
@@ -293,6 +294,33 @@ namespace BE4v.MenuEdit
                 if (button != null)
                 {
                     if (Status.isLog)
+                    {
+                        button.SetSprite(LoadSprites.onButton);
+
+                    }
+                    else
+                    {
+                        button.SetSprite(LoadSprites.offButton);
+                    }
+                }
+            }
+        }
+
+        public static class SendAvatarData
+        {
+            public static ElementButton button = null;
+
+            public static void OnClick()
+            {
+                Status.SendAvatarData = !Status.SendAvatarData;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.SendAvatarData)
                     {
                         button.SetSprite(LoadSprites.onButton);
 

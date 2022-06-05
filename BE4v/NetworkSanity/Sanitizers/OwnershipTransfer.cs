@@ -60,7 +60,7 @@ namespace NetworkSanity.Sanitizers
 
             int transObj = BitConverter.ToInt32(bytes, 0);
             int sender = BitConverter.ToInt32(bytes, 4);
-            if (Threads.MasterId == eventData.Sender)
+            if (VRC.PlayerManager.MasterId == eventData.Sender)
                 return false;
 
             if (sender != eventData.Sender)

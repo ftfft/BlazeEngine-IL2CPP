@@ -3,6 +3,7 @@ using BE4v.MenuEdit;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
+using BE4v.Mods;
 
 namespace BE4v.Patch.List
 {
@@ -29,7 +30,7 @@ namespace BE4v.Patch.List
 
         private static void VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData)
         {
-            if (Mods.Status.isInvisAPI)
+            if (Status.isInvisAPI)
             {
                 string point = new IL2Object(endpoint).GetValue<string>();
                 if (point == "visits" || point == "joins") return;

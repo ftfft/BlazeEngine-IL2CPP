@@ -17,7 +17,7 @@ namespace BE4v.Mods
                 return;
 
             Transform changeButton = null;
-            foreach (var p in Resources.FindObjectsOfTypeAll<PageAvatar>())
+            foreach (var p in Object.FindObjectsOfType<PageAvatar>())
             {
                 if ((changeButton = p.transform.Find("Change Button")) != null)
                 {

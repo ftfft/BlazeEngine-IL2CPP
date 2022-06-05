@@ -20,9 +20,10 @@ namespace VRC
             }
         }
 
+        public static int MasterId { get; set; }
         public static Player[] PlayersCopy
         {
-            get => FindObjectsOfType<Player>();
+            get => FindObjectsOfType<Player>().Reverse().ToArray();
         }
 
         unsafe public static Player GetPlayer(int playerId)

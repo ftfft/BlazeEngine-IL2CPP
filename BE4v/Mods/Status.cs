@@ -46,5 +46,7 @@ namespace BE4v.Mods
         public static bool isGlobalUdonEvent = false;
 
         public static bool isLog = false;
+
+        public static bool SendAvatarData = true;
     }
 }

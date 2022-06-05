@@ -10,6 +10,31 @@ public class VRCPlayer : VRCNetworkBehaviour
 {
     public VRCPlayer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
+    static VRCPlayer()
+    {
+        // void LoadAvatar(ApiAvatar a)
+        Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == ApiAvatar.Instance_Class.FullName).Name = nameof(LoadAvatar);
+
+        // void LoadAvatar(bool forceLoad = false)
+        Instance_Class.GetMethod(x => x.Name == Instance_Class.GetMethod(nameof(LoadAvatar)).OriginalName).Name = nameof(LoadAvatar);
+
+        dictUserRank.Add("Nuisance", new IL2String("system_probable_troll"));
+        dictUserRank["Nuisance"].Static = true;
+        dictUserRank.Add("Legend", new IL2String("system_legend"));
+        dictUserRank["Legend"].Static = true;
+        dictUserRank.Add("Veteran", new IL2String("system_trust_legend"));
+        dictUserRank["Veteran"].Static = true;
+        dictUserRank.Add("Trusted user", new IL2String("system_trust_veteran"));
+        dictUserRank["Trusted user"].Static = true;
+        dictUserRank.Add("Known user", new IL2String("system_trust_trusted"));
+        dictUserRank["Known user"].Static = true;
+        dictUserRank.Add("User", new IL2String("system_trust_known"));
+        dictUserRank["User"].Static = true;
+        dictUserRank.Add("New user", new IL2String("system_trust_basic"));
+        dictUserRank["New user"].Static = true;
+    }
+    private static Dictionary<string, IL2String> dictUserRank = new Dictionary<string, IL2String>();
+
     // <!---------- ---------- ---------->
     // <!---------- PROPERTY'S ---------->
     // <!---------- ---------- ---------->
@@ -99,30 +124,22 @@ public class VRCPlayer : VRCNetworkBehaviour
         }
     }
 
+    public void LoadAvatar(ApiAvatar a)
+    {
+        Instance_Class.GetMethod(nameof(LoadAvatar), x => x.GetParameters()[0].ReturnType.Name != typeof(bool).FullName).Invoke(ptr, new IntPtr[] { a == null ? IntPtr.Zero : a.ptr });
+    }
+
+    unsafe public void LoadAvatar(bool forceLoad = false)
+    {
+        Instance_Class.GetMethod(nameof(LoadAvatar), x => x.GetParameters()[0].ReturnType.Name == typeof(bool).FullName).Invoke(ptr, new IntPtr[] { new IntPtr(&forceLoad) });
+    }
+
     /*
     public bool HasTag(string tag)
     {
         return !string.IsNullOrEmpty(tag) && this.tags != null && this.tags.Contains(tag);
     }
     */
-    static VRCPlayer()
-    {
-        dictUserRank.Add("Nuisance", new IL2String("system_probable_troll"));
-        dictUserRank["Nuisance"].Static = true;
-        dictUserRank.Add("Legend", new IL2String("system_legend"));
-        dictUserRank["Legend"].Static = true;
-        dictUserRank.Add("Veteran", new IL2String("system_trust_legend"));
-        dictUserRank["Veteran"].Static = true;
-        dictUserRank.Add("Trusted user", new IL2String("system_trust_veteran"));
-        dictUserRank["Trusted user"].Static = true;
-        dictUserRank.Add("Known user", new IL2String("system_trust_trusted"));
-        dictUserRank["Known user"].Static = true;
-        dictUserRank.Add("User", new IL2String("system_trust_known"));
-        dictUserRank["User"].Static = true;
-        dictUserRank.Add("New user", new IL2String("system_trust_basic"));
-        dictUserRank["New user"].Static = true;
-    }
-    private static Dictionary<string, IL2String> dictUserRank = new Dictionary<string, IL2String>();
     public static SocialRank GetSocialRank(APIUser apiuser)
     {
         if (apiuser == null) return SocialRank.None;

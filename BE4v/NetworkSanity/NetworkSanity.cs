@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NetworkSanity.Core;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
+using BE4v.Patch.List;
 using IL2ExitGames.Client.Photon;
 using IL2Photon.Realtime;
 
@@ -49,18 +50,9 @@ namespace NetworkSanity
                 if (eventDataPtr == IntPtr.Zero)
                     return false;
 
-                var eventData = new EventData(eventDataPtr);
-
-                int sender = eventData.Sender;
-                if (sender < 1) return true;
-                int eventCode = eventData.Code;
-                if (eventCode == EventCode.Leave)
-                {
-                    if (userList.Contains(sender))
-                        userList.Remove(sender);
-
+                EventData eventData = new EventData(eventDataPtr);
+                if (IsValid(eventData))
                     return true;
-                }
 
                 foreach (var i in Sanitizers)
                 {
@@ -78,18 +70,9 @@ namespace NetworkSanity
                 if (eventDataPtr == IntPtr.Zero)
                     return false;
 
-                var eventData = new EventData(eventDataPtr);
-
-                int sender = eventData.Sender;
-                if (sender < 1) return true;
-                int eventCode = eventData.Code;
-                if (eventCode == EventCode.Leave)
-                {
-                    if (userList.Contains(sender))
-                        userList.Remove(sender);
-
+                EventData eventData = new EventData(eventDataPtr);
+                if (IsValid(eventData))
                     return true;
-                }
 
                 foreach (var i in Sanitizers)
                 {
@@ -108,18 +91,9 @@ namespace NetworkSanity
                 if (eventDataPtr == IntPtr.Zero)
                     return false;
 
-                var eventData = new EventData(eventDataPtr);
-
-                int sender = eventData.Sender;
-                if (sender < 1) return true;
-                int eventCode = eventData.Code;
-                if (eventCode == EventCode.Leave)
-                {
-                    if (userList.Contains(sender))
-                        userList.Remove(sender);
-
+                EventData eventData = new EventData(eventDataPtr);
+                if (IsValid(eventData))
                     return true;
-                }
 
                 foreach (var i in Sanitizers)
                 {
@@ -130,6 +104,32 @@ namespace NetworkSanity
                 return true;
             }
         }
+
+        private static bool IsValid(EventData eventData)
+        {
+            int sender = eventData.Sender;
+            if (sender < 1) return true;
+            int eventCode = eventData.Code;
+            if (eventCode == EventCode.Leave || eventCode == EventCode.Join)
+            {
+                if (userList.Contains(sender))
+                    userList.Remove(sender);
+
+                players = VRC.PlayerManager.PlayersCopy;
+                int len = players.Length;
+                if (len > 0)
+                {
+                    VRC.PlayerManager.MasterId = players[0].PhotonPlayer.ActorNumber;
+                }
+                else
+                    VRC.PlayerManager.MasterId = 0;
+
+                return true;
+            }
+            return false;
+        }
+
+        public static VRC.Player[] players = new VRC.Player[0];
 
         private static ISanitizer[] Sanitizers = new ISanitizer[0];
 
