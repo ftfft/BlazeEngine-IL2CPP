@@ -190,6 +190,7 @@
     <Compile Include="SDK\CPP2IL\IL2Dictionary.cs" />
     <Compile Include="SDK\CPP2IL\IL2Utils.cs" />
     <Compile Include="SDK\mscorlib\System\Collections\Hashtable.cs" />
+    <Compile Include="SDK\mscorlib\System\Reflection\ParameterInfo.cs" />
     <Compile Include="SDK\mscorlib\System\RuntimeMethodHandle.cs" />
     <Compile Include="SDK\mscorlib\System\Reflection\Assembly.cs" />
     <Compile Include="SDK\mscorlib\System\Reflection\MonoMethod.cs" />
@@ -220,8 +221,6 @@
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\EnetPeer.cs" />
     <Compile Include="SDK\System\Net\WebRequest.cs" />
     <Compile Include="SDK\System\Net\IL2WebClient.cs" />
-    <Compile Include="SDK\TestIL\ILInstruction.cs" />
-    <Compile Include="SDK\TestIL\ILParser.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\Notification.cs" />
     <Compile Include="SDK\Transmtn\Transmtn\DTO\Notifications\NotificationDetails.cs" />
     <Compile Include="SDK\Unity.TextMeshPro\TMPro\TMP_Asset.cs" />

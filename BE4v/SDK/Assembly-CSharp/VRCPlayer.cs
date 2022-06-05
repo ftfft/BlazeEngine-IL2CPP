@@ -12,6 +12,8 @@ public class VRCPlayer : VRCNetworkBehaviour
 
     static VRCPlayer()
     {
+        Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("PlayEmoteRPC");
+
         // void LoadAvatar(ApiAvatar a)
         Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == ApiAvatar.Instance_Class.FullName).Name = nameof(LoadAvatar);
 
@@ -349,5 +351,5 @@ public class VRCPlayer : VRCNetworkBehaviour
         VRChatTeam
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("PlayEmoteRPC");
+    public static new IL2Class Instance_Class;
 }

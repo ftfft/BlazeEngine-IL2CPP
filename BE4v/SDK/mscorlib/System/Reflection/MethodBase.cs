@@ -10,7 +10,15 @@ namespace System.Reflection
     public class IL2MethodBase : IL2MemberInfo
     {
         public IL2MethodBase(IntPtr ptr) : base(ptr) => base.ptr = ptr;
-        
+
+        /// <summary>
+        ///     Not supported IL2CPP
+        /// </summary>
+        public IL2ParameterInfo[] GetParameters()
+        {
+            return Instance_Class.GetMethod("GetParameters").Invoke(ptr)?.UnboxArray<IL2ParameterInfo>();
+        }
+
         public IL2RuntimeMethodHandle MethodHandle
         {
             get => Instance_Class.GetProperty(nameof(MethodHandle)).GetGetMethod().Invoke(ptr).GetValue<IL2RuntimeMethodHandle>();

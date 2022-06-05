@@ -9,7 +9,6 @@ using BE4v.MenuEdit.Construct;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using BE4v.Mods.API;
-using IL;
 
 namespace BE4v
 {

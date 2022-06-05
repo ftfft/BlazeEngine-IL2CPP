@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace BE4v.SDK.CPP2IL
 {
-    public class IL2Method : IL2MethodInfo
+    public class IL2Method : IL2Base
     {
         internal IL2Method(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -120,5 +120,6 @@ namespace BE4v.SDK.CPP2IL
             return returnval;
         }
 
+        public IL2MethodInfo MethodInfo => new IL2MethodInfo(ptr);
     }
 }
