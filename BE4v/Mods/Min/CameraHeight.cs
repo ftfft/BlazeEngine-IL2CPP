@@ -20,6 +20,10 @@ namespace BE4v.Mods.Min
                     Camera.main.transform.localPosition -= (Vector3.up * 0.1f);
                 }
             }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Test title", "body content...", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", null, () => { "Clicked cancel button".RedPrefix("Test"); }, "Enter avatar name");
+            }
         }
     }
 }

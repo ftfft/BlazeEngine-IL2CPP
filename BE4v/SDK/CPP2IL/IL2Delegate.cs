@@ -9,6 +9,9 @@ namespace BE4v.SDK.CPP2IL
 
         public unsafe static IL2Delegate CreateDelegate(Delegate function, IL2Class klass = null)
         {
+            if (function == null)
+                return null;
+
             if (klass == null)
                 klass = IL2SystemClass.Action;
 

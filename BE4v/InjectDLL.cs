@@ -84,6 +84,10 @@ namespace BE4v
             if (ClientDebug.IsEnableDebug())
             {
                 /*
+                var mmm = VRCPlayer.Instance_Class.GetMethod("LoadAvatar", x => x.GetParameters()[0].ReturnType.Name == typeof(bool).FullName);
+                IL2Object obj = new IL2Object(Import.Class.il2cpp_type_get_object(mmm.ptr));
+                Console.WriteLine("Test Def val: " + obj.GetValuе<bool>());
+                /*
                 var instructions = NetworkManager.Instance_Class.GetMethod("OnJoinedRoom").GetDisassembler(0x256).Disassemble();
                 int u = 0;
                 foreach (var instruction in instructions)
