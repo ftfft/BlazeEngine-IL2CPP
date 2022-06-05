@@ -19,11 +19,17 @@ namespace System.Reflection
             return Instance_Class.GetMethod("GetParameters").Invoke(ptr)?.UnboxArray<IL2ParameterInfo>();
         }
 
+        /// <summary>
+        ///     Not supported IL2CPP
+        /// </summary>
         public IL2RuntimeMethodHandle MethodHandle
         {
             get => Instance_Class.GetProperty(nameof(MethodHandle)).GetGetMethod().Invoke(ptr).GetValue<IL2RuntimeMethodHandle>();
         }
 
+        /// <summary>
+        ///     Not supported IL2CPP
+        /// </summary>
         public IL2MethodBody GetMethodBody()
         {
             return Instance_Class.GetMethod(nameof(GetMethodBody), x => !x.IsStatic).Invoke(ptr)?.GetValue<IL2MethodBody>();
