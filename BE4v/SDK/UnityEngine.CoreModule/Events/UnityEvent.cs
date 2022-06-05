@@ -8,22 +8,10 @@ namespace UnityEngine.Events
         public UnityEvent(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
 
-        public void AddListener(UnityAction action, object _this = null)
+        public void AddListener(UnityAction action)
         {
-            IntPtr actionPtr = _UnityAction.CreateDelegate(action, _this);
-            if (actionPtr == IntPtr.Zero)
-                return;
-
-            Instance_Class.GetMethod("AddListener").Invoke(ptr, new IntPtr[] { actionPtr });
-        }
-
-        public void AddListener<T, X>(UnityAction<T> action, X _this)
-        {
-            IntPtr actionPtr = _UnityAction.CreateDelegate(action, _this);
-            if (actionPtr == IntPtr.Zero)
-                return;
-
-            Instance_Class.GetMethod("AddListener").Invoke(ptr, actionPtr);
+            IL2Delegate @delegate = IL2Delegate.CreateDelegate(action, Assembler.list["UnityEngine.CoreModule"].GetClass("UnityAction", "UnityEngine.Events"));
+            Instance_Class.GetMethod("AddListener").Invoke(ptr, new IntPtr[] { @delegate == null ? IntPtr.Zero : @delegate.ptr });
         }
 
         public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("UnityEvent", "UnityEngine.Events");

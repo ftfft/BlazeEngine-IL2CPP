@@ -186,6 +186,7 @@
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRTK\UICircle.cs" />
     <Compile Include="SDK\CPP2IL\IL2Array.cs" />
+    <Compile Include="SDK\CPP2IL\IL2Delegate.cs" />
     <Compile Include="SDK\CPP2IL\IL2HashSet.cs" />
     <Compile Include="SDK\CPP2IL\IL2Dictionary.cs" />
     <Compile Include="SDK\CPP2IL\IL2Utils.cs" />
@@ -369,6 +370,7 @@
     <Compile Include="SDK\UnityEngine.UIModule\CanvasGroup.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\Canvas.cs" />
     <Compile Include="SDK\UnityEngine.UIModule\CanvasRenderer.cs" />
+    <Compile Include="SDK\UnityEngine.UI\InputField.cs" />
     <Compile Include="SDK\UnityEngine.UI\HorizontalOrVerticalLayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\RectMask2D.cs" />
