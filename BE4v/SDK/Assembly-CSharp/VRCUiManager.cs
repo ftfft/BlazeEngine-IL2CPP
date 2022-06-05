@@ -18,8 +18,12 @@ public class VRCUiManager : MonoBehaviour
         }
     }
 
+    public void HideScreen(string screenType)
+    {
+        Instance_Class.GetMethod(nameof(HideScreen)).Invoke(ptr, new IntPtr[] { new IL2String(screenType).ptr });
+    }
 
-	public static T GetPage<T>(string screenPath) where T : VRCUiPage
+    public static T GetPage<T>(string screenPath) where T : VRCUiPage
 	{
         return GameObject.Find(screenPath)?.GetComponent<T>();
     }

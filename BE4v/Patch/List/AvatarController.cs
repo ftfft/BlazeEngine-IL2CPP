@@ -128,10 +128,10 @@ namespace BE4v.Patch.List
                     return;
 
                 list.specificListValues.Clear();
+                list.ClearList();
                 list.specificListIds = Avatars.AvatarId.ToArray();
                 list.expandedHeight = 850f;
                 list.extendRows = 4;
-                list.ClearList();
                 list.Refresh();
             }
 

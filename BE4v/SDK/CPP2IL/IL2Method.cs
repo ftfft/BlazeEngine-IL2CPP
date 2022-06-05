@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace BE4v.SDK.CPP2IL
 {
-    public class IL2Method : IL2Base
+    public class IL2Method : IL2MethodInfo
     {
         internal IL2Method(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
@@ -24,6 +25,7 @@ namespace BE4v.SDK.CPP2IL
 
         public int Token => Import.Method.il2cpp_method_get_token(ptr);
         public bool IsAbstract => HasFlag(IL2BindingFlags.METHOD_ABSTRACT);
+        public bool IsVirtual => HasFlag(IL2BindingFlags.METHOD_VIRTUAL);
         public bool IsStatic => HasFlag(IL2BindingFlags.METHOD_STATIC);
         public bool IsPrivate => HasFlag(IL2BindingFlags.METHOD_PRIVATE);
         public bool IsPublic => HasFlag(IL2BindingFlags.METHOD_PUBLIC);

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using VRCLoader.Attributes;
 using VRCLoader.Modules;
@@ -11,6 +9,7 @@ using BE4v.MenuEdit.Construct;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
 using BE4v.Mods.API;
+using IL;
 
 namespace BE4v
 {
