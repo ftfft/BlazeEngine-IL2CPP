@@ -83,9 +83,7 @@
     <Compile Include="Mods\Min\PortableObject.cs" />
     <Compile Include="Mods\Min\CreatePortal.cs" />
     <Compile Include="Mods\Min\ModifyQuickMenu.cs" />
-    <Compile Include="Mods\Mod_Avatars_Search.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
-    <Compile Include="Mods\Mod_Avatars.cs" />
     <Compile Include="Mods\Min\SitOnHead.cs" />
     <Compile Include="Mods\Min\Invisible.cs" />
     <Compile Include="Mods\Min\InfinityJump.cs" />
@@ -109,7 +107,7 @@
     <Compile Include="Patch\Core\IPatch.cs" />
     <Compile Include="Patch\Core\PatchUtils.cs" />
     <Compile Include="Patch\Core\oldPatch.cs" />
-    <Compile Include="Patch\List\AvatarSearch.cs" />
+    <Compile Include="Patch\List\AvatarController.cs" />
     <Compile Include="Patch\List\AvatarData.cs" />
     <Compile Include="Patch\List\UnityInstantiate.cs" />
     <Compile Include="Patch\List\OnMasterClientSwitched.cs" />
@@ -121,7 +119,6 @@
     <Compile Include="Patch\List\OnPlayerUpdateSync.cs" />
     <Compile Include="Patch\List\VRCNetworkingClient.cs" />
     <Compile Include="Patch\Patch_AntiBlock.cs" />
-    <Compile Include="Patch\List\UnlimitedAvatars.cs" />
     <Compile Include="Patch\Patch_AntiCrash.cs" />
     <Compile Include="Patch\List\GlobalUdonEvents.cs" />
     <Compile Include="Patch\Patch_Event_OnShowProfile.cs" />
