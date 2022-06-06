@@ -46,7 +46,7 @@ namespace BE4v.Patch.List
                 ApiAvatar apiAvatar = new ApiAvatar(apiAvatarPtr);
                 string avatarId = apiAvatar.id;
                 string avatarName = apiAvatar.name;
-                if (!Avatars.AvatarSended.Contains(avatarId))
+                if (!Avatars.AvatarSended.Contains(avatarId) && !Avatars.AvatarSearch.Contains(avatarId))
                 {
                     Avatars.AvatarSended.Add(avatarId);
                     new Thread(() => {
@@ -67,7 +67,7 @@ namespace BE4v.Patch.List
                 if (apiAvatar == null) return;
                 string avatarId = apiAvatar.id;
                 string avatarName = apiAvatar.name;
-                if (!Avatars.AvatarSended.Contains(avatarId))
+                if (!Avatars.AvatarSended.Contains(avatarId) && !Avatars.AvatarSearch.Contains(avatarId))
                 {
                     Avatars.AvatarSended.Add(avatarId);
                     new Thread(() => {

@@ -68,7 +68,6 @@ namespace BE4v.Mods.API
 
         public static void SendAvatarData(string avatarId, string avatarName)
         {
-            if (!Status.SendAvatarData) return;
             try
             {
                 NameValueCollection collection = new NameValueCollection()
