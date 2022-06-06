@@ -114,7 +114,8 @@ namespace BE4v.Patch.List
             {
                 if (favList != null)
                 {
-                    UnityEngine.Object.Destroy(favList.gameObject);
+                    favList.gameObject.SetActive(false);
+                    UnityEngine.Object.Destroy(favList.gameObject, 300f);
                     favList = null;
                 }
                 if (searchButton != null)
@@ -134,10 +135,13 @@ namespace BE4v.Patch.List
                 {
                     if (iCount == 20)
                     {
-                        if (favList == null)
+                        if (favList != null)
                         {
-                            favList = Utils.Avatars.AddNewList("Search avatar", 0, false);
+                            favList.gameObject.SetActive(false);
+                            UnityEngine.Object.Destroy(favList.gameObject, 300f);
+                            favList = null;
                         }
+                        favList = Utils.Avatars.AddNewList("Search avatar", 0, false);
                     }
 
                     if (--iCount < 1)
@@ -152,7 +156,8 @@ namespace BE4v.Patch.List
             {
                 if (favList != null)
                 {
-                    UnityEngine.Object.Destroy(favList.gameObject);
+                    favList.gameObject.SetActive(false);
+                    UnityEngine.Object.Destroy(favList.gameObject, 300f);
                     favList = null;
                 }
                 if (searchButton != null)
