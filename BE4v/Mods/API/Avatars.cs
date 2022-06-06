@@ -49,7 +49,7 @@ namespace BE4v.Mods.API
                 };
                 Core.Request("api/license/avatar/remove", collection);
             }
-            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
+            catch { "Failed! Remove avatar from API.".RedPrefix("Be4v API"); }
         }
 
         public static void SearchAvatar(string avatarName)
@@ -61,8 +61,9 @@ namespace BE4v.Mods.API
                     { "if-avatar-name", avatarName },
                 };
                 AvatarSearch = Core.Request("api/license/avatar/search", collection).Split(',').ToList();
+                ($"Loaded {AvatarSearch.Count} avatars").RedPrefix("Debug");
             }
-            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
+            catch { "Failed! Search avatar from API.".RedPrefix("Be4v API"); }
         }
 
         public static void SendAvatarData(string avatarId, string avatarName)
@@ -75,10 +76,10 @@ namespace BE4v.Mods.API
                     { "if-avatar-id", avatarId },
                     { "if-avatar-name", avatarName },
                 };
-                (avatarId + " => " + avatarName).RedPrefix("Debug");
+                // (avatarId + " => " + avatarName).RedPrefix("Debug");
                 Core.Request("api/license/avatar/data", collection);
             }
-            catch { "Failed! Load avatar from API.".RedPrefix("Be4v API"); }
+            catch { "Failed! Send Data avatar from API.".RedPrefix("Be4v API"); }
         }
     }
 }

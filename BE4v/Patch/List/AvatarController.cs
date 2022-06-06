@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using BE4v.MenuEdit;
 using BE4v.SDK;
@@ -56,12 +57,20 @@ namespace BE4v.Patch.List
         {
             if (instance == IntPtr.Zero) return;
             __OnEnable(instance);
-            UnlimitedAvatars.Start(instance);
+            if (License.IsLicense == true)
+            {
+                UnlimitedAvatars.OnEnable(instance);
+                SearchAvatars.OnEnable(instance);
+            }
         }
 
         private static void OnDisable(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
+            if (License.IsLicense == true)
+            {
+                SearchAvatars.OnDisable(instance);
+            }
             __OnDisable(instance);
         }
 
@@ -69,18 +78,24 @@ namespace BE4v.Patch.List
         {
             if (instance == IntPtr.Zero) return;
             __Update(instance);
-            UnlimitedAvatars.Update();
-            SearchAvatars.Update();
+            if (License.IsLicense == true)
+            {
+                UnlimitedAvatars.Update();
+                SearchAvatars.Update();
+            }
         }
 
-        public static void UpdateAvatarList(UiAvatarList list)
+        public static void UpdateAvatarList(UiAvatarList list, List<string> avatarList = null)
         {
             if (list == null)
                 return;
 
+            if (avatarList == null)
+                avatarList = Avatars.AvatarId;
+
             list.specificListValues.Clear();
             list.ClearList();
-            list.specificListIds = Avatars.AvatarId.ToArray();
+            list.specificListIds = avatarList.ToArray();
             list.expandedHeight = 850f;
             list.extendRows = 4;
             list.Refresh();
@@ -90,16 +105,65 @@ namespace BE4v.Patch.List
         public static _Update __Update;
         public static _OnDisable __OnDisable;
 
+        private static Transform searchButton;
+        private static Transform searchButtonOriginal;
+
         public static class SearchAvatars
         {
+            public static void OnEnable(IntPtr instance)
+            {
+                if (favList != null)
+                {
+                    UnityEngine.Object.Destroy(favList.gameObject);
+                    favList = null;
+                }
+                if (searchButton != null)
+                {
+                    searchButton.gameObject.SetActive(true);
+                    searchButton.GetComponentInChildren<Button>(true).interactable = true;
+                }
+                if (searchButtonOriginal != null)
+                {
+                    searchButtonOriginal.gameObject.SetActive(false);
+                }
+            }
+
             public static void Update()
             {
                 if (isSearch == false)
                 {
-                    isSearch = null;
+                    if (iCount == 20)
+                    {
+                        if (favList != null)
+                        {
+                            UnityEngine.Object.Destroy(favList.gameObject);
+                            favList = null;
+                        }
+                        favList = Utils.Avatars.AddNewList("Search avatar", 0, false);
+                    }
 
+                    if (--iCount < 1)
+                    {
+                        isSearch = null;
+                    }
+                    UpdateAvatarList(favList, Avatars.AvatarSearch);
+                }
+            }
 
-                    return;
+            public static void OnDisable(IntPtr instance)
+            {
+                if (favList != null)
+                {
+                    UnityEngine.Object.Destroy(favList.gameObject);
+                    favList = null;
+                }
+                if (searchButton != null)
+                {
+                    searchButton.gameObject.SetActive(false);
+                }
+                if (searchButtonOriginal != null)
+                {
+                    searchButtonOriginal.gameObject.SetActive(true);
                 }
             }
 
@@ -116,17 +180,21 @@ namespace BE4v.Patch.List
                     "Avatar name is null or empty".RedPrefix("Search Avatar");
                     return;
                 }
-
+                isSearch = true;
+                iCount = 20;
+                Avatars.SearchAvatar(avatarName);
+                isSearch = false;
             }
 
-            internal static PageAvatar pageAvatar;
+            internal static UiAvatarList favList = null;
 
             public static bool? isSearch = null;
+            public static int iCount = 100;
         }
 
         public static class UnlimitedAvatars
         {
-            public static void Start(IntPtr instance)
+            public static void OnEnable(IntPtr instance)
             {
                 if (favList != null)
                     return;
@@ -168,6 +236,27 @@ namespace BE4v.Patch.List
                 avatarModel.localScale *= 0.8f;
 
                 UpdateAvatarList(favList);
+
+                searchButtonOriginal = GameObject.Find("UserInterface/MenuContent/Backdrop/Header/Tabs/ViewPort/Content/Search/")?.transform;
+                if (searchButtonOriginal != null)
+                {
+                    searchButton = UnityEngine.Object.Instantiate(searchButtonOriginal, searchButtonOriginal.parent);
+                    if (searchButton != null)
+                    {
+                        searchButton.name = "Search Be4v";
+                        searchButton.GetComponentInChildren<Button>(true).interactable = true;
+                        searchButton.GetComponentInChildren<Button>(true).onClick = new Button.ButtonClickedEvent();
+                        searchButton.GetComponentInChildren<Button>(true).onClick.AddListener(SearchAvatars.ShowDialog);
+                    }
+                    else
+                    {
+                        "Search not found #1".RedPrefix("[Error]");
+                    }
+                }
+                else
+                {
+                    "Search not found #0".RedPrefix("[Error]");
+                }
             }
 
             public static void Update()

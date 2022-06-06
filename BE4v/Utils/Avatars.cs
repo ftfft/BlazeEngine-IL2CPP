@@ -55,7 +55,7 @@ namespace BE4v.Utils
             }.ChangeToSelectedAvatar();
         }
 
-        public static UiAvatarList AddNewList(string title, int index)
+        public static UiAvatarList AddNewList(string title, int index, bool changeTitle = true)
         {
             UiAvatarList[] uiAvatarLists = UnityEngine.Object.FindObjectsOfType<UiAvatarList>();
             
@@ -88,7 +88,8 @@ namespace BE4v.Utils
             newList.transform.SetSiblingIndex(index);
             newList.category = UiAvatarList.Category.SpecificList;
 
-            newList.GetComponentInChildren<Button>(true).GetComponentInChildren<Text>().text = title;
+            if (changeTitle)
+                newList.GetComponentInChildren<Button>(true).GetComponentInChildren<Text>().text = title;
 
             newList.gameObject.SetActive(true);
 
