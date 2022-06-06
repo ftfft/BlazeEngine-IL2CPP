@@ -31,7 +31,7 @@ namespace BE4v.SDK.CPP2IL
             if (ptr == IntPtr.Zero)
                 return null;
 
-            return new string((char*)ptr.ToPointer() + 10);
+            return new string((char*)ptr + 10);
         }
         private bool isStatic = false;
         private IntPtr handleStatic = IntPtr.Zero;

@@ -70,11 +70,59 @@ namespace BE4v.Patch.List
             if (instance == IntPtr.Zero) return;
             __Update(instance);
             UnlimitedAvatars.Update();
+            SearchAvatars.Update();
+        }
+
+        public static void UpdateAvatarList(UiAvatarList list)
+        {
+            if (list == null)
+                return;
+
+            list.specificListValues.Clear();
+            list.ClearList();
+            list.specificListIds = Avatars.AvatarId.ToArray();
+            list.expandedHeight = 850f;
+            list.extendRows = 4;
+            list.Refresh();
         }
 
         public static _OnEnable __OnEnable;
         public static _Update __Update;
         public static _OnDisable __OnDisable;
+
+        public static class SearchAvatars
+        {
+            public static void Update()
+            {
+                if (isSearch == false)
+                {
+                    isSearch = null;
+
+
+                    return;
+                }
+            }
+
+            public static void ShowDialog()
+            {
+                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", OnSubmit, null, "Enter avatar name");
+            }
+
+            unsafe public static void OnSubmit(IntPtr a, IntPtr b, IntPtr c)
+            {
+                string avatarName = new IL2String(a).ToString();
+                if (string.IsNullOrEmpty(avatarName))
+                {
+                    "Avatar name is null or empty".RedPrefix("Search Avatar");
+                    return;
+                }
+
+            }
+
+            internal static PageAvatar pageAvatar;
+
+            public static bool? isSearch = null;
+        }
 
         public static class UnlimitedAvatars
         {
@@ -120,19 +168,6 @@ namespace BE4v.Patch.List
                 avatarModel.localScale *= 0.8f;
 
                 UpdateAvatarList(favList);
-            }
-
-            public static void UpdateAvatarList(UiAvatarList list)
-            {
-                if (list == null)
-                    return;
-
-                list.specificListValues.Clear();
-                list.ClearList();
-                list.specificListIds = Avatars.AvatarId.ToArray();
-                list.expandedHeight = 850f;
-                list.extendRows = 4;
-                list.Refresh();
             }
 
             public static void Update()

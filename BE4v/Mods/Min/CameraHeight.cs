@@ -22,16 +22,8 @@ namespace BE4v.Mods.Min
                     Camera.main.transform.localPosition -= (Vector3.up * 0.1f);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", OnSubmit, null, "Enter avatar name");
-            }
         }
 
 
-        unsafe public static void OnSubmit(IntPtr a, IntPtr b, IntPtr c)
-        {
-            Console.WriteLine(new IL2String(a).ToString());
-        }
     }
 }
