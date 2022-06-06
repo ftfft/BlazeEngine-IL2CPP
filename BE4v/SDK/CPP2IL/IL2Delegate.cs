@@ -16,11 +16,15 @@ namespace BE4v.SDK.CPP2IL
                 klass = IL2SystemClass.Action;
 
             var obj = Import.Object.il2cpp_object_new(klass.ptr);
-            var runtimeStaticMethod = Marshal.AllocHGlobal(8);
-            *(IntPtr*)runtimeStaticMethod = function.Method.MethodHandle.GetFunctionPointer();
+            // var runtimeStaticMethod = Marshal.AllocHGlobal(8);
+            var runtimeStaticMethod = GCHandle.Alloc(function.Target);
+            var runtimeStaticMethodArgs = GCHandle.Alloc(function.Method.MethodHandle.Value);
+
             *((IntPtr*)obj + 2) = function.Method.MethodHandle.GetFunctionPointer();
             *((IntPtr*)obj + 4) = IntPtr.Zero;
-            *((IntPtr*)obj + 5) = runtimeStaticMethod;
+
+            *((IntPtr*)obj + 5) = GCHandle.ToIntPtr(runtimeStaticMethod);
+            *((IntPtr*)obj + 7) = GCHandle.ToIntPtr(runtimeStaticMethodArgs);
 
             if (obj != IntPtr.Zero)
                 return new IL2Delegate(obj);

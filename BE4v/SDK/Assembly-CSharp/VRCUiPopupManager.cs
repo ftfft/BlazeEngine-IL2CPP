@@ -58,14 +58,15 @@ public class VRCUiPopupManager : MonoBehaviour
             (method = Instance_Class.GetMethods(x => x.GetParameters().Length == 3 && x.GetParameters()[2].ReturnType.Name == typeof(float).FullName).First(x => x.GetDisassembler().Disassemble().Count() == 1010)).Name = nameof(ShowAlert);
         method.Invoke(ptr, new IntPtr[] { new IL2String(title).ptr, new IL2String(body).ptr, new IntPtr(&timeout) });
     }
-    ///
+
     unsafe public void ShowUnityInputPopupWithCancel(
         string title,
         string body,
         InputField.InputType inputType,
         bool useNumericKeypad,
         string submitButtonText,
-        Action<string, IL2List<KeyCode>, Text> submitButtonAction,
+        // Action<string, List<KeyCode>, Text>
+        Action<IntPtr, IntPtr, IntPtr> submitButtonAction,
         Action cancelButtonAction,
         string placeholderText = "Enter text....",
         bool hidePopupOnSubmit = true,
@@ -80,22 +81,16 @@ public class VRCUiPopupManager : MonoBehaviour
             "Method not found!".RedPrefix("VRCUiPopupManager::ShowUnityInputPopupWithCancel");
             return;
         }
-        IL2Delegate _submitButtonAction = IL2Delegate.CreateDelegate((new Action<IntPtr, IntPtr, IntPtr>((a, b, c) => {
-            string text = null;
-            IL2List<KeyCode> keyCodeList = null;
-            Text uiText = null;
+        IL2Delegate _submitButtonAction = null;
+        if (submitButtonAction != null)
+            _submitButtonAction = IL2Delegate.CreateDelegate(submitButtonAction, IL2Action<IntPtr, IntPtr, IntPtr>.Instance_Class);
 
-            if (a != IntPtr.Zero)
-                text = new IL2String(a).ToString();
-            if (b != IntPtr.Zero)
-                keyCodeList = new IL2List<KeyCode>(b);
-            if (c != IntPtr.Zero)
-                uiText = new Text(c);
+        IL2Delegate _cancelButtonAction = null;
+        if (cancelButtonAction != null)
+            _cancelButtonAction = IL2Delegate.CreateDelegate(cancelButtonAction);
 
-            submitButtonAction(text, keyCodeList, uiText);
-        })), Assembler.list["mscorlib"].GetClass("Action`3", typeof(Action).Namespace));
-        IL2Delegate _cancelButtonAction = IL2Delegate.CreateDelegate(cancelButtonAction);
         IL2Delegate _additionalSetup = null;
+        
         method.Invoke(ptr, new IntPtr[] {
             new IL2String(title).ptr, // string
             new IL2String(body).ptr, //  string
@@ -111,6 +106,7 @@ public class VRCUiPopupManager : MonoBehaviour
             new IntPtr(&nanInt32) // bool Default: 0
         });
     }
+
 
     public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ShowControllerBindingsPopup");
 

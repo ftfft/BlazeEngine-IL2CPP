@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using BE4v.Mods.Core;
+using BE4v.SDK.CPP2IL;
 
 namespace BE4v.Mods.Min
 {
@@ -22,8 +24,14 @@ namespace BE4v.Mods.Min
             }
             if (Input.GetKeyDown(KeyCode.U))
             {
-                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", (a, b, c) => { ("Arg1" + a + "Arg2" + b + "Arg3" + c).RedPrefix("Test"); }, null, "Enter avatar name");
+                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", OnSubmit, null, "Enter avatar name");
             }
+        }
+
+
+        unsafe public static void OnSubmit(IntPtr a, IntPtr b, IntPtr c)
+        {
+            Console.WriteLine(new IL2String(a).ToString());
         }
     }
 }
