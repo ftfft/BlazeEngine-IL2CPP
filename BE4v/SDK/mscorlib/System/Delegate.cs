@@ -21,47 +21,51 @@ namespace System
             cache.Add(function);
 
             var obj = Import.Object.il2cpp_object_new(klass.ptr);
-
             var runtimeMethod = Marshal.AllocHGlobal(80);
+            try
+            {
+                *((IntPtr*)runtimeMethod) = function.Method.MethodHandle.GetFunctionPointer();
 
-            *((IntPtr*)runtimeMethod) = function.Method.MethodHandle.GetFunctionPointer();
-            
+                // customAttributeIndex : int
+                // *((byte*)runtimeMethod + 61) = 0xFF;
+                // *((byte*)runtimeMethod + 62) = 0xFF;
+                // *((byte*)runtimeMethod + 63) = 0xFF;
+                // *((byte*)runtimeMethod + 64) = 0xFF;
 
-            // customAttributeIndex : int
-            // *((byte*)runtimeMethod + 61) = 0xFF;
-            // *((byte*)runtimeMethod + 62) = 0xFF;
-            // *((byte*)runtimeMethod + 63) = 0xFF;
-            // *((byte*)runtimeMethod + 64) = 0xFF;
+                // token : uint
+                // *((byte*)runtimeMethod + 65) = 0xFF;
+                // *((byte*)runtimeMethod + 66) = 0xFF;
+                // *((byte*)runtimeMethod + 67) = 0xFF;
+                // *((byte*)runtimeMethod + 68) = 0xFF;
 
-            // token : uint
-            // *((byte*)runtimeMethod + 65) = 0xFF;
-            // *((byte*)runtimeMethod + 66) = 0xFF;
-            // *((byte*)runtimeMethod + 67) = 0xFF;
-            // *((byte*)runtimeMethod + 68) = 0xFF;
+                // flags : Il2CppMethodFlags : ushort
+                // *((byte*)runtimeMethod + 69) = 0xFF;
+                // *((byte*)runtimeMethod + 70) = 0xFF;
 
-            // flags : Il2CppMethodFlags : ushort
-            // *((byte*)runtimeMethod + 69) = 0xFF;
-            // *((byte*)runtimeMethod + 70) = 0xFF;
+                // iflags : Il2CppMethodImplFlags : ushort
+                // *((byte*)runtimeMethod + 71) = 0xFF;
+                // *((byte*)runtimeMethod + 72) = 0xFF;
 
-            // iflags : Il2CppMethodImplFlags : ushort
-            // *((byte*)runtimeMethod + 71) = 0xFF;
-            // *((byte*)runtimeMethod + 72) = 0xFF;
+                // Slot (65535) : ushort
+                *((byte*)runtimeMethod + 73) = 0xFF;
+                *((byte*)runtimeMethod + 74) = 0xFF;
 
-            // Slot (65535) : ushort
-            *((byte*)runtimeMethod + 73) = 0xFF;
-            *((byte*)runtimeMethod + 74) = 0xFF;
+                // Parameter count : byte
+                *((byte*)runtimeMethod + 75) = (byte)function.Method.GetParameters().Length;
 
-            // Parameter count : byte
-            *((byte*)runtimeMethod + 75) = (byte)function.Method.GetParameters().Length;
+                *((IntPtr*)obj + 2) = function.Method.MethodHandle.GetFunctionPointer();
+                *((IntPtr*)obj + 4) = obj;
+                *((IntPtr*)obj + 5) = runtimeMethod;
+                *((IntPtr*)obj + 7) = IntPtr.Zero;
 
-            *((IntPtr*)obj + 2) = function.Method.MethodHandle.GetFunctionPointer();
-            *((IntPtr*)obj + 4) = obj;
-            *((IntPtr*)obj + 5) = runtimeMethod;
-            *((IntPtr*)obj + 7) = IntPtr.Zero;
+                if (obj != IntPtr.Zero)
+                    return new IL2Delegate(obj);
 
-            if (obj != IntPtr.Zero)
-                return new IL2Delegate(obj);
-
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(runtimeMethod);
+            }
             return null;
         }
 
@@ -130,6 +134,32 @@ namespace System
         {
             get => Instance_Class.GetField(nameof(method_code)).GetValue(ptr).GetValuе<bool>();
             set => Instance_Class.GetField(nameof(method_code)).SetValue(ptr, new IntPtr(&value));
+        }
+
+        private bool isStatic = false;
+        private IntPtr handleStatic = IntPtr.Zero;
+        public bool Static
+        {
+            get => isStatic;
+            set
+            {
+                isStatic = value;
+                if (value)
+                {
+                    if (handleStatic == IntPtr.Zero)
+                    {
+                        handleStatic = Import.Handler.il2cpp_gchandle_new(ptr, true);
+                    }
+                }
+                else
+                {
+                    if (handleStatic != IntPtr.Zero)
+                    {
+                        Import.Handler.il2cpp_gchandle_free(handleStatic);
+                        handleStatic = IntPtr.Zero;
+                    }
+                }
+            }
         }
 
         public static IL2Class Instance_Class = Assembler.list["mscorlib"].GetClass("Delegate", "System");

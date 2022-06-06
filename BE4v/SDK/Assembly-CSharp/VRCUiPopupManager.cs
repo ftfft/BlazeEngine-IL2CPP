@@ -59,7 +59,7 @@ public class VRCUiPopupManager : MonoBehaviour
         method.Invoke(ptr, new IntPtr[] { new IL2String(title).ptr, new IL2String(body).ptr, new IntPtr(&timeout) });
     }
 
-    unsafe public void ShowUnityInputPopupWithCancel(
+    public void ShowUnityInputPopupWithCancel(
         string title,
         string body,
         InputField.InputType inputType,
@@ -75,12 +75,6 @@ public class VRCUiPopupManager : MonoBehaviour
         int nanInt32 = 0
     )
     {
-        IL2Method method = Instance_Class.GetMethod(nameof(ShowUnityInputPopupWithCancel));
-        if (method == null)
-        {
-            "Method not found!".RedPrefix("VRCUiPopupManager::ShowUnityInputPopupWithCancel");
-            return;
-        }
         IL2Delegate _submitButtonAction = null;
         if (submitButtonAction != null)
             _submitButtonAction = IL2Delegate.CreateDelegate(submitButtonAction, IL2Action<IntPtr, IntPtr, IntPtr>.Instance_Class);
@@ -90,18 +84,55 @@ public class VRCUiPopupManager : MonoBehaviour
             _cancelButtonAction = IL2Delegate.CreateDelegate(cancelButtonAction);
 
         IL2Delegate _additionalSetup = null;
-        
+
+        ShowUnityInputPopupWithCancel(
+            title,
+            body,
+            inputType,
+            useNumericKeypad,
+            submitButtonText,
+            _submitButtonAction,
+            _cancelButtonAction,
+            placeholderText,
+            hidePopupOnSubmit,
+            _additionalSetup,
+            nanBool,
+            nanInt32
+        );
+    }
+    unsafe public void ShowUnityInputPopupWithCancel(
+        string title,
+        string body,
+        InputField.InputType inputType,
+        bool useNumericKeypad,
+        string submitButtonText,
+        IL2Delegate submitButtonAction,
+        IL2Delegate cancelButtonAction,
+        string placeholderText = "Enter text....",
+        bool hidePopupOnSubmit = true,
+        IL2Delegate additionalSetup = null,
+        bool nanBool = false,
+        int nanInt32 = 0
+    )
+    {
+        IL2Method method = Instance_Class.GetMethod(nameof(ShowUnityInputPopupWithCancel));
+        if (method == null)
+        {
+            "Method not found!".RedPrefix("VRCUiPopupManager::ShowUnityInputPopupWithCancel");
+            return;
+        }
+
         method.Invoke(ptr, new IntPtr[] {
             new IL2String(title).ptr, // string
             new IL2String(body).ptr, //  string
             new IntPtr(&inputType), // InputType : int
             new IntPtr(&useNumericKeypad), // bool
             new IL2String(submitButtonText).ptr, // string
-            _submitButtonAction == null ? IntPtr.Zero : _submitButtonAction.ptr, // Action<string, IL2List<KeyCode>, Text>
-            _cancelButtonAction == null ? IntPtr.Zero : _cancelButtonAction.ptr, // Action
+            submitButtonAction == null ? IntPtr.Zero : submitButtonAction.ptr, // Action<string, IL2List<KeyCode>, Text>
+            cancelButtonAction == null ? IntPtr.Zero : cancelButtonAction.ptr, // Action
             new IL2String(placeholderText).ptr, // string Default: "Enter text...."
             new IntPtr(&hidePopupOnSubmit), // bool Default: true
-            _additionalSetup == null ? IntPtr.Zero :_additionalSetup.ptr, // Action<VRCUiPopup> Default: null
+            additionalSetup == null ? IntPtr.Zero :additionalSetup.ptr, // Action<VRCUiPopup> Default: null
             new IntPtr(&nanBool), // bool Default: false
             new IntPtr(&nanInt32) // bool Default: 0
         });

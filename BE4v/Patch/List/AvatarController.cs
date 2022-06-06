@@ -77,12 +77,12 @@ namespace BE4v.Patch.List
         private static void Update(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
-            __Update(instance);
             if (License.IsLicense == true)
             {
                 UnlimitedAvatars.Update();
                 SearchAvatars.Update();
             }
+            __Update(instance);
         }
 
         public static void UpdateAvatarList(UiAvatarList list, List<string> avatarList = null)
@@ -134,19 +134,17 @@ namespace BE4v.Patch.List
                 {
                     if (iCount == 20)
                     {
-                        if (favList != null)
+                        if (favList == null)
                         {
-                            UnityEngine.Object.Destroy(favList.gameObject);
-                            favList = null;
+                            favList = Utils.Avatars.AddNewList("Search avatar", 0, false);
                         }
-                        favList = Utils.Avatars.AddNewList("Search avatar", 0, false);
                     }
 
                     if (--iCount < 1)
                     {
                         isSearch = null;
+                        UpdateAvatarList(favList, Avatars.AvatarSearch);
                     }
-                    UpdateAvatarList(favList, Avatars.AvatarSearch);
                 }
             }
 
@@ -165,11 +163,12 @@ namespace BE4v.Patch.List
                 {
                     searchButtonOriginal.gameObject.SetActive(true);
                 }
+                isSearch = null;
             }
 
             public static void ShowDialog()
             {
-                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", OnSubmit, null, "Enter avatar name");
+                VRCUiPopupManager.Instance.ShowUnityInputPopupWithCancel("Search avatar", "", UnityEngine.UI.InputField.InputType.Standard, false, "Search avatar", OnSubmitDelegate, null, "Enter avatar name");
             }
 
             unsafe public static void OnSubmit(IntPtr a, IntPtr b, IntPtr c)
@@ -181,15 +180,32 @@ namespace BE4v.Patch.List
                     return;
                 }
                 isSearch = true;
-                iCount = 20;
-                Avatars.SearchAvatar(avatarName);
-                isSearch = false;
+                new Thread(() =>
+                {
+                    Avatars.SearchAvatar(avatarName);
+                    iCount = 20;
+                    isSearch = false;
+                }).Start();
+            }
+
+            private static IL2Delegate field_OnSubmit = null;
+            public static IL2Delegate OnSubmitDelegate
+            {
+                get
+                {
+                    if (field_OnSubmit == null)
+                    {
+                        field_OnSubmit = IL2Delegate.CreateDelegate((Action<IntPtr, IntPtr, IntPtr>)OnSubmit, IL2Action<IntPtr, IntPtr, IntPtr>.Instance_Class);
+                        field_OnSubmit.Static = true;
+                    }
+                    return field_OnSubmit;
+                }
             }
 
             internal static UiAvatarList favList = null;
 
             public static bool? isSearch = null;
-            public static int iCount = 100;
+            public static int iCount = 0;
         }
 
         public static class UnlimitedAvatars
