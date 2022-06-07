@@ -28,6 +28,9 @@ namespace NetworkSanity.Sanitizers
         // OwnershipTransfer 210
         public bool OnPhotonEvent(EventData eventData)
         {
+            if (eventData.Code == 7)
+                return _rateLimiter.IsRateLimited(eventData.Sender);
+            
             if (eventData.Code != 209 && eventData.Code != 210)
                 return false;
 
@@ -36,6 +39,9 @@ namespace NetworkSanity.Sanitizers
 
         public bool VRCNetworkingClientOnPhotonEvent(EventData eventData)
         {
+            if (eventData.Code == 7)
+                return _rateLimiter.IsRateLimited(eventData.Sender);
+
             if (eventData.Code != 209 && eventData.Code != 210)
                 return false;
 
