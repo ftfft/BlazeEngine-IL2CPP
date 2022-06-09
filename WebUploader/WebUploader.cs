@@ -38,7 +38,6 @@ namespace WebUploader
             }
         }
 
-
         public static void ConnectToServer()
         {
             TcpClient client = null;
@@ -46,58 +45,65 @@ namespace WebUploader
             {
                 using (client = instance.AcceptTcpClient())
                 {
-                    using (NetworkStream stream = client.GetStream())
+                    new Thread(() => { ConnectToServer(); }).Start();
+                    try
                     {
-                        while (client.Connected)
+                        using (NetworkStream stream = client.GetStream())
                         {
-                            // Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " is connected.");
-                            try
+                            while (client.Connected)
                             {
-                                while (!stream.DataAvailable) ;
-                                while (client.Available < 3) ; // match against "get"
-                            }
-                            catch { break; }
-                            byte[] bytes = new byte[0];
-                            try
-                            {
-                                bytes = new byte[client.Available];
-                                stream.Read(bytes, 0, client.Available);
-                            }
-                            catch { break; }
-                            string s = Encoding.UTF8.GetString(bytes);
-
-                            //
-                            // GET Event & check HandShake
-                            //
-                            if (Regex.IsMatch(s, "^GET", RegexOptions.IgnoreCase))
-                            {
-                                bool isSended = false;
-                                string szPublicDir = "public/";
-                                string[] list = File.ReadAllLines("files.list.txt");
-                                foreach (var file in list)
+                                // Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " is connected.");
+                                try
                                 {
-                                    if (Regex.IsMatch(s, "^GET /" + file, RegexOptions.IgnoreCase))
+                                    while (!stream.DataAvailable) ;
+                                    while (client.Available < 3) ; // match against "get"
+                                }
+                                catch { break; }
+                                byte[] bytes = new byte[0];
+                                try
+                                {
+                                    bytes = new byte[client.Available];
+                                    stream.Read(bytes, 0, client.Available);
+                                }
+                                catch { break; }
+                                string s = Encoding.UTF8.GetString(bytes);
+
+                                //
+                                // GET Event & check HandShake
+                                //
+                                if (Regex.IsMatch(s, "^GET", RegexOptions.IgnoreCase))
+                                {
+                                    bool isSended = false;
+                                    string szPublicDir = "public/";
+                                    string[] list = File.ReadAllLines("files.list.txt");
+                                    foreach (var file in list)
                                     {
-                                        if (File.Exists(szPublicDir + file))
+                                        if (Regex.IsMatch(s, "^GET /" + file, RegexOptions.IgnoreCase))
                                         {
-                                            stream.Send(szPublicDir + file, true);
-                                            isSended = true;
-                                            break;
+                                            if (File.Exists(szPublicDir + file))
+                                            {
+                                                stream.Send(szPublicDir + file, true);
+                                                isSended = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                if (!isSended)
-                                {
-                                    stream.Send("404 not found", false);
+                                    if (!isSended)
+                                    {
+                                        stream.Send("404 not found", false);
+                                    }
                                 }
                             }
                         }
+                    }
+                    finally
+                    {
+
                     }
                 }
             }
             finally
             {
-                new Thread(() => { ConnectToServer(); }).Start();
                 try
                 {
                     if (client != null)
