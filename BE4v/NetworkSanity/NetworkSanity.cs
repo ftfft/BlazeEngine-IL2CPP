@@ -10,6 +10,7 @@ using BE4v.SDK.CPP2IL;
 using BE4v.Patch.List;
 using IL2ExitGames.Client.Photon;
 using IL2Photon.Realtime;
+using BE4v.Mods;
 
 namespace NetworkSanity
 {
@@ -54,6 +55,9 @@ namespace NetworkSanity
                 if (IsValid(eventData))
                     return true;
 
+                if (userList.Contains(eventData.Sender))
+                    return false;
+
                 foreach (var i in Sanitizers)
                 {
                     if (i.OnPhotonEvent(eventData))
@@ -73,6 +77,9 @@ namespace NetworkSanity
                 EventData eventData = new EventData(eventDataPtr);
                 if (IsValid(eventData))
                     return true;
+
+                if (userList.Contains(eventData.Sender))
+                    return false;
 
                 foreach (var i in Sanitizers)
                 {
@@ -95,6 +102,9 @@ namespace NetworkSanity
                 if (IsValid(eventData))
                     return true;
 
+                if (userList.Contains(eventData.Sender))
+                    return false;
+
                 foreach (var i in Sanitizers)
                 {
                     if (i.OnPhotonEvent(eventData))
@@ -115,14 +125,7 @@ namespace NetworkSanity
                 if (userList.Contains(sender))
                     userList.Remove(sender);
 
-                players = VRC.PlayerManager.PlayersCopy;
-                int len = players.Length;
-                if (len > 0)
-                {
-                    VRC.PlayerManager.MasterId = players[0].PhotonPlayer.ActorNumber;
-                }
-                else
-                    VRC.PlayerManager.MasterId = 0;
+                Threads.UpdatePlayers();
 
                 return true;
             }

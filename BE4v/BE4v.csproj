@@ -109,6 +109,7 @@
     <Compile Include="Patch\Core\oldPatch.cs" />
     <Compile Include="Patch\List\AvatarController.cs" />
     <Compile Include="Patch\List\AvatarData.cs" />
+    <Compile Include="Patch\List\SyncPhisycsFix.cs" />
     <Compile Include="Patch\List\UnityInstantiate.cs" />
     <Compile Include="Patch\List\OnMasterClientSwitched.cs" />
     <Compile Include="Patch\List\PhotonNetwork.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="SDK\Assembly-CSharp\ScrollRectEx.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\ParameterSerialization.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\GC.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\Networking\Tween\PositionEvent.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventLog.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />

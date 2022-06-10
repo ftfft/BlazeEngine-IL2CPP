@@ -17,7 +17,7 @@ using BE4v.Serilize;
 
 namespace NetworkSanity.Sanitizers
 {
-    internal class OwnershipTransfer : ISanitizer
+    internal class OwnershipTransfer // : ISanitizer
     {
         private readonly RateLimiter _rateLimiter = new RateLimiter();
 
@@ -30,7 +30,7 @@ namespace NetworkSanity.Sanitizers
         {
             if (eventData.Code == 7)
                 return _rateLimiter.IsRateLimited(eventData.Sender);
-            
+
             if (eventData.Code != 209 && eventData.Code != 210)
                 return false;
 

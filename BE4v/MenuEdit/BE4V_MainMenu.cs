@@ -83,6 +83,7 @@ namespace BE4v.MenuEdit
                 VRC.Player localPlayer = VRC.Player.Instance;
                 if (localPlayer != null)
                 {
+                    Threads.UpdatePlayers();
                     foreach (var player in NetworkSanity.NetworkSanity.players)
                     {
                         if (player == localPlayer) continue;

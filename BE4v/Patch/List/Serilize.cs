@@ -34,6 +34,16 @@ namespace BE4v.Patch.List
 
         public static bool OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions)
         {
+            if (BE4v.Mods.Min.ClientConsole.isLog)
+            {
+                byte[] array = null;
+                if (operationParameters != IntPtr.Zero)
+                {
+                    array = new IL2Array<byte>(operationParameters).ToBytesArray();
+                }
+                $"Event Code: {operationCode} by len: {(array?.Length??-1)} |".RedPrefix("Logger");
+            }
+
             if (operationCode == 189) return true;
             if (Status.isSerilize)
             {

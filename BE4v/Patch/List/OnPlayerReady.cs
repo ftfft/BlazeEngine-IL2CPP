@@ -11,30 +11,29 @@ namespace BE4v.Patch.List
 {
     public class OnPlayerReady : IPatch
     {
-        public delegate void _VRC_Player_OnNetworkReady(IntPtr instance);
+        public delegate void _OnNetworkReady(IntPtr instance);
+        public delegate void _OnDestroy(IntPtr instance);
         public void Start()
         {
-            IL2Method method = VRC.Player.Instance_Class.GetMethod("OnNetworkReady");
-            if (method != null)
-            {
-                _OnNetworkReady = PatchUtils.FastPatch<_VRC_Player_OnNetworkReady>(method, VRC_Player_OnNetworkReady);
-            }
-            else
+            IL2Method method = VRC.Player.Instance_Class.GetMethod(nameof(OnNetworkReady));
+            if (method == null)
                 throw new NullReferenceException();
+
+            __OnNetworkReady = PatchUtils.FastPatch<_OnNetworkReady>(method, OnNetworkReady);
+            // ----
+            method = VRC.Player.Instance_Class.GetMethod(nameof(OnDestroy));
+            if (method == null)
+                throw new NullReferenceException();
+
+            __OnDestroy = PatchUtils.FastPatch<_OnDestroy>(method, OnDestroy);
         }
 
-        public static void VRC_Player_OnNetworkReady(IntPtr instance)
+        public static void OnNetworkReady(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
 
-            NetworkSanity.NetworkSanity.players = VRC.PlayerManager.PlayersCopy;
-            int len = NetworkSanity.NetworkSanity.players.Length;
-            if (len > 0)
-            {
-                VRC.PlayerManager.MasterId = NetworkSanity.NetworkSanity.players[0].PhotonPlayer.ActorNumber;
-            }
-            else
-                VRC.PlayerManager.MasterId = 0;
+            __OnNetworkReady(instance);
+            Threads.UpdatePlayers();
 
             VRC.Player localPlayer = VRC.Player.Instance;
             if (localPlayer != null && instance != localPlayer.ptr)
@@ -47,7 +46,14 @@ namespace BE4v.Patch.List
                 }
                 ESPUpdate(player);
             }
-            _OnNetworkReady(instance);
+        }
+
+        public static void OnDestroy(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero) return;
+
+            __OnDestroy(instance);
+            Threads.UpdatePlayers();
         }
 
 
@@ -83,6 +89,7 @@ namespace BE4v.Patch.List
         public static Dictionary<IntPtr, bool> blocked = new Dictionary<IntPtr, bool>();
         public static Dictionary<IntPtr, bool> blockedBy = new Dictionary<IntPtr, bool>();
 
-        public static _VRC_Player_OnNetworkReady _OnNetworkReady;
+        public static _OnNetworkReady __OnNetworkReady;
+        public static _OnDestroy __OnDestroy;
     }
 }

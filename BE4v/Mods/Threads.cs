@@ -46,6 +46,22 @@ namespace BE4v.Mods
             }
         }
 
+        public static void UpdatePlayers()
+        {
+            NetworkSanity.NetworkSanity.players = VRC.PlayerManager.PlayersCopy;
+            int len = NetworkSanity.NetworkSanity.players.Length;
+            if (len > 0)
+            {
+                VRC.PlayerManager.MasterId = NetworkSanity.NetworkSanity.players[0].PhotonPlayer.ActorNumber;
+                if (VRC.PlayerManager.MasterId < 0 && len > 1)
+                {
+                    VRC.PlayerManager.MasterId = NetworkSanity.NetworkSanity.players[1].PhotonPlayer.ActorNumber;
+                 }
+            }
+            else
+                VRC.PlayerManager.MasterId = 0;
+        }
+
         public static long UnixTimeNow()
         {
             var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0));
