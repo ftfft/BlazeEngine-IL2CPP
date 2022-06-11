@@ -10,7 +10,7 @@ using SharpDisasm.Udis86;
 
 namespace BE4v.Patch.List
 {
-    public class OnMasterClientSwitched // : IPatch
+    public class OnMasterClientSwitched : IPatch
     {
         public delegate void _OnMasterClientSwitched(IntPtr instance, IntPtr newMasterClient);
 
