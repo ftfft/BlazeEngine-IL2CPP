@@ -57,7 +57,7 @@ namespace BE4v.Mods.Min
     {
         public static bool isLog = false;
 
-        public static string worldId = "wrld_35295fe6-aed0-4011-a86f-a44aaf46814b";
+        public static string worldId = "wrld_dc129dd1-8830-4431-b70a-079b8f6315e3";
         public static string instanceId = "123456";
 
         public static void Start()
