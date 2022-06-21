@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Linq;
 
 namespace IL2CPP_Core.Objects
@@ -19,15 +20,6 @@ namespace IL2CPP_Core.Objects
     public class IL2Object
     {
         public IL2Object(IntPtr ptr) => Pointer = ptr;
-        unsafe public IL2Object CreateNewObject<T>(T value, IL2Class type) where T : unmanaged
-        {
-            IntPtr result = Import.Object.il2cpp_object_new(type.Pointer);
-            if (result == IntPtr.Zero)
-                return null;
-            *(T*)(result + 0x10) = value;
-            return new IL2Object(result);
-        }
-
 
         /// <summary>
         ///     NOT UNMANAGED
@@ -37,6 +29,7 @@ namespace IL2CPP_Core.Objects
         {
             if (typeof(T1) == typeof(string))
                 return (T1)(object)(new IL2String(Pointer).ToString());
+
             return (T1)typeof(T1).GetConstructors().First(x => x.GetParameters().Length == 1).Invoke(new object[] { Pointer });
         }
 
