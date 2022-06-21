@@ -8,8 +8,16 @@ namespace BE4v.SDK.CPP2IL
     public class IL2String : IL2Base
     {
         public IL2String(IntPtr ptr) : base(ptr) => base.ptr = ptr;
-        unsafe public IL2String(string str) : base(IntPtr.Zero)
+        unsafe public IL2String(string value) : base(IntPtr.Zero)
         {
+            if (value == null)
+            {
+                ptr = IntPtr.Zero;
+                return;
+            }
+            byte[] bytes = Encoding.UTF8.GetBytes(value);
+            ptr = IL2Encoding.UTF8.GetString(bytes).ptr;
+            /*
             if (str == null)
             {
                 ptr = IntPtr.Zero;
@@ -24,6 +32,7 @@ namespace BE4v.SDK.CPP2IL
                     *(char*)(ptr + 0x14 + (0x2 * i)) = str[i];
                 }
             }
+            */
         }
 
         unsafe public override string ToString()

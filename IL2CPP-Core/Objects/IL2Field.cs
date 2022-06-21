@@ -46,6 +46,7 @@ namespace IL2CPP_Core.Objects
         }
 
         public IL2Object GetValue() => GetValue(IntPtr.Zero);
+        public IL2Object GetValue(IL2Object obj) => GetValue(obj.Pointer);
         public IL2Object GetValue(IntPtr obj)
         {
             IntPtr returnval = IntPtr.Zero;
@@ -58,6 +59,7 @@ namespace IL2CPP_Core.Objects
             return null;
         }
         public void SetValue(IntPtr value) => SetValue(IntPtr.Zero, value);
+        public void SetValue(IL2Object obj, IntPtr value) => SetValue(obj.Pointer, value);
         public void SetValue(IntPtr obj, IntPtr value)
         {
             if (HasFlag(IL2BindingFlags.FIELD_STATIC))
