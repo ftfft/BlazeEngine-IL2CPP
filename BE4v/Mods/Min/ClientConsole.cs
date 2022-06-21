@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using BE4v.Mods.Core;
+using IL2Photon.Pun;
+using IL2Photon.Realtime;
+using IL2ExitGames.Client.Photon;
 
 namespace BE4v.Mods.Min
 {
@@ -148,79 +151,88 @@ namespace BE4v.Mods.Min
 
         public void Update()
         {
-            /*
             if (args == null || args.Length < 1) return;
             switch (args[0])
             {
-                /*
-            case "udon":
-                {
-                    if (args.Length > 1)
+                case "get_master":
                     {
-                        if (args[1] == "list")
+                        byte[] array = Encoding.UTF8.GetBytes(VRC.Player.Instance.user.id);
+                        PhotonNetwork.NetworkingClient.OpRaiseEvent(208, array, new RaiseEventOptions
                         {
-                            try
+                            Receivers = ReceiverGroup.Others,
+                            CachingOption = EventCaching.DoNotCache
+                        }, default(SendOptions));
+                        break;
+                    }
+                    /*
+                case "udon":
+                    {
+                        if (args.Length > 1)
+                        {
+                            if (args[1] == "list")
                             {
-                                UdonBehaviour[] udons = UnityEngine.Object.FindObjectsOfType<UdonBehaviour>();
-                                foreach (var x in udons)
+                                try
                                 {
-                                    Console.WriteLine("- [" + x.gameObject.name + "] -");
-                                    string[] programs = x.GetPrograms();
-                                    Console.WriteLine("{");
-                                    foreach (var y in programs)
+                                    UdonBehaviour[] udons = UnityEngine.Object.FindObjectsOfType<UdonBehaviour>();
+                                    foreach (var x in udons)
                                     {
-                                        Console.WriteLine("\t- " + y);
+                                        Console.WriteLine("- [" + x.gameObject.name + "] -");
+                                        string[] programs = x.GetPrograms();
+                                        Console.WriteLine("{");
+                                        foreach (var y in programs)
+                                        {
+                                            Console.WriteLine("\t- " + y);
+                                        }
+                                        Console.WriteLine("}");
                                     }
-                                    Console.WriteLine("}");
                                 }
+                                catch { "Udon is bad!".RedPrefix("WARN"); }
                             }
-                            catch { "Udon is bad!".RedPrefix("WARN"); }
-                        }
-                        else if (args[1] == "trigger")
-                        {
-                            if (args.Length > 2)
+                            else if (args[1] == "trigger")
                             {
-                                GameObject gameObject = GameObject.Find(args[2]);
-                                if (gameObject == null)
+                                if (args.Length > 2)
                                 {
-                                    Console.WriteLine(args[2] + " not found!");
-                                    break;
-                                }
-                                if (args.Length > 3)
-                                {
-                                    Network.RPC(VRC_EventHandler.VrcTargetType.All, gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String(args[3]).ptr });
+                                    GameObject gameObject = GameObject.Find(args[2]);
+                                    if (gameObject == null)
+                                    {
+                                        Console.WriteLine(args[2] + " not found!");
+                                        break;
+                                    }
+                                    if (args.Length > 3)
+                                    {
+                                        Network.RPC(VRC_EventHandler.VrcTargetType.All, gameObject, "UdonSyncRunProgramAsRPC", new IntPtr[] { new IL2String(args[3]).ptr });
+                                    }
                                 }
                             }
                         }
+                        break;
                     }
-                    break;
-                }
-                */
-                /*
-            case "portal":
-                {
-                    if (args.Length > 1)
+                    */
+                    /*
+                case "portal":
                     {
-                        if (args[1] == "create")
+                        if (args.Length > 1)
                         {
-                            if (args.Length > 2)
+                            if (args[1] == "create")
                             {
-                                string[] worldData = args[2].Split(':');
-                                UserUtils.SpawnPortal(VRCPlayer.Instance.transform, worldData[0], (worldData.Length > 1) ? worldData[1] : instanceId);
-                                ($"Created portal: {worldId}:" + ((worldData.Length > 1) ? worldData[1] : instanceId)).RedPrefix("Create portal");
+                                if (args.Length > 2)
+                                {
+                                    string[] worldData = args[2].Split(':');
+                                    UserUtils.SpawnPortal(VRCPlayer.Instance.transform, worldData[0], (worldData.Length > 1) ? worldData[1] : instanceId);
+                                    ($"Created portal: {worldId}:" + ((worldData.Length > 1) ? worldData[1] : instanceId)).RedPrefix("Create portal");
+                                }
                             }
                         }
+                        break;
                     }
-                    break;
-                }
-            case "gc":
-                {
-                    AutoClearRAM.Clear();
-                    break;
-                }
+                case "gc":
+                    {
+                        AutoClearRAM.Clear();
+                        break;
+                    }
+                */
             }
             args = new string[0];
-            */
         }
     }
 }

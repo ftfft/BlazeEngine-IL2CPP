@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE4v", "BE4v\BE4v.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUploader", "WebUploader\WebUploader.csproj", "{643ADA23-A2FD-496A-AC9B-A54C02623549}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0759ACD8-1823-4992-9F18-F59237063A0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IL2CPP-Core", "IL2CPP-Core\IL2CPP-Core.csproj", "{0C30C915-B286-4ACE-89E4-262346309F6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,9 +150,36 @@ Global
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Unity-Release|Any CPU.Build.0 = Release|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Unity-Release|x64.ActiveCfg = Release|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Unity-Release|x64.Build.0 = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Debug|x64.Build.0 = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Release|x64.ActiveCfg = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Release|x64.Build.0 = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Debug|x64.Build.0 = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Release|Any CPU.Build.0 = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Release|x64.ActiveCfg = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.ServerSdk-Release|x64.Build.0 = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Debug|x64.Build.0 = Debug|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Release|Any CPU.Build.0 = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Release|x64.ActiveCfg = Release|Any CPU
+		{0C30C915-B286-4ACE-89E4-262346309F6C}.Unity-Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0C30C915-B286-4ACE-89E4-262346309F6C} = {0759ACD8-1823-4992-9F18-F59237063A0B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51E7159A-795D-4D8F-92A8-BDF514650D02}

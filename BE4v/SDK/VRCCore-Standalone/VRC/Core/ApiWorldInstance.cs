@@ -29,6 +29,23 @@ namespace VRC.Core
             get => Instance_Class.GetField(nameof(idWithTags)).GetValue(ptr)?.GetValue<string>();
         }
 
+        public string ownerId
+        {
+            get => Instance_Class.GetProperty(nameof(ownerId)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
+            set => Instance_Class.GetProperty(nameof(ownerId)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+        }
+
         public static IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("ApiWorldInstance", "VRC.Core");
+
+
+        public enum AccessType
+        {
+            Public,
+            FriendsOfGuests,
+            FriendsOnly,
+            InviteOnly,
+            InvitePlus,
+            Counter
+        }
     }
 }

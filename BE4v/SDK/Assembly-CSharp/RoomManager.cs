@@ -13,43 +13,33 @@ public class RoomManager : MonoBehaviour
         return apiWorldInstance.instanceWorld.id + ":" + apiWorldInstance.idWithTags;
     }
 
-    private static IL2Method methodGetCurrentOwnerId = null;
-    public static string currentOwnerId
+    unsafe public static ApiWorldInstance SelectWorldInstanceToJoin(ApiWorld world, string desiredInstanceId, ApiWorldInstance.AccessType worldDefaultAccessType)
     {
-        get
-        {
-            if (methodGetCurrentOwnerId == null)
-            {
-                foreach (IL2Method method in Instance_Class.GetMethods().Where(x => x.ReturnType.Name == "System.String" && x.GetParameters().Length == 0))
-                {
-                    string result = method.Invoke().GetValue<string>();
-                    if (result.Length == 40)
-                    {
-                        if (result.Contains("usr_"))
-                        {
-                            methodGetCurrentOwnerId = method;
-                            break;
-                        }
-                    }
-                }
-                if (methodGetCurrentOwnerId == null)
-                    return string.Empty;
-            }
-
-            return methodGetCurrentOwnerId.Invoke()?.GetValue<string>();
-        }
+        IL2Method method = Instance_Class.GetMethod(nameof(SelectWorldInstanceToJoin));
+        if (method == null)
+            (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(SelectWorldInstanceToJoin);
+        
+        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.ptr, new IL2String(desiredInstanceId).ptr, new IntPtr(&worldDefaultAccessType) })?.GetValue<ApiWorldInstance>();
     }
 
-    public static string CreatorInstanceId
+    unsafe public static bool EnterWorld(ApiWorld world, ApiWorldInstance worldInstance)
     {
-        get
-        {
-            if (currentRoom == null)
-                return null;
+        IL2Method method = Instance_Class.GetMethod(nameof(EnterWorld));
+        if (method == null)
+            (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(EnterWorld);
 
-            ApiWorldInstance apiWorldInstance = new ApiWorldInstance(currentRoom, currentRoom.currentInstanceIdWithTags, 0);
-            return apiWorldInstance.GetInstanceCreator();
-        }
+        int zero = 0;
+        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.ptr, worldInstance == null ? IntPtr.Zero : worldInstance.ptr, IntPtr.Zero, new IntPtr(&zero) }).GetValuå<bool>()??false;
+    }
+
+    public static string currentAuthorId
+    {
+        get => currentRoom?.authorId;
+    }
+
+    public static string currentOwnerId
+    {
+        get => currentWorldInstance?.ownerId;
     }
 
     public static ApiWorld currentRoom
@@ -58,10 +48,22 @@ public class RoomManager : MonoBehaviour
         {
             IL2Field field = Instance_Class.GetField(nameof(currentRoom));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(currentRoom);
+                (field = Instance_Class.GetField(ApiWorld.Instance_Class)).Name = nameof(currentRoom);
             return field?.GetValue()?.GetValue<ApiWorld>();
         }
     }
+
+    internal static ApiWorldInstance currentWorldInstance
+    {
+        get
+        {
+            IL2Field field = Instance_Class.GetField(nameof(currentWorldInstance));
+            if (field == null)
+                (field = Instance_Class.GetField(ApiWorldInstance.Instance_Class)).Name = nameof(currentWorldInstance);
+            return field?.GetValue()?.GetValue<ApiWorldInstance>();
+        }
+    }
+
     /*
     public static IL2Dictionary<int, PortalInternal> userPortals
     {

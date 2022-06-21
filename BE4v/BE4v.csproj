@@ -148,6 +148,8 @@
     <Compile Include="SDK\Assembly-CSharp\MoPhoGames\USpeak\Core\USpeakFrameContainer.cs" />
     <Compile Include="SDK\Assembly-CSharp\MoPhoGames\USpeak\Core\Utils\USpeakPoolUtils.cs" />
     <Compile Include="SDK\Assembly-CSharp\NotificationManager.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonHandler.cs" />
+    <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\ConnectionHandler.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\LoadBalancingPeer.cs" />
     <Compile Include="SDK\Assembly-CSharp\ReceiverGroup.cs" />
     <Compile Include="SDK\Assembly-CSharp\OVRLipSyncMicInput.cs" />

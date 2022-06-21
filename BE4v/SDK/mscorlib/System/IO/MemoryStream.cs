@@ -43,7 +43,7 @@ namespace System.IO
         {
             IL2Object result = Instance_Class.GetMethod(nameof(ToArray)).Invoke(ptr);
             if (result == null) return null;
-            return result.UnboxArraу<byte>();
+            return result.UnboxArray<byte>();
             // uint length = Import.Object.il2cpp_array_get_byte_length(result.ptr);
             // return SDKUtils.IntPtrToStructureArray<byte>(result.ptr, length);
         }

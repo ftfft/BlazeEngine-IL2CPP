@@ -20,21 +20,31 @@ namespace BE4v.Patch.List
 
         public void Start()
         {
-            IL2Method method = null;
-            (method = IL2Photon.Realtime.LoadBalancingClient.Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName)).Name = "OpRaiseEvent";
-            if (method != null)
-            {
-                patch = new IL2Patch(method, (_OpRaiseEvent)OpRaiseEvent);
-                _delegateOpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
-            }
-            else
+            IL2Method method = IL2Photon.Realtime.LoadBalancingClient.Instance_Class.GetMethod("OpRaiseEvent");
+            if (method == null)
                 throw new NullReferenceException();
+
+            __OpRaiseEvent = PatchUtils.FastPatch<_OpRaiseEvent>(method, OpRaiseEvent);
         }
 
 
         public static bool OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions)
         {
-            if (BE4v.Mods.Min.ClientConsole.isLog)
+            if (operationCode == 208)
+            {
+                $"Trigger 208:".RedPrefix("TTT");
+                if (operationParameters == IntPtr.Zero)
+                {
+                    "operationParameters == null".RedPrefix("TTT");
+                }
+                else
+                {
+                    byte[] bytes = new IL2Array<byte>(operationParameters).ToBytesArray();
+                    ("operationParameters: [" + BitConverter.ToString(bytes) + "]").RedPrefix("TTT");
+                    ("operationParameters (Base64): [" + Convert.ToBase64String(bytes) + "]").RedPrefix("TTT");
+                }
+            }
+            if (Mods.Min.ClientConsole.isLog)
             {
                 byte[] array = null;
                 if (operationParameters != IntPtr.Zero)
@@ -44,7 +54,6 @@ namespace BE4v.Patch.List
                 $"Event Code: {operationCode} by len: {(array?.Length??-1)} |".RedPrefix("Logger");
             }
 
-            if (operationCode == 189) return true;
             if (Status.isSerilize)
             {
                 if (operationCode != 1
@@ -95,13 +104,11 @@ namespace BE4v.Patch.List
             */
             try
             {
-                return _delegateOpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
+                return __OpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
             }
             catch { return false; }
         }
 
-        public static IL2Patch patch;
-
-        public static _OpRaiseEvent _delegateOpRaiseEvent;
+        public static _OpRaiseEvent __OpRaiseEvent;
     }
 }

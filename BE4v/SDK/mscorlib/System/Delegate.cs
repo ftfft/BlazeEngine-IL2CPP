@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using BE4v.SDK;
 using BE4v.SDK.CPP2IL;
+using UnhollowerBaseLib.Runtime;
 
 namespace System
 {
@@ -10,21 +12,22 @@ namespace System
     {
         public IL2Delegate(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
-        public unsafe static IL2Delegate CreateDelegate(Delegate function, IL2Class klass = null)
+        public unsafe static IL2Delegate CreateDelegate(Delegate @delegate, IL2Class klass = null)
         {
-            if (function == null)
+            if (@delegate == null)
                 return null;
 
             if (klass == null)
                 klass = IL2Action.Instance_Class;
 
-            cache.Add(function);
+            cache.Add(@delegate);
 
             var obj = Import.Object.il2cpp_object_new(klass.ptr);
             var runtimeMethod = Marshal.AllocHGlobal(80);
             try
             {
-                *((IntPtr*)runtimeMethod) = function.Method.MethodHandle.GetFunctionPointer();
+                MethodInfo methodInfo = @delegate.Method;
+                * ((IntPtr*)runtimeMethod) = methodInfo.MethodHandle.GetFunctionPointer();
 
                 // customAttributeIndex : int
                 // *((byte*)runtimeMethod + 61) = 0xFF;
@@ -33,27 +36,87 @@ namespace System
                 // *((byte*)runtimeMethod + 64) = 0xFF;
 
                 // token : uint
-                // *((byte*)runtimeMethod + 65) = 0xFF;
-                // *((byte*)runtimeMethod + 66) = 0xFF;
-                // *((byte*)runtimeMethod + 67) = 0xFF;
-                // *((byte*)runtimeMethod + 68) = 0xFF;
+                byte[] tokenByte = BitConverter.GetBytes(@delegate.Method.MetadataToken);
+                *((byte*)runtimeMethod + 65) = tokenByte[0];
+                *((byte*)runtimeMethod + 66) = tokenByte[1];
+                *((byte*)runtimeMethod + 67) = tokenByte[2];
+                *((byte*)runtimeMethod + 68) = tokenByte[3];
 
+                // ------------------------------------------------
                 // flags : Il2CppMethodFlags : ushort
-                // *((byte*)runtimeMethod + 69) = 0xFF;
-                // *((byte*)runtimeMethod + 70) = 0xFF;
+                Il2CppMethodFlags flags = 0;
 
+                if (methodInfo.IsPrivate)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_PRIVATE;
+                if (methodInfo.IsFamilyAndAssembly)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_FAM_AND_astEM;
+                if (methodInfo.IsAssembly)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_astEM;
+                if (methodInfo.IsFamily)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_FAMILY;
+                if (methodInfo.IsPublic)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_PUBLIC;
+                if (methodInfo.IsStatic)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_STATIC;
+                if (methodInfo.IsFinal)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_FINAL;
+                if (methodInfo.IsVirtual)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_VIRTUAL;
+                if (methodInfo.IsHideBySig)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_HIDE_BY_SIG;
+                if (methodInfo.IsAbstract)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_ABSTRACT;
+                if (methodInfo.IsSpecialName)
+                    flags |= Il2CppMethodFlags.METHOD_ATTRIBUTE_SPECIAL_NAME;
+
+                byte[] flagsByte = BitConverter.GetBytes((ushort)flags);
+                *((byte*)runtimeMethod + 69) = flagsByte[0];
+                *((byte*)runtimeMethod + 70) = flagsByte[1];
+
+                // ------------------------------------------------
                 // iflags : Il2CppMethodImplFlags : ushort
-                // *((byte*)runtimeMethod + 71) = 0xFF;
-                // *((byte*)runtimeMethod + 72) = 0xFF;
+                Il2CppMethodImplFlags iflags = 0;
+                var implflag = methodInfo.MethodImplementationFlags;
+                if ((implflag & MethodImplAttributes.IL) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_IL;
+                if ((implflag & MethodImplAttributes.Native) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_NATIVE;
+                if ((implflag & MethodImplAttributes.OPTIL) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_OPTIL;
+                if ((implflag & MethodImplAttributes.Runtime) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_RUNTIME;
+                if ((implflag & MethodImplAttributes.ManagedMask) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_MANAGED_MASK;
+                if ((implflag & MethodImplAttributes.Unmanaged) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_UNMANAGED;
+                if ((implflag & MethodImplAttributes.Managed) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_MANAGED;
+                if ((implflag & MethodImplAttributes.ForwardRef) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_FORWARD_REF;
+                if ((implflag & MethodImplAttributes.PreserveSig) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_PRESERVE_SIG;
+                if ((implflag & MethodImplAttributes.InternalCall) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_INTERNAL_CALL;
+                if ((implflag & MethodImplAttributes.Synchronized) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_SYNCHRONIZED;
+                if ((implflag & MethodImplAttributes.NoInlining) != 0)
+                    iflags |= Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_NOINLINING;
+                if ((implflag & MethodImplAttributes.MaxMethodImplVal) != 0)
+                    iflags = Il2CppMethodImplFlags.METHOD_IMPL_ATTRIBUTE_MAX_METHOD_IMPL_VAL;
 
+                byte[] iflagsByte = BitConverter.GetBytes((ushort)iflags);
+                *((byte*)runtimeMethod + 71) = iflagsByte[0];
+                *((byte*)runtimeMethod + 72) = iflagsByte[1];
+                
+                // ------------------------------------------------
                 // Slot (65535) : ushort
                 *((byte*)runtimeMethod + 73) = 0xFF;
                 *((byte*)runtimeMethod + 74) = 0xFF;
 
                 // Parameter count : byte
-                *((byte*)runtimeMethod + 75) = (byte)function.Method.GetParameters().Length;
+                *((byte*)runtimeMethod + 75) = (byte)methodInfo.GetParameters().Length;
 
-                *((IntPtr*)obj + 2) = function.Method.MethodHandle.GetFunctionPointer();
+                *((IntPtr*)obj + 2) = methodInfo.MethodHandle.GetFunctionPointer();
                 *((IntPtr*)obj + 4) = obj;
                 *((IntPtr*)obj + 5) = runtimeMethod;
                 *((IntPtr*)obj + 7) = IntPtr.Zero;

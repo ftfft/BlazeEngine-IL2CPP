@@ -108,17 +108,11 @@ namespace BE4v.MenuEdit
                 {
                     if (button != null)
                         button.SetSprite(LoadSprites.onButton);
-
-                    if (Patch.List.Serilize.patch?.Enabled == false)
-                        Patch.List.Serilize.patch.Enabled = true;
                 }
                 else
                 {
                     if (button != null)
                         button.SetSprite(LoadSprites.offButton);
-
-                    if (Patch.List.Serilize.patch?.Enabled == true)
-                        Patch.List.Serilize.patch.Enabled = false;
                 }
             }
         }

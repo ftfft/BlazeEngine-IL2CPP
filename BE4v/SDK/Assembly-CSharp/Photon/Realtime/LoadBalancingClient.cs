@@ -14,6 +14,12 @@ namespace IL2Photon.Realtime
     {
         public LoadBalancingClient(IntPtr ptr) : base(ptr) => base.ptr = ptr;
 
+        static LoadBalancingClient()
+        {
+            // Find: OpRaiseEvent
+            (Instance_Class?.GetMethod(x => x.IsPublic && x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == typeof(byte).FullName)).Name = "OpRaiseEvent";
+        }
+
         public LoadBalancingPeer LoadBalancingPeer
         {
             get
@@ -25,6 +31,19 @@ namespace IL2Photon.Realtime
             }
         }
 
+        unsafe public bool OpRaiseEvent(byte eventCode, byte[] customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
+        {
+            IL2Array<byte> content = null;
+            if (customEventContent != null)
+            {
+                int len = customEventContent.Length;
+                content = new IL2Array<byte>(len, Assembler.list["mscorlib"].GetClass("Byte", "System"));
+                for(int i=0;i< len;i++)
+                    content[i] = customEventContent[i];
+            }
+
+            return OpRaiseEvent(eventCode, content == null ? IntPtr.Zero : content.ptr, raiseEventOptions, sendOptions);
+        }
         unsafe public bool OpRaiseEvent(byte eventCode, IntPtr customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
             IL2Method method = Instance_Class.GetMethod(nameof(OpRaiseEvent));
