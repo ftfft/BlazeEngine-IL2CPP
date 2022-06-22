@@ -5,7 +5,7 @@ namespace System
 {
     public class IL2String : IL2Object
     {
-        public IL2String(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        public IL2String(IntPtr ptr) : base(ptr) { }
         unsafe public IL2String(string value) : base(IntPtr.Zero)
         {
             if (value == null)

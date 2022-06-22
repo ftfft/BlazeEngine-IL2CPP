@@ -4,7 +4,7 @@ namespace System.Text
 {
     public class IL2Encoding : IL2Object
     {
-        public IL2Encoding(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        public IL2Encoding(IntPtr ptr) : base(ptr) { }
 
         public static IL2Encoding ASCII
         {

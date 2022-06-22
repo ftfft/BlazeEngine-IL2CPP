@@ -9,7 +9,7 @@ namespace System
 {
     public class IL2Delegate : IL2Object
     {
-        public IL2Delegate(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        public IL2Delegate(IntPtr ptr) : base(ptr) { }
 
         public unsafe static IL2Delegate CreateDelegate(Delegate @delegate, IL2Class klass = null)
         {

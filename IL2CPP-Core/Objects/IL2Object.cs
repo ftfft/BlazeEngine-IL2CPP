@@ -15,6 +15,15 @@ namespace IL2CPP_Core.Objects
 
             *(T*)(Pointer + 0x10) = value;
         }
+
+        /// <summary>
+        ///     IS UNMANAGED
+        /// </summary>
+        /// <returns></returns>
+        unsafe public T GetValue()
+        {
+            return *(T*)(Pointer + 0x10).ToPointer();
+        }
     }
 
     public class IL2Object
@@ -25,20 +34,11 @@ namespace IL2CPP_Core.Objects
         ///     NOT UNMANAGED
         /// </summary>
         /// <returns></returns>
-        public T1 GetValue<T1>() where T1 : IL2Object, new()
+        public T1 GetValue<T1>() where T1 : IL2Object
         {
-            T1 t1 = new T1();
+            T1 t1 = (T1)Activator.CreateInstance(typeof(T1), new object[] { IntPtr.Zero });
             t1.Pointer = Pointer;
             return t1;
-        }
-
-        /// <summary>
-        ///     IS UNMANAGED
-        /// </summary>
-        /// <returns></returns>
-        unsafe public T1 GetValuе<T1>() where T1 : unmanaged
-        {
-            return *(T1*)(Pointer + 0x10).ToPointer();
         }
 
         public override bool Equals(object obj)

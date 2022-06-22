@@ -17,12 +17,9 @@ namespace System.IO
             int len = buffer.Length;
             IL2Array<byte> array = new IL2Array<byte>(len, IL2Byte.Instance_Class);
 
-            if (buffer != null)
+            for(int i=0;i<len;i++)
             {
-                for(int i=0;i<len;i++)
-                {
-                    array[i] = buffer[i];
-                }
+                array[i] = buffer[i];
             }
 
             Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1 && x.GetParameters()[0].Name == "buffer").Invoke(Pointer, new IntPtr[] { array.Pointer });

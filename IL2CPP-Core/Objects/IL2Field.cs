@@ -58,6 +58,19 @@ namespace IL2CPP_Core.Objects
                 return new IL2Object(returnval);
             return null;
         }
+        public new IL2Object<T> GetValue<T>() where T : unmanaged => GetValue<T>(IntPtr.Zero);
+        public IL2Object<T> GetValue<T>(IL2Object obj) where T : unmanaged => GetValue<T>(obj.Pointer);
+        public IL2Object<T> GetValue<T>(IntPtr obj) where T : unmanaged
+        {
+            IntPtr returnval = IntPtr.Zero;
+            if (HasFlag(IL2BindingFlags.FIELD_STATIC))
+                returnval = Import.Field.il2cpp_field_get_value_object(Pointer, IntPtr.Zero);
+            else
+                returnval = Import.Field.il2cpp_field_get_value_object(Pointer, obj);
+            if (returnval != IntPtr.Zero)
+                return new IL2Object<T>(returnval);
+            return null;
+        }
         public void SetValue(IntPtr value) => SetValue(IntPtr.Zero, value);
         public void SetValue(IL2Object obj, IntPtr value) => SetValue(obj.Pointer, value);
         public void SetValue(IntPtr obj, IntPtr value)

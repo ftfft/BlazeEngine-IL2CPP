@@ -83,6 +83,22 @@ namespace IL2CPP_Core.Objects
             return null;
         }
 
+        public IL2Object<T> Invoke<T>() where T : unmanaged => Invoke<T>(IntPtr.Zero, new IntPtr[] { IntPtr.Zero });
+        public IL2Object<T> Invoke<T>(IL2Object obj, bool isVirtual = false, bool ex = true) where T : unmanaged => Invoke<T>(obj.Pointer, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
+        public IL2Object<T> Invoke<T>(IntPtr obj, bool isVirtual = false, bool ex = true) where T : unmanaged => Invoke<T>(obj, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
+        public IL2Object<T> Invoke<T>(params IntPtr[] paramtbl) where T : unmanaged
+        {
+            return Invoke<T>(IntPtr.Zero, paramtbl);
+        }
+        public IL2Object<T> Invoke<T>(IL2Object obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true) where T : unmanaged => Invoke<T>(obj.Pointer, paramtbl, isVirtual, ex);
+        public IL2Object<T> Invoke<T>(IntPtr obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true) where T : unmanaged
+        {
+            IntPtr returnval = InvokeMethod(Pointer, obj, paramtbl, isVirtual, ex);
+            if (returnval != IntPtr.Zero)
+                return new IL2Object<T>(returnval);
+            return null;
+        }
+
         unsafe public static IntPtr InvokeMethod(IntPtr method, IntPtr obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true)
         {
             if (method == IntPtr.Zero)

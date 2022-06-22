@@ -20,7 +20,7 @@ namespace System.Collections
 
         public new string ToString()
         {
-            return Instance_Class.GetMethod(nameof(ToString)).Invoke(this)?.GetValue<string>();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(this)?.GetValue<IL2String>().ToString();
         }
 
         //        public object Clone()

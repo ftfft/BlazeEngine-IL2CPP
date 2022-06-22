@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-
-namespace IL2CPP_Core.Objects
+using IL2CPP_Core.Objects;
+namespace System
 {
 	public class IL2Array<T> : IL2Object where T : unmanaged
 	{
 		public IL2Array(int length, IL2Class typeobject = null) : base(IntPtr.Zero)
 		{
 			if (typeobject == null)
-				typeobject = IL2CPP.AssemblyList["mscorlib"].GetClass("Object", "System");
+				typeobject = IL2ObjectSystem.Instance_Class;
 
 			Pointer = Import.Object.il2cpp_array_new(typeobject.Pointer, (ulong)length);
 		}
@@ -71,5 +71,7 @@ namespace IL2CPP_Core.Objects
 				Marshal.Copy((IntPtr)((long*)Pointer + 4), result, 0, size);
 			return result;
 		}
+	
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["mscorlib"].GetClass(typeof(Array).Name, typeof(Array).Namespace);
 	}
 }

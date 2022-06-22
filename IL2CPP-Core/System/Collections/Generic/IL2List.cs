@@ -14,8 +14,9 @@ namespace System.Collections.Generic
 
         public static IL2Class Instance_Class = IL2CPP.AssemblyList["mscorlib"].GetClass("List`1", "System.Collections.Generic");
     }
-    unsafe public class IL2List<T> : IL2List
+    unsafe public class IL2List<T> : IL2List where T : unmanaged
     {
+        public IL2List() { }
         public IL2List(IntPtr ptr) : base(ptr) { }
 
         private static IL2Method methodAdd = null;
@@ -27,48 +28,31 @@ namespace System.Collections.Generic
                 if (methodAdd == null)
                     return;
             }
-            methodAdd.Invoke(ptr, new IntPtr[] { item, methodAdd.ptr });
+            methodAdd.Invoke(this, new IntPtr[] { item, methodAdd.Pointer });
         }
 
-        private static IL2Method methodContainsObject = null;
-        public bool IL2Contains(IntPtr item)
+        public bool Contains(IntPtr item)
         {
-            if (methodContainsObject == null)
-            {
-                methodContainsObject = Instance_Class.GetMethod("Contains", x => x.GetParameters()[0].ReturnType.Name != typeof(object).FullName);
-                if (methodContainsObject == null)
-                    return false;
-            }
-            return methodContainsObject.Invoke(ptr, new IntPtr[] { item, methodContainsObject.ptr }).GetValuе<bool>();
+            IL2Method method = Instance_Class.GetMethod("Contains", x => x.GetParameters()[0].ReturnType.Name != typeof(object).FullName);
+            return method.Invoke<bool>(this, new IntPtr[] { item, method.Pointer }).GetValue();
         }
 
         private static IL2Method methodRemove = null;
-        public bool IL2Remove(IntPtr item)
+        public bool Remove(IntPtr item)
         {
-            if (methodRemove == null)
-            {
-                methodRemove = Instance_Class.GetMethod("Remove", x => x.ReturnType.Name == typeof(bool).FullName);
-                if (methodRemove == null)
-                    return false;
-            }
-            return methodRemove.Invoke(ptr, new IntPtr[] { item, methodRemove.ptr }).GetValuе<bool>();
+            IL2Method method = Instance_Class.GetMethod("Remove", x => x.ReturnType.Name == typeof(bool).FullName);
+            return method.Invoke<bool>(this, new IntPtr[] { item, method.Pointer }).GetValue();
         }
 
         private static IL2Method methodToArray = null;
-        public T[] IL2ToArray()
+        public T[] ToArray()
         {
-            if (methodToArray == null)
-            {
-                methodToArray = Instance_Class.GetMethod("ToArray");
-                if (methodToArray == null)
-                    return null;
-            }
-
-            IL2Object result = methodToArray.Invoke(ptr, new IntPtr[] { methodToArray.ptr });
+            IL2Method method = Instance_Class.GetMethod("ToArray");
+            IL2Object result = method.Invoke(this, new IntPtr[] { method.Pointer });
             if (result == null)
                 return new T[0];
 
-            return result.UnboxArray<T>();
+            return new IL2Array<T>(result.Pointer).ToArray();
         }
 
         public static new IL2Class Instance_Class = IL2List.Instance_Class.MakeGenericType(new Type[] { typeof(T) });
