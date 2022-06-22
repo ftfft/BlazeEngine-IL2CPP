@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DynamicBone : MonoBehaviour
 {
-	public DynamicBone(IntPtr ptr) : base(ptr) { };
+	public DynamicBone(IntPtr ptr) : base(ptr) { }
 
 	public IL2ListObject<DynamicBoneCollider> m_Colliders
 	{

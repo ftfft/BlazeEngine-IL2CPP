@@ -1,12 +1,12 @@
 ﻿using System;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 namespace IL2Photon.Pun
 {
     public class MonoBehaviourPun : MonoBehaviour
     {
-        public MonoBehaviourPun(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public MonoBehaviourPun(IntPtr ptr) : base(ptr) { }
 
         public PhotonView photonView
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using IL2ExitGames.Client.Photon;
 using IL2Photon.Pun;
 using IL2Photon.Realtime;
@@ -16,7 +16,7 @@ namespace IL2Photon.Pun
 
         private static void OnEvent(EventData photonEvent)
         {
-            Instance_Class.GetMethod(nameof(OnEvent)).Invoke(new IntPtr[] { photonEvent == null ? IntPtr.Zero : photonEvent.ptr });
+            Instance_Class.GetMethod(nameof(OnEvent)).Invoke(new IntPtr[] { photonEvent == null ? IntPtr.Zero : photonEvent.Pointer });
         }
 
 
@@ -30,7 +30,7 @@ namespace IL2Photon.Pun
                 IL2Property property = Instance_Class.GetProperty(nameof(Time));
                 if (property == null)
                     (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(double).FullName)).Name = nameof(Time);
-                return property?.GetGetMethod().Invoke()?.GetValuе<double>() ?? default(double);
+                return property?.GetGetMethod().Invoke<double>()?.GetValue() ?? default(double);
             }
         }
 
@@ -87,7 +87,7 @@ namespace IL2Photon.Pun
                 if (method == null)
                     return false;
             }
-            return method.Invoke(new IntPtr[] { new IntPtr(&operationCode), operationParameters, raiseEventOptions == null ? IntPtr.Zero : raiseEventOptions.ptr, new IntPtr(&sendOptions) }).GetValuе<bool>();
+            return method.Invoke(new IntPtr[] { new IntPtr(&operationCode), operationParameters, raiseEventOptions == null ? IntPtr.Zero : raiseEventOptions.Pointer, new IntPtr(&sendOptions) }).GetValuе<bool>();
         }
 
 
@@ -114,11 +114,11 @@ namespace IL2Photon.Pun
                     if (field == null)
                         return;
                 }
-                field.GetValue(value == null ? IntPtr.Zero : value.ptr);
+                field.GetValue(value == null ? IntPtr.Zero : value.Pointer);
             }
         }
 
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField(LoadBalancingClient.Instance_Class) != null);
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField(LoadBalancingClient.Instance_Class) != null);
     }
 }

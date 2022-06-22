@@ -1,17 +1,16 @@
 ﻿using System;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 namespace IL2Photon.Pun
 {
     public class PhotonView : MonoBehaviour
     {
-        public PhotonView(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public PhotonView(IntPtr ptr) : base(ptr) { }
 
         public int viewIdField
         {
-            get => Instance_Class.GetField(nameof(viewIdField)).GetValue(ptr).GetValuе<int>();
+            get => Instance_Class.GetField(nameof(viewIdField)).GetValue<int>(this).GetValue();
         }
 
         unsafe public static PhotonView Find(int viewID)
@@ -42,6 +41,6 @@ namespace IL2Photon.Pun
             PhotonNetwork.RPC(this, command, targetPlayer, encrypt, objects);
         }
         */
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass("PhotonView", "Photon.Pun");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass("PhotonView", "Photon.Pun");
     }
 }

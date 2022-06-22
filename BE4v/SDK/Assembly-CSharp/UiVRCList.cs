@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 using VRC.Core;
 
 public abstract class UiVRCList : MonoBehaviour
 {
-    public UiVRCList(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public UiVRCList(IntPtr ptr) : base(ptr) { }
 
     static UiVRCList()
     {
@@ -41,13 +41,13 @@ public abstract class UiVRCList : MonoBehaviour
         }
         unsafe
         {
-            method.Invoke(ptr, new IntPtr[] { new IntPtr(&page) }, true);
+            method.Invoke(this, new IntPtr[] { new IntPtr(&page) }, true);
         }
     }
     
-    public void StartRenderElementsCoroutine<T>(IL2List<T> list, int offset = 0, bool endOfPickers = true, VRCUiContentButton contentHeaderElement = null)
+    public void StartRenderElementsCoroutine<T>(IL2ListObject<T> list, int offset = 0, bool endOfPickers = true, VRCUiContentButton contentHeaderElement = null) where T : IL2Object
     {
-        IL2Method method = Instance_Class.GetMethod(nameof(FetchAndRenderElements));
+        IL2Method method = Instance_Class.GetMethod(nameof(StartRenderElementsCoroutine));
         if (method == null)
         {
             "Not found function!".RedPrefix("UiVRCList::StartRenderElementsCoroutine");
@@ -55,14 +55,14 @@ public abstract class UiVRCList : MonoBehaviour
         }
         unsafe
         {
-            method.Invoke(ptr, new IntPtr[] { list == null ? IntPtr.Zero : list.ptr, new IntPtr(&offset), new IntPtr(&endOfPickers), contentHeaderElement == null ? IntPtr.Zero : contentHeaderElement.ptr, Instance_Class.GetMethod(nameof(StartRenderElementsCoroutine)).ptr }, true);
+            method.Invoke(this, new IntPtr[] { list == null ? IntPtr.Zero : list.Pointer, new IntPtr(&offset), new IntPtr(&endOfPickers), contentHeaderElement == null ? IntPtr.Zero : contentHeaderElement.Pointer, method.Pointer }, true);
         }
     }
 
     // Alternative
     public void ClearList()
     {
-        int count = pickers.IL2ToArray().Length;
+        int count = pickers.ToArray().Length;
         ClearListRange(0, count);
     }
 
@@ -78,42 +78,42 @@ public abstract class UiVRCList : MonoBehaviour
             if (method == null)
                 return;
         }
-        method.Invoke(ptr, new IntPtr[] { new IntPtr(&offset), new IntPtr(&count) });
+        method.Invoke(this, new IntPtr[] { new IntPtr(&offset), new IntPtr(&count) });
     }
 
     unsafe public int currentPage
     {
-        get => Instance_Class.GetField(x => x.Token == 0xC4).GetValue(ptr).GetValuе<int>();
-        set => Instance_Class.GetField(x => x.Token == 0xC4).SetValue(ptr, new IntPtr(&value));
+        get => Instance_Class.GetField(x => x.Token == 0xC4).GetValue<int>(this).GetValue();
+        set => Instance_Class.GetField(x => x.Token == 0xC4).SetValue(this, new IntPtr(&value));
     }
 
     unsafe public int extendRows
     {
-        get => Instance_Class.GetField(nameof(extendRows)).GetValue(ptr).GetValuе<int>();
-        set => Instance_Class.GetField(nameof(extendRows)).SetValue(ptr, new IntPtr(&value));
+        get => Instance_Class.GetField(nameof(extendRows)).GetValue<int>(this).GetValue();
+        set => Instance_Class.GetField(nameof(extendRows)).SetValue(this, new IntPtr(&value));
     }
 
     unsafe public float expandedHeight
     {
-        get => Instance_Class.GetField(nameof(expandedHeight)).GetValue(ptr).GetValuе<float>();
-        set => Instance_Class.GetField(nameof(expandedHeight)).SetValue(ptr, new IntPtr(&value));
+        get => Instance_Class.GetField(nameof(expandedHeight)).GetValue<float>(this).GetValue();
+        set => Instance_Class.GetField(nameof(expandedHeight)).SetValue(this, new IntPtr(&value));
     }
     
-    public IL2List<VRCUiContentButton> pickers
+    public IL2ListObject<VRCUiContentButton> pickers
     {
         get
         {
-            IL2Object result = Instance_Class.GetField(nameof(pickers)).GetValue(ptr);
+            IL2Object result = Instance_Class.GetField(nameof(pickers)).GetValue(this);
             if (result == null)
                 return null;
 
-            return new IL2List<VRCUiContentButton>(result.ptr);
+            return new IL2ListObject<VRCUiContentButton>(result.Pointer);
         }
-        set => Instance_Class.GetField(nameof(pickers)).SetValue(ptr, value == null ? IntPtr.Zero : value.ptr);
+        set => Instance_Class.GetField(nameof(pickers)).SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
     }
 
 
-    public IL2Dictionary<int, IL2List<ApiModel>> paginatedLists
+    public IL2Dictionary<int, IL2ListObject<ApiModel>> paginatedLists
     {
         get
         {
@@ -127,12 +127,12 @@ public abstract class UiVRCList : MonoBehaviour
                     return null;
                 }
             }
-            IL2Object result = field.GetValue(ptr);
+            IL2Object result = field.GetValue(this);
             if (result == null)
                 return null;
-            return new IL2Dictionary<int, IL2List<ApiModel>>(result.ptr);
+            return new IL2Dictionary<int, IL2ListObject<ApiModel>>(result.Pointer);
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(UiAvatarList.Instance_Class.BaseType.FullName);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(UiAvatarList.Instance_Class.BaseType.FullName);
 }

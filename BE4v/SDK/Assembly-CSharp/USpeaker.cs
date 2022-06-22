@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using MoPhoGames.USpeak.Core;
-using BE4v.SDK.CPP2IL;
 using UnityEngine;
 
 public class USpeaker : MonoBehaviour
 {
-    public USpeaker(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public USpeaker(IntPtr ptr) : base(ptr) { }
 
     unsafe public static float LocalGain
     {
@@ -20,7 +19,7 @@ public class USpeaker : MonoBehaviour
                 if (field == null)
                     return default;
             }
-            return field.GetValue().GetValuе<float>();
+            return field.GetValue<float>().GetValue();
         }
         set
         {
@@ -53,5 +52,5 @@ public class USpeaker : MonoBehaviour
             );
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRC.Player.Instance_Class.GetField("_USpeaker")?.ReturnType.Name);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(VRC.Player.Instance_Class.GetField("_USpeaker")?.ReturnType.Name);
 }

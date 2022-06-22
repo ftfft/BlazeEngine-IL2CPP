@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BE4v.SDK.CPP2IL;
-using IL2Photon.Pun;
+using IL2CPP_Core.Objects;
 using VRC.Core;
 using IL2ExitGames.Client.Photon;
 
 
 namespace IL2Photon.Realtime
 {
-    public class LoadBalancingClient : IL2Base
+    public class LoadBalancingClient : IL2Object
     {
-        public LoadBalancingClient(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public LoadBalancingClient(IntPtr ptr) : base(ptr) { }
 
         static LoadBalancingClient()
         {
@@ -27,7 +23,7 @@ namespace IL2Photon.Realtime
                 IL2Property property = Instance_Class.GetProperty(nameof(LoadBalancingPeer));
                 if (property == null)
                     (property = Instance_Class.GetProperty(LoadBalancingPeer.Instance_Class)).Name = nameof(LoadBalancingPeer);
-                return property?.GetGetMethod()?.Invoke(ptr)?.GetValue<LoadBalancingPeer>();
+                return property?.GetGetMethod()?.Invoke(this)?.GetValue<LoadBalancingPeer>();
             }
         }
 
@@ -37,12 +33,12 @@ namespace IL2Photon.Realtime
             if (customEventContent != null)
             {
                 int len = customEventContent.Length;
-                content = new IL2Array<byte>(len, Assembler.list["mscorlib"].GetClass("Byte", "System"));
+                content = new IL2Array<byte>(len, IL2Byte.Instance_Class);
                 for(int i=0;i< len;i++)
                     content[i] = customEventContent[i];
             }
 
-            return OpRaiseEvent(eventCode, content == null ? IntPtr.Zero : content.ptr, raiseEventOptions, sendOptions);
+            return OpRaiseEvent(eventCode, content == null ? IntPtr.Zero : content.Pointer, raiseEventOptions, sendOptions);
         }
         unsafe public bool OpRaiseEvent(byte eventCode, IntPtr customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
@@ -58,7 +54,7 @@ namespace IL2Photon.Realtime
                     return default;
                 }
             }
-            return method.Invoke(ptr, new IntPtr[] { new IntPtr(&eventCode), customEventContent, raiseEventOptions.ptr, new IntPtr(&sendOptions) }).GetValuе<bool>();
+            return method.Invoke<bool>(this, new IntPtr[] { new IntPtr(&eventCode), customEventContent, raiseEventOptions.Pointer, new IntPtr(&sendOptions) }).GetValue();
         }
 
         public static IL2Class Instance_Class = VRCNetworkingClient.Instance_Class.BaseType;

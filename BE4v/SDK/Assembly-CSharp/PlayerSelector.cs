@@ -1,13 +1,13 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
+﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 
 public class PlayerSelector : MonoBehaviour
 {
-    public PlayerSelector(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public PlayerSelector(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().First(
         x => 
         x.BaseType?.FullName == MonoBehaviour.Instance_Class.FullName &&
         x.GetMethod("Start")?.IsPrivate == true &&

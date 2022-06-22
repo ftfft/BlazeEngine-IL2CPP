@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class PostEffectsBase : MonoBehaviour
 {
-    public PostEffectsBase(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public PostEffectsBase(IntPtr ptr) : base(ptr) { }
 
     public static new IL2Class Instance_Class = HighlightsFX.Instance_Class.BaseType;
 }

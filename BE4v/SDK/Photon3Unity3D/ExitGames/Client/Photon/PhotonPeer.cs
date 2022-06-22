@@ -1,12 +1,12 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace IL2ExitGames.Client.Photon
 {
-    public class PhotonPeer : IL2Base
+    public class PhotonPeer : IL2Object
     {
-        public PhotonPeer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public PhotonPeer(IntPtr ptr) : base(ptr) { }
 
-        public static IL2Class Instance_Class = Assembler.list["Photon"].GetClass("PhotonPeer", "ExitGames.Client.Photon");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Photon-DotNet"].GetClass("PhotonPeer", "ExitGames.Client.Photon");
     }
 }

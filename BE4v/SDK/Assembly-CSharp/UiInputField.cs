@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
-
 public class UiInputField : MonoBehaviour
 {
-    public UiInputField(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public UiInputField(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass("UiInputField");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass("UiInputField");
 }

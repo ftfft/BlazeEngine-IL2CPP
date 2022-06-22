@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using BE4v.SDK.CPP2IL;
-using UnityEngine.Events;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
-    public class ApiModel : IL2Base
+    public class ApiModel : IL2Object
     {
-        public ApiModel(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public ApiModel(IntPtr ptr) : base(ptr) { }
 
         public string id
         {
-            get => Instance_Class.GetProperty(nameof(id)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
-            set => Instance_Class.GetProperty(nameof(id)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+            get => Instance_Class.GetProperty(nameof(id)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
+            set => Instance_Class.GetProperty(nameof(id)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
         }    
     
         public bool Populated
         {
-            get => Instance_Class.GetProperty(nameof(Populated)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
+            get => Instance_Class.GetProperty(nameof(Populated)).GetGetMethod().Invoke<bool>(this).GetValue();
         }
 
         /// <summary>
@@ -36,9 +35,9 @@ namespace VRC.Core
             //if (onFailure != null)
             //    ptrFailure = _UnityAction.CreateDelegate(onFailure, IntPtr.Zero, BlazeTools.IL2SystemClass.action_1);
 
-            Instance_Class.GetMethod(nameof(Fetch)).Invoke(ptr, new IntPtr[] { ptrSuccess, ptrFailure, IntPtr.Zero, new IntPtr(&disableCache) });
+            Instance_Class.GetMethod(nameof(Fetch)).Invoke(this, new IntPtr[] { ptrSuccess, ptrFailure, IntPtr.Zero, new IntPtr(&disableCache) });
         }
 
-        public static IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("ApiModel", "VRC.Core");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("ApiModel", "VRC.Core");
     }
 }

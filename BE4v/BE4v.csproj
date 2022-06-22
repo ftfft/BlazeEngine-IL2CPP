@@ -311,7 +311,6 @@
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PhotonView.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\PunEvent.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\RpcTarget.cs" />
-    <Compile Include="SDK\Assembly-CSharp\Photon\GUI_NONAME_CLASS.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Pun\ViewSynchronization.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\ActorProperties.cs" />
     <Compile Include="SDK\Assembly-CSharp\Photon\Realtime\AppSettings.cs" />

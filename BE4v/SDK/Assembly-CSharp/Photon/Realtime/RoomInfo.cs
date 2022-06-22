@@ -1,13 +1,13 @@
-using BE4v.SDK.CPP2IL;
 using System;
+using IL2CPP_Core.Objects;
 // using IL2ExitGames.Client.Photon;
 
 namespace IL2Photon.Realtime
 {
 
-    public class RoomInfo : IL2Base
+    public class RoomInfo : IL2Object
     {
-        public RoomInfo(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public RoomInfo(IntPtr ptr) : base(ptr) { }
 
         /*
         public Hashtable CustomProperties
@@ -23,7 +23,7 @@ namespace IL2Photon.Realtime
         */
         public override string ToString()
         {
-            return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.GetValue<string>();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(this)?.GetValue<IL2String>().ToString();
         }
 
         public static IL2Class Instance_Class = Room.Instance_Class.BaseType;

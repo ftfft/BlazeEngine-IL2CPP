@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 using UnityEngine.UI;
 
 public class PlayerNameplate : MonoBehaviour
 {
-    public PlayerNameplate(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+	public PlayerNameplate(IntPtr ptr) : base(ptr) { }
 
 	unsafe public Color ModifyTrustColor(Color color)
     {
 		IL2Method method = Instance_Class.GetMethod(nameof(ModifyTrustColor));
 		if (method == null)
 			(method = Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == Color.Instance_Class.FullName)).Name = nameof(ModifyTrustColor);
-		return method.Invoke(ptr, new IntPtr[] { new IntPtr(&color) }).GetValuе<Color>();
+		return method.Invoke<Color>(this, new IntPtr[] { new IntPtr(&color) }).GetValue();
 	}
 	
 	public Graphic uiNameBackground
@@ -23,7 +23,7 @@ public class PlayerNameplate : MonoBehaviour
 			IL2Field field = Instance_Class.GetField(nameof(uiNameBackground));
 			if (field == null)
 				(field = Instance_Class.GetFields().First(x => x.ReturnType.Name == Graphic.Instance_Class.FullName)).Name = nameof(uiNameBackground);
-			return field.GetValue(ptr).GetValue<Graphic>();
+			return field.GetValue(this).GetValue<Graphic>();
 		}
 	}
 
@@ -79,5 +79,5 @@ public class PlayerNameplate : MonoBehaviour
 		Mute
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("Anchors");
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FindClass_ByNesestTypedName("Anchors");
 }

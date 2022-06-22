@@ -1,32 +1,32 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace IL2ExitGames.Client.Photon
 {
-    public class EventData : IL2Base
+    public class EventData : IL2Object
     {
-        public EventData(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public EventData(IntPtr ptr) : base(ptr) { }
 
         public int Sender
         {
-            get => Instance_Class.GetProperty(nameof(Sender)).GetGetMethod().Invoke(ptr).GetValuе<int>();
+            get => Instance_Class.GetProperty(nameof(Sender)).GetGetMethod().Invoke<int>(this).GetValue();
         }
         
         public IL2Object CustomData
         {
-            get => Instance_Class.GetProperty(nameof(CustomData)).GetGetMethod().Invoke(ptr);
+            get => Instance_Class.GetProperty(nameof(CustomData)).GetGetMethod().Invoke(this);
         }
         
         public byte Code
         {
-            get => Instance_Class.GetField(nameof(Code)).GetValue(ptr).GetValuе<byte>();
+            get => Instance_Class.GetField(nameof(Code)).GetValue<byte>(this).GetValue();
         }
 
         public override string ToString()
         {
-            return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.GetValue<string>();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(this)?.GetValue<IL2String>().ToString();
         }
 
-        public static IL2Class Instance_Class = Assembler.list["Photon"].GetClass("EventData", "ExitGames.Client.Photon");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Photon-DotNet"].GetClass("EventData", "ExitGames.Client.Photon");
     }
 }

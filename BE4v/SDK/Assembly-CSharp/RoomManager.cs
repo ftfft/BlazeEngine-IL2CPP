@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using VRC.Core;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class RoomManager : MonoBehaviour
 {
-    public RoomManager(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+    public RoomManager(IntPtr ptr) : base(ptr) { }
 
     public static string GetPhotonRoomIDForWorldInstance(ApiWorldInstance apiWorldInstance)
     {
@@ -19,7 +19,7 @@ public class RoomManager : MonoBehaviour
         if (method == null)
             (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(SelectWorldInstanceToJoin);
         
-        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.ptr, new IL2String(desiredInstanceId).ptr, new IntPtr(&worldDefaultAccessType) })?.GetValue<ApiWorldInstance>();
+        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.Pointer, new IL2String(desiredInstanceId).Pointer, new IntPtr(&worldDefaultAccessType) })?.GetValue<ApiWorldInstance>();
     }
 
     unsafe public static bool EnterWorld(ApiWorld world, ApiWorldInstance worldInstance)
@@ -29,7 +29,7 @@ public class RoomManager : MonoBehaviour
             (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 4 && x.GetParameters()[0].ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(EnterWorld);
 
         int zero = 0;
-        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.ptr, worldInstance == null ? IntPtr.Zero : worldInstance.ptr, IntPtr.Zero, new IntPtr(&zero) }).GetValuå<bool>()??false;
+        return method?.Invoke<bool>(new IntPtr[] { world == null ? IntPtr.Zero : world.Pointer, worldInstance == null ? IntPtr.Zero : worldInstance.Pointer, IntPtr.Zero, new IntPtr(&zero) }).GetValue()??false;
     }
 
     public static string currentAuthorId
@@ -82,5 +82,5 @@ public class RoomManager : MonoBehaviour
     }
     */
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == MonoBehaviour.Instance_Class && x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">") != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.BaseType == MonoBehaviour.Instance_Class && x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">") != null);
 }

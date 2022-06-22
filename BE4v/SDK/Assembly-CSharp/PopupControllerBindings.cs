@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 public class PopupControllerBindings : VRCUiPopup
 {
-    public PopupControllerBindings(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public PopupControllerBindings(IntPtr ptr) : base(ptr) { }
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SetBindingsPresetTypeA");
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("SetBindingsPresetTypeA") != null);
 }

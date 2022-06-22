@@ -1,23 +1,23 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
     public class ApiWorld : ApiModel
     {
-        public ApiWorld(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public ApiWorld(IntPtr ptr) : base(ptr) { }
 
         public string currentInstanceIdWithTags
         {
-            get => Instance_Class.GetField(nameof(currentInstanceIdWithTags)).GetValue(ptr)?.GetValue<string>();
+            get => Instance_Class.GetField(nameof(currentInstanceIdWithTags)).GetValue(this)?.GetValue<IL2String>().ToString();
         }
 
         public string authorId
         {
-            get => Instance_Class.GetProperty(nameof(authorId)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
-            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+            get => Instance_Class.GetProperty(nameof(authorId)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
+            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("ApiWorld", "VRC.Core");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("ApiWorld", "VRC.Core");
     }
 }

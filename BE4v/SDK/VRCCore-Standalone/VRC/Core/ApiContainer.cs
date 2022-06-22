@@ -1,18 +1,16 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
-using UnityEngine.Events;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
-    public class ApiContainer : IL2Base
+    public class ApiContainer : IL2Object
     {
-        public ApiContainer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public ApiContainer(IntPtr ptr) : base(ptr) { }
 
         public ApiContainer() : base(IntPtr.Zero)
         {
-            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor").Invoke(ptr);
+            Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+            Instance_Class.GetMethod(".ctor").Invoke(Pointer);
         }
 
         /*
@@ -30,6 +28,6 @@ namespace VRC.Core
         }
         */
 
-        public static IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("ApiContainer", "VRC.Core");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("ApiContainer", "VRC.Core");
     }
 }

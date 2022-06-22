@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class PlayerNet : VRCNetworkBehaviour
 {
-    public PlayerNet(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+	public PlayerNet(IntPtr ptr) : base(ptr) { }
 
 	public short Ping
 	{
@@ -19,7 +18,7 @@ public class PlayerNet : VRCNetworkBehaviour
 				if (property == null)
 					return default;
 			}
-			return property.GetGetMethod().Invoke(ptr).GetValuе<short>();
+			return property.GetGetMethod().Invoke<short>(this).GetValue();
 		}
 	}
 
@@ -35,9 +34,9 @@ public class PlayerNet : VRCNetworkBehaviour
 				if (property == null)
 					return default;
 			}
-			return property.GetGetMethod().Invoke(ptr).GetValuе<byte>();
+			return property.GetGetMethod().Invoke<byte>(this).GetValue();
 		}
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(VRC.Player.Instance_Class.GetField("_playerNet")?.ReturnType.Name);
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(VRC.Player.Instance_Class.GetField("_playerNet")?.ReturnType.Name);
 }

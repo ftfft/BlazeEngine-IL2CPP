@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using IL2ExitGames.Client.Photon;
-using VRC.Core;
 
 
 namespace IL2Photon.Realtime
 {
     public class LoadBalancingPeer : PhotonPeer
     {
-        public LoadBalancingPeer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public LoadBalancingPeer(IntPtr ptr) : base(ptr) { }
 
         unsafe public bool OpRaiseEvent(byte eventCode, IntPtr customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
@@ -27,9 +24,9 @@ namespace IL2Photon.Realtime
                     return default;
                 }
             }
-            return method.Invoke(ptr, new IntPtr[] { new IntPtr(&eventCode), customEventContent, raiseEventOptions.ptr, new IntPtr(&sendOptions) }).GetValuе<bool>();
+            return method.Invoke<bool>(this, new IntPtr[] { new IntPtr(&eventCode), customEventContent, raiseEventOptions.Pointer, new IntPtr(&sendOptions) }).GetValue();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.BaseType == PhotonPeer.Instance_Class);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.BaseType == PhotonPeer.Instance_Class);
     }
 }
