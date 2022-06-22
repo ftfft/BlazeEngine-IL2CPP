@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using BE4v.Mods.Core;
-using BE4v.SDK.CPP2IL;
 
 namespace BE4v.Mods.Min
 {

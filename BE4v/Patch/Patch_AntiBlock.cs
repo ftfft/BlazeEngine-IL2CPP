@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
-using BE4v.MenuEdit;
+using IL2CPP_Core.Objects;
 using BE4v.Mods;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using VRC.Core;
-using VRC.Management;
 
 namespace BE4v.Patch
 {

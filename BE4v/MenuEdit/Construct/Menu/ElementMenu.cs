@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using VRC.UI.Elements;
 using VRC.UI.Elements.Menus;
-using BE4v.SDK.CPP2IL;
 using TMPro;
 
 namespace BE4v.MenuEdit.Construct.Menu

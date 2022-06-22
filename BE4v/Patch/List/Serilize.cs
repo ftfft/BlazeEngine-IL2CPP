@@ -1,6 +1,5 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using IL2Photon.Realtime;
 using IL2ExitGames.Client.Photon;
 using BE4v.Mods;
@@ -39,7 +38,7 @@ namespace BE4v.Patch.List
                 }
                 else
                 {
-                    byte[] bytes = new IL2Array<byte>(operationParameters).ToBytesArray();
+                    byte[] bytes = new IL2Array<byte>(operationParameters).GetAsByteArray();
                     ("operationParameters: [" + BitConverter.ToString(bytes) + "]").RedPrefix("TTT");
                     ("operationParameters (Base64): [" + Convert.ToBase64String(bytes) + "]").RedPrefix("TTT");
                 }
@@ -49,7 +48,7 @@ namespace BE4v.Patch.List
                 byte[] array = null;
                 if (operationParameters != IntPtr.Zero)
                 {
-                    array = new IL2Array<byte>(operationParameters).ToBytesArray();
+                    array = new IL2Array<byte>(operationParameters).GetAsByteArray();
                 }
                 $"Event Code: {operationCode} by len: {(array?.Length??-1)} |".RedPrefix("Logger");
             }

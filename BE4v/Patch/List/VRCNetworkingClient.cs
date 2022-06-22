@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
@@ -10,12 +10,10 @@ namespace BE4v.Patch.List
         public void Start()
         {
             IL2Method method = VRC.Core.VRCNetworkingClient.Instance_Class.GetMethod("OnEvent");
-            if (method != null)
-            {
-                _OnEvent = PatchUtils.FastPatch<_VRCNetworkingClient_OnEvent>(method, VRCNetworkingClient_OnEvent);
-            }
-            else
+            if (method == null)
                 throw new NullReferenceException();
+            
+            _OnEvent = PatchUtils.FastPatch<_VRCNetworkingClient_OnEvent>(method, VRCNetworkingClient_OnEvent);
         }
 
         public static void VRCNetworkingClient_OnEvent(IntPtr instance, IntPtr pEventData)

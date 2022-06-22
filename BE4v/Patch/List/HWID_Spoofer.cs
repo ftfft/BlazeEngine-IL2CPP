@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Text;
 using System.IO;
+using System.Text;
+using System.Security.Cryptography;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
@@ -22,25 +22,26 @@ namespace BE4v.Patch.List
                 throw new NullReferenceException();
         }
 
+        static HWID_Spoofer()
+        {
+            string src = SDKLoader.mainDir + "/spoof-id.json";
+            if (File.Exists(src))
+            {
+                _fakeDeviceId = new IL2String(File.ReadAllText(src));
+            }
+            if (string.IsNullOrWhiteSpace(_fakeDeviceId?.ToString()))
+            {
+                _fakeDeviceId = new IL2String(CalculateHash<SHA1>(Guid.NewGuid().ToString()));
+                File.WriteAllText(src, _fakeDeviceId.ToString(), Encoding.UTF8);
+            }
+            _fakeDeviceId.Static = true;
+        }
 
-        public static IL2String _fakeDeviceId = null;
+
+        public static IL2String _fakeDeviceId;
         private static IntPtr UnityEngine_SystemInfo()
         {
-            if (_fakeDeviceId == null)
-            {
-                string src = SDKLoader.mainDir + "/spoof-id.json";
-                if (File.Exists(src))
-                {
-                    _fakeDeviceId = new IL2String(File.ReadAllText(src));
-                }
-                if (string.IsNullOrWhiteSpace(_fakeDeviceId?.ToString()))
-                {
-                    _fakeDeviceId = new IL2String(CalculateHash<SHA1>(Guid.NewGuid().ToString()));
-                    File.WriteAllText(src, _fakeDeviceId.ToString(), Encoding.UTF8);
-                }
-                _fakeDeviceId.Static = true;
-            }
-            return _fakeDeviceId.ptr;
+            return _fakeDeviceId.Pointer;
         }
 
 

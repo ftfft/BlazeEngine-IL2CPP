@@ -1,15 +1,9 @@
 ﻿using System;
-using BE4v.MenuEdit;
-using BE4v.Mods;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
-using IL2Photon.Pun;
-using IL2Photon.Realtime;
-using IL2ExitGames.Client.Photon;
 using System.Linq;
 using VRC.UI;
 using VRC.Core;
-using UnityEngine;
 
 namespace BE4v.Patch
 {

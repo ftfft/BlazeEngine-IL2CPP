@@ -335,5 +335,8 @@ namespace IL2CPP_Core.Objects
             }
             return returnval;
         }
+
+        public IL2Class MakeGenericType(Type[] types) => new IL2Class(new RuntimeType(Pointer).MakeGenericType(types));
+        public IL2Class MakeGenericType(IntPtr[] types) => new IL2Class(new RuntimeType(Pointer).MakeGenericType(types));
     }
 }

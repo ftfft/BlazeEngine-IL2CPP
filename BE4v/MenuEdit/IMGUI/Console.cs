@@ -7,7 +7,6 @@ using BE4v.Mods.Core;
 using BE4v.Mods.Min;
 using BE4v;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using UnityEngine;
 
 

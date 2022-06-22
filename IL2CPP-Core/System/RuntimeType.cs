@@ -17,7 +17,7 @@ namespace System
             {
                 array[i] = intPtrs[i];
             }
-            return Import.Class.il2cpp_class_from_system_type(Instance_Class.GetMethod(nameof(MakeGenericType)).Invoke(new IL2Class(Pointer).IL2Typeof(), new IntPtr[] { array.Pointer }).ptr);
+            return Import.Class.il2cpp_class_from_system_type(Instance_Class.GetMethod(nameof(MakeGenericType)).Invoke(new IL2Class(Pointer).IL2Typeof(), new IntPtr[] { array.Pointer }).Pointer);
         }
 
         public static IL2Class Instance_Class = IL2CPP.AssemblyList["mscorlib"].GetClass(typeof(RuntimeType).Name, typeof(RuntimeType).Namespace);

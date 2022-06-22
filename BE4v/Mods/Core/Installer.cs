@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 using SharpDisasm.Udis86;
+using IL2CPP_Core.Objects;
 
 namespace BE4v.Mods.Core
 {

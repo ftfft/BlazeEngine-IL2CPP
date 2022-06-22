@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.ExceptionServices;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 using UnityEngine;
 
@@ -33,11 +33,11 @@ namespace BE4v.Patch.List
                 if (originalPtr != IntPtr.Zero && IsValid(position) && IsValid(rotation))
                     result = __Instantiate(originalPtr, position, rotation);
                 else
-                    result = new GameObject("Safe VR Object").ptr;
+                    result = new GameObject("Safe VR Object").Pointer;
             }
             catch
             {
-                result = new GameObject("Safe VR Object").ptr;
+                result = new GameObject("Safe VR Object").Pointer;
             }
             return result;
         }

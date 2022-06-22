@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using SharpDisasm.Udis86;
 using UnityEngine;
 using VRC.Core;

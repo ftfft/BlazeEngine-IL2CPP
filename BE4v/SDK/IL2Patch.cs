@@ -1,28 +1,25 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
+using IL2CPP_Core.Objects;
 
 namespace BE4v.SDK
 {
-    unsafe public class IL2Patch : IL2Base
+    unsafe public class IL2Patch : IL2Object
     {
         internal IL2Method TargetMethod;
         internal IntPtr OriginalMethod;
         internal IL2Patch(IL2Method targetMethod, Delegate newMethod) : base(IntPtr.Zero)
         {
-            ptr = newMethod.Method.MethodHandle.GetFunctionPointer();
+            Pointer = newMethod.Method.MethodHandle.GetFunctionPointer();
             TargetMethod = targetMethod;
-            Import.Patch.VRC_CreateHook(*(IntPtr*)targetMethod.ptr.ToPointer(), ptr, out OriginalMethod);
+            Import.Patch.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
         }
 
         internal IL2Patch(IL2Method targetMethod, IntPtr newMethod) : base(newMethod)
         {
-            ptr = newMethod;
+            Pointer = newMethod;
             TargetMethod = targetMethod;
-            Import.Patch.VRC_CreateHook(*(IntPtr*)targetMethod.ptr.ToPointer(), ptr, out OriginalMethod);
+            Import.Patch.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
         }
 
         public T CreateDelegate<T>() where T : Delegate
@@ -36,9 +33,9 @@ namespace BE4v.SDK
             set
             {
                 if (isEnabled = value)
-                    Import.Patch.VRC_EnableHook(*(IntPtr*)TargetMethod.ptr.ToPointer());
+                    Import.Patch.VRC_EnableHook(*(IntPtr*)TargetMethod.Pointer.ToPointer());
                 else
-                    Import.Patch.VRC_DisableHook(*(IntPtr*)TargetMethod.ptr.ToPointer());
+                    Import.Patch.VRC_DisableHook(*(IntPtr*)TargetMethod.Pointer.ToPointer());
             }
         }
 

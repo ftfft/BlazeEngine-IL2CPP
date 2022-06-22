@@ -1,5 +1,4 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
+﻿using System;
 using UnityEngine;
 using BE4v.Utils;
 using BE4v.Mods;
@@ -82,8 +81,8 @@ namespace BE4v.MenuEdit.IMGUI
                 GUI.backgroundColor = new Color(0, 255, 0);
                 int SizeX1 = Screen.width - (iLeftMargin * 2);
                 // GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), strTabMenuBold.ptr);
-                GUI.Label(new Rect(120, iTopMargin, 40, 20), strHashBold.ptr);
-                GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.ptr);
+                GUI.Label(new Rect(120, iTopMargin, 40, 20), strHashBold.Pointer);
+                GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.Pointer);
 
                 int iPlayer = 0;
                 VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
@@ -95,21 +94,21 @@ namespace BE4v.MenuEdit.IMGUI
                     {
                         if (uSelectSteam != 0L)
                         {
-                            if (GUI.Button(new Rect(180, 112, 150, 17), strEmpty.ptr))
+                            if (GUI.Button(new Rect(180, 112, 150, 17), strEmpty.Pointer))
                             {
                                 Avatars.OpenUrlBrowser("https://steamcommunity.com/profiles/" + uSelectSteam);
                             }
                         }
-                        GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), strTempText.ptr);
-                        if (GUI.Button(new Rect(400, 100, 120, 20), strTeleport.ptr))
+                        GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), strTempText.Pointer);
+                        if (GUI.Button(new Rect(400, 100, 120, 20), strTeleport.Pointer))
                         {
                             VRC.Player.Instance.transform.position = player.transform.position;
                         }
                         IntPtr ptrSitEv = IntPtr.Zero;
                         if (SitOnHead.SelectUser != player?.Components)
-                            ptrSitEv = strChairInHead_Sit_On.ptr;
+                            ptrSitEv = strChairInHead_Sit_On.Pointer;
                         else
-                            ptrSitEv = strChairInHead_Get_Up.ptr;
+                            ptrSitEv = strChairInHead_Get_Up.Pointer;
                         if (GUI.Button(new Rect(400, 120, 120, 20), ptrSitEv))
                         {
                             if (SitOnHead.SelectUser != player?.Components)
@@ -117,7 +116,7 @@ namespace BE4v.MenuEdit.IMGUI
                             else
                                 SitOnHead.SelectUser = null;
                         }
-                        IntPtr iSelected = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? strUnBlockData : strBlockData).ptr;
+                        IntPtr iSelected = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? strUnBlockData : strBlockData).Pointer;
                         if (GUI.Button(new Rect(550, 100, 120, 20), iSelected))
                         {
                             if (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value))

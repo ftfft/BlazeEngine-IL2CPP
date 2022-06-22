@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using BE4v.MenuEdit;
 using BE4v.Mods;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using IL2Photon.Pun;
 using IL2Photon.Realtime;
 using IL2ExitGames.Client.Photon;

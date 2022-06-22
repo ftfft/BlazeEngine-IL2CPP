@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.Core;
 using BE4v.Mods;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 using BE4v.Utils;
 

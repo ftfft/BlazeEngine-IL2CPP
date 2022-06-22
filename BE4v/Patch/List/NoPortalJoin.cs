@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Reflection;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+using IL2CPP_Core.Objects;
 using BE4v.Mods;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.MenuEdit;
 using BE4v.Patch.Core;
 

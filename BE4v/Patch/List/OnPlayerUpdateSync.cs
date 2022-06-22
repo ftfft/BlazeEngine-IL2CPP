@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.Core;
 using BE4v.Mods;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 using BE4v.Utils;
 
@@ -15,12 +15,10 @@ namespace BE4v.Patch.List
         public void Start()
         {
             IL2Method method = VRC.Player.Instance_Class.GetMethod("Update");
-            if (method != null)
-            {
-                VRC_PlayerUpdate = PatchUtils.FastPatch<_VRC_Player_Update>(method, VRC_Player_Update);
-            }
-            else
+            if (method == null)
                 throw new NullReferenceException();
+
+            VRC_PlayerUpdate = PatchUtils.FastPatch<_VRC_Player_Update>(method, VRC_Player_Update);
         }
 
         public static void VRC_Player_Update(IntPtr instance)
@@ -28,7 +26,7 @@ namespace BE4v.Patch.List
             if (instance == IntPtr.Zero) return;
             VRC_PlayerUpdate(instance);
             VRC.Player localPlayer = VRC.Player.Instance;
-            if (localPlayer == null || localPlayer.ptr == instance) return;
+            if (localPlayer == null || localPlayer.Pointer == instance) return;
             VRC.Player player = new VRC.Player(instance);
 
             bool blockUpdate = false;
@@ -84,7 +82,7 @@ namespace BE4v.Patch.List
                 HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, false);
                 HighlightUtils.GetLight(Color.red).EnableOutline(renderer, false);
                 HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, false);
-                if (blocked[player.ptr] || blockedBy[player.ptr])
+                if (blocked[player.Pointer] || blockedBy[player.Pointer])
                 {
                     HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, Status.isGlowESP);
                 }

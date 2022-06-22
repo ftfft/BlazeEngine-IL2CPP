@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
@@ -12,12 +12,10 @@ namespace BE4v.Patch.List
         public void Start()
         {
             IL2Method method = VRCApplication.Instance_Class.GetMethod("OnApplicationQuit");
-            if (method != null)
-            {
-                new IL2Patch(method, (_VRCApplication_OnApplicationQuit)VRCApplication_OnApplicationQuit);
-            }
-            else
+            if (method == null)
                 throw new NullReferenceException();
+
+                new IL2Patch(method, (_VRCApplication_OnApplicationQuit)VRCApplication_OnApplicationQuit);
         }
 
         public static void VRCApplication_OnApplicationQuit()

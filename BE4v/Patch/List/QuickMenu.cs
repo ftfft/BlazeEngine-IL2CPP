@@ -1,6 +1,6 @@
 ﻿using System;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 using BE4v.Mods.Min;
 
@@ -15,13 +15,11 @@ namespace BE4v.Patch.List
             try
             {
                 IL2Method method = VRC.UI.Elements.QuickMenu.Instance_Class.GetMethod("OnEnable");
-                if (method != null)
-                {
-                    patch = new IL2Patch(method, (_QuickMenu_OnEnable)QuickMenu_OnEnable);
-                    _delegateQuickMenu_OnEnable = patch.CreateDelegate<_QuickMenu_OnEnable>();
-                }
-                else
+                if (method == null)
                     throw new NullReferenceException();
+            
+                patch = new IL2Patch(method, (_QuickMenu_OnEnable)QuickMenu_OnEnable);
+                _delegateQuickMenu_OnEnable = patch.CreateDelegate<_QuickMenu_OnEnable>();
 
             }
             catch

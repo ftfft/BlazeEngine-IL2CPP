@@ -1,7 +1,7 @@
 ﻿using System;
+using IL2CPP_Core.Objects;
 using UnityEngine.Analytics;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
@@ -12,12 +12,10 @@ namespace BE4v.Patch.List
         public void Start()
         {
             IL2Method method = Assembler.list["UnityEngine.Analytics"].GetClass("Analytics", "UnityEngine.Analytics").GetMethod(x => x.Name == "CustomEvent" && x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "eventData");
-            if (method != null)
-            {
-                new IL2Patch(method, (_UnityEngine_Analytics_CustomEvent)UnityEngine_Analytics_CustomEvent);
-            }
-            else
+            if (method == null)
                 throw new NullReferenceException();
+
+            new IL2Patch(method, (_UnityEngine_Analytics_CustomEvent)UnityEngine_Analytics_CustomEvent);
         }
 
         private static AnalyticsResult UnityEngine_Analytics_CustomEvent()

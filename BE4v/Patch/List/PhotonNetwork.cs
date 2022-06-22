@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
@@ -10,12 +10,10 @@ namespace BE4v.Patch.List
         public void Start()
         {
             IL2Method method = IL2Photon.Pun.PhotonNetwork.Instance_Class.GetMethod("OnEvent");
-            if (method != null)
-            {
-                _OnEvent = PatchUtils.FastPatch<_PhotonNetwork_OnEvent>(method, PhotonNetwork_OnEvent);
-            }
-            else
+            if (method == null)
                 throw new NullReferenceException();
+
+            _OnEvent = PatchUtils.FastPatch<_PhotonNetwork_OnEvent>(method, PhotonNetwork_OnEvent);
         }
 
         public static void PhotonNetwork_OnEvent(IntPtr pEventData)

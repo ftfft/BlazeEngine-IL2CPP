@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CastUtils.cs" />
     <Compile Include="IL2CPP.cs" />
     <Compile Include="Import.cs" />
     <Compile Include="System\Array.cs" />
@@ -64,6 +65,15 @@
     <Compile Include="System\IO\File.cs" />
     <Compile Include="System\IO\MemoryStream.cs" />
     <Compile Include="System\IO\Stream.cs" />
+    <Compile Include="System\Reflection\Assembly.cs" />
+    <Compile Include="System\Reflection\MemberInfo.cs" />
+    <Compile Include="System\Reflection\MethodBase.cs" />
+    <Compile Include="System\Reflection\MethodBody.cs" />
+    <Compile Include="System\Reflection\MethodInfo.cs" />
+    <Compile Include="System\Reflection\Module.cs" />
+    <Compile Include="System\Reflection\MonoMethod.cs" />
+    <Compile Include="System\Reflection\ParameterInfo.cs" />
+    <Compile Include="System\Reflection\RuntimeMethodInfo.cs" />
     <Compile Include="System\RuntimeMethodHandle.cs" />
     <Compile Include="System\RuntimeType.cs" />
     <Compile Include="System\Runtime\Serialization\Formatters\Binary\BinaryFormatter.cs" />

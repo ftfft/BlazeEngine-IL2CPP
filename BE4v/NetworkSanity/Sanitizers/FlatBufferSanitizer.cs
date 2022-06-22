@@ -8,7 +8,6 @@ using UnityEngine;
 using VRC;
 using VRC.Networking;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 namespace NetworkSanity.Sanitizers
 {

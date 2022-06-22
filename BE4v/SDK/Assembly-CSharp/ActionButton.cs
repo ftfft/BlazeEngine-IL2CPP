@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class ActionButton : MonoBehaviour
 {
-    public ActionButton(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public ActionButton(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("ActionButton") != null && x.GetMethod("OnEnable") != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("ActionButton") != null && x.GetMethod("OnEnable") != null);
 }

@@ -135,13 +135,13 @@ namespace System
 
         unsafe public IntPtr method_ptr
         {
-            get => Instance_Class.GetField(nameof(method_ptr)).GetValue(this).GetValuе<IntPtr>();
+            get => Instance_Class.GetField(nameof(method_ptr)).GetValue<IntPtr>(this).GetValue();
             set => Instance_Class.GetField(nameof(method_ptr)).SetValue(this, new IntPtr(&value));
         }
 
         unsafe public IntPtr invoke_impl
         {
-            get => Instance_Class.GetField(nameof(invoke_impl)).GetValue(this).GetValuе<IntPtr>();
+            get => Instance_Class.GetField(nameof(invoke_impl)).GetValue<IntPtr>(this).GetValue();
             set => Instance_Class.GetField(nameof(invoke_impl)).SetValue(this, new IntPtr(&value));
         }
 
@@ -153,31 +153,31 @@ namespace System
 
         unsafe public IntPtr method
         {
-            get => Instance_Class.GetField(nameof(method)).GetValue(this).GetValuе<IntPtr>();
+            get => Instance_Class.GetField(nameof(method)).GetValue<IntPtr>(this).GetValue();
             set => Instance_Class.GetField(nameof(method)).SetValue(this, new IntPtr(&value));
         }
 
         unsafe public IntPtr delegate_trampoline
         {
-            get => Instance_Class.GetField(nameof(delegate_trampoline)).GetValue(this).GetValuе<IntPtr>();
+            get => Instance_Class.GetField(nameof(delegate_trampoline)).GetValue<IntPtr>(this).GetValue();
             set => Instance_Class.GetField(nameof(delegate_trampoline)).SetValue(this, new IntPtr(&value));
         }
 
         unsafe public IntPtr extra_arg
         {
-            get => Instance_Class.GetField(nameof(extra_arg)).GetValue(this).GetValuе<IntPtr>();
+            get => Instance_Class.GetField(nameof(extra_arg)).GetValue<IntPtr>(this).GetValue();
             set => Instance_Class.GetField(nameof(extra_arg)).SetValue(this, new IntPtr(&value));
         }
 
         unsafe public IntPtr method_code
         {
-            get => Instance_Class.GetField(nameof(method_code)).GetValue(this).GetValuе<IntPtr>();
+            get => Instance_Class.GetField(nameof(method_code)).GetValue<IntPtr>(this).GetValue();
             set => Instance_Class.GetField(nameof(method_code)).SetValue(this, new IntPtr(&value));
         }
 
         unsafe public bool method_is_virtual
         {
-            get => Instance_Class.GetField(nameof(method_code)).GetValue(this).GetValuе<bool>();
+            get => Instance_Class.GetField(nameof(method_code)).GetValue<bool>(this).GetValue();
             set => Instance_Class.GetField(nameof(method_code)).SetValue(this, new IntPtr(&value));
         }
 

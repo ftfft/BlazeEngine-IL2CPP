@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 
 public abstract class AbstractVRLoadingOverlay : MonoBehaviour
 {
-    public AbstractVRLoadingOverlay(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public AbstractVRLoadingOverlay(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByFieldName("worldImageMask");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField("worldImageMask") != null);
 }

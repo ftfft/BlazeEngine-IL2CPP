@@ -16,7 +16,6 @@ namespace System.Collections.Generic
     }
     unsafe public class IL2List<T> : IL2List where T : unmanaged
     {
-        public IL2List() { }
         public IL2List(IntPtr ptr) : base(ptr) { }
 
         private static IL2Method methodAdd = null;

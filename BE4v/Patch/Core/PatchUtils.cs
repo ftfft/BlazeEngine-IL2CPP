@@ -1,6 +1,6 @@
 ﻿using System;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace BE4v.Patch.Core
 {

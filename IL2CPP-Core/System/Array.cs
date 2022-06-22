@@ -63,6 +63,17 @@ namespace System
 			return result;
         }
 
+		public T2[] ToArray<T2>() where T2 : IL2Object
+        {
+			int len = Length;
+			T2[] result = new T2[Length];
+			for(int i = 0;i< len; i++)
+            {
+				result[i].Pointer = (IntPtr)(object)this[i];
+			}
+			return result;
+        }
+
 		unsafe public byte[] GetAsByteArray()
         {
 			int size = (int)Import.Object.il2cpp_array_get_byte_length(Pointer);

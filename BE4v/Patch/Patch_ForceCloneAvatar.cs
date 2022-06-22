@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
-using BE4v.MenuEdit.Construct;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace BE4v.Patch
 {
