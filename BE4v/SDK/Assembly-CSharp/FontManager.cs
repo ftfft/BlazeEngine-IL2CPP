@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 using TMPro;
 
 public class FontManager : MonoBehaviour
 {
-    public FontManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+	public FontManager(IntPtr ptr) : base(ptr) { }
 
 	public static FontManager Instance
 	{
@@ -26,7 +26,12 @@ public class FontManager : MonoBehaviour
 			IL2Field field = Instance_Class.GetField(nameof(DynamicFonts));
 			if (field == null)
 				(field = Instance_Class.GetField(y => y.ReturnType.Name.StartsWith(TMP_FontAsset.Instance_Class.FullName))).Name = nameof(DynamicFonts);
-			return field?.GetValue(ptr).UnboxArray<TMP_FontAsset>();
+			
+			IL2Object result = field?.GetValue(this);
+			if (result == null)
+				return null;
+
+			return new IL2Array<IntPtr>(result.Pointer).ToArray<TMP_FontAsset>();
 		}
 		set
 		{
@@ -39,5 +44,5 @@ public class FontManager : MonoBehaviour
 	}
 
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name.StartsWith(TMP_FontAsset.Instance_Class.FullName)) != null);
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name.StartsWith(TMP_FontAsset.Instance_Class.FullName)) != null);
 }

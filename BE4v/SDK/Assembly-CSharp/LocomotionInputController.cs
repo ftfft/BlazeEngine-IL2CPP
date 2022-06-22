@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
-using UnityEngine;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 public class LocomotionInputController : InputStateController
 {
-    public LocomotionInputController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public LocomotionInputController(IntPtr ptr) : base(ptr) { }
 
     public VRCInput inJump
     {
@@ -16,9 +14,9 @@ public class LocomotionInputController : InputStateController
             if (field == null)
                 (field = Instance_Class.GetFields().Last(x => x.ReturnType.Name == VRCInput.Instance_Class.FullName)).Name = nameof(inJump);
 
-            return field?.GetValue(ptr)?.GetValue<VRCInput>();
+            return field?.GetValue(this)?.GetValue<VRCInput>();
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass(PlayerModComponentSpeed.Instance_Class.GetField(x => x.ReturnType.Name.Length > 40).ReturnType.Name);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(PlayerModComponentSpeed.Instance_Class.GetField(x => x.ReturnType.Name.Length > 40).ReturnType.Name);
 }

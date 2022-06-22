@@ -1,23 +1,22 @@
 using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 
 namespace UnityEngine
 {
     public class Component : Object
     {
-        public Component(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public Component(IntPtr ptr) : base(ptr) { }
 
         public Transform transform
         {
-            get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(ptr)?.GetValue<Transform>();
+            get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(this)?.GetValue<Transform>();
         }
 
-        public T GetComponentInChildren<T>() => GetComponentInChildren(typeof(T)).MonoCast<T>();
-        public T GetComponentInChildren<T>(bool includeInactive) => GetComponentInChildren(typeof(T), includeInactive).MonoCast<T>();
-        public T[] GetComponentsInChildren<T>() => gameObject.GetComponentsInChildren<T>();
-        public T[] GetComponentsInChildren<T>(bool includeInactive) => gameObject.GetComponentsInChildren<T>(includeInactive);
+        public T GetComponentInChildren<T>() where T : Object => GetComponentInChildren(typeof(T))?.GetValue<T>();
+        public T GetComponentInChildren<T>(bool includeInactive) where T : Object => GetComponentInChildren(typeof(T), includeInactive).GetValue<T>();
+        public T[] GetComponentsInChildren<T>() where T : Object => gameObject.GetComponentsInChildren<T>();
+        public T[] GetComponentsInChildren<T>(bool includeInactive) where T : Object => gameObject.GetComponentsInChildren<T>(includeInactive);
         public Component GetComponentInChildren(Type type) => GetComponentInChildren(type, false);
         public Component GetComponentInChildren(Type type, bool includeInactive) => gameObject.GetComponentInChildren(type, includeInactive);
         public Component[] GetComponentsInChildren(Type type) => gameObject.GetComponentsInChildren(type);
@@ -36,9 +35,9 @@ namespace UnityEngine
 
         public GameObject gameObject
         {
-            get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(ptr)?.GetValue<GameObject>();
+            get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(this)?.GetValue<GameObject>();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Component", "UnityEngine");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Component", "UnityEngine");
     }
 }

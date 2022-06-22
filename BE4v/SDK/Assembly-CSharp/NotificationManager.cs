@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using Transmtn.DTO.Notifications;
 using VRC.UI;
-using BE4v.SDK.CPP2IL;
 
 public class NotificationManager : MonoBehaviour
 {
@@ -50,8 +50,8 @@ public class NotificationManager : MonoBehaviour
                 return;
         }
 
-        methodSendNotification.Invoke(ptr, new IntPtr[] { new IL2String(receiverUserId).ptr, new IL2String(type).ptr, new IL2String(message).ptr, details.ptr });
+        methodSendNotification.Invoke(this, new IntPtr[] { new IL2String(receiverUserId).Pointer, new IL2String(type).Pointer, new IL2String(message).Pointer, details.Pointer });
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass("NotificationManager");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass("NotificationManager");
 }

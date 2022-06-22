@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
-using UnityEngine;
+using IL2CPP_Core.Objects;
 
 namespace Discord
 {
-    public class Discord : IL2Base
+    public class Discord : IL2Object
     {
-        public Discord(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public Discord(IntPtr ptr) : base(ptr) { }
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod(".ctor", y => y.GetParameters().Length == 2 && y.GetParameters()[0].Name == "clientId") != null);
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod(".ctor", y => y.GetParameters().Length == 2 && y.GetParameters()[0].Name == "clientId") != null);
     }
 }

@@ -4,7 +4,7 @@ using IL2CPP_Core.Objects;
 
 public static class CastUtils
 {
-    internal static IntPtr IL2Typeof(this Type type)
+    public static IntPtr IL2Typeof(this Type type)
     {
         IL2Class ilType = null;
 

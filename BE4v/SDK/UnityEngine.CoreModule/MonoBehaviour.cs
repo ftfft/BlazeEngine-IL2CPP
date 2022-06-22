@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Reflection.Emit;
+using IL2CPP_Core.Objects;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 namespace UnityEngine
 {
@@ -10,13 +9,13 @@ namespace UnityEngine
 	/// </summary>
 	public class MonoBehaviour : Behaviour
 	{
-		public MonoBehaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public MonoBehaviour(IntPtr ptr) : base(ptr) { }
 
 		public void StopAllCoroutines()
         {
-			Instance_Class.GetMethod(nameof(StopAllCoroutines)).Invoke(ptr);
+			Instance_Class.GetMethod(nameof(StopAllCoroutines)).Invoke(this);
         }
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("MonoBehaviour", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("MonoBehaviour", "UnityEngine");
 	}
 }

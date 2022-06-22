@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
-using BE4v.SDK;
 
 public class HighlightsFXStandalone : HighlightsFX
 {
-    public HighlightsFXStandalone(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public HighlightsFXStandalone(IntPtr ptr) : base(ptr) { }
 
     public HighlightsFXStandalone() : base(IntPtr.Zero)
     {
-        ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-        Instance_Class.GetMethod(".ctor").Invoke(ptr);
+        Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+        Instance_Class.GetMethod(".ctor").Invoke(Pointer);
     }
 
     unsafe public Color highlightColor
@@ -22,7 +21,7 @@ public class HighlightsFXStandalone : HighlightsFX
             if (field == null)
                 (field = Instance_Class.GetField(Color.Instance_Class)).Name = nameof(highlightColor);
 
-            return field.GetValue(ptr).GetValuе<Color>();
+            return field.GetValue<Color>(this).GetValue();
         }
         set
         {
@@ -30,9 +29,9 @@ public class HighlightsFXStandalone : HighlightsFX
             if (field == null)
                 (field = Instance_Class.GetField(Color.Instance_Class)).Name = nameof(highlightColor);
 
-            field.SetValue(ptr, new IntPtr(&value));
+            field.SetValue(this, new IntPtr(&value));
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPreRender") != null && x.BaseType != MonoBehaviour.Instance_Class);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPreRender") != null && x.BaseType != MonoBehaviour.Instance_Class);
 }

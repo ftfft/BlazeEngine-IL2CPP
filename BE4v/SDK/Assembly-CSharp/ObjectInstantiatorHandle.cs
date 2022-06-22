@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class ObjectInstantiatorHandle : MonoBehaviour
 {
-    public ObjectInstantiatorHandle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+	public ObjectInstantiatorHandle(IntPtr ptr) : base(ptr) { }
 	/*
 	public ObjectInstantiator Instantiator
 	{
@@ -33,7 +33,7 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 			if (field == null)
 				(field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(int?).FullName)).Name = nameof(LocalID);
 
-			return field.GetValue(ptr)?.GetValuе<int>();
+			return field.GetValue<int>(this)?.GetValue();
 		}
 		set
 		{
@@ -46,9 +46,9 @@ public class ObjectInstantiatorHandle : MonoBehaviour
 				int iValue = (int)value;
 				val = new IntPtr(&iValue);
             }
-			field.SetValue(ptr, val);
+			field.SetValue(this, val);
 		}
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ReapObject");
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("ReapObject") != null);
 }

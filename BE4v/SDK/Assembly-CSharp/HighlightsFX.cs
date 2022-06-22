@@ -1,10 +1,10 @@
 ﻿using System;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public abstract class HighlightsFX : PostEffectsBase
 {
-    public HighlightsFX(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public HighlightsFX(IntPtr ptr) : base(ptr) { }
 
     public static HighlightsFX Instance
     {
@@ -22,7 +22,7 @@ public abstract class HighlightsFX : PostEffectsBase
         IL2Method method = Instance_Class.GetMethod(nameof(EnableObjectHighlight));
         if (method == null)
             (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 2 && x.IsStatic)).Name = nameof(EnableObjectHighlight);
-        method.Invoke(new IntPtr[] { outlineRenderer.ptr, new IntPtr(&enable) });
+        method.Invoke(new IntPtr[] { outlineRenderer == null ? IntPtr.Zero : outlineRenderer.Pointer, new IntPtr(&enable) });
     }
 
     unsafe public void EnableOutline(Renderer outlineRenderer, bool enable)
@@ -30,7 +30,7 @@ public abstract class HighlightsFX : PostEffectsBase
         IL2Method method = Instance_Class.GetMethod(nameof(EnableOutline));
         if (method == null)
             (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 2 && !x.IsStatic)).Name = nameof(EnableOutline);
-        method.Invoke(ptr, new IntPtr[] { outlineRenderer.ptr, new IntPtr(&enable) });
+        method.Invoke(this, new IntPtr[] { outlineRenderer == null ? IntPtr.Zero : outlineRenderer.Pointer, new IntPtr(&enable) });
     }
 
     public static new IL2Class Instance_Class = HighlightsFXStandalone.Instance_Class.BaseType;

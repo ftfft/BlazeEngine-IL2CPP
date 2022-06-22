@@ -1,18 +1,24 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using VRC;
 
 public class DynamicBone : MonoBehaviour
 {
-	public DynamicBone(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+	public DynamicBone(IntPtr ptr) : base(ptr) { };
 
-	public IL2List<DynamicBoneCollider> m_Colliders
+	public IL2ListObject<DynamicBoneCollider> m_Colliders
 	{
-        get => Instance_Class.GetField(nameof(m_Colliders)).GetValue(ptr).ToIL2List<DynamicBoneCollider>();
-		set => Instance_Class.GetField(nameof(m_Colliders)).SetValue(ptr, value.ptr);
+		get
+		{
+			IL2Object result = Instance_Class.GetField(nameof(m_Colliders)).GetValue(this);
+			if (result == null)
+				return null;
+
+			return new IL2ListObject<DynamicBoneCollider>(result.Pointer);
+		}
+		set => Instance_Class.GetField(nameof(m_Colliders)).SetValue(this, value.Pointer);
 	}
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClass("DynamicBone");
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass("DynamicBone");
 }

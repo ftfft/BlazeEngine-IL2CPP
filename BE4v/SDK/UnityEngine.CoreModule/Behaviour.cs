@@ -1,6 +1,5 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -9,19 +8,19 @@ namespace UnityEngine
 	/// </summary>
 	public class Behaviour : Component
 	{
-		public Behaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Behaviour(IntPtr ptr) : base(ptr) { }
 
 		unsafe public bool enabled
 		{
-			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke<bool>(this).GetValue();
+			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		public bool isActiveAndEnabled
 		{
-			get => Instance_Class.GetProperty(nameof(isActiveAndEnabled)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
+			get => Instance_Class.GetProperty(nameof(isActiveAndEnabled)).GetGetMethod().Invoke<bool>(this).GetValue();
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Behaviour", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Behaviour", "UnityEngine");
 	}
 }

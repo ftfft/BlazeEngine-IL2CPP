@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.SDKBase;
-using VRC.Core;
-using BE4v.SDK.CPP2IL;
 using BE4v.SDK;
-
+using SharpDisasm;
 public static class UserUtils
 {
+    unsafe public static Disassembler GetDisassembler(this IL2Method method, int @size = 0x1000)
+    {
+        return new Disassembler(*(IntPtr*)method.Pointer, @size, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)method.Pointer).ToInt64()), true, Vendor.Intel);
+    }
 
     #region SpawnPortal
     public static GameObject SpawnPortal(Transform transform, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde", string instanceId = "Banned Instance\nTupper\0")

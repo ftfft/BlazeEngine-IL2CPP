@@ -1,29 +1,28 @@
 using System;
 using System.Linq;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
-    public class Object : IL2Base
+    public class Object : IL2Object
     {
-        public Object(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public Object(IntPtr ptr) : base(ptr) { }
 
         public static T Instantiate<T>(T original, Transform parent) where T : Object
         {
-            return Instantiate(original.MonoCast<Object>(), parent, false)?.MonoCast<T>();
+            return Instantiate(original.GetValue<Object>(), parent, false)?.GetValue<T>();
         }
         public static Object Instantiate(Object original, Transform parent) => Instantiate(original, parent, false);
         public static T Instantiate<T>(Object original, Transform parent, bool instantiateInWorldSpace) where T : Object
         {
-            return Instantiate(original, parent, instantiateInWorldSpace)?.MonoCast<T>();
+            return Instantiate(original, parent, instantiateInWorldSpace)?.GetValue<T>();
         }
         unsafe public static Object Instantiate(Object original, Transform parent, bool instantiateInWorldSpace)
         {
             return Instance_Class.GetMethod(nameof(Instantiate),
                 x => x.GetParameters().Length == 3
                 && x.GetParameters()[2].ReturnType.Name == typeof(bool).FullName
-                && x.ReturnType.Name == Instance_Class.FullName).Invoke(new IntPtr[] { original.ptr, parent.ptr, new IntPtr(&instantiateInWorldSpace) })?.GetValue<Object>();
+                && x.ReturnType.Name == Instance_Class.FullName).Invoke(new IntPtr[] { original.Pointer, parent.Pointer, new IntPtr(&instantiateInWorldSpace) })?.GetValue<Object>();
         }
 
         public static T FindObjectOfType<T>() where T : Object
@@ -36,13 +35,13 @@ namespace UnityEngine
             return null;
         }
 
-        public static T[] FindObjectsOfType<T>()
+        public static T[] FindObjectsOfType<T>() where T : Object
         {
             Object[] result = FindObjectsOfType(typeof(T));
 
             if (result != null)
                 if (result.Length > 0)
-                    return result.Select(x => x.MonoCast<T>()).ToArray();
+                    return result.Select(x => x.GetValue<T>()).ToArray();
 
             return new T[0];
         }
@@ -58,11 +57,15 @@ namespace UnityEngine
         }
         public static Object[] FindObjectsOfType(Type type)
         {
-            IntPtr typeObject = type.IL2Typeof();
+            IntPtr typeObject = CastUtils.IL2Typeof(type);
             if (typeObject == IntPtr.Zero)
                 return null;
 
-            return Instance_Class.GetMethod(nameof(FindObjectsOfType), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { typeObject }).UnboxArray<Object>();
+            IL2Object result = Instance_Class.GetMethod(nameof(FindObjectsOfType), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { typeObject });
+            if (result == null)
+                return null;
+
+            return new IL2Array<IntPtr>(result.Pointer).ToArray<Object>();
         }
 
         public void Destroy() => Destroy(this, 0f);
@@ -73,7 +76,7 @@ namespace UnityEngine
             if (obj == null || time < 0)
                 return;
 
-            Instance_Class.GetMethod(nameof(Destroy), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { obj.ptr, new IntPtr(&time) });
+            Instance_Class.GetMethod(nameof(Destroy), m => m.GetParameters().Length == 2).Invoke(new IntPtr[] { obj.Pointer, new IntPtr(&time) });
         }
 
         unsafe public static Object FindObjectFromInstanceID(int instanceID)
@@ -83,24 +86,24 @@ namespace UnityEngine
 
         public static void DontDestroyOnLoad(Object target)
         {
-            Instance_Class.GetMethod(nameof(DontDestroyOnLoad)).Invoke(new IntPtr[] { target.ptr });
+            Instance_Class.GetMethod(nameof(DontDestroyOnLoad)).Invoke(new IntPtr[] { target.Pointer });
         }
         unsafe public HideFlags hideFlags
         {
-            get => Instance_Class.GetProperty(nameof(hideFlags)).GetGetMethod().Invoke(ptr).GetValuå<HideFlags>();
-            set => Instance_Class.GetProperty(nameof(hideFlags)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(hideFlags)).GetGetMethod().Invoke<HideFlags>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(hideFlags)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
         public string name
         {
-            get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
-            set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+            get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
+            set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
         }
 
         public new string ToString()
         {
-            return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.GetValue<string>();
+            return Instance_Class.GetMethod(nameof(ToString)).Invoke(this)?.GetValue<IL2String>().ToString();
         }
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Object", "UnityEngine");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Object", "UnityEngine");
     }
 }

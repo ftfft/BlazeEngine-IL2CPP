@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Linq;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
-using UnityEngine;
+using IL2CPP_Core.Objects;
 
-public class BinarySerializer : IL2Base
+public class BinarySerializer : IL2Object
 {
     static BinarySerializer()
     {
-        Instance_Class = Assembler.list["acs"].GetClasses()
+        Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses()
             .FirstOrDefault(x => x.GetNestedTypes()
                 .FirstOrDefault(y => y.GetField("SERIALIZABLE_CONTAINER") != null) != null);
     }
 
-    public BinarySerializer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public BinarySerializer(IntPtr ptr) : base(ptr) { }
 
     unsafe public static IL2Object Deserialize(byte[] bytes)
     {
@@ -34,7 +33,7 @@ public class BinarySerializer : IL2Base
             IntPtr res = IntPtr.Zero;
             int len = bytes.Length;
             IL2Array<byte> b = new IL2Array<byte>(len, IL2SystemClass.Byte);
-            method.Invoke(new IntPtr[] { b.ptr, res });
+            method.Invoke(new IntPtr[] { b.Pointer, res });
         }
 
         return result;
@@ -52,7 +51,7 @@ public class BinarySerializer : IL2Base
                 if (field == null)
                     return default;
             }
-            return field.GetValue(ptr).GetValuе<int>();
+            return field.GetValue<int>(this).GetValue();
         }
         set
         {
@@ -63,7 +62,7 @@ public class BinarySerializer : IL2Base
                 if (field == null)
                     return;
             }
-            field.SetValue(ptr, new IntPtr(&value));
+            field.SetValue(this, new IntPtr(&value));
         }
     }
 
@@ -78,11 +77,11 @@ public class BinarySerializer : IL2Base
                 if (field == null)
                     return null;
             }
-            IL2Object result = field.GetValue(ptr);
+            IL2Object result = field.GetValue(this);
             if (result == null)
                 return null;
 
-            return new IL2Array<byte>(result.ptr);
+            return new IL2Array<byte>(result.Pointer);
         }
         set
         {
@@ -93,7 +92,7 @@ public class BinarySerializer : IL2Base
                 if (field == null)
                     return;
             }
-            field.SetValue(ptr, value.ptr);
+            field.SetValue(this, value.Pointer);
         }
     }
 
@@ -119,7 +118,7 @@ public class BinarySerializer : IL2Base
                 if (field == null)
                     return;
             }
-            field.SetValue(value == null ? IntPtr.Zero : value.ptr);
+            field.SetValue(value == null ? IntPtr.Zero : value.Pointer);
         }
     }
 

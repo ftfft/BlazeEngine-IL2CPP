@@ -1,13 +1,11 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 
 public class InteractivePlayer : MonoBehaviour
 {
-    public InteractivePlayer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public InteractivePlayer(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.GetFields().Length == 2 && x.GetFields()[0].ReturnType.Name == x.GetFields()[1].ReturnType.Name && x.GetMethod("Awake") != null && x.GetMethod("Update") != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetFields().Length == 2 && x.GetFields()[0].ReturnType.Name == x.GetFields()[1].ReturnType.Name && x.GetMethod("Awake") != null && x.GetMethod("Update") != null);
 }

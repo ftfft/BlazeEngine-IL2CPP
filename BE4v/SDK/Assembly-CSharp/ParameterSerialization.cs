@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 public static class ParameterSerialization
 {
@@ -22,16 +22,16 @@ public static class ParameterSerialization
         {
 			b[i] = data[i];
 		}
-		IL2Object @object = method.Invoke(new IntPtr[] { b.ptr });
+		IL2Object @object = method.Invoke(new IntPtr[] { b.Pointer });
 		if (@object == null)
 			return null;
 
-		return @object.UnboxArray<IL2Object>();
+		return new IL2Array<IntPtr>(@object.Pointer).ToArray<IL2Object>();
 	}
 
-	public class SerializableContainer : IL2Base
+	public class SerializableContainer : IL2Object
 	{
-		public SerializableContainer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public SerializableContainer(IntPtr ptr) : base(ptr) { }
 
 		internal string name;
 
@@ -40,5 +40,5 @@ public static class ParameterSerialization
 		public static IL2Class Instance_Class = ParameterSerialization.Instance_Class.GetNestedType("SerializableContainer");
 	}
 
-	public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByNesestTypedName("SerializableContainer");
+	public static IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetNestedType("SerializableContainer") != null);
 }

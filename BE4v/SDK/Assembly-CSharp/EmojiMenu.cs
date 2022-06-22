@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class EmojiMenu : MonoBehaviour
 {
-    public EmojiMenu(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public EmojiMenu(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("TriggerEmoji");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FindClass_ByMethodName("TriggerEmoji");
 }

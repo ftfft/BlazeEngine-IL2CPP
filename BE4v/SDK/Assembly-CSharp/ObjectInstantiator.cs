@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 public class ObjectInstantiator : MonoBehaviour
 {
-    public ObjectInstantiator(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public ObjectInstantiator(IntPtr ptr) : base(ptr) { }
 
     public static string[] adminOnlyPrefabs
     {
@@ -15,17 +14,29 @@ public class ObjectInstantiator : MonoBehaviour
         {
             IL2Field field = Instance_Class.GetField(nameof(adminOnlyPrefabs));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string[]).FullName && x.GetValue().GetValue<string>().Length == 1)).Name = nameof(adminOnlyPrefabs);
-            return field?.GetValue().UnboxArray<string>();
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string[]).FullName && new IL2Array<IntPtr>(x.GetValue().Pointer).Length == 1)).Name = nameof(adminOnlyPrefabs);
+            IL2Object result = field?.GetValue();
+            if (result == null)
+                return null;
+
+            IL2String[] array = new IL2Array<IntPtr>(result.Pointer).ToArray<IL2String>();
+            return array.Select(x => x.ToString()).ToArray();
         }
         set
         {
             IL2Field field = Instance_Class.GetField(nameof(adminOnlyPrefabs));
             if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string[]).FullName && x.GetValue().GetValue<string>().Length == 1)).Name = nameof(adminOnlyPrefabs);
-            field?.SetValue(IntPtr.Zero, value.Select(x => new IL2String(x).ptr).ArrayToIntPtr(IL2SystemClass.String));
+                (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string[]).FullName && new IL2Array<IntPtr>(x.GetValue().Pointer).Length == 1)).Name = nameof(adminOnlyPrefabs);
+
+            int len = value.Length;
+            IL2Array<IntPtr> array = new IL2Array<IntPtr>(len, IL2SystemClass.String);
+            for(int i=0;i<len;i++)
+            {
+                array[i] = new IL2String(value[i]).Pointer;
+            }
+            field?.SetValue(IntPtr.Zero, array.Pointer);
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("_InstantiateObject");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("_InstantiateObject") != null);
 }

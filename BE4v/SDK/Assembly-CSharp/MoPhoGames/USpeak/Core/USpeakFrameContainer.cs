@@ -1,8 +1,6 @@
 ﻿using System;
+using IL2CPP_Core.Objects;
 using MoPhoGames.USpeak.Core.Utils;
-using UnityEngine;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 namespace MoPhoGames.USpeak.Core
 {
@@ -60,6 +58,6 @@ namespace MoPhoGames.USpeak.Core
 
 		public byte[] encodedData;
 
-		public static IL2Class Instance_Class = Assembler.list["acs"].GetClass(USpeaker.EncodeInfo.Instance_Class.GetField(x => !x.ReturnType.Name.StartsWith("System.")).ReturnType.Name);
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(USpeaker.EncodeInfo.Instance_Class.GetField(x => !x.ReturnType.Name.StartsWith("System.")).ReturnType.Name);
 	}
 }
