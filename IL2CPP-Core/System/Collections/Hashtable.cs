@@ -5,7 +5,7 @@ namespace System.Collections
 {
     public class IL2Hashtable : IL2Object
     {
-        public IL2Hashtable(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        public IL2Hashtable(IntPtr ptr) : base(ptr) { }
 
         public IntPtr this[IntPtr key]
         {

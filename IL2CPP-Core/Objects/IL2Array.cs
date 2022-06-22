@@ -13,10 +13,7 @@ namespace IL2CPP_Core.Objects
 			Pointer = Import.Object.il2cpp_array_new(typeobject.Pointer, (ulong)length);
 		}
 
-		public IL2Array(IntPtr ptr) : base(ptr)
-		{
-			Pointer = ptr;
-		}
+		public IL2Array(IntPtr ptr) : base(ptr) { }
 
 		unsafe public T this[int index]
 		{

@@ -6,7 +6,7 @@ namespace IL2CPP_Core.Objects
 {
     unsafe public class IL2Object<T> : IL2Object where T : unmanaged
     {
-        public IL2Object(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        public IL2Object(IntPtr ptr) : base(ptr) { }
         public IL2Object(T value, IL2Class type) : base(IntPtr.Zero)
         {
             Pointer = Import.Object.il2cpp_object_new(type.Pointer);
@@ -25,12 +25,11 @@ namespace IL2CPP_Core.Objects
         ///     NOT UNMANAGED
         /// </summary>
         /// <returns></returns>
-        unsafe public T1 GetValue<T1>()
+        public T1 GetValue<T1>() where T1 : IL2Object, new()
         {
-            if (typeof(T1) == typeof(string))
-                return (T1)(object)(new IL2String(Pointer).ToString());
-
-            return (T1)typeof(T1).GetConstructors().First(x => x.GetParameters().Length == 1).Invoke(new object[] { Pointer });
+            T1 t1 = new T1();
+            t1.Pointer = Pointer;
+            return t1;
         }
 
         /// <summary>

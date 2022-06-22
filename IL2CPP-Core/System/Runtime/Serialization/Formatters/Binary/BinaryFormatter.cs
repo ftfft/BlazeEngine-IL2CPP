@@ -6,7 +6,7 @@ namespace System.Runtime.Serialization.Formatters.Binary
 {
     public sealed class IL2BinaryFormatter : IL2Object
     {
-        public IL2BinaryFormatter(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        public IL2BinaryFormatter(IntPtr ptr) : base(ptr) { }
 
         public IL2BinaryFormatter() : base(IntPtr.Zero)
         {
@@ -16,12 +16,12 @@ namespace System.Runtime.Serialization.Formatters.Binary
 
         public void Serialize(IL2Stream serializationStream, IL2Object graph)
         {
-            Instance_Class.GetMethod(nameof(Serialize), x => x.GetParameters().Length == 2).Invoke(this, new IntPtr[] { serializationStream == null ? IntPtr.Zero : serializationStream.ptr, graph == null ? IntPtr.Zero : graph.Pointer});
+            Instance_Class.GetMethod(nameof(Serialize), x => x.GetParameters().Length == 2).Invoke(this, new IntPtr[] { serializationStream == null ? IntPtr.Zero : serializationStream.Pointer, graph == null ? IntPtr.Zero : graph.Pointer });
         }
 
         public IL2Object Deserialize(IL2Stream serializationStream)
         {
-            return Instance_Class.GetMethod(nameof(Deserialize), x => x.GetParameters().Length == 1).Invoke(this, new IntPtr[] { serializationStream.ptr });
+            return Instance_Class.GetMethod(nameof(Deserialize), x => x.GetParameters().Length == 1).Invoke(this, new IntPtr[] { serializationStream.Pointer });
         }
 
         public static IL2Class Instance_Class = IL2CPP.AssemblyList["mscorlib"].GetClass(typeof(BinaryFormatter).Name, typeof(BinaryFormatter).Namespace);

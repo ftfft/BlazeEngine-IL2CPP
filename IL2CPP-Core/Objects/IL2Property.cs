@@ -5,7 +5,7 @@ namespace IL2CPP_Core.Objects
 {
     public class IL2Property : IL2Object
     {
-        internal IL2Property(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        internal IL2Property(IntPtr ptr) : base(ptr) { }
 
         private string szName;
         public string Name

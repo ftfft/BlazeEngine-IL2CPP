@@ -6,7 +6,7 @@ namespace IL2CPP_Core.Objects
 {
     public class IL2Method : IL2Object
     {
-        internal IL2Method(IntPtr ptr) : base(ptr) => Pointer = ptr;
+        internal IL2Method(IntPtr ptr) : base(ptr) { }
 
         private string szName;
         public string Name
@@ -68,7 +68,7 @@ namespace IL2CPP_Core.Objects
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
 
         public IL2Object Invoke() => Invoke(IntPtr.Zero, new IntPtr[] { IntPtr.Zero });
-        public IL2Object Invoke(IL2Object obj) => Invoke(obj.Pointer, new IntPtr[] { IntPtr.Zero });
+        public IL2Object Invoke(IL2Object obj, bool isVirtual = false, bool ex = true) => Invoke(obj.Pointer, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
         public IL2Object Invoke(IntPtr obj, bool isVirtual = false, bool ex = true) => Invoke(obj, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
         public IL2Object Invoke(params IntPtr[] paramtbl)
         {
