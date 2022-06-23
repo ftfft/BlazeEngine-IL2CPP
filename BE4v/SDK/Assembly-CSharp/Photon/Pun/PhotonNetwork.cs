@@ -87,7 +87,7 @@ namespace IL2Photon.Pun
                 if (method == null)
                     return false;
             }
-            return method.Invoke(new IntPtr[] { new IntPtr(&operationCode), operationParameters, raiseEventOptions == null ? IntPtr.Zero : raiseEventOptions.Pointer, new IntPtr(&sendOptions) }).GetValuе<bool>();
+            return method.Invoke<bool>(new IntPtr[] { new IntPtr(&operationCode), operationParameters, raiseEventOptions == null ? IntPtr.Zero : raiseEventOptions.Pointer, new IntPtr(&sendOptions) }).GetValue();
         }
 
 

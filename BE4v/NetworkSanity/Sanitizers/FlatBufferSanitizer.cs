@@ -247,7 +247,7 @@ namespace NetworkSanity.Sanitizers
             if (RateLimiter.IsRateLimited(eventData.Sender))
                 return true;
 
-            var bytes = new IL2Array<byte>(eventData.CustomData.ptr).ToArray();
+            var bytes = new IL2Array<byte>(eventData.CustomData.Pointer).ToArray();
             if (bytes.Length <= 10)
             {
                 RateLimiter.BlacklistUser(eventData.Sender, eventData.Code);

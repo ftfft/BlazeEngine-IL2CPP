@@ -7,5 +7,5 @@ public class EmojiMenu : MonoBehaviour
 {
     public EmojiMenu(IntPtr ptr) : base(ptr) { }
 
-    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FindClass_ByMethodName("TriggerEmoji");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("TriggerEmoji") != null);
 }

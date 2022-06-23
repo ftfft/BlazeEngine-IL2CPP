@@ -36,7 +36,7 @@ namespace BE4v.Patch.List
             Threads.UpdatePlayers();
 
             VRC.Player localPlayer = VRC.Player.Instance;
-            if (localPlayer != null && instance != localPlayer.ptr)
+            if (localPlayer != null && instance != localPlayer.Pointer)
             {
                 VRC.Player player = new VRC.Player(instance);
                 if (Status.isAntiBlock)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace UnityEngine
 {
@@ -141,13 +140,7 @@ namespace UnityEngine
         /// </summary>
         public Collider collider
         {
-            get
-            {
-                var obj = Object.FindObjectFromInstanceID(m_Collider);
-                if (obj != null && obj.ptr != IntPtr.Zero)
-                    return new Collider(obj.ptr);
-                return null;
-            }
+            get => Object.FindObjectFromInstanceID(m_Collider)?.GetValue<Collider>();
         }
 
         /*

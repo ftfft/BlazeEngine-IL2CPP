@@ -7,7 +7,7 @@ using VRC.UI;
 
 public class NotificationManager : MonoBehaviour
 {
-    public NotificationManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public NotificationManager(IntPtr ptr) : base(ptr) { }
 
     public static NotificationManager Instance
     {
@@ -37,7 +37,7 @@ public class NotificationManager : MonoBehaviour
                     {
 
                         IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
-                        methodSendNotification = Instance_Class.GetMethods().Where(x => !x.IsStatic && x.GetParameters().Length == 4).FirstOrDefault(x => *(IntPtr*)x.ptr == addr);
+                        methodSendNotification = Instance_Class.GetMethods().Where(x => !x.IsStatic && x.GetParameters().Length == 4).FirstOrDefault(x => *(IntPtr*)x.Pointer == addr);
                         if (methodSendNotification != null)
                             break;
                     }

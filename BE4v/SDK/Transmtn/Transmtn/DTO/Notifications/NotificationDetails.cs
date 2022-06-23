@@ -4,7 +4,7 @@ using IL2CPP_Core.Objects;
 
 namespace Transmtn.DTO.Notifications
 {
-	public sealed class NotificationDetails : IL2Dictionary<string, string>
+	public sealed class NotificationDetails : IL2Dictionary<IL2String, IL2String>
 	{
 		public NotificationDetails() : base(IntPtr.Zero)
 		{

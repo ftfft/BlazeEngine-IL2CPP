@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
+using IL2CPP_Core.Objects;
 using IL2ExitGames.Client.Photon;
 using NetworkSanity.Core;
-using IL2Photon.Realtime;
-using VRC.Core;
-using VRC.SDKBase;
-using BE4v.SDK;
-using BE4v.Patch;
-using BE4v.Mods;
-using BE4v.Serilize;
 
 namespace NetworkSanity.Sanitizers
 {
@@ -56,7 +46,7 @@ namespace NetworkSanity.Sanitizers
                 return true;
             }
 
-            byte[] bytes = new IL2Array<byte>(eventData.CustomData.ptr).ToBytesArray();
+            byte[] bytes = new IL2Array<byte>(eventData.CustomData.Pointer).GetAsByteArray();
             if (bytes.Length != 8)
             {
                 _rateLimiter.BlacklistUser(eventData.Sender, eventData.Code, "len != 8");

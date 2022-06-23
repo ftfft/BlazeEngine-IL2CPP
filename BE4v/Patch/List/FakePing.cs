@@ -31,7 +31,7 @@ namespace BE4v.Patch.List
                 foreach (var instruction in instructions)
                 {
                     IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
-                    if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr)) != null)
+                    if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.Pointer == addr)) != null)
                         break;
                 }
             }

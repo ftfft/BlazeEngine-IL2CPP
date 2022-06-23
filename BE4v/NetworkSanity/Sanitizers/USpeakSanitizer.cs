@@ -31,7 +31,7 @@ namespace NetworkSanity.Sanitizers
             if (eventData.CustomData == null)
                 return false;
 
-            byte[] bytes = new IL2Array<byte>(eventData.CustomData.ptr).ToBytesArray();
+            byte[] bytes = new IL2Array<byte>(eventData.CustomData.Pointer).GetAsByteArray();
             if (bytes.Length <= 8)
             {
                 _rateLimiter.BlacklistUser(eventData.Sender, eventData.Code, "len <= 8 | len="+bytes.Length);

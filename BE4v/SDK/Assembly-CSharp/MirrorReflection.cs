@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MirrorReflection : MonoBehaviour
 {
-    public MirrorReflection(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+	public MirrorReflection(IntPtr ptr) : base(ptr) { }
 
 	unsafe public LayerMask m_ReflectLayers
 	{
@@ -25,5 +25,5 @@ public class MirrorReflection : MonoBehaviour
 		}
 	}
 	
-	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FindClass_ByMethodName("OnWillRenderObject");
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnWillRenderObject") != null);
 }

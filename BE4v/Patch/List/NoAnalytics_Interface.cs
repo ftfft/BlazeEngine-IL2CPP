@@ -10,7 +10,7 @@ namespace BE4v.Patch.List
         public delegate void _VRC_Core_AnalyticsInterface_Send_3(IntPtr eventType, IntPtr eventProperties, IntPtr options);
         public void Start()
         {
-            IL2Method method = Assembler.list["VRCCore-Standalone"].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
+            IL2Method method = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("AnalyticsInterface", "VRC.Core").GetMethod("Send", x => x.GetParameters().Length == 3);
             if (method == null)
                 throw new NullReferenceException();
 

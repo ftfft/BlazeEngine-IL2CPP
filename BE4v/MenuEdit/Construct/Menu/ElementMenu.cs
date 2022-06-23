@@ -43,7 +43,7 @@ namespace BE4v.MenuEdit.Construct.Menu
             uiPage.Name = menuName;
             uiPage._menuStateController = QuickMenu.Instance.MenuStateController;
             
-            QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String(menuName).ptr, uiPage.ptr);
+            QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String(menuName).Pointer, uiPage.Pointer);
 
             transform = transform.Find("ScrollRect/Viewport/VerticalLayoutGroup");
             foreach (Transform obj in transform)

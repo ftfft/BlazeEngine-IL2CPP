@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using IL2ExitGames.Client.Photon;
 using NetworkSanity.Core;
 using VRC.SDKBase;
@@ -71,7 +72,7 @@ namespace NetworkSanity.Sanitizers
 
             try
             {
-                byte[] bytes = new IL2Array<byte>(obj.ptr).ToBytesArray();
+                byte[] bytes = new IL2Array<byte>(obj.Pointer).GetAsByteArray();
                 obj = (IL2Object)NonIL_BinarySerializer.Deserialize(bytes);
             }
             catch (Exception)
@@ -81,7 +82,7 @@ namespace NetworkSanity.Sanitizers
             }
 
 
-            var evtLogEntry = new VRC_EventLog.EventLogEntry(obj.ptr);
+            var evtLogEntry = new VRC_EventLog.EventLogEntry(obj.Pointer);
 
             if (evtLogEntry.instigatorPhotonId != eventData.Sender)
             {

@@ -13,16 +13,16 @@ namespace UnityEngine
             get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(this)?.GetValue<Transform>();
         }
 
-        public T GetComponentInChildren<T>() where T : Object => GetComponentInChildren(typeof(T))?.GetValue<T>();
-        public T GetComponentInChildren<T>(bool includeInactive) where T : Object => GetComponentInChildren(typeof(T), includeInactive).GetValue<T>();
-        public T[] GetComponentsInChildren<T>() where T : Object => gameObject.GetComponentsInChildren<T>();
-        public T[] GetComponentsInChildren<T>(bool includeInactive) where T : Object => gameObject.GetComponentsInChildren<T>(includeInactive);
+        public T GetComponentInChildren<T>() where T : Component => GetComponentInChildren(typeof(T))?.GetValue<T>();
+        public T GetComponentInChildren<T>(bool includeInactive) where T : Component => GetComponentInChildren(typeof(T), includeInactive).GetValue<T>();
+        public T[] GetComponentsInChildren<T>() where T : Component => gameObject.GetComponentsInChildren<T>();
+        public T[] GetComponentsInChildren<T>(bool includeInactive) where T : Component => gameObject.GetComponentsInChildren<T>(includeInactive);
         public Component GetComponentInChildren(Type type) => GetComponentInChildren(type, false);
         public Component GetComponentInChildren(Type type, bool includeInactive) => gameObject.GetComponentInChildren(type, includeInactive);
         public Component[] GetComponentsInChildren(Type type) => gameObject.GetComponentsInChildren(type);
         public Component[] GetComponentsInChildren(Type type, bool includeInactive) => gameObject.GetComponentsInChildren(type, includeInactive);
         public T GetComponent<T>() where T : Component => gameObject.GetComponent<T>();
-        public T[] GetComponents<T>() => gameObject.GetComponents<T>();
+        public T[] GetComponents<T>() where T : Component => gameObject.GetComponents<T>();
         public Component GetComponent(Type type) => gameObject.GetComponent(type);
         public Component GetComponent(string type) => gameObject.GetComponent(type);
         public Component[] GetComponents(Type type) => gameObject.GetComponents(type);

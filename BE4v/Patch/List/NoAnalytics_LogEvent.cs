@@ -10,7 +10,7 @@ namespace BE4v.Patch.List
         public delegate void _AmplitudeSDKWrapper_AmplitudeWrapper_CheckedLogEvent(IntPtr instance, IntPtr eventType, IntPtr eventProperties, IntPtr timestamp, IntPtr options);
         public void Start()
         {
-            IL2Method method = Assembler.list["VRCCore-Standalone"].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
+            IL2Method method = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("AmplitudeWrapper", "AmplitudeSDKWrapper").GetMethod("CheckedLogEvent");
             if (method == null)
                 throw new NullReferenceException();
 

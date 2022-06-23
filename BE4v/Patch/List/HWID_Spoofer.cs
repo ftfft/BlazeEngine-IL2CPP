@@ -13,7 +13,7 @@ namespace BE4v.Patch.List
         public delegate IntPtr _UnityEngine_SystemInfo();
         public void Start()
         {
-            IL2Method method = Assembler.list["UnityEngine.CoreModule"].GetClass("SystemInfo", "UnityEngine").GetProperty("deviceUniqueIdentifier").GetGetMethod();
+            IL2Method method = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("SystemInfo", "UnityEngine").GetProperty("deviceUniqueIdentifier").GetGetMethod();
             if (method != null)
             {
                 new IL2Patch(method, (_UnityEngine_SystemInfo)UnityEngine_SystemInfo);

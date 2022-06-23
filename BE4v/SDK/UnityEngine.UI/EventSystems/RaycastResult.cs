@@ -7,7 +7,7 @@ namespace UnityEngine.EventSystems
 		public GameObject gameObject
 		{
 			get => new GameObject(m_GameObject);
-			set => m_GameObject = value.ptr;
+			set => m_GameObject = value.Pointer;
 		}
 
 		public bool isValid
