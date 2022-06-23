@@ -1,7 +1,6 @@
-using BE4v.SDK.CPP2IL;
 using System;
 using System.Linq;
-using System.Reflection;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.SDKBase;
 
@@ -11,7 +10,7 @@ namespace VRC
     {
         static Network()
         {
-            Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetProperty(y => y.GetGetMethod()?.ReturnType.Name == VRC_EventHandler.Instance_Class.FullName && y.GetSetMethod() != null) != null);
+            Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetProperty(y => y.GetGetMethod()?.ReturnType.Name == VRC_EventHandler.Instance_Class.FullName && y.GetSetMethod() != null) != null);
             if (Instance_Class == null)
             {
                 "VRC::Network::Instance_Class not found!".RedPrefix("WARNING!");
@@ -58,7 +57,7 @@ namespace VRC
                 IL2Field field = Instance_Class.GetField(nameof(_networkDateTime));
                 if (field == null)
                     (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(DateTime).FullName)).Name = nameof(_networkDateTime);
-                return field?.GetValue().GetValuå<DateTime>() ?? default(DateTime);
+                return field?.GetValue<DateTime>().GetValue() ?? default(DateTime);
             }
             set
             {
@@ -82,7 +81,7 @@ namespace VRC
                 if (method == null)
                     return default;
             }
-            return method.Invoke(new IntPtr[] { new IntPtr(&timeInSeconds), new IntPtr(&previousTimeInSeconds) }).GetValuå<double>();
+            return method.Invoke<double>(new IntPtr[] { new IntPtr(&timeInSeconds), new IntPtr(&previousTimeInSeconds) }).GetValue();
         }
 
         unsafe public static GameObject Instantiate(VRC_EventHandler.VrcBroadcastType broadcast, string prefabPathOrDynamicPrefabName, Vector3 position, Quaternion rotation)
@@ -95,7 +94,7 @@ namespace VRC
                     return null;
             }
 
-            return method.Invoke(new IntPtr[] { new IntPtr(&broadcast), new IL2String(prefabPathOrDynamicPrefabName).ptr, new IntPtr(&position), new IntPtr(&rotation) })?.GetValue<GameObject>();
+            return method.Invoke(new IntPtr[] { new IntPtr(&broadcast), new IL2String(prefabPathOrDynamicPrefabName).Pointer, new IntPtr(&position), new IntPtr(&rotation) })?.GetValue<GameObject>();
         }
 
         unsafe public static void RPC(VRC_EventHandler.VrcTargetType targetClients, GameObject targetObject, string methodName, IntPtr[] parameters)
@@ -113,12 +112,21 @@ namespace VRC
                 if (method == null)
                     return;
             }
-
+            IL2Array<IntPtr> array = null;
+            if (parameters != null)
+            {
+                int len = parameters.Length;
+                array = new IL2Array<IntPtr>(len, IL2ObjectSystem.Instance_Class);
+                for (int i = 0; i < len; i++)
+                {
+                    array[i] = parameters[i];
+                }
+            }
             method.Invoke(IntPtr.Zero, new IntPtr[] {
                 new IntPtr(&targetClients),
-                targetObject == null ? IntPtr.Zero : targetObject.ptr,
-                new IL2String(methodName).ptr,
-                parameters.ArrayToIntPtr()
+                targetObject == null ? IntPtr.Zero : targetObject.Pointer,
+                new IL2String(methodName).Pointer,
+                array == null ? IntPtr.Zero : array.Pointer
             }, ex: true);
         }
 
@@ -133,7 +141,7 @@ namespace VRC
                 if (method == null)
                     return null;
             }
-            return method.Invoke(new IntPtr[] { new IL2String(path).ptr, new IntPtr(&suppressErrors) })?.GetValue<GameObject>();
+            return method.Invoke(new IntPtr[] { new IL2String(path).Pointer, new IntPtr(&suppressErrors) })?.GetValue<GameObject>();
         }
 
         public static GameObject SceneDispatcherObject
@@ -158,7 +166,7 @@ namespace VRC
                     if (property == null)
                         return;
                 }
-                property.GetGetMethod().Invoke(new IntPtr[] { value == null ? IntPtr.Zero : value.ptr });
+                property.GetGetMethod().Invoke(new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
             }
         }
         public static VRC_EventHandler SceneEventHandler
@@ -175,7 +183,7 @@ namespace VRC
                 IL2Property property = Instance_Class.GetProperty(nameof(SceneEventHandler));
                 if (property == null)
                     (property = Instance_Class.GetProperty(VRC_EventHandler.Instance_Class)).Name = nameof(SceneEventHandler);
-                property.GetSetMethod().Invoke(new IntPtr[] { value.ptr });
+                property.GetSetMethod().Invoke(new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
             }
         }
 
@@ -193,7 +201,7 @@ namespace VRC
                 IL2Field field = Instance_Class.GetField(nameof(Instantiator));
                 if (field == null)
                     (field = Instance_Class.GetField(ObjectInstantiator.Instance_Class)).Name = nameof(Instantiator);
-                field.SetValue(value.ptr);
+                field.SetValue(value == null ? IntPtr.Zero : value.Pointer);
             }
         }
 

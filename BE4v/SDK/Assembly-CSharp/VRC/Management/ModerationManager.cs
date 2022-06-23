@@ -1,14 +1,14 @@
 using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using VRC.Core;
 using SharpDisasm.Udis86;
 
 namespace VRC.Management
 {
-    public class ModerationManager : IL2Base
+    public class ModerationManager : IL2Object
     {
-        public ModerationManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public ModerationManager(IntPtr ptr) : base(ptr) { }
 
         public static ModerationManager Instance
         {
@@ -26,7 +26,7 @@ namespace VRC.Management
             IL2Method method = Instance_Class.GetMethod(nameof(HasPlayerModeration));
             if (method == null)
                 (method = Instance_Class.GetMethod(x => x.IsPublic && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 2 && x.GetParameters()[1].ReturnType.Name == "VRC.Core.ApiPlayerModeration.ModerationType")).Name = nameof(HasPlayerModeration);
-            return method.Invoke(ptr, new IntPtr[] { new IL2String(userId).ptr, new IntPtr(&moderationType) }).GetValuå<bool>();
+            return method.Invoke<bool>(this, new IntPtr[] { new IL2String(userId).Pointer, new IntPtr(&moderationType) }).GetValue();
         }
         
 
@@ -43,7 +43,7 @@ namespace VRC.Management
                 {
                     IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
 
-                    method = Instance_Class.GetMethods().FirstOrDefault(x => *(IntPtr*)x.ptr == addr && x.ReturnType.Name == typeof(bool).FullName);
+                    method = Instance_Class.GetMethods().FirstOrDefault(x => *(IntPtr*)x.Pointer == addr && x.ReturnType.Name == typeof(bool).FullName);
                     if (method != null)
                     {
                         method.Name = nameof(IsBlocked);
@@ -51,9 +51,9 @@ namespace VRC.Management
                     }
                 }
             }
-            return method?.Invoke(ptr, new IntPtr[] { user.ptr })?.GetValuå<bool>() ?? default(bool);
+            return method?.Invoke<bool>(this, new IntPtr[] { user.Pointer }).GetValue() ?? default(bool);
         }
 
-        public static IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod(y => y.IsPrivate && y.GetParameters().Length == 2 && y.GetParameters()[1].ReturnType.Name == "VRC.Core.ApiPlayerModeration.ModerationType") != null);
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod(y => y.IsPrivate && y.GetParameters().Length == 2 && y.GetParameters()[1].ReturnType.Name == "VRC.Core.ApiPlayerModeration.ModerationType") != null);
     }
 }

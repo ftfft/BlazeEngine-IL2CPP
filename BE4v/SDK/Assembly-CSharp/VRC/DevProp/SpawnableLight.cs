@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 namespace VRC.DevProp
 {
     public class SpawnableLight : MonoBehaviour
     {
-        public SpawnableLight(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public SpawnableLight(IntPtr ptr) : base(ptr) { }
 
 		public struct Preset
 		{
@@ -24,6 +24,6 @@ namespace VRC.DevProp
 			public LightShadows shadowType;
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SetPresetRPC");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("SetPresetRPC") != null);
     }
 }

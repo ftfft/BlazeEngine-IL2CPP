@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VRCUiPopupManager : MonoBehaviour
 {
-    public VRCUiPopupManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCUiPopupManager(IntPtr ptr) : base(ptr) { }
 
     unsafe static VRCUiPopupManager()
     {
@@ -20,7 +20,7 @@ public class VRCUiPopupManager : MonoBehaviour
             if (instruction.Mnemonic == SharpDisasm.Udis86.ud_mnemonic_code.UD_Icall)
             {
                 IntPtr addr = new IntPtr((long)instruction.Offset + instruction.Length + instruction.Operands[0].LvalSDWord);
-                if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.ptr == addr)) != null)
+                if ((method = methods.FirstOrDefault(x => *(IntPtr*)x.Pointer == addr)) != null)
                     continue;
             }
         }
@@ -56,7 +56,7 @@ public class VRCUiPopupManager : MonoBehaviour
         IL2Method method = Instance_Class.GetMethod(nameof(ShowAlert));
         if (method == null)
             (method = Instance_Class.GetMethods(x => x.GetParameters().Length == 3 && x.GetParameters()[2].ReturnType.Name == typeof(float).FullName).First(x => x.GetDisassembler().Disassemble().Count() == 1010)).Name = nameof(ShowAlert);
-        method.Invoke(ptr, new IntPtr[] { new IL2String(title).ptr, new IL2String(body).ptr, new IntPtr(&timeout) });
+        method.Invoke(this, new IntPtr[] { new IL2String(title).Pointer, new IL2String(body).Pointer, new IntPtr(&timeout) });
     }
 
     public void ShowUnityInputPopupWithCancel(
@@ -122,24 +122,24 @@ public class VRCUiPopupManager : MonoBehaviour
             return;
         }
 
-        method.Invoke(ptr, new IntPtr[] {
-            new IL2String(title).ptr, // string
-            new IL2String(body).ptr, //  string
+        method.Invoke(this, new IntPtr[] {
+            new IL2String(title).Pointer, // string
+            new IL2String(body).Pointer, //  string
             new IntPtr(&inputType), // InputType : int
             new IntPtr(&useNumericKeypad), // bool
-            new IL2String(submitButtonText).ptr, // string
-            submitButtonAction == null ? IntPtr.Zero : submitButtonAction.ptr, // Action<string, IL2List<KeyCode>, Text>
-            cancelButtonAction == null ? IntPtr.Zero : cancelButtonAction.ptr, // Action
-            new IL2String(placeholderText).ptr, // string Default: "Enter text...."
+            new IL2String(submitButtonText).Pointer, // string
+            submitButtonAction == null ? IntPtr.Zero : submitButtonAction.Pointer, // Action<string, IL2List<KeyCode>, Text>
+            cancelButtonAction == null ? IntPtr.Zero : cancelButtonAction.Pointer, // Action
+            new IL2String(placeholderText).Pointer, // string Default: "Enter text...."
             new IntPtr(&hidePopupOnSubmit), // bool Default: true
-            additionalSetup == null ? IntPtr.Zero :additionalSetup.ptr, // Action<VRCUiPopup> Default: null
+            additionalSetup == null ? IntPtr.Zero :additionalSetup.Pointer, // Action<VRCUiPopup> Default: null
             new IntPtr(&nanBool), // bool Default: false
             new IntPtr(&nanInt32) // bool Default: 0
         });
     }
 
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ShowControllerBindingsPopup");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FindClass_ByMethodName("ShowControllerBindingsPopup");
 
     public enum inputStyle
     {

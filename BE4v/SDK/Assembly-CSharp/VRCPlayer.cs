@@ -1,18 +1,18 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC;
-using BE4v.SDK.CPP2IL;
 using VRC.Core;
 
 public class VRCPlayer : VRCNetworkBehaviour
 {
-    public VRCPlayer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCPlayer(IntPtr ptr) : base(ptr) { }
 
     static VRCPlayer()
     {
-        Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("PlayEmoteRPC");
+        Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("PlayEmoteRPC") != null);
 
         // void LoadAvatar(ApiAvatar a)
         Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == ApiAvatar.Instance_Class.FullName).Name = nameof(LoadAvatar);
@@ -47,7 +47,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             IL2Property property = Instance_Class.GetProperty(nameof(player));
             if (property == null)
                 (property = Instance_Class.GetProperty(Player.Instance_Class)).Name = nameof(player);
-            return property?.GetGetMethod().Invoke(ptr)?.GetValue<Player>();
+            return property?.GetGetMethod().Invoke(this)?.GetValue<Player>();
         }
     }
 
@@ -58,7 +58,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             IL2Property property = Instance_Class.GetProperty(nameof(AvatarModel));
             if (property == null)
                 (property = Instance_Class.GetProperty(ApiAvatar.Instance_Class)).Name = nameof(AvatarModel);
-            return property?.GetGetMethod().Invoke(ptr)?.GetValue<ApiAvatar>();
+            return property?.GetGetMethod().Invoke(this)?.GetValue<ApiAvatar>();
         }
     }
 
@@ -69,7 +69,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             IL2Property property = Instance_Class.GetProperty(nameof(playerNet));
             if (property == null)
                 (property = Instance_Class.GetProperty(PlayerNet.Instance_Class)).Name = nameof(playerNet);
-            return property.GetGetMethod().Invoke(ptr)?.GetValue<PlayerNet>();
+            return property.GetGetMethod().Invoke(this)?.GetValue<PlayerNet>();
         }
     }
     
@@ -80,7 +80,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             IL2Property property = Instance_Class.GetProperty(nameof(AvatarManager));
             if (property == null)
                 (property = Instance_Class.GetProperty(VRCAvatarManager.Instance_Class)).Name = nameof(AvatarManager);
-            return property.GetGetMethod().Invoke(ptr)?.GetValue<VRCAvatarManager>();
+            return property.GetGetMethod().Invoke(this)?.GetValue<VRCAvatarManager>();
         }
     }
 
@@ -91,7 +91,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             IL2Property property = Instance_Class.GetProperty(nameof(uSpeaker));
             if (property == null)
                 (property = Instance_Class.GetProperty(USpeaker.Instance_Class)).Name = nameof(uSpeaker);
-            return property?.GetGetMethod().Invoke(ptr)?.GetValue<USpeaker>();
+            return property?.GetGetMethod().Invoke(this)?.GetValue<USpeaker>();
         }
     }
     /*
@@ -128,12 +128,12 @@ public class VRCPlayer : VRCNetworkBehaviour
 
     public void LoadAvatar(ApiAvatar a)
     {
-        Instance_Class.GetMethod(nameof(LoadAvatar), x => x.GetParameters()[0].ReturnType.Name != typeof(bool).FullName).Invoke(ptr, new IntPtr[] { a == null ? IntPtr.Zero : a.ptr });
+        Instance_Class.GetMethod(nameof(LoadAvatar), x => x.GetParameters()[0].ReturnType.Name != typeof(bool).FullName).Invoke(this, new IntPtr[] { a == null ? IntPtr.Zero : a.Pointer });
     }
 
     unsafe public void LoadAvatar(bool forceLoad = false)
     {
-        Instance_Class.GetMethod(nameof(LoadAvatar), x => x.GetParameters()[0].ReturnType.Name == typeof(bool).FullName).Invoke(ptr, new IntPtr[] { new IntPtr(&forceLoad) });
+        Instance_Class.GetMethod(nameof(LoadAvatar), x => x.GetParameters()[0].ReturnType.Name == typeof(bool).FullName).Invoke(this, new IntPtr[] { new IntPtr(&forceLoad) });
     }
 
     /*
@@ -148,25 +148,25 @@ public class VRCPlayer : VRCNetworkBehaviour
         if (apiuser.hasVIPAccess || apiuser.hasModerationPowers)
             return SocialRank.VRChatTeam;
 
-        if (apiuser.HasTag(dictUserRank["Nuisance"].ptr))
+        if (apiuser.HasTag(dictUserRank["Nuisance"].Pointer))
             return SocialRank.Nuisance;
 
-        if (apiuser.HasTag(dictUserRank["Legend"].ptr))
+        if (apiuser.HasTag(dictUserRank["Legend"].Pointer))
             return SocialRank.Legend;
 
-        if (apiuser.HasTag(dictUserRank["Veteran"].ptr))
+        if (apiuser.HasTag(dictUserRank["Veteran"].Pointer))
             return SocialRank.VeteranUser;
 
-        if (apiuser.HasTag(dictUserRank["Trusted user"].ptr))
+        if (apiuser.HasTag(dictUserRank["Trusted user"].Pointer))
             return SocialRank.TrustedUser;
 
-        if (apiuser.HasTag(dictUserRank["Known user"].ptr))
+        if (apiuser.HasTag(dictUserRank["Known user"].Pointer))
             return SocialRank.KnownUser;
 
-        if (apiuser.HasTag(dictUserRank["User"].ptr))
+        if (apiuser.HasTag(dictUserRank["User"].Pointer))
             return SocialRank.User;
 
-        if (apiuser.HasTag(dictUserRank["New user"].ptr))
+        if (apiuser.HasTag(dictUserRank["New user"].Pointer))
             return SocialRank.NewUser;
 
         return SocialRank.Visitor;
@@ -174,12 +174,12 @@ public class VRCPlayer : VRCNetworkBehaviour
 
     public void RefreshState()
     {
-        Instance_Class.GetMethod(nameof(RefreshState))?.Invoke(ptr);
+        Instance_Class.GetMethod(nameof(RefreshState))?.Invoke(this);
     }
 
     public void ReloadAvatarNetworkedRPC(VRC.Player player)
     {
-        Instance_Class.GetMethod(nameof(ReloadAvatarNetworkedRPC))?.Invoke(ptr, new IntPtr[] { player.ptr });
+        Instance_Class.GetMethod(nameof(ReloadAvatarNetworkedRPC))?.Invoke(this, new IntPtr[] { player.Pointer });
     }
     /*
     private static IL2Method methodRefresh_Properties = null;
@@ -261,7 +261,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             if (field == null)
                 (field = Instance_Class.GetField(PlayerSelector.Instance_Class)).Name = nameof(playerSelector);
 
-            return field?.GetValue(ptr)?.GetValue<PlayerSelector>();
+            return field?.GetValue(this)?.GetValue<PlayerSelector>();
         }
     }
 
@@ -273,7 +273,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             if (field == null)
                 (field = Instance_Class.GetField(GameObject.Instance_Class)).Name = nameof(avatarGameObject);
 
-            return field?.GetValue(ptr)?.GetValue<GameObject>();
+            return field?.GetValue(this)?.GetValue<GameObject>();
         }
     }
     public Animator avatarAnimator
@@ -284,7 +284,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             if (field == null)
                 (field = Instance_Class.GetField(Animator.Instance_Class)).Name = nameof(avatarAnimator);
 
-            return field.GetValue(ptr)?.GetValue<Animator>();
+            return field.GetValue(this)?.GetValue<Animator>();
         }
     }
 
@@ -296,7 +296,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             if (field == null)
                 (field = Instance_Class.GetField(PlayerNameplate.Instance_Class)).Name = nameof(nameplate);
 
-            return field.GetValue(ptr)?.GetValue<PlayerNameplate>();
+            return field.GetValue(this)?.GetValue<PlayerNameplate>();
         }
     }
 

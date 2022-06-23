@@ -1,11 +1,11 @@
 ﻿using System;
-using UnityEngine;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
+using UnityEngine;
 
 public class VRCApplicationSetup : MonoBehaviour
 {
-    public VRCApplicationSetup(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCApplicationSetup(IntPtr ptr) : base(ptr) { }
 
     public static VRCApplicationSetup Instance
     {
@@ -18,5 +18,5 @@ public class VRCApplicationSetup : MonoBehaviour
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "VRC.Core.ApiServerEnvironment") != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "VRC.Core.ApiServerEnvironment") != null);
 }

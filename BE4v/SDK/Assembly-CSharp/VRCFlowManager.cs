@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.Core;
 
 public class VRCFlowManager : MonoBehaviour
 {
-    public VRCFlowManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCFlowManager(IntPtr ptr) : base(ptr) { }
 
     public static VRCFlowManager Instance
     {
@@ -30,5 +30,5 @@ public class VRCFlowManager : MonoBehaviour
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnApplicationPause") != null && x.GetProperty(ApiWorld.Instance_Class) != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnApplicationPause") != null && x.GetProperty(ApiWorld.Instance_Class) != null);
 }

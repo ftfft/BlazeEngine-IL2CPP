@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 namespace VRC.Animation
 {
     public class VRCMotionState : MonoBehaviour
     {
-        public VRCMotionState(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public VRCMotionState(IntPtr ptr) : base(ptr) { }
 
         unsafe public Vector3 PlayerVelocity
         {
@@ -17,14 +16,14 @@ namespace VRC.Animation
                 IL2Property property = Instance_Class.GetProperty(nameof(PlayerVelocity));
                 if (property == null)
                     (property = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == "UnityEngine.Vector3" && x.GetSetMethod() != null)).Name = nameof(PlayerVelocity);
-                return property.GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
+                return property.GetGetMethod().Invoke<Vector3>(this).GetValue();
             }
             set
             {
                 IL2Property property = Instance_Class.GetProperty(nameof(PlayerVelocity));
                 if (property == null)
                     (property = Instance_Class.GetProperties().First(x => x.GetGetMethod().ReturnType.Name == "UnityEngine.Vector3" && x.GetSetMethod() != null)).Name = nameof(PlayerVelocity);
-                property.GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+                property.GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
             }
         }
         unsafe public float jumpPower
@@ -34,17 +33,17 @@ namespace VRC.Animation
                 IL2Field field = Instance_Class.GetField(nameof(jumpPower));
                 if (field == null)
                     (field = Instance_Class.GetFields().Last(x => x.ReturnType.Name == "System.Single")).Name = nameof(jumpPower);
-                return field.GetValue(ptr).GetValuе<float>();
+                return field.GetValue<float>(this).GetValue();
             }
             set
             {
                 IL2Field field = Instance_Class.GetField(nameof(jumpPower));
                 if (field == null)
                     (field = Instance_Class.GetFields().Last(x => x.ReturnType.Name == "System.Single")).Name = nameof(jumpPower);
-                field.SetValue(ptr, new IntPtr(&value));
+                field.SetValue(this, new IntPtr(&value));
             }
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.GetMethod("OnControllerColliderHit") != null && x.GetMethod("Reset") != null && x.GetMethod("KillPortal") == null);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnControllerColliderHit") != null && x.GetMethod("Reset") != null && x.GetMethod("KillPortal") == null);
     }
 }

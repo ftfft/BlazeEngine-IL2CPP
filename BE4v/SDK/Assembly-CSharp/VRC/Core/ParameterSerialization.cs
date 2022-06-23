@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
@@ -8,27 +8,42 @@ namespace VRC.Core
     {
         static ParameterSerialization()
         {
-            Instance_Class = Assembler.list["acs"].GetClasses()
+            Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses()
                 .FirstOrDefault(x => x.GetNestedType("SerializableContainer") != null);
         }
 
-        public class SerializableContainer : IL2Base
+        public class SerializableContainer : IL2Object
         {
-            public SerializableContainer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+            public SerializableContainer(IntPtr ptr) : base(ptr) { }
 
             public string name
             {
-                get => Instance_Class.GetField(nameof(name)).GetValue()?.GetValue<string>();
-                set => Instance_Class.GetField(nameof(name)).SetValue(new IL2String(value).ptr);
+                get => Instance_Class.GetField(nameof(name)).GetValue(this)?.GetValue<IL2String>().ToString();
+                set => Instance_Class.GetField(nameof(name)).SetValue(this, new IL2String(value).Pointer);
             }
 
             public byte[] data
             {
-                get => Instance_Class.GetField(nameof(name)).GetValue()?.UnboxArraу<byte>();
+                get
+                {
+                    IL2Object result = Instance_Class.GetField(nameof(name)).GetValue(this);
+                    if (result == null)
+                        return null;
+                    return new IL2Array<byte>(result.Pointer).GetAsByteArray();
+                }
                 set
                 {
-                    // Мне пока что лень
-                    // Instance_Class.GetField(nameof(name)).SetValue(new IL2String(value).ptr);
+                    IL2Array<byte> array = null;
+                    if (value != null)
+                    {
+                        int len = value.Length;
+                        array = new IL2Array<byte>(len, IL2Byte.Instance_Class);
+                        for (int i = 0; i < len; i++)
+                        {
+                            array[i] = value[i];
+                        }
+                    }
+                    Instance_Class.GetField(nameof(name)).SetValue(this, array == null ? IntPtr.Zero : array.Pointer);
                 }
             }
         }

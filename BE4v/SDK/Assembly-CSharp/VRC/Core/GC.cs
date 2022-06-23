@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
-using IL2Photon.Realtime;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
@@ -60,6 +59,6 @@ namespace VRC.Core
 		}
 
 
-		public static IL2Class Instance_Class = Assembler.list["acs"].GetClass("GC", "VRC.Core");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass("GC", "VRC.Core");
     }
 }

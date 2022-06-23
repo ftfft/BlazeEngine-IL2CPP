@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using IL2Photon.Realtime;
 
 namespace VRC.Core
 {
     public class VRCNetworkingPeer : LoadBalancingPeer
     {
-        public VRCNetworkingPeer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public VRCNetworkingPeer(IntPtr ptr) : base(ptr) { }
 
         public static VRCNetworkingPeer Instance
         {
@@ -20,6 +20,6 @@ namespace VRC.Core
             }
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("SendOutgoingCommands");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("SendOutgoingCommands") != null);
     }
 }

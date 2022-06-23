@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 namespace VRC
 {
     public class PlayerManager : MonoBehaviour
     {
-        public PlayerManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public PlayerManager(IntPtr ptr) : base(ptr) { }
 
         public static PlayerManager Instance
         {
@@ -39,7 +39,7 @@ namespace VRC
             if (photonPlayer == null)
                 return null;
 
-            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == IL2Photon.Realtime.Player.Instance_Class.FullName).Invoke(new IntPtr[] { photonPlayer.ptr })?.GetValue<Player>();
+            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == IL2Photon.Realtime.Player.Instance_Class.FullName).Invoke(new IntPtr[] { photonPlayer.Pointer })?.GetValue<Player>();
         }
 
         public static Player GetPlayer(string userId)
@@ -47,9 +47,9 @@ namespace VRC
             if (string.IsNullOrEmpty(userId))
                 return null;
 
-            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String(userId).ptr })?.GetValue<Player>();
+            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String(userId).Pointer })?.GetValue<Player>();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("OnPlayerDisconnected");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPlayerDisconnected") != null);
     }
 }

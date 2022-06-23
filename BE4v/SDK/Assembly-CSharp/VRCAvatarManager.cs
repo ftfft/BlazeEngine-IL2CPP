@@ -1,13 +1,13 @@
 ﻿using System;
-using UnityEngine;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
+using UnityEngine;
 using VRC.Core;
 using VRC.SDK3.Avatars.Components;
 
 public class VRCAvatarManager : MonoBehaviour
 {
-    public VRCAvatarManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCAvatarManager(IntPtr ptr) : base(ptr) { }
 
     static VRCAvatarManager()
     {
@@ -26,14 +26,14 @@ public class VRCAvatarManager : MonoBehaviour
             IL2Property property = Instance_Class.GetProperty(nameof(currentAvatarDescriptorSDK3));
             if (property == null)
                 (property = Instance_Class.GetProperty(VRCAvatarDescriptor.Instance_Class)).Name = nameof(currentAvatarDescriptorSDK3);
-            return property?.GetGetMethod().Invoke(ptr)?.GetValue<VRCAvatarDescriptor>();
+            return property?.GetGetMethod().Invoke(this)?.GetValue<VRCAvatarDescriptor>();
         }
     }
 
     public void ShowImage(ApiAvatar apiAvatar)
     {
-        Instance_Class.GetMethod(nameof(ShowImage)).Invoke(ptr, new IntPtr[] { apiAvatar == null ? IntPtr.Zero : apiAvatar.ptr });
+        Instance_Class.GetMethod(nameof(ShowImage)).Invoke(this, new IntPtr[] { apiAvatar == null ? IntPtr.Zero : apiAvatar.Pointer });
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().First(x => x.GetProperty(VRCAvatarDescriptor.Instance_Class) != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["acs"].GetClasses().First(x => x.GetProperty(VRCAvatarDescriptor.Instance_Class) != null);
 }

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Linq;
-using UnityEngine;
-using BE4v.SDK.CPP2IL;
-using BE4v.SDK;
+using IL2CPP_Core.Objects;
 
 namespace VRC.UI
 {
     public class PageAvatar : VRCUiPage
     {
-        public PageAvatar(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public PageAvatar(IntPtr ptr) : base(ptr) { }
 
         public PageAvatar() : base(IntPtr.Zero)
         {
-            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor").Invoke(ptr);
+            Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+            Instance_Class.GetMethod(".ctor").Invoke(Pointer);
         }
 
         public SimpleAvatarPedestal avatar
@@ -23,22 +21,22 @@ namespace VRC.UI
                 IL2Field field = Instance_Class.GetField(nameof(avatar));
                 if (field == null)
                     (field = Instance_Class.GetField(SimpleAvatarPedestal.Instance_Class)).Name = nameof(avatar);
-                return field.GetValue(ptr)?.GetValue<SimpleAvatarPedestal>();
+                return field.GetValue(this)?.GetValue<SimpleAvatarPedestal>();
             }
             set
             {
                 IL2Field field = Instance_Class.GetField(nameof(avatar));
                 if (field == null)
                     (field = Instance_Class.GetField(SimpleAvatarPedestal.Instance_Class)).Name = nameof(avatar);
-                field.SetValue(ptr, value.ptr);
+                field.SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
             }
         }
 
         public void ChangeToSelectedAvatar()
         {
-            Instance_Class.GetMethod(nameof(ChangeToSelectedAvatar)).Invoke(ptr);
+            Instance_Class.GetMethod(nameof(ChangeToSelectedAvatar)).Invoke(this);
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("ChangeToSelectedAvatar");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("ChangeToSelectedAvatar") != null);
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using IL2CPP_Core.Objects;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
 
 public class VRCApplication : MonoBehaviour
 {
-    public VRCApplication(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCApplication(IntPtr ptr) : base(ptr) { }
 
     public static VRCApplication Instance
     {
@@ -18,5 +18,5 @@ public class VRCApplication : MonoBehaviour
         }
     }
 
-    public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().Where(x => x.GetMethod("OnApplicationQuit", y => y.IsPrivate) != null && x.GetMethod("OnApplicationPause", y => y.IsPrivate) != null).FirstOrDefault(x => x.GetProperties(y => y.Instance).Length == 1);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().Where(x => x.GetMethod("OnApplicationQuit", y => y.IsPrivate) != null && x.GetMethod("OnApplicationPause", y => y.IsPrivate) != null).FirstOrDefault(x => x.GetProperties(y => y.Instance).Length == 1);
 }

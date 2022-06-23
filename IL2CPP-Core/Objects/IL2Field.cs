@@ -71,6 +71,7 @@ namespace IL2CPP_Core.Objects
                 return new IL2Object<T>(returnval);
             return null;
         }
+        public void SetValue(IL2Object value) => SetValue(IntPtr.Zero, value.Pointer);
         public void SetValue(IntPtr value) => SetValue(IntPtr.Zero, value);
         public void SetValue(IL2Object obj, IntPtr value) => SetValue(obj.Pointer, value);
         public void SetValue(IntPtr obj, IntPtr value)

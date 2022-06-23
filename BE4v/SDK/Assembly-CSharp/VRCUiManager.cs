@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using BE4v.SDK.CPP2IL;
 
 public class VRCUiManager : MonoBehaviour
 {
-    public VRCUiManager(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRCUiManager(IntPtr ptr) : base(ptr) { }
 
     public static VRCUiManager Instance
     {
@@ -20,7 +20,7 @@ public class VRCUiManager : MonoBehaviour
 
     public void HideScreen(string screenType)
     {
-        Instance_Class.GetMethod(nameof(HideScreen)).Invoke(ptr, new IntPtr[] { new IL2String(screenType).ptr });
+        Instance_Class.GetMethod(nameof(HideScreen)).Invoke(this, new IntPtr[] { new IL2String(screenType).Pointer });
     }
 
     public static T GetPage<T>(string screenPath) where T : VRCUiPage
@@ -28,5 +28,5 @@ public class VRCUiManager : MonoBehaviour
         return GameObject.Find(screenPath)?.GetComponent<T>();
     }
 
-	public static new IL2Class Instance_Class = Assembler.list["acs"].GetClasses().FindClass_ByMethodName("HideScreen");
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("HideScreen") != null);
 }
