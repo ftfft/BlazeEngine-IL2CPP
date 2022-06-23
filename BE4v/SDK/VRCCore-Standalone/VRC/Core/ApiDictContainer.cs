@@ -1,19 +1,18 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
     public class ApiDictContainer : ApiContainer
     {
-        public ApiDictContainer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public ApiDictContainer(IntPtr ptr) : base(ptr) { }
 
         public ApiDictContainer() : base(IntPtr.Zero)
         {
-            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor").Invoke(ptr);
+            Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+            Instance_Class.GetMethod(".ctor").Invoke(Pointer);
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("ApiDictContainer", "VRC.Core");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("ApiDictContainer", "VRC.Core");
     }
 }

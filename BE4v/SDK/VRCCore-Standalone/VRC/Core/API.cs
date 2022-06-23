@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BE4v.SDK.CPP2IL;
-using VRC.Core.BestHTTP;
+using IL2CPP_Core.Objects;
 
 namespace VRC.Core
 {
@@ -9,25 +8,25 @@ namespace VRC.Core
     {
 
 
-        public class CredentialsBundle : IL2Base
+        public class CredentialsBundle : IL2Object
         {
-            public CredentialsBundle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+            public CredentialsBundle(IntPtr ptr) : base(ptr) { }
 
             public string username
             {
-                get => Instance_Class.GetField(nameof(username)).GetValue(ptr)?.GetValue<string>();
-                set => Instance_Class.GetField(nameof(username)).SetValue(ptr, new IL2String(value).ptr);
+                get => Instance_Class.GetField(nameof(username)).GetValue(this)?.GetValue<IL2String>().ToString();
+                set => Instance_Class.GetField(nameof(username)).SetValue(this, new IL2String(value).Pointer);
             }
 
             public string password
             {
-                get => Instance_Class.GetField(nameof(password)).GetValue(ptr)?.GetValue<string>();
-                set => Instance_Class.GetField(nameof(password)).SetValue(ptr, new IL2String(value).ptr);
+                get => Instance_Class.GetField(nameof(password)).GetValue(this)?.GetValue<IL2String>().ToString();
+                set => Instance_Class.GetField(nameof(password)).SetValue(this, new IL2String(value).Pointer);
             }
 
             public static IL2Class Instance_Class = API.Instance_Class.GetNestedType("CredentialsBundle");
         }
 
-        public static IL2Class Instance_Class = Assembler.list["VRCCore-Standalone"].GetClass("API", "VRC.Core");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("API", "VRC.Core");
     }
 }
