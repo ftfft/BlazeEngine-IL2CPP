@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -9,7 +8,7 @@ namespace UnityEngine
     {
         unsafe public static Vector3 gravity
         {
-            get => Instance_Class.GetProperty(nameof(gravity)).GetGetMethod().Invoke().GetValuе<Vector3>();
+            get => Instance_Class.GetProperty(nameof(gravity)).GetGetMethod().Invoke<Vector3>().GetValue();
             set => Instance_Class.GetProperty(nameof(gravity)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
@@ -23,11 +22,11 @@ namespace UnityEngine
             {
                 fixed (RaycastHit* hitInfoPtr = &hitInfo)
                 {
-                    return method.Invoke(new IntPtr[] { new IntPtr(&ray), new IntPtr(hitInfoPtr) }).GetValuе<bool>();
+                    return method.Invoke<bool>(new IntPtr[] { new IntPtr(&ray), new IntPtr(hitInfoPtr) }).GetValue();
                 }
             }
         }
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("Physics", "UnityEngine");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.PhysicsModule"].GetClass("Physics", "UnityEngine");
     }
 }

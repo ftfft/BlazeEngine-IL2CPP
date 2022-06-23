@@ -139,7 +139,7 @@ public class VRCUiPopupManager : MonoBehaviour
     }
 
 
-    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FindClass_ByMethodName("ShowControllerBindingsPopup");
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("ShowControllerBindingsPopup") != null);
 
     public enum inputStyle
     {

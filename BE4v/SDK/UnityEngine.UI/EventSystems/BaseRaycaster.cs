@@ -1,12 +1,11 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine.EventSystems
 {
 	public abstract class BaseRaycaster : UIBehaviour
 	{
-		public BaseRaycaster(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public BaseRaycaster(IntPtr ptr) : base(ptr) { }
 		/*
 		public abstract void Raycast(PointerEventData eventData, List<RaycastResult> resultAppendList);
 
@@ -45,6 +44,6 @@ namespace UnityEngine.EventSystems
 		{
 		}
 		*/
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.UI"].GetClass("BaseRaycaster", "UnityEngine.EventSystems");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.UI"].GetClass("BaseRaycaster", "UnityEngine.EventSystems");
 	}
 }

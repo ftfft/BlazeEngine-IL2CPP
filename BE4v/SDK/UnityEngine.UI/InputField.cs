@@ -1,14 +1,14 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
     public class InputField : Selectable
     {
-        public InputField(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public InputField(IntPtr ptr) : base(ptr) { }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.UI"].GetClass("InputField", "UnityEngine.UI");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.UI"].GetClass("InputField", "UnityEngine.UI");
 
 
 

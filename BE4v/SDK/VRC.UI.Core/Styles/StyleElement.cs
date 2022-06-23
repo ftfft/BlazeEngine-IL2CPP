@@ -1,16 +1,13 @@
 using System;
-using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using VRC.Core;
-using BE4v.SDK.CPP2IL;
-using VRC.UI.Elements;
 
 namespace VRC.UI.Core.Styles
 {
     public class StyleElement : MonoBehaviour
     {
-        public StyleElement(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public StyleElement(IntPtr ptr) : base(ptr) { }
 
-		public static new IL2Class Instance_Class = Instance_Class = Assembler.list["VRC.UI.Core"].GetClass("StyleElement", "VRC.UI.Core.Styles");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Core"].GetClass("StyleElement", "VRC.UI.Core.Styles");
     }
 }

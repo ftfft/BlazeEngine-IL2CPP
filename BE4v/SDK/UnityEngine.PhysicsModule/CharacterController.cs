@@ -1,34 +1,32 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
     public class CharacterController : Collider
     {
-        public CharacterController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public CharacterController(IntPtr ptr) : base(ptr) { }
 
         unsafe public bool isGrounded
         {
-            get => Instance_Class.GetProperty(nameof(isGrounded)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
+            get => Instance_Class.GetProperty(nameof(isGrounded)).GetGetMethod().Invoke<bool>(this).GetValue();
         }
         
         unsafe public Vector3 velocity
         {
-            get => Instance_Class.GetProperty(nameof(velocity)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
+            get => Instance_Class.GetProperty(nameof(velocity)).GetGetMethod().Invoke<Vector3>(this).GetValue();
         }
 
         unsafe public CollisionFlags Move(Vector3 motion)
         {
-            return Instance_Class.GetMethod(nameof(Move)).Invoke(ptr, new IntPtr[] { new IntPtr(&motion) }).GetValuе<CollisionFlags>();
+            return Instance_Class.GetMethod(nameof(Move)).Invoke<CollisionFlags>(this, new IntPtr[] { new IntPtr(&motion) }).GetValue();
         }
         
         unsafe public bool SimpleMove(Vector3 speed)
         {
-            return Instance_Class.GetMethod(nameof(SimpleMove)).Invoke(ptr, new IntPtr[] { new IntPtr(&speed) }).GetValuе<bool>();
+            return Instance_Class.GetMethod(nameof(SimpleMove)).Invoke<bool>(this, new IntPtr[] { new IntPtr(&speed) }).GetValue();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("CharacterController", "UnityEngine");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.PhysicsModule"].GetClass("CharacterController", "UnityEngine");
     }
 }

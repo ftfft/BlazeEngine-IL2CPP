@@ -1,15 +1,14 @@
 using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using VRC.Core;
-using BE4v.SDK.CPP2IL;
-using VRC.UI.Core;
+
 
 namespace VRC.UI.Elements
 {
     public class UIPage : MonoBehaviour
     {
-        public UIPage(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public UIPage(IntPtr ptr) : base(ptr) { }
 
 		public unsafe string Name
 		{
@@ -23,7 +22,7 @@ namespace VRC.UI.Elements
 						return null;
 				}
 
-				return field.GetValue(ptr)?.GetValue<string>();
+				return field.GetValue(this)?.GetValue<IL2String>().ToString();
 			}
 			set
 			{
@@ -34,7 +33,7 @@ namespace VRC.UI.Elements
 					if (field == null)
 						return;
 				}
-				field.SetValue(ptr, new IL2String(value).ptr);
+				field.SetValue(this, new IL2String(value).Pointer);
 			}
 		}
 
@@ -50,7 +49,7 @@ namespace VRC.UI.Elements
 						return null;
 				}
 
-				return field.GetValue(ptr)?.GetValue<MenuStateController>();
+				return field.GetValue(this)?.GetValue<MenuStateController>();
 			}
 			set
 			{
@@ -61,10 +60,10 @@ namespace VRC.UI.Elements
 					if (field == null)
 						return;
 				}
-				field.SetValue(ptr, value.ptr);
+				field.SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
 			}
 		}
 
-		public static new IL2Class Instance_Class = Instance_Class = Assembler.list["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "DG.Tweening.Sequence") != null);
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "DG.Tweening.Sequence") != null);
     }
 }

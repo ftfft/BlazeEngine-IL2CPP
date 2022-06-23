@@ -1,15 +1,12 @@
 using System;
-using System.Linq;
-using UnityEngine;
-using VRC.Core;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using VRC.UI.Core;
 
 namespace VRC.UI.Elements
 {
     public class UIMenu : UIElement
     {
-        public UIMenu(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public UIMenu(IntPtr ptr) : base(ptr) { }
 
         public MenuStateController MenuStateController
         {
@@ -22,7 +19,7 @@ namespace VRC.UI.Elements
                     if (property == null)
                         return null;
                 }
-                return property.GetGetMethod().Invoke(ptr).GetValue<MenuStateController>();
+                return property.GetGetMethod().Invoke(this)?.GetValue<MenuStateController>();
             }
         }
 

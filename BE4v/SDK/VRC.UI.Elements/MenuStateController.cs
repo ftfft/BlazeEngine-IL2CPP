@@ -1,13 +1,8 @@
 using System;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using VRC.Core;
-using BE4v;
-using BE4v.Utils;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
-using BE4v.SDK.IL2Dumper;
 using VRC.UI.Core;
 
 
@@ -31,7 +26,7 @@ namespace VRC.UI.Elements
                 IL2Method method = null;
                 unsafe
                 {
-                    method = Instance_Class.GetMethod(x => *(IntPtr*)x.ptr == addr);
+                    method = Instance_Class.GetMethod(x => *(IntPtr*)x.Pointer == addr);
                 }
                 if (method != null)
                 {
@@ -48,7 +43,7 @@ namespace VRC.UI.Elements
             }
         }
 
-        public MenuStateController(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public MenuStateController(IntPtr ptr) : base(ptr) { }
 
         public unsafe void PushPage(string pageName, UIContext uiContext = null, bool clearPageStack = false, bool inPlace = false)
         {
@@ -59,11 +54,7 @@ namespace VRC.UI.Elements
                 return;
             }
 
-            IntPtr uiContextPtr = IntPtr.Zero;
-            if (uiContext != null)
-                uiContextPtr = uiContext.ptr;
-
-            method.Invoke(ptr, new IntPtr[] { new IL2String(pageName).ptr, uiContextPtr, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
+            method.Invoke(this, new IntPtr[] { new IL2String(pageName).Pointer, uiContext == null ? IntPtr.Zero : uiContext.Pointer, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
         }
         
         public unsafe void PushPage(int contentIndex, UIContext uiContext = null, bool clearPageStack = false, bool inPlace = false)
@@ -75,11 +66,7 @@ namespace VRC.UI.Elements
                 return;
             }
 
-            IntPtr uiContextPtr = IntPtr.Zero;
-            if (uiContext != null)
-                uiContextPtr = uiContext.ptr;
-
-            method.Invoke(ptr, new IntPtr[] { new IntPtr(&contentIndex), uiContextPtr, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
+            method.Invoke(this, new IntPtr[] { new IntPtr(&contentIndex), uiContext == null ? IntPtr.Zero : uiContext.Pointer, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
         }
 
 
@@ -94,7 +81,11 @@ namespace VRC.UI.Elements
                     if (field == null)
                         return null;
                 }
-                return field.GetValue(ptr).UnboxArray<UIPage>();
+                IL2Object result = field.GetValue(this);
+                if (result == null)
+                    return null;
+
+                return new IL2Array<IntPtr>(result.Pointer).ToArray<UIPage>();
             }
             set
             {
@@ -105,7 +96,17 @@ namespace VRC.UI.Elements
                     if (field == null)
                         return;
                 }
-                field.SetValue(ptr, value.Select(x => x.ptr).ArrayToIntPtr(UIPage.Instance_Class));
+                IL2Array<IntPtr> array = null;
+                if (value != null)
+                {
+                    int len = value.Length;
+                    array = new IL2Array<IntPtr>(len, UIPage.Instance_Class);
+                    for(int i=0;i<len;i++)
+                    {
+                        array[i] = value[i] == null ? IntPtr.Zero : value[i].Pointer;
+                    }
+                }
+                field.SetValue(this, array == null ? IntPtr.Zero : array.Pointer);
             }
         }
 
@@ -120,7 +121,11 @@ namespace VRC.UI.Elements
                     if (field == null)
                         return null;
                 }
-                return new IL2Dictionary<string, UIPage>(field.GetValue(ptr).ptr);
+                IL2Object result = field.GetValue(this);
+                if (result == null)
+                    return null;
+
+                return new IL2Dictionary<string, UIPage>(result.Pointer);
             }
             set
             {
@@ -132,10 +137,10 @@ namespace VRC.UI.Elements
                     if (field == null)
                         return;
                 }
-                field.SetValue(ptr, value.ptr);
+                field.SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
             }
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["VRC.UI.Elements"].GetClasses().FirstOrDefault(y => y.FullName == UIMenu.Instance_Class.GetProperties().FirstOrDefault(x => x.GetSetMethod() == null).GetGetMethod().ReturnType.Name);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(y => y.FullName == UIMenu.Instance_Class.GetProperties().FirstOrDefault(x => x.GetSetMethod() == null).GetGetMethod().ReturnType.Name);
     }
 }

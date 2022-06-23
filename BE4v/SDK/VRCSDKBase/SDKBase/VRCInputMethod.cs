@@ -1,5 +1,5 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
+﻿using System;
+using IL2CPP_Core.Objects;
 
 namespace VRC.SDKBase
 {
@@ -14,10 +14,10 @@ namespace VRC.SDKBase
 		Count
 	}
 
-	public class VRCInputMethod_Class : IL2Base
+	public class VRCInputMethod_Class : IL2Object
 	{
-		public VRCInputMethod_Class(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public VRCInputMethod_Class(IntPtr ptr) : base(ptr) { }
 
-		public static IL2Class Instance_Class = Assembler.list["VRCSDKBase"].GetClass("VRCInputMethod", "VRC.SDKBase");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRCSDKBase"].GetClass("VRCInputMethod", "VRC.SDKBase");
 	}
 }

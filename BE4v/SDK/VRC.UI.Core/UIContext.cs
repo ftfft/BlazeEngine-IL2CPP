@@ -1,16 +1,13 @@
 using System;
 using System.Linq;
-using UnityEngine;
-using VRC.Core;
-using BE4v.SDK.CPP2IL;
-using VRC.UI.Elements;
+using IL2CPP_Core.Objects;
 
 namespace VRC.UI.Core
 {
-    public class UIContext : IL2Base
+    public class UIContext : IL2Object
     {
-        public UIContext(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public UIContext(IntPtr ptr) : base(ptr) { }
 
-		public static IL2Class Instance_Class = Instance_Class = Assembler.list["VRC.UI.Core"].GetClasses().FirstOrDefault(x => x.GetFields().Length == 4 && x.GetMethods().Length < 3);
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Core"].GetClasses().FirstOrDefault(x => x.GetFields().Length == 4 && x.GetMethods().Length < 3);
     }
 }

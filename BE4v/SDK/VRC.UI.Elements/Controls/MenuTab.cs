@@ -1,15 +1,13 @@
 using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 using UnityEngine;
-using VRC.Core;
-using BE4v.SDK.CPP2IL;
-using VRC.UI.Core;
 
 namespace VRC.UI.Elements.Controls
 {
     public class MenuTab : MonoBehaviour
     {
-        public MenuTab(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public MenuTab(IntPtr ptr) : base(ptr) { }
 
 		public unsafe string pageName
 		{
@@ -22,7 +20,7 @@ namespace VRC.UI.Elements.Controls
 					if (field == null)
 						return null;
                 }
-				return field.GetValue(ptr).GetValue<string>();
+				return field.GetValue(this)?.GetValue<IL2String>().ToString();
 			}
 			set
 			{
@@ -33,10 +31,10 @@ namespace VRC.UI.Elements.Controls
 					if (field == null)
 						return;
 				}
-				field.SetValue(ptr, new IL2String(value).ptr);
+				field.SetValue(this, new IL2String(value).Pointer);
 			}
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetFields().Length == 4 && x.GetMethod("ShowTabContent") != null);
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetFields().Length == 4 && x.GetMethod("ShowTabContent") != null);
     }
 }

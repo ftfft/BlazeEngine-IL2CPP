@@ -15,7 +15,7 @@ namespace UnityEngine
 		public GUIContent(string text) : base(IntPtr.Zero)
 		{
 			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
-			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1 && x.GetParameters()[0].Name == "text").Invoke(Pointer, new IntPtr[] { new IL2String(text).ptr });
+			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1 && x.GetParameters()[0].Name == "text").Invoke(Pointer, new IntPtr[] { new IL2String(text).Pointer });
 		}
 
 		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIContent", "UnityEngine");

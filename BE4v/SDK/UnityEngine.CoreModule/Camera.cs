@@ -22,6 +22,6 @@ namespace UnityEngine
             return Instance_Class.GetMethod("ScreenPointToRay", x => x.GetParameters().Length == 1).Invoke<Ray>(this, new IntPtr[] { new IntPtr(&pos) }).GetValue();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Camera", "UnityEngine");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Camera", "UnityEngine");
     }
 }

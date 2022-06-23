@@ -1,16 +1,16 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
+﻿using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
     public class Collider : Component
     {
-        public Collider(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Collider(IntPtr ptr) : base(ptr) { }
 
 		unsafe public bool enabled
 		{
-			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			get => Instance_Class.GetProperty(nameof(enabled)).GetGetMethod().Invoke<bool>(this).GetValue();
+			set => Instance_Class.GetProperty(nameof(enabled)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		/*
@@ -24,14 +24,14 @@ namespace UnityEngine
 		*/
 		unsafe public bool isTrigger
 		{
-			get => Instance_Class.GetProperty(nameof(isTrigger)).GetGetMethod().Invoke(ptr).GetValuе<bool>();
-			set => Instance_Class.GetProperty(nameof(isTrigger)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			get => Instance_Class.GetProperty(nameof(isTrigger)).GetGetMethod().Invoke<bool>(this).GetValue();
+			set => Instance_Class.GetProperty(nameof(isTrigger)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		unsafe public float contactOffset
 		{
-			get => Instance_Class.GetProperty(nameof(contactOffset)).GetGetMethod().Invoke(ptr).GetValuе<float>();
-			set => Instance_Class.GetProperty(nameof(contactOffset)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			get => Instance_Class.GetProperty(nameof(contactOffset)).GetGetMethod().Invoke<float>(this).GetValue();
+			set => Instance_Class.GetProperty(nameof(contactOffset)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		/*
@@ -72,6 +72,6 @@ namespace UnityEngine
 		}
 		*/
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.PhysicsModule"].GetClass("Collider", "UnityEngine");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.PhysicsModule"].GetClass("Collider", "UnityEngine");
     }
 }

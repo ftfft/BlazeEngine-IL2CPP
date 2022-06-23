@@ -1,12 +1,12 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
+﻿using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine.EventSystems
 {
 	public abstract class UIBehaviour : MonoBehaviour
 	{
-		public UIBehaviour(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public UIBehaviour(IntPtr ptr) : base(ptr) { }
 	
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.UI"].GetClass("UIBehaviour", "UnityEngine.EventSystems");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.UI"].GetClass("UIBehaviour", "UnityEngine.EventSystems");
 	}
 }

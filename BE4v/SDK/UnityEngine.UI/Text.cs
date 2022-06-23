@@ -1,26 +1,25 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine.UI
 {
     // Text -> MaskableGraphic -> Graphic
     public class Text : Graphic
     {
-        public Text(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public Text(IntPtr ptr) : base(ptr) { }
 
         public Text() : base(IntPtr.Zero)
         {
-            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor").Invoke(ptr);
+            Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+            Instance_Class.GetMethod(".ctor").Invoke(Pointer);
         }
 
         public string text
         {
-            get => Instance_Class.GetProperty(nameof(text)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
-            set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+            get => Instance_Class.GetProperty(nameof(text)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
+            set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.UI"].GetClass("Text", "UnityEngine.UI");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.UI"].GetClass("Text", "UnityEngine.UI");
     }
 }

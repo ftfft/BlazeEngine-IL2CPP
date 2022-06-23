@@ -1,13 +1,12 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 
 namespace VRC.SDKBase
 {
 	public abstract class VRC_DataStorage : MonoBehaviour
 	{
-		public VRC_DataStorage(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+		public VRC_DataStorage(IntPtr ptr) : base(ptr) { }
 
 
 		public enum VrcDataMirror
@@ -29,14 +28,14 @@ namespace VRC.SDKBase
 			Other
 		}
 
-		public class VrcDataElement : IL2Base
+		public class VrcDataElement : IL2Object
 		{
-			public VrcDataElement(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+			public VrcDataElement(IntPtr ptr) : base(ptr) { }
 
 			public VrcDataElement() : base(IntPtr.Zero)
 			{
-				ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-				Instance_Class.GetMethod(".ctor").Invoke(ptr);
+				Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+				Instance_Class.GetMethod(".ctor").Invoke(Pointer);
 			}
 
 
@@ -57,35 +56,35 @@ namespace VRC.SDKBase
 
 			unsafe public VrcDataType type
             {
-				get => Instance_Class.GetField(nameof(type)).GetValue(ptr).GetValuе<VrcDataType>();
-				set => Instance_Class.GetField(nameof(type)).SetValue(ptr, new IntPtr(&value));
+				get => Instance_Class.GetField(nameof(type)).GetValue<VrcDataType>(this).GetValue();
+				set => Instance_Class.GetField(nameof(type)).SetValue(this, new IntPtr(&value));
             }
 
 			public MonoBehaviour serializeComponent;
 
 			unsafe public bool valueBool
             {
-				get => Instance_Class.GetField(nameof(valueBool)).GetValue(ptr).GetValuе<bool>();
-				set => Instance_Class.GetField(nameof(valueBool)).SetValue(ptr, new IntPtr(&value));
+				get => Instance_Class.GetField(nameof(valueBool)).GetValue<bool>(this).GetValue();
+				set => Instance_Class.GetField(nameof(valueBool)).SetValue(this, new IntPtr(&value));
             }
 
 
 			unsafe public int valueInt
 			{
-				get => Instance_Class.GetField(nameof(valueInt)).GetValue(ptr).GetValuе<int>();
-				set => Instance_Class.GetField(nameof(valueInt)).SetValue(ptr, new IntPtr(&value));
+				get => Instance_Class.GetField(nameof(valueInt)).GetValue<int>(this).GetValue();
+				set => Instance_Class.GetField(nameof(valueInt)).SetValue(this, new IntPtr(&value));
 			}
 
 			unsafe public float valueFloat
 			{
-				get => Instance_Class.GetField(nameof(valueFloat)).GetValue(ptr).GetValuе<float>();
-				set => Instance_Class.GetField(nameof(valueFloat)).SetValue(ptr, new IntPtr(&value));
+				get => Instance_Class.GetField(nameof(valueFloat)).GetValue<float>(this).GetValue();
+				set => Instance_Class.GetField(nameof(valueFloat)).SetValue(this, new IntPtr(&value));
 			}
 
 			public string valueString
 			{
-				get => Instance_Class.GetField(nameof(type)).GetValue(ptr).GetValue<string>();
-				set => Instance_Class.GetField(nameof(type)).SetValue(ptr, new IL2String(value).ptr);
+				get => Instance_Class.GetField(nameof(type)).GetValue(this)?.GetValue<IL2String>().ToString();
+				set => Instance_Class.GetField(nameof(type)).SetValue(this, new IL2String(value).Pointer);
 			}
 
 			public byte[] valueSerializedBytes;
@@ -99,6 +98,6 @@ namespace VRC.SDKBase
 			public static IL2Class Instance_Class = VRC_DataStorage.Instance_Class.GetNestedType("VrcDataElement");
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["VRCSDKBase"].GetClass("VRC_DataStorage", "VRC.SDKBase");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRCSDKBase"].GetClass("VRC_DataStorage", "VRC.SDKBase");
 	}
 }
