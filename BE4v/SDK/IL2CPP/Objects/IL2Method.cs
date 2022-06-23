@@ -68,32 +68,32 @@ namespace IL2CPP_Core.Objects
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
 
         public IL2Object Invoke() => Invoke(IntPtr.Zero, new IntPtr[] { IntPtr.Zero });
-        public IL2Object Invoke(IL2Object obj, bool isVirtual = false, bool ex = true) => Invoke(obj.Pointer, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
-        public IL2Object Invoke(IntPtr obj, bool isVirtual = false, bool ex = true) => Invoke(obj, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
+        public IL2Object Invoke(IL2Object obj, bool ex = true) => Invoke(obj.Pointer, new IntPtr[] { IntPtr.Zero }, ex: ex);
+        public IL2Object Invoke(IntPtr obj, bool ex = true) => Invoke(obj, new IntPtr[] { IntPtr.Zero }, ex: ex);
         public IL2Object Invoke(params IntPtr[] paramtbl)
         {
             return Invoke(IntPtr.Zero, paramtbl);
         }
-        public IL2Object Invoke(IL2Object obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true) => Invoke(obj.Pointer, paramtbl, isVirtual, ex);
-        public IL2Object Invoke(IntPtr obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true)
+        public IL2Object Invoke(IL2Object obj, IntPtr[] paramtbl, bool ex = true) => Invoke(obj.Pointer, paramtbl, ex);
+        public IL2Object Invoke(IntPtr obj, IntPtr[] paramtbl, bool ex = true)
         {
-            IntPtr returnval = InvokeMethod(Pointer, obj, paramtbl, isVirtual, ex);
+            IntPtr returnval = InvokeMethod(Pointer, obj, paramtbl, IsVirtual, ex);
             if (returnval != IntPtr.Zero)
                 return new IL2Object(returnval);
             return null;
         }
 
         public IL2Object<T> Invoke<T>() where T : unmanaged => Invoke<T>(IntPtr.Zero, new IntPtr[] { IntPtr.Zero });
-        public IL2Object<T> Invoke<T>(IL2Object obj, bool isVirtual = false, bool ex = true) where T : unmanaged => Invoke<T>(obj.Pointer, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
-        public IL2Object<T> Invoke<T>(IntPtr obj, bool isVirtual = false, bool ex = true) where T : unmanaged => Invoke<T>(obj, new IntPtr[] { IntPtr.Zero }, isVirtual: isVirtual, ex: ex);
+        public IL2Object<T> Invoke<T>(IL2Object obj, bool ex = true) where T : unmanaged => Invoke<T>(obj.Pointer, new IntPtr[] { IntPtr.Zero }, ex: ex);
+        public IL2Object<T> Invoke<T>(IntPtr obj, bool ex = true) where T : unmanaged => Invoke<T>(obj, new IntPtr[] { IntPtr.Zero }, ex: ex);
         public IL2Object<T> Invoke<T>(params IntPtr[] paramtbl) where T : unmanaged
         {
             return Invoke<T>(IntPtr.Zero, paramtbl);
         }
-        public IL2Object<T> Invoke<T>(IL2Object obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true) where T : unmanaged => Invoke<T>(obj.Pointer, paramtbl, isVirtual, ex);
-        public IL2Object<T> Invoke<T>(IntPtr obj, IntPtr[] paramtbl, bool isVirtual = false, bool ex = true) where T : unmanaged
+        public IL2Object<T> Invoke<T>(IL2Object obj, IntPtr[] paramtbl, bool ex = true) where T : unmanaged => Invoke<T>(obj.Pointer, paramtbl, ex);
+        public IL2Object<T> Invoke<T>(IntPtr obj, IntPtr[] paramtbl, bool ex = true) where T : unmanaged
         {
-            IntPtr returnval = InvokeMethod(Pointer, obj, paramtbl, isVirtual, ex);
+            IntPtr returnval = InvokeMethod(Pointer, obj, paramtbl, IsVirtual, ex);
             if (returnval != IntPtr.Zero)
                 return new IL2Object<T>(returnval);
             return null;

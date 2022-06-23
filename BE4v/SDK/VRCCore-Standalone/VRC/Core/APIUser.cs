@@ -44,7 +44,7 @@ namespace VRC.Core
                 IL2Object result = Instance_Class.GetProperty(nameof(tags)).GetGetMethod().Invoke(this);
                 if (result == null)
                     return null;
-                return new IL2ListObject<IL2String>(result.Pointer).ToArray().Select(x => new IL2String(x).ToString()).ToArray();
+                return new IL2ListObject<IL2String>(result.Pointer).ToArray().Select(x => x.ToString()).ToArray();
             }
         }
         
