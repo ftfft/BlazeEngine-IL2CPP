@@ -49,6 +49,6 @@ namespace UnityEngine
 			spacing
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUILayoutOption", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUILayoutOption", "UnityEngine");
 	}
 }

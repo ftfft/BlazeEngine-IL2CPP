@@ -43,6 +43,6 @@ namespace UnityEngine
 			}
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIStyleState", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUIStyleState", "UnityEngine");
 	}
 }

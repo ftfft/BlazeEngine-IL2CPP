@@ -18,6 +18,6 @@ namespace UnityEngine
 			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1 && x.GetParameters()[0].Name == "text").Invoke(Pointer, new IntPtr[] { new IL2String(text).Pointer });
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIContent", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUIContent", "UnityEngine");
 	}
 }

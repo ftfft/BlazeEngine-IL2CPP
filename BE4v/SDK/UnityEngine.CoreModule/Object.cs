@@ -27,10 +27,10 @@ namespace UnityEngine
 
         public static T FindObjectOfType<T>() where T : Object
         {
-            var result = FindObjectsOfType<T>();
+            var result = FindObjectsOfType(typeof(T));
             if (result != null)
                 if (result.Length > 0)
-                    return result[0];
+                    return result[0].GetValue<T>();
 
             return null;
         }

@@ -31,9 +31,7 @@ namespace UnityEngine
 		*/
 
 		unsafe public static void Label(Rect position, string text) => Label(new IntPtr(&position), new IL2String(text).Pointer, skin.label.Pointer);
-		unsafe public static void Label(Rect position, IntPtr text) => Label(new IntPtr(&position), text, skin.label.Pointer);
 		public static void Label(IntPtr position, string text) => Label(position, new IL2String(text).Pointer, skin.label.Pointer);
-		public static void Label(IntPtr position, IntPtr text) => Label(position, text, skin.label.Pointer);
 		unsafe public static void Label(Rect position, IntPtr text, IntPtr style) => Label(new IntPtr(&position), text, style);
 		unsafe public static void Label(Rect position, string text, IntPtr style) => Label(new IntPtr(&position), new IL2String(text).Pointer, style);
 		unsafe public static void Label(Rect position, string text, GUIStyle style) => Label(new IntPtr(&position), new IL2String(text).Pointer, style == null ? IntPtr.Zero : style.Pointer);
@@ -127,6 +125,6 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(skin)).GetGetMethod().Invoke(new IntPtr[] { (value == null) ? IntPtr.Zero : value.Pointer });
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUI", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUI", "UnityEngine");
 	}
 }

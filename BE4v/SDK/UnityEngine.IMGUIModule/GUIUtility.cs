@@ -13,6 +13,6 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(systemCopyBuffer)).GetSetMethod().Invoke(new IntPtr[] { new IL2String(value).Pointer });
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIUtility", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUIUtility", "UnityEngine");
 	}
 }

@@ -10,7 +10,7 @@ namespace UnityEngine
 		public GUIStyle() : base(IntPtr.Zero)
 		{
 			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
-			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 0).Invoke(this);
+			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 0).Invoke(Pointer);
 		}
 
 		unsafe public IntPtr GetStyleStatePtr(int idx)
@@ -83,6 +83,6 @@ namespace UnityEngine
 			set => Instance_Class.GetField(nameof(m_Hover)).SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
 		}
 		
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIStyle", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUIStyle", "UnityEngine");
 	}
 }

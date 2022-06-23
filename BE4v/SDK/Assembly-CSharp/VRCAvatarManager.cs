@@ -35,5 +35,5 @@ public class VRCAvatarManager : MonoBehaviour
         Instance_Class.GetMethod(nameof(ShowImage)).Invoke(this, new IntPtr[] { apiAvatar == null ? IntPtr.Zero : apiAvatar.Pointer });
     }
 
-    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["acs"].GetClasses().First(x => x.GetProperty(VRCAvatarDescriptor.Instance_Class) != null);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().First(x => x.GetProperty(VRCAvatarDescriptor.Instance_Class) != null);
 }

@@ -126,6 +126,6 @@ namespace UnityEngine
 			Instance_Class.GetMethod(nameof(Box), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "image").Invoke(new IntPtr[] { image == null ? IntPtr.Zero : image.Pointer, array == null ? IntPtr.Zero : array.Pointer });
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUILayout", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("GUILayout", "UnityEngine");
 	}
 }

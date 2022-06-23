@@ -39,7 +39,7 @@ namespace BE4v.Mods.Min
             {
                 transform = VRC.UI.Elements.QuickMenu.Instance.transform.Find("Container/Window/Toggle_SafeMode");
                 if (transform != null)
-                    transform.gameObject.Destroy();
+                    UnityEngine.Object.Destroy(transform.gameObject);
                 isDestroy_SafeMode = true;
                 return false;
             }
@@ -48,7 +48,7 @@ namespace BE4v.Mods.Min
             {
                 transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners");
                 if (transform != null)
-                    transform.gameObject.Destroy();
+                    UnityEngine.Object.Destroy(transform.gameObject);
                 isDestroy_VRCBanner = true;
                 return false;
             }
@@ -57,7 +57,7 @@ namespace BE4v.Mods.Min
             {
                 transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners");
                 if (transform != null)
-                    transform.gameObject.Destroy();
+                    UnityEngine.Object.Destroy(transform.gameObject);
                 isDestroy_BannerCarousel = true;
                 return false;
             }

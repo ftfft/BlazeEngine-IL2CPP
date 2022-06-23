@@ -9,36 +9,6 @@ namespace BE4v.MenuEdit.IMGUI
 {
     public class TabMenu : IUpdate, IOnGUI
     {
-        static TabMenu()
-        {
-            strHashBold = new IL2String("<b>#</b>");
-            strHashBold.Static = true;
-            strDisplayNameBold = new IL2String("<b>displayName</b>");
-            strDisplayNameBold.Static = true;
-            strTeleport = new IL2String("Teleport");
-            strTeleport.Static = true;
-            strChairInHead_Sit_On = new IL2String("Sit on");
-            strChairInHead_Sit_On.Static = true;
-            strChairInHead_Get_Up = new IL2String("Get up");
-            strChairInHead_Get_Up.Static = true;
-            strBlockData = new IL2String("Data Block");
-            strBlockData.Static = true;
-            strUnBlockData = new IL2String("Data unBlock");
-            strUnBlockData.Static = true;
-            strEmpty = new IL2String(string.Empty);
-            strEmpty.Static = true;
-        }
-
-        // private static IL2String strTabMenuBold = new IL2String("<b><color=white>Tab-menu</color></b>");
-        private static IL2String strHashBold;
-        private static IL2String strDisplayNameBold;
-        private static IL2String strTeleport;
-        private static IL2String strChairInHead_Sit_On;
-        private static IL2String strChairInHead_Get_Up;
-        private static IL2String strBlockData;
-        private static IL2String strUnBlockData;
-        private static IL2String strEmpty;
-        private static IL2String strTempText = null;
         public static bool isPressed = false;
         
         public void Update()
@@ -81,8 +51,8 @@ namespace BE4v.MenuEdit.IMGUI
                 GUI.backgroundColor = new Color(0, 255, 0);
                 int SizeX1 = Screen.width - (iLeftMargin * 2);
                 // GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), strTabMenuBold.ptr);
-                GUI.Label(new Rect(120, iTopMargin, 40, 20), strHashBold.Pointer);
-                GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), strDisplayNameBold.Pointer);
+                GUI.Label(new Rect(120, iTopMargin, 40, 20), "<b>#</b>");
+                GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), "<b>displayName</b>");
 
                 int iPlayer = 0;
                 VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
@@ -94,30 +64,30 @@ namespace BE4v.MenuEdit.IMGUI
                     {
                         if (uSelectSteam != 0L)
                         {
-                            if (GUI.Button(new Rect(180, 112, 150, 17), strEmpty.Pointer))
+                            if (GUI.Button(new Rect(180, 112, 150, 17), string.Empty))
                             {
                                 Avatars.OpenUrlBrowser("https://steamcommunity.com/profiles/" + uSelectSteam);
                             }
                         }
-                        GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), strTempText.Pointer);
-                        if (GUI.Button(new Rect(400, 100, 120, 20), strTeleport.Pointer))
+                        GUI.Label(new Rect(130, 80, 300, iTopMargin - 80), tempText);
+                        if (GUI.Button(new Rect(400, 100, 120, 20), "Teleport"))
                         {
                             VRC.Player.Instance.transform.position = player.transform.position;
                         }
-                        IntPtr ptrSitEv = IntPtr.Zero;
+                        string sitText;
                         if (SitOnHead.SelectUser != player?.Components)
-                            ptrSitEv = strChairInHead_Sit_On.Pointer;
+                            sitText = "Sit on";
                         else
-                            ptrSitEv = strChairInHead_Get_Up.Pointer;
-                        if (GUI.Button(new Rect(400, 120, 120, 20), ptrSitEv))
+                            sitText = "Get up";
+                        if (GUI.Button(new Rect(400, 120, 120, 20), sitText))
                         {
                             if (SitOnHead.SelectUser != player?.Components)
                                 SitOnHead.SelectUser = player.Components;
                             else
                                 SitOnHead.SelectUser = null;
                         }
-                        IntPtr iSelected = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? strUnBlockData : strBlockData).Pointer;
-                        if (GUI.Button(new Rect(550, 100, 120, 20), iSelected))
+                        string blockButton = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? "Data unBlock" : "Data Block");
+                        if (GUI.Button(new Rect(550, 100, 120, 20), blockButton))
                         {
                             if (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value))
                             {
@@ -159,10 +129,7 @@ namespace BE4v.MenuEdit.IMGUI
                                 text += "\n<b>Steam:</b>\t" + uSelectSteam;
                             }
                         }
-                        if (strTempText != null)
-                            strTempText.Static = false;
-                        strTempText = new IL2String(text);
-                        strTempText.Static = true;
+                        tempText = text;
                     }
                 }
             }
@@ -171,6 +138,8 @@ namespace BE4v.MenuEdit.IMGUI
                 
             }
         }
+
+        private static string tempText = string.Empty;
 
         private static long uSelectSteam = 0L;
 

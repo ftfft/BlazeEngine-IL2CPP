@@ -18,6 +18,6 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(type)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
-		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("Event", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUIModule"].GetClass("Event", "UnityEngine");
 	}
 }
