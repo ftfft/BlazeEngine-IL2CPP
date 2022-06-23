@@ -1,6 +1,5 @@
-using BE4v.SDK.CPP2IL;
 using System;
-using System.Diagnostics.Contracts;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -565,6 +564,6 @@ namespace UnityEngine
         /// </summary>
         public float a;
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Color", "UnityEngine");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Color", "UnityEngine");
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -8,20 +8,20 @@ namespace UnityEngine
 	/// </summary>
 	public class Material : Object
 	{
-		public Material(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Material(IntPtr ptr) : base(ptr) { }
 
 		public Shader shader
 		{
-			get => Instance_Class.GetProperty(nameof(shader)).GetGetMethod().Invoke(ptr)?.GetValue<Shader>();
-			set => Instance_Class.GetProperty(nameof(shader)).GetSetMethod().Invoke(ptr, new IntPtr[] { value == null ? IntPtr.Zero : value.ptr });
+			get => Instance_Class.GetProperty(nameof(shader)).GetGetMethod().Invoke(this)?.GetValue<Shader>();
+			set => Instance_Class.GetProperty(nameof(shader)).GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
 		}
 		
 		unsafe public Color color
 		{
-			get => Instance_Class.GetProperty(nameof(color)).GetGetMethod().Invoke(ptr).GetValuе<Color>();
-			set => Instance_Class.GetProperty(nameof(color)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			get => Instance_Class.GetProperty(nameof(color)).GetGetMethod().Invoke<Color>(this).GetValue();
+			set => Instance_Class.GetProperty(nameof(color)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Material", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Material", "UnityEngine");
 	}
 }

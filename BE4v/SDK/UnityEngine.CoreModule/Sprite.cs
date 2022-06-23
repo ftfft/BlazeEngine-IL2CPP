@@ -1,15 +1,15 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
 	public sealed class Sprite : Object
 	{
-		public Sprite(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Sprite(IntPtr ptr) : base(ptr) { }
 
 		public Texture2D texture
 		{
-			get => Instance_Class.GetProperty(nameof(texture)).GetGetMethod().Invoke(ptr)?.GetValue<Texture2D>();
+			get => Instance_Class.GetProperty(nameof(texture)).GetGetMethod().Invoke(this)?.GetValue<Texture2D>();
 		}
 
 		public static Sprite Create(Texture2D texture, Rect rect, Vector2 pivot, float pixelsPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.Tight, bool generateFallbackPhysicsShape = false)
@@ -19,16 +19,16 @@ namespace UnityEngine
 		}
 		public Rect rect
 		{
-			get => Instance_Class.GetProperty(nameof(rect)).GetGetMethod().Invoke(ptr).GetValuе<Rect>();
+			get => Instance_Class.GetProperty(nameof(rect)).GetGetMethod().Invoke<Rect>(this).GetValue();
 		}
 		public Vector2 pivot
 		{
-			get => Instance_Class.GetProperty(nameof(pivot)).GetGetMethod().Invoke(ptr).GetValuе<Vector2>();
+			get => Instance_Class.GetProperty(nameof(pivot)).GetGetMethod().Invoke<Vector2>(this).GetValue();
         }
 
 		public float pixelsPerUnit
         {
-			get => Instance_Class.GetProperty(nameof(pixelsPerUnit)).GetGetMethod().Invoke(ptr).GetValuе<float>();
+			get => Instance_Class.GetProperty(nameof(pixelsPerUnit)).GetGetMethod().Invoke<float>(this).GetValue();
         }
 
 		unsafe private static Sprite Create2(Texture2D texture, Rect rect, Vector2 pivot, float pixelsPerUnit, uint extrude, SpriteMeshType meshType, Vector4 border, bool generateFallbackPhysicsShape)
@@ -37,7 +37,7 @@ namespace UnityEngine
 			IntPtr ptrPivot = new IntPtr(&pivot);
 			IntPtr ptrBorder = new IntPtr(&border);
 
-			return CreateSprite(texture.ptr, ref ptrRect, ref ptrPivot, pixelsPerUnit, extrude, meshType, ref ptrBorder, generateFallbackPhysicsShape);
+			return CreateSprite(texture == null ? IntPtr.Zero : texture.Pointer, ref ptrRect, ref ptrPivot, pixelsPerUnit, extrude, meshType, ref ptrBorder, generateFallbackPhysicsShape);
 		}
 
 		private delegate IntPtr _delegateCreateSprite(IntPtr texture, IntPtr rect, IntPtr pivot, float pixelsPerUnit, uint extrude, SpriteMeshType meshType, IntPtr border, bool generateFallbackPhysicsShape);
@@ -46,7 +46,7 @@ namespace UnityEngine
 		{
 			if (_CreateSprite == null)
 			{
-				_CreateSprite = IL2Utils.ResolveICall<_delegateCreateSprite>("UnityEngine.Sprite::CreateSprite_Injected");
+				_CreateSprite = IL2CPP.ResolveICall<_delegateCreateSprite>("UnityEngine.Sprite::CreateSprite_Injected");
 				if (_CreateSprite == null)
 					return null;
 			}
@@ -58,6 +58,6 @@ namespace UnityEngine
 			return new Sprite(result);
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Sprite", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Sprite", "UnityEngine");
 	}
 }

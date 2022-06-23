@@ -1,30 +1,30 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
 	public sealed class GUISkin : ScriptableObject
 	{
-		public GUISkin(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public GUISkin(IntPtr ptr) : base(ptr) { }
 
 		public GUISkin() : base(IntPtr.Zero)
 		{
-			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-			Instance_Class.GetMethod(".ctor").Invoke(ptr);
+			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+			Instance_Class.GetMethod(".ctor").Invoke(Pointer);
 		}
 
 		public GUIStyle label
 		{
-			get => Instance_Class.GetProperty(nameof(label)).GetGetMethod().Invoke(ptr)?.GetValue<GUIStyle>();
-			set => Instance_Class.GetProperty(nameof(label)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
-		}
-		public GUIStyle box
-		{
-			get => Instance_Class.GetProperty(nameof(box)).GetGetMethod().Invoke(ptr)?.GetValue<GUIStyle>();
-			set => Instance_Class.GetProperty(nameof(box)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
+			get => Instance_Class.GetProperty(nameof(label)).GetGetMethod().Invoke(this)?.GetValue<GUIStyle>();
+			set => Instance_Class.GetProperty(nameof(label)).GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.IMGUI"].GetClass("GUISkin", "UnityEngine");
+		public GUIStyle box
+		{
+			get => Instance_Class.GetProperty(nameof(box)).GetGetMethod().Invoke(this)?.GetValue<GUIStyle>();
+			set => Instance_Class.GetProperty(nameof(box)).GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
+		}
+
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUISkin", "UnityEngine");
 	}
 }

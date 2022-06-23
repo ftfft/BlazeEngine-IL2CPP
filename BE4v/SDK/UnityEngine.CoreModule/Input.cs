@@ -1,22 +1,21 @@
 using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
     public static class Input
     {
-        public static float GetAxis(string axisName) => Instance_Class.GetMethod(nameof(GetAxis)).Invoke(new IntPtr[] { new IL2String(axisName).ptr }).GetValuå<float>();
-        unsafe public static bool GetKey(KeyCode key) => Instance_Class.GetMethod("GetKeyInt").Invoke(new IntPtr[] { new IntPtr(&key) })?.GetValuå<bool>() ?? false;
-        unsafe public static bool GetKeyDown(KeyCode key) => Instance_Class.GetMethod("GetKeyDownInt").Invoke(new IntPtr[] { new IntPtr(&key) })?.GetValuå<bool>() ?? false;
-        unsafe public static bool GetKeyUp(KeyCode key) => Instance_Class.GetMethod("GetKeyUpInt").Invoke(new IntPtr[] { new IntPtr(&key) })?.GetValuå<bool>() ?? false;
-        public static bool GetButtonDown(string buttonName) => Instance_Class.GetMethod(nameof(GetButtonDown)).Invoke(new IntPtr[] { new IL2String(buttonName).ptr }).GetValuå<bool>();
+        public static float GetAxis(string axisName) => Instance_Class.GetMethod(nameof(GetAxis)).Invoke<float>(new IntPtr[] { new IL2String(axisName).Pointer }).GetValue();
+        unsafe public static bool GetKey(KeyCode key) => Instance_Class.GetMethod("GetKeyInt").Invoke<bool>(new IntPtr[] { new IntPtr(&key) }).GetValue();
+        unsafe public static bool GetKeyDown(KeyCode key) => Instance_Class.GetMethod("GetKeyDownInt").Invoke<bool>(new IntPtr[] { new IntPtr(&key) }).GetValue();
+        unsafe public static bool GetKeyUp(KeyCode key) => Instance_Class.GetMethod("GetKeyUpInt").Invoke<bool>(new IntPtr[] { new IntPtr(&key) }).GetValue();
+        public static bool GetButtonDown(string buttonName) => Instance_Class.GetMethod(nameof(GetButtonDown)).Invoke<bool>(new IntPtr[] { new IL2String(buttonName).Pointer }).GetValue();
 
         public static Vector3 mousePosition
         {
-            get => Instance_Class.GetProperty(nameof(mousePosition)).GetGetMethod().Invoke().GetValuå<Vector3>();
+            get => Instance_Class.GetProperty(nameof(mousePosition)).GetGetMethod().Invoke<Vector3>().GetValue();
         }
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.InputLegacyModule"].GetClass("Input", "UnityEngine");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.InputLegacyModule"].GetClass("Input", "UnityEngine");
     }
 }

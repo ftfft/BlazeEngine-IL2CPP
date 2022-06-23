@@ -1,5 +1,5 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
+﻿using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -8,14 +8,14 @@ namespace UnityEngine
 	/// </summary>
 	public class Renderer : MonoBehaviour
 	{
-		public Renderer(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Renderer(IntPtr ptr) : base(ptr) { }
 
 		public Material material
 		{
-			get => Instance_Class.GetProperty(nameof(material)).GetGetMethod().Invoke(ptr)?.GetValue<Material>();
-			set => Instance_Class.GetProperty(nameof(material)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
+			get => Instance_Class.GetProperty(nameof(material)).GetGetMethod().Invoke(this)?.GetValue<Material>();
+			set => Instance_Class.GetProperty(nameof(material)).GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Renderer", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Renderer", "UnityEngine");
 	}
 }

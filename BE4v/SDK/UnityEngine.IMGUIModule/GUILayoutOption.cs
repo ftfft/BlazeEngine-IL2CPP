@@ -1,26 +1,23 @@
-﻿using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
-using System;
-using System.Text;
-using UnityEngine.UI;
+﻿using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
-	public sealed class GUILayoutOption : IL2Base
+	public sealed class GUILayoutOption : IL2Object
 	{
-		public GUILayoutOption(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+		public GUILayoutOption(IntPtr ptr) : base(ptr) { }
 
 		unsafe internal GUILayoutOption(Type type, IntPtr value) : base(IntPtr.Zero)
 		{
-			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 2).Invoke(ptr, new IntPtr[] { new IntPtr(&type), value });
+			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 2).Invoke(Pointer, new IntPtr[] { new IntPtr(&type), value });
 		}
 
 
 		unsafe internal Type type
 		{
-			get => Instance_Class.GetField(nameof(type)).GetValue(ptr).GetValuе<Type>();
-			set => Instance_Class.GetField(nameof(type)).SetValue(ptr, new IntPtr(&value));
+			get => Instance_Class.GetField(nameof(type)).GetValue<Type>(this).GetValue();
+			set => Instance_Class.GetField(nameof(type)).SetValue(this, new IntPtr(&value));
 		}
 		
 
@@ -28,10 +25,10 @@ namespace UnityEngine
 		{
 			get
 			{
-				IL2Object result = Instance_Class.GetField(nameof(value)).GetValue(ptr);
-				return (result == null) ? IntPtr.Zero : result.ptr;
+				IL2Object result = Instance_Class.GetField(nameof(value)).GetValue(this);
+				return (result == null) ? IntPtr.Zero : result.Pointer;
 			}
-			set => Instance_Class.GetField(nameof(value)).SetValue(ptr, new IntPtr(&value));
+			set => Instance_Class.GetField(nameof(value)).SetValue(this, new IntPtr(&value));
 		}
 
 		internal enum Type
@@ -52,6 +49,6 @@ namespace UnityEngine
 			spacing
 		}
 
-		public static IL2Class Instance_Class = Assembler.list["UnityEngine.IMGUI"].GetClass("GUILayoutOption", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUILayoutOption", "UnityEngine");
 	}
 }

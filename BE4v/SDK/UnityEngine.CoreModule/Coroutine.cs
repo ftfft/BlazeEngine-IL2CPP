@@ -1,19 +1,18 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
 	public sealed class Coroutine : YieldInstruction
 	{
-		public Coroutine(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Coroutine(IntPtr ptr) : base(ptr) { }
 
 		unsafe public Coroutine() : base(IntPtr.Zero)
 		{
-			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-			Instance_Class.GetMethod(".ctor").Invoke(ptr);
+			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+			Instance_Class.GetMethod(".ctor").Invoke(Pointer);
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Coroutine", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Coroutine", "UnityEngine");
 	}
 }

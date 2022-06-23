@@ -1,86 +1,82 @@
 ﻿using System;
 using System.Collections;
-using System.Runtime.Remoting.Messaging;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
     public class Transform : Component, IEnumerable
     {
-        public Transform(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public Transform(IntPtr ptr) : base(ptr) { }
 
         public Vector3 forward
         {
-            get => Instance_Class.GetProperty(nameof(forward)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
+            get => Instance_Class.GetProperty(nameof(forward)).GetGetMethod().Invoke<Vector3>(this).GetValue();
         }
 
         public Vector3 right
         {
-            get => Instance_Class.GetProperty(nameof(right)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
+            get => Instance_Class.GetProperty(nameof(right)).GetGetMethod().Invoke<Vector3>(this).GetValue();
         }
 
         unsafe public Vector3 position
         {
-            get => Instance_Class.GetProperty(nameof(position)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(position)).GetGetMethod().Invoke<Vector3>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(position)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public Vector3 localPosition
         {
-            get => Instance_Class.GetProperty(nameof(localPosition)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(localPosition)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(localPosition)).GetGetMethod().Invoke<Vector3>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(localPosition)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public Vector3 localEulerAngles
         {
-            get => Instance_Class.GetProperty(nameof(localEulerAngles)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(localEulerAngles)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(localEulerAngles)).GetGetMethod().Invoke<Vector3>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(localEulerAngles)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public Quaternion rotation
         {
-            get => Instance_Class.GetProperty(nameof(rotation)).GetGetMethod().Invoke(ptr).GetValuе<Quaternion>();
-            set => Instance_Class.GetProperty(nameof(rotation)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(rotation)).GetGetMethod().Invoke<Quaternion>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(rotation)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public Vector3 localScale
         {
-            get => Instance_Class.GetProperty(nameof(localScale)).GetGetMethod().Invoke(ptr).GetValuе<Vector3>();
-            set => Instance_Class.GetProperty(nameof(localScale)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(localScale)).GetGetMethod().Invoke<Vector3>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(localScale)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         public Transform Find(string name)
         {
-            return Instance_Class.GetMethod(nameof(Find)).Invoke(ptr, new IntPtr[] { new IL2String(name).ptr })?.GetValue<Transform>();
+            return Instance_Class.GetMethod(nameof(Find)).Invoke(this, new IntPtr[] { new IL2String(name).Pointer })?.GetValue<Transform>();
         }
 
         public void SetParent(Transform transform)
         {
-            IntPtr value = IntPtr.Zero;
-            if (transform != null)
-                value = transform.ptr;
-            Instance_Class.GetMethod(nameof(SetParent), x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { value });
+            Instance_Class.GetMethod(nameof(SetParent), x => x.GetParameters().Length == 1).Invoke(this, new IntPtr[] { transform == null ? IntPtr.Zero : transform.Pointer });
         }
 
         public int childCount
         {
-            get => Instance_Class.GetProperty(nameof(childCount)).GetGetMethod().Invoke(ptr).GetValuе<int>();
+            get => Instance_Class.GetProperty(nameof(childCount)).GetGetMethod().Invoke<int>(this).GetValue();
         }
 
         public Transform parent
         {
-            get => Instance_Class.GetProperty(nameof(parent)).GetGetMethod().Invoke(ptr)?.GetValue<Transform>();
-            set => Instance_Class.GetProperty(nameof(parent)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
+            get => Instance_Class.GetProperty(nameof(parent)).GetGetMethod().Invoke(this)?.GetValue<Transform>();
+            set => Instance_Class.GetProperty(nameof(parent)).GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
         }
 
         unsafe public Transform GetChild(int index)
         {
-            return Instance_Class.GetMethod(nameof(GetChild)).Invoke(ptr, new IntPtr[] { new IntPtr(&index) })?.GetValue<Transform>();
+            return Instance_Class.GetMethod(nameof(GetChild)).Invoke(this, new IntPtr[] { new IntPtr(&index) })?.GetValue<Transform>();
         }
 
         unsafe public void SetSiblingIndex(int index)
         {
-            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(ptr, new IntPtr[] { new IntPtr(&index) });
+            Instance_Class.GetMethod(nameof(SetSiblingIndex)).Invoke(this, new IntPtr[] { new IntPtr(&index) });
         }
 
         public IEnumerator GetEnumerator()
@@ -119,6 +115,6 @@ namespace UnityEngine
             private int currentIndex = -1;
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Transform", "UnityEngine");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Transform", "UnityEngine");
     }
 }

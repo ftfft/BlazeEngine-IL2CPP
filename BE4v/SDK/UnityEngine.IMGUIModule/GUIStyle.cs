@@ -1,28 +1,27 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
-	public sealed class GUIStyle : IL2Base
+	public sealed class GUIStyle : IL2Object
 	{
-		public GUIStyle(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public GUIStyle(IntPtr ptr) : base(ptr) { }
 
 		public GUIStyle() : base(IntPtr.Zero)
 		{
-			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 0).Invoke(ptr);
+			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+			Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 0).Invoke(this);
 		}
 
 		unsafe public IntPtr GetStyleStatePtr(int idx)
 		{
-			return Instance_Class.GetMethod(nameof(GetStyleStatePtr)).Invoke(ptr, new IntPtr[] { new IntPtr(&idx) }).GetValuе<IntPtr>();
+			return Instance_Class.GetMethod(nameof(GetStyleStatePtr)).Invoke<IntPtr>(this, new IntPtr[] { new IntPtr(&idx) }).GetValue();
 		}
 
 		public GUIStyle box
 		{
-			get => Instance_Class.GetProperty(nameof(box)).GetGetMethod().Invoke(ptr)?.GetValue<GUIStyle>();
-			set => Instance_Class.GetProperty(nameof(box)).GetSetMethod().Invoke(ptr, new IntPtr[] { value.ptr });
+			get => Instance_Class.GetProperty(nameof(box)).GetGetMethod().Invoke(this)?.GetValue<GUIStyle>();
+			set => Instance_Class.GetProperty(nameof(box)).GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : value.Pointer });
 		}
 
 		public GUIStyleState normal
@@ -59,12 +58,12 @@ namespace UnityEngine
 
 		unsafe public int fontSize
 		{
-			set => Instance_Class.GetProperty(nameof(fontSize)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			set => Instance_Class.GetProperty(nameof(fontSize)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		unsafe public FontStyle fontStyle
 		{
-			set => Instance_Class.GetProperty(nameof(fontStyle)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+			set => Instance_Class.GetProperty(nameof(fontStyle)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
 		}
 
 		unsafe public TextAnchor alignment
@@ -74,42 +73,16 @@ namespace UnityEngine
 
 		public GUIStyleState m_Normal
 		{
-			get => Instance_Class.GetField(nameof(m_Normal)).GetValue(ptr)?.GetValue<GUIStyleState>();
-			set => Instance_Class.GetField(nameof(m_Normal)).SetValue(ptr, value == null ? IntPtr.Zero : value.ptr);
+			get => Instance_Class.GetField(nameof(m_Normal)).GetValue(this)?.GetValue<GUIStyleState>();
+			set => Instance_Class.GetField(nameof(m_Normal)).SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
 		}
 
 		public GUIStyleState m_Hover
 		{
-			get => Instance_Class.GetField(nameof(m_Hover)).GetValue(ptr)?.GetValue<GUIStyleState>();
-			set => Instance_Class.GetField(nameof(m_Hover)).SetValue(ptr, value == null ? IntPtr.Zero : value.ptr);
+			get => Instance_Class.GetField(nameof(m_Hover)).GetValue(this)?.GetValue<GUIStyleState>();
+			set => Instance_Class.GetField(nameof(m_Hover)).SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
 		}
 		
-		private bool isStatic = false;
-        private IntPtr handleStatic = IntPtr.Zero;
-        public bool Static
-        {
-            get => isStatic;
-            set
-            {
-                isStatic = value;
-                if (value)
-                {
-                    if (handleStatic == IntPtr.Zero)
-                    {
-                        handleStatic = Import.Handler.il2cpp_gchandle_new(ptr, true);
-                    }
-                }
-                else
-                {
-                    if (handleStatic != IntPtr.Zero)
-                    {
-                        Import.Handler.il2cpp_gchandle_free(handleStatic);
-                        handleStatic = IntPtr.Zero;
-                    }
-                }
-            }
-        }
-
-		public static IL2Class Instance_Class = Assembler.list["UnityEngine.IMGUI"].GetClass("GUIStyle", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIStyle", "UnityEngine");
 	}
 }

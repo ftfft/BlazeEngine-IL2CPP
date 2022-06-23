@@ -1,18 +1,17 @@
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 using System;
 using System.Linq;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
     public sealed class GameObject : Object
     {
-        public GameObject(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public GameObject(IntPtr ptr) : base(ptr) { }
 
         public GameObject(string name) : base(IntPtr.Zero)
         {
-            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { new IL2String(name).ptr });
+            Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1).Invoke(Pointer, new IntPtr[] { new IL2String(name).Pointer });
         }
 
         public Component AddComponent(Type type)
@@ -21,9 +20,9 @@ namespace UnityEngine
             if (typeObject == IntPtr.Zero)
                 return null;
 
-            return Instance_Class.GetMethod(nameof(AddComponent), m => m.GetParameters().Length == 1).Invoke(ptr, new IntPtr[] { typeObject })?.GetValue<Component>();
+            return Instance_Class.GetMethod(nameof(AddComponent), m => m.GetParameters().Length == 1).Invoke(this, new IntPtr[] { typeObject })?.GetValue<Component>();
         }
-        public T AddComponent<T>() where T : Component => AddComponent(typeof(T))?.MonoCast<T>();
+        public T AddComponent<T>() where T : Component => AddComponent(typeof(T))?.GetValue<T>();
 
         unsafe public static GameObject CreatePrimitive(PrimitiveType type)
         {
@@ -35,10 +34,10 @@ namespace UnityEngine
             Component component = GetComponent(typeof(T));
             if (component == null)
                 component = AddComponent(typeof(T));
-            return component?.MonoCast<T>();
+            return component?.GetValue<T>();
         }
 
-        public T GetComponent<T>() where T : Component => GetComponent(typeof(T))?.MonoCast<T>();
+        public T GetComponent<T>() where T : Component => GetComponent(typeof(T))?.GetValue<T>();
         public Component GetComponent(Type type)
         {
             Component[] components = GetComponents(type);
@@ -52,11 +51,11 @@ namespace UnityEngine
 
         public Component GetComponent(string type)
         {
-            return Instance_Class.GetMethod("GetComponentByName").Invoke(ptr, new IntPtr[] { new IL2String(type).ptr })?.GetValue<Component>();
+            return Instance_Class.GetMethod("GetComponentByName").Invoke(this, new IntPtr[] { new IL2String(type).Pointer })?.GetValue<Component>();
         }
 
-        public T GetComponentInChildren<T>() => GetComponentInChildren(typeof(T)).MonoCast<T>();
-        public T GetComponentInChildren<T>(bool includeInactive) => GetComponentInChildren(typeof(T), includeInactive).MonoCast<T>();
+        public T GetComponentInChildren<T>() where T : Component => GetComponentInChildren(typeof(T))?.GetValue<T>();
+        public T GetComponentInChildren<T>(bool includeInactive) where T : Component => GetComponentInChildren(typeof(T), includeInactive)?.GetValue<T>();
         public Component GetComponentInChildren(Type type) => GetComponentInChildren(type, false);
         unsafe public Component GetComponentInChildren(Type type, bool includeInactive)
         {
@@ -64,10 +63,10 @@ namespace UnityEngine
             if (typeObject == IntPtr.Zero)
                 return null;
 
-            return Instance_Class.GetMethod(nameof(GetComponentInChildren), x => x.GetParameters().Length == 2).Invoke(ptr, new IntPtr[] { typeObject, new IntPtr(&includeInactive) })?.MonoCast<Component>();
+            return Instance_Class.GetMethod(nameof(GetComponentInChildren), x => x.GetParameters().Length == 2).Invoke(this, new IntPtr[] { typeObject, new IntPtr(&includeInactive) })?.GetValue<Component>();
         }
 
-        public T[] GetComponents<T>()
+        public T[] GetComponents<T>() where T : Component
         {
             Component[] components = GetComponents(typeof(T));
             if (components == null || components.Length < 1)
@@ -76,7 +75,7 @@ namespace UnityEngine
             T[] ts = new T[components.Length];
             for (int i = 0; i < components.Length; i++)
             {
-                ts[i] = components[i].MonoCast<T>();
+                ts[i] = components[i].GetValue<T>();
             }
             return ts;
         }
@@ -86,15 +85,15 @@ namespace UnityEngine
             if (typeObject == IntPtr.Zero)
                 return null;
 
-            IL2Object result = Instance_Class.GetMethod(nameof(GetComponents), x => x.GetParameters().Length == 1 && x.ReturnType.Name.EndsWith("[]")).Invoke(ptr, new IntPtr[] { typeObject });
-            if (result != null)
-                return result.UnboxArray<Component>();
+            IL2Object result = Instance_Class.GetMethod(nameof(GetComponents), x => x.GetParameters().Length == 1 && x.ReturnType.Name.EndsWith("[]")).Invoke(this, new IntPtr[] { typeObject });
+            if (result == null)
+                return null;
 
-            return new Component[0];
+            return new IL2Array<IntPtr>(result.Pointer).ToArray<Component>();
         }
 
-        public T[] GetComponentsInChildren<T>() => GetComponentsInChildren<T>(false);
-        public T[] GetComponentsInChildren<T>(bool includeInactive)
+        public T[] GetComponentsInChildren<T>() where T : Component => GetComponentsInChildren<T>(false);
+        public T[] GetComponentsInChildren<T>(bool includeInactive) where T : Component
         {
             Component[] components = GetComponentsInChildren(typeof(T), includeInactive);
             if (components == null || components.Length < 1)
@@ -103,7 +102,7 @@ namespace UnityEngine
             T[] ts = new T[components.Length];
             for (int i = 0; i < components.Length; i++)
             {
-                ts[i] = components[i].MonoCast<T>();
+                ts[i] = components[i].GetValue<T>();
             }
             return ts;
         }
@@ -114,79 +113,78 @@ namespace UnityEngine
             if (typeObject == IntPtr.Zero)
                 return null;
 
-            IL2Object result = Instance_Class.GetMethod(nameof(GetComponentsInChildren), x => x.GetParameters().Length == 2 && x.ReturnType.Name.EndsWith("[]")).Invoke(ptr, new IntPtr[] { typeObject, new IntPtr(&includeInactive) });
-            if (result != null)
-                return result.UnboxArray<Component>();
-
-            return new Component[0];
+            IL2Object result = Instance_Class.GetMethod(nameof(GetComponentsInChildren), x => x.GetParameters().Length == 2 && x.ReturnType.Name.EndsWith("[]")).Invoke(this, new IntPtr[] { typeObject, new IntPtr(&includeInactive) });
+            if (result == null)
+                return null;
+            
+            return new IL2Array<IntPtr>(result.Pointer).ToArray<Component>();
         }
 
         public static GameObject FindWithTag(string tag)
         {
-            return Instance_Class.GetMethod(nameof(FindWithTag)).Invoke(new IntPtr[] { new IL2String(tag).ptr })?.GetValue<GameObject>();
+            return Instance_Class.GetMethod(nameof(FindWithTag)).Invoke(new IntPtr[] { new IL2String(tag).Pointer })?.GetValue<GameObject>();
         }
         
 
         public static GameObject Find(string name)
         {
-            return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).ptr })?.GetValue<GameObject>();
+            return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).Pointer })?.GetValue<GameObject>();
         }
 
         public Transform transform
         {
-            get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(ptr)?.GetValue<Transform>();
+            get => Instance_Class.GetProperty(nameof(transform)).GetGetMethod().Invoke(this)?.GetValue<Transform>();
         }
 
         unsafe public int layer
         {
-            get => Instance_Class.GetProperty(nameof(layer)).GetGetMethod().Invoke(ptr).GetValuå<int>();
-            set => Instance_Class.GetProperty(nameof(layer)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(layer)).GetGetMethod().Invoke<int>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(layer)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public bool active
         {
-            get => Instance_Class.GetProperty(nameof(active)).GetGetMethod().Invoke(ptr).GetValuå<bool>();
-            set => Instance_Class.GetProperty(nameof(active)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(active)).GetGetMethod().Invoke<bool>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(active)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public void SetActive(bool value)
         {
-            IntPtr ptrValue = new IntPtr(&value);
-            Instance_Class.GetMethod(nameof(SetActive)).Invoke(ptr, new IntPtr[] { ptrValue });
+            Instance_Class.GetMethod(nameof(SetActive)).Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         public bool activeSelf
         {
-            get => Instance_Class.GetProperty(nameof(activeSelf)).GetGetMethod().Invoke(ptr).GetValuå<bool>();
+            get => Instance_Class.GetProperty(nameof(activeSelf)).GetGetMethod().Invoke<bool>(this).GetValue();
         }
 
         public bool activeInHierarchy
         {
-            get => Instance_Class.GetProperty(nameof(activeInHierarchy)).GetGetMethod().Invoke(ptr).GetValuå<bool>();
+            get => Instance_Class.GetProperty(nameof(activeInHierarchy)).GetGetMethod().Invoke<bool>(this).GetValue();
         }
 
         unsafe public void SetActiveRecursively(bool value)
         {
-            Instance_Class.GetMethod(nameof(SetActiveRecursively)).Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            Instance_Class.GetMethod(nameof(SetActiveRecursively)).Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         unsafe public bool isStatic
         {
-            get => Instance_Class.GetProperty(nameof(isStatic)).GetGetMethod().Invoke(ptr).GetValuå<bool>();
-            set => Instance_Class.GetProperty(nameof(isStatic)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(isStatic)).GetGetMethod().Invoke<bool>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(isStatic)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
         public string tag
         {
-            get => Instance_Class.GetProperty(nameof(tag)).GetGetMethod().Invoke(ptr)?.GetValue<string>();
-            set => Instance_Class.GetProperty(nameof(tag)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+            get => Instance_Class.GetProperty(nameof(tag)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
+            set => Instance_Class.GetProperty(nameof(tag)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
         }
 
         public GameObject gameObject
         {
-            get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(ptr)?.GetValue<GameObject>();
+            get => Instance_Class.GetProperty(nameof(gameObject)).GetGetMethod().Invoke(this)?.GetValue<GameObject>();
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("GameObject", "UnityEngine");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("GameObject", "UnityEngine");
     }
 }

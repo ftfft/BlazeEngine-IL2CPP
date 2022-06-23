@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -8,9 +8,8 @@ namespace UnityEngine
 	/// </summary>
 	public class MeshFilter : Component
 	{
-		public MeshFilter(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public MeshFilter(IntPtr ptr) : base(ptr) { }
 
-
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("MeshFilter", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("MeshFilter", "UnityEngine");
 	}
 }

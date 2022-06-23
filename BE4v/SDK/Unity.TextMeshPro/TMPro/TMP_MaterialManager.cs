@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine.UI;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 using UnityEngine;
 
 namespace TMPro
@@ -12,10 +8,9 @@ namespace TMPro
     {
         public static Material GetBaseMaterial(Material stencilMaterial)
         {
-            return Instance_Class.GetMethod(nameof(GetBaseMaterial)).Invoke(new IntPtr[] { stencilMaterial == null ? IntPtr.Zero : stencilMaterial.ptr })?.GetValue<Material>();
+            return Instance_Class.GetMethod(nameof(GetBaseMaterial)).Invoke(new IntPtr[] { stencilMaterial == null ? IntPtr.Zero : stencilMaterial.Pointer })?.GetValue<Material>();
         }
 
-
-        public static IL2Class Instance_Class = Assembler.list["Unity.TextMeshPro"].GetClass("TMP_MaterialManager", "TMPro");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Unity.TextMeshPro"].GetClass("TMP_MaterialManager", "TMPro");
     }
 }

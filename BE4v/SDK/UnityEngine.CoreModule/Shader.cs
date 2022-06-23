@@ -1,17 +1,17 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
 	public class Shader : Object
 	{
-		public Shader(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public Shader(IntPtr ptr) : base(ptr) { }
 
 		public static Shader Find(string name)
 		{
-			return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).ptr })?.GetValue<Shader>();
+			return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).Pointer })?.GetValue<Shader>();
 		}
 
-		public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Shader", "UnityEngine");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Shader", "UnityEngine");
 	}
 }

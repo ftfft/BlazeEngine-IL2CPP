@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
-using BE4v.SDK.CPP2IL;
-using UnityEngine.UI;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -10,17 +8,47 @@ namespace UnityEngine
 	{
 		public static void Label(string text, params GUILayoutOption[] options)
 		{
-			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+			IL2Array<IntPtr> array = null;
+			if (options != null)
+			{
+				int len = options.Length;
+				array = new IL2Array<IntPtr>(len, GUILayoutOption.Instance_Class);
+				for (int i = 0; i < len; i++)
+				{
+					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
+				}
+			}
+			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).Pointer, array == null ? IntPtr.Zero : array.Pointer });
 		}
 
 		public static void Label(string text, GUIStyle style, params GUILayoutOption[] options)
 		{
-			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 3 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).ptr, style == null ? IntPtr.Zero : style.ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+			IL2Array<IntPtr> array = null;
+			if (options != null)
+			{
+				int len = options.Length;
+				array = new IL2Array<IntPtr>(len, GUILayoutOption.Instance_Class);
+				for (int i = 0; i < len; i++)
+				{
+					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
+				}
+			}
+			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 3 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).Pointer, style == null ? IntPtr.Zero : style.Pointer, array == null ? IntPtr.Zero : array.Pointer });
 		}
 
 		unsafe public static Vector2 BeginScrollView(Vector2 scrollPosition, params GUILayoutOption[] options)
 		{
-			return Instance_Class.GetMethod(nameof(BeginScrollView), x => x.GetParameters().Length == 2).Invoke(new IntPtr[] { new IntPtr(&scrollPosition), (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) }).GetValuе<Vector2>();
+			IL2Array<IntPtr> array = null;
+			if (options != null)
+			{
+				int len = options.Length;
+				array = new IL2Array<IntPtr>(len, GUILayoutOption.Instance_Class);
+				for (int i = 0; i < len; i++)
+				{
+					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
+				}
+			}
+			return Instance_Class.GetMethod(nameof(BeginScrollView), x => x.GetParameters().Length == 2).Invoke<Vector2>(new IntPtr[] { new IntPtr(&scrollPosition), array == null ? IntPtr.Zero : array.Pointer }).GetValue();
 		}
 
 		public static void EndScrollView()
@@ -30,7 +58,17 @@ namespace UnityEngine
 
 		public static void BeginHorizontal(params GUILayoutOption[] options)
 		{
-			Instance_Class.GetMethod(nameof(BeginHorizontal), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+			IL2Array<IntPtr> array = null;
+			if (options != null)
+			{
+				int len = options.Length;
+				array = new IL2Array<IntPtr>(len, GUILayoutOption.Instance_Class);
+				for (int i = 0; i < len; i++)
+				{
+					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
+				}
+			}
+			Instance_Class.GetMethod(nameof(BeginHorizontal), x => x.GetParameters().Length == 1).Invoke(new IntPtr[] { array == null ? IntPtr.Zero : array.Pointer });
 		}
 
 		public static void EndHorizontal()
@@ -45,12 +83,12 @@ namespace UnityEngine
 
 		unsafe public static void BeginArea(Rect screenRect, GUIStyle style)
 		{
-			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "style").Invoke(new IntPtr[] { new IntPtr(&screenRect), style == null ? IntPtr.Zero : style.ptr });
+			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "style").Invoke(new IntPtr[] { new IntPtr(&screenRect), style == null ? IntPtr.Zero : style.Pointer });
 		}
 
 		unsafe public static void BeginArea(Rect screenRect, Texture image)
 		{
-			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "image").Invoke(new IntPtr[] { new IntPtr(&screenRect), image == null ? IntPtr.Zero : image.ptr });
+			Instance_Class.GetMethod(nameof(BeginArea), x => x.GetParameters().Length == 2 && x.GetParameters()[1].Name == "image").Invoke(new IntPtr[] { new IntPtr(&screenRect), image == null ? IntPtr.Zero : image.Pointer });
 		}
 
 		public static void EndArea()
@@ -60,18 +98,34 @@ namespace UnityEngine
 
 		public static bool Button(string text, params GUILayoutOption[] options)
 		{
-			IL2Object obj = Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
-			if (obj == null)
-				return false;
-
-			return obj.GetValuе<bool>();
+			IL2Array<IntPtr> array = null;
+			if (options != null)
+			{
+				int len = options.Length;
+				array = new IL2Array<IntPtr>(len, GUILayoutOption.Instance_Class);
+				for (int i = 0; i < len; i++)
+				{
+					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
+				}
+			}
+			return Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke<bool>(new IntPtr[] { new IL2String(text).Pointer, array == null ? IntPtr.Zero : array.Pointer }).GetValue();
 		}
 
 		public static void Box(Texture image, params GUILayoutOption[] options)
 		{
-			Instance_Class.GetMethod(nameof(Box), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "image").Invoke(new IntPtr[] { image == null ? IntPtr.Zero : image.ptr, (options == null || options.Length == 0) ? IntPtr.Zero : options.Select(x => x.ptr).ToArray().ArrayToIntPtr(GUILayoutOption.Instance_Class) });
+			IL2Array<IntPtr> array = null;
+			if (options != null)
+            {
+				int len = options.Length;
+				array = new IL2Array<IntPtr>(len, GUILayoutOption.Instance_Class);
+				for (int i = 0;i<len;i++)
+                {
+					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
+                }
+            }
+			Instance_Class.GetMethod(nameof(Box), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "image").Invoke(new IntPtr[] { image == null ? IntPtr.Zero : image.Pointer, array == null ? IntPtr.Zero : array.Pointer });
 		}
 
-		public static IL2Class Instance_Class = Assembler.list["UnityEngine.IMGUI"].GetClass("GUILayout", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUILayout", "UnityEngine");
 	}
 }

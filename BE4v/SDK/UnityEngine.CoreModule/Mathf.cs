@@ -1,5 +1,5 @@
-using BE4v.SDK.CPP2IL;
 using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -717,12 +717,12 @@ namespace UnityEngine
 
         unsafe public static float GammaToLinearSpace(float value)
         {
-            return Instance_Class.GetMethod(nameof(GammaToLinearSpace)).Invoke(new IntPtr[] { new IntPtr(&value) }).GetValuå<float>();
+            return Instance_Class.GetMethod(nameof(GammaToLinearSpace)).Invoke<float>(new IntPtr[] { new IntPtr(&value) }).GetValue();
         }
 
         unsafe public static float LinearToGammaSpace(float value)
         {
-            return Instance_Class.GetMethod(nameof(LinearToGammaSpace)).Invoke(new IntPtr[] { new IntPtr(&value) }).GetValuå<float>();
+            return Instance_Class.GetMethod(nameof(LinearToGammaSpace)).Invoke<float>(new IntPtr[] { new IntPtr(&value) }).GetValue();
         }
 
         internal static long RandomToLong(Random r)
@@ -762,6 +762,6 @@ namespace UnityEngine
         /// </summary>
         //        public static readonly float Epsilon = (!MathfInternal.IsFlushToZeroEnabled) ? MathfInternal.FloatMinDenormal : MathfInternal.FloatMinNormal;
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Mathf", "UnityEngine");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Mathf", "UnityEngine");
     }
 }

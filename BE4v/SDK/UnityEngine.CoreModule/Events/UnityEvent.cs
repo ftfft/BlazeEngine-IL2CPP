@@ -1,19 +1,19 @@
-using BE4v.SDK.CPP2IL;
 using System;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine.Events
 {
     public class UnityEvent : UnityEventBase
     {
-        public UnityEvent(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public UnityEvent(IntPtr ptr) : base(ptr) { }
 
 
         public void AddListener(UnityAction action)
         {
-            IL2Delegate @delegate = IL2Delegate.CreateDelegate(action, Assembler.list["UnityEngine.CoreModule"].GetClass("UnityAction", "UnityEngine.Events"));
-            Instance_Class.GetMethod("AddListener").Invoke(ptr, new IntPtr[] { @delegate == null ? IntPtr.Zero : @delegate.ptr });
+            IL2Delegate @delegate = IL2Delegate.CreateDelegate(action, IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("UnityAction", "UnityEngine.Events"));
+            Instance_Class.GetMethod("AddListener").Invoke(this, new IntPtr[] { @delegate == null ? IntPtr.Zero : @delegate.Pointer });
         }
 
-        public static new IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("UnityEvent", "UnityEngine.Events");
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("UnityEvent", "UnityEngine.Events");
     }
 }

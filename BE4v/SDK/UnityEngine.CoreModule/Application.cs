@@ -1,5 +1,5 @@
 using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -7,20 +7,20 @@ namespace UnityEngine
     {
         unsafe public static int targetFrameRate
         {
-            get => Instance_Class.GetProperty(nameof(targetFrameRate)).GetGetMethod().Invoke().GetValuå<int>();
+            get => Instance_Class.GetProperty(nameof(targetFrameRate)).GetGetMethod().Invoke<int>().GetValue();
             set => Instance_Class.GetProperty(nameof(targetFrameRate)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
         }
 
         public static string unityVersion
         {
-            get => Instance_Class.GetProperty(nameof(unityVersion)).GetGetMethod().Invoke()?.GetValue<string>();
+            get => Instance_Class.GetProperty(nameof(unityVersion)).GetGetMethod().Invoke()?.GetValue<IL2String>().ToString();
         }
 
         public static string streamingAssetsPath
         {
-            get => Instance_Class.GetProperty(nameof(streamingAssetsPath)).GetGetMethod().Invoke()?.GetValue<string>();
+            get => Instance_Class.GetProperty(nameof(streamingAssetsPath)).GetGetMethod().Invoke()?.GetValue<IL2String>().ToString();
         }
 
-        public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Application", "UnityEngine");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Application", "UnityEngine");
     }
 }

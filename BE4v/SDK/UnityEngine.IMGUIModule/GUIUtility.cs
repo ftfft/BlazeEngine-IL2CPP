@@ -1,18 +1,18 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
-	public class GUIUtility : IL2Base
+	public class GUIUtility : IL2Object
 	{
-		public GUIUtility(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public GUIUtility(IntPtr ptr) : base(ptr) { }
 
 		public static string systemCopyBuffer
 		{
-			get => Instance_Class.GetProperty(nameof(systemCopyBuffer)).GetGetMethod().Invoke().GetValue<string>();
-			set => Instance_Class.GetProperty(nameof(systemCopyBuffer)).GetSetMethod().Invoke(new IntPtr[] { new IL2String(value).ptr });
+			get => Instance_Class.GetProperty(nameof(systemCopyBuffer)).GetGetMethod().Invoke()?.GetValue<IL2String>().ToString();
+			set => Instance_Class.GetProperty(nameof(systemCopyBuffer)).GetSetMethod().Invoke(new IntPtr[] { new IL2String(value).Pointer });
 		}
 
-		public static IL2Class Instance_Class = Assembler.list["UnityEngine.IMGUI"].GetClass("GUIUtility", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.IMGUI"].GetClass("GUIUtility", "UnityEngine");
 	}
 }

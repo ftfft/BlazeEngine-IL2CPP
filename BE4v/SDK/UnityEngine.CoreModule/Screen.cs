@@ -1,5 +1,5 @@
 ﻿using System;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace UnityEngine
 {
@@ -7,14 +7,14 @@ namespace UnityEngine
 	{
 		public static int width
 		{
-			get => Instance_Class.GetProperty(nameof(width)).GetGetMethod().Invoke().GetValuе<int>();
+			get => Instance_Class.GetProperty(nameof(width)).GetGetMethod().Invoke<int>().GetValue();
 		}
 
 		public static int height
 		{
-			get => Instance_Class.GetProperty(nameof(height)).GetGetMethod().Invoke().GetValuе<int>();
+			get => Instance_Class.GetProperty(nameof(height)).GetGetMethod().Invoke<int>().GetValue();
 		}
 
-		public static IL2Class Instance_Class = Assembler.list["UnityEngine.CoreModule"].GetClass("Screen", "UnityEngine");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["UnityEngine.CoreModule"].GetClass("Screen", "UnityEngine");
 	}
 }
