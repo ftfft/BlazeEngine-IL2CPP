@@ -1,13 +1,12 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace Steamworks
 {
-    public class ConnectionInterface : IL2Base
+    public class ConnectionInterface : IL2Object
     {
-        public ConnectionInterface(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public ConnectionInterface(IntPtr ptr) : base(ptr) { }
 
-        public static IL2Class Instance_Class = Assembler.list["Steamworks"].GetClass("ConnectionInterface", "Steamworks");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Steamworks"].GetClass("ConnectionInterface", "Steamworks");
     }
 }

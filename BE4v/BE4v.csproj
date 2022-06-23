@@ -198,7 +198,6 @@
       <DependentUpon>DumpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NodesUtils.cs" />
-    <Compile Include="SDK\IL2SystemClass.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\EnetPeer.cs" />
     <Compile Include="SDK\System\Net\WebRequest.cs" />
     <Compile Include="SDK\System\Net\IL2WebClient.cs" />
@@ -383,7 +382,6 @@
     <Compile Include="SDK\Facepunch.Steamworks.Win64\Steamworks\SteamId.cs" />
     <Compile Include="SDK\IL2BindingFlags.cs" />
     <Compile Include="SDK\IL2Patch.cs" />
-    <Compile Include="SDK\Import.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\ConnectionProtocol.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\DebugLevel.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\DeliveryMode.cs" />

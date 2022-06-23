@@ -29,7 +29,7 @@ public class ObjectInstantiator : MonoBehaviour
                 (field = Instance_Class.GetField(x => x.ReturnType.Name == typeof(string[]).FullName && new IL2Array<IntPtr>(x.GetValue().Pointer).Length == 1)).Name = nameof(adminOnlyPrefabs);
 
             int len = value.Length;
-            IL2Array<IntPtr> array = new IL2Array<IntPtr>(len, IL2SystemClass.String);
+            IL2Array<IntPtr> array = new IL2Array<IntPtr>(len, IL2String.Instance_Class);
             for(int i=0;i<len;i++)
             {
                 array[i] = new IL2String(value[i]).Pointer;

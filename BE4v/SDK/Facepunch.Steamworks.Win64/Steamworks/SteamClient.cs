@@ -1,11 +1,10 @@
 ﻿using System;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
+using IL2CPP_Core.Objects;
 
 namespace Steamworks
 {
     public static class SteamClient
     {
-        public static IL2Class Instance_Class = Assembler.list["Steamworks"].GetClass("SteamClient", "Steamworks");
+        public static IL2Class Instance_Class = IL2CPP.AssemblyList["Steamworks"].GetClass("SteamClient", "Steamworks");
     }
 }

@@ -1,12 +1,8 @@
-﻿using BE4v.SDK.CPP2IL;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading;
+using System.Drawing;
+using System.Collections.Generic;
+using IL2CPP_Core.Objects;
 using System.Windows.Forms;
 using VRC;
 
@@ -22,8 +18,8 @@ namespace BE4v.SDK.IL2Dumper
         private void AddClass(TreeNodeCollection node, IL2Class klass)
         {
             if (klass == null) return;
-            if (IL2Utils.CheckIsObfus(klass.Name))
-            {
+            //if (IL2Utils.CheckIsObfus(klass.Name))
+            //{
                 Type type = null;
                 foreach (var t in types)
                 {
@@ -42,7 +38,7 @@ namespace BE4v.SDK.IL2Dumper
                         klass.Namespace = type.Namespace;
                     klass.Name = type.Name;
                 }
-            }
+            //}
 
 
             string name_space = "-";
@@ -64,14 +60,14 @@ namespace BE4v.SDK.IL2Dumper
 
         private void AddProperty(TreeNodeCollection node, IL2Property property)
         {
-            int index = node.AddIsNull(property.Name, property.ptr.ToString());
+            int index = node.AddIsNull(property.Name, property.Pointer.ToString());
             node = node[index].Nodes;
             IL2Method getMethod = property.GetGetMethod();
             if (getMethod != null)
-                node.AddIsNull("get: " + getMethod.Name, getMethod.ptr.ToString());
+                node.AddIsNull("get: " + getMethod.Name, getMethod.Pointer.ToString());
             IL2Method setMethod = property.GetSetMethod();
             if (setMethod != null)
-                node.AddIsNull("set: " + setMethod.Name, setMethod.ptr.ToString());
+                node.AddIsNull("set: " + setMethod.Name, setMethod.Pointer.ToString());
         }
 
         private void AddMethod(TreeNodeCollection node, IL2Method method)
@@ -83,7 +79,7 @@ namespace BE4v.SDK.IL2Dumper
         {
             TreeNode node = TreeDumpLib.SelectedNode;
             if (node.Nodes.Count > 0) return;
-            IL2Class klass = Assembler.list["acs"].GetClasses().FirstOrDefault(x => x.Token.ToString() == node.Name);
+            IL2Class klass = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.Token.ToString() == node.Name);
             if (klass == null) return;
             foreach(var m in klass.GetMethods())
             {
@@ -127,7 +123,7 @@ namespace BE4v.SDK.IL2Dumper
             if (types == null)
             {
                 List<Type> tList = new List<Type>();
-                IL2Assembly assembly = Assembler.list["acs"];
+                IL2Assembly assembly = IL2CPP.AssemblyList["Assembly-CSharp"];
                 foreach (var x in typeof(Player).Assembly.GetTypes())
                 {
                     if (x.IsGenericType)
@@ -157,7 +153,7 @@ namespace BE4v.SDK.IL2Dumper
         private void timer1_Tick(object sender, EventArgs e)
         {
             TreeNodeCollection node = TreeDumpLib.Nodes;
-            var klasses = Assembler.list["acs"].GetClasses();
+            var klasses = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses();
             if (klasses.Length < iSkip)
             {
                 timer1.Enabled = false;

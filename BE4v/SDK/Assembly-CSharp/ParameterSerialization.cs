@@ -16,13 +16,17 @@ public static class ParameterSerialization
 				return null;
 		}
 
-		int len = data.Length;
-		IL2Array<byte> b = new IL2Array<byte>(len, IL2SystemClass.Byte);
-		for(int i=0;i<len;i++)
+		IL2Array<byte> array = null;
+		if (data != null)
         {
-			b[i] = data[i];
+			int len = data.Length;
+			array = new IL2Array<byte>(len, IL2Byte.Instance_Class);
+			for (int i = 0; i < len; i++)
+			{
+				array[i] = data[i];
+			}
 		}
-		IL2Object @object = method.Invoke(new IntPtr[] { b.Pointer });
+		IL2Object @object = method.Invoke(new IntPtr[] { array == null ? IntPtr.Zero : array.Pointer });
 		if (@object == null)
 			return null;
 

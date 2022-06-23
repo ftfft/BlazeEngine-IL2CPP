@@ -1,30 +1,29 @@
 ﻿using System;
-using UnityEngine;
 using System.Linq;
-using BE4v.SDK.CPP2IL;
-using BE4v.SDK;
+using IL2CPP_Core.Objects;
+using UnityEngine;
 
 namespace VRC.SDKBase
 {
 	public class VRC_EventHandler : MonoBehaviour
 	{
-		public VRC_EventHandler(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+		public VRC_EventHandler(IntPtr ptr) : base(ptr) { }
 
         unsafe public static bool BooleanOp(VrcBooleanOp Op, bool Current)
         {
-            return Instance_Class.GetMethod(nameof(BooleanOp)).Invoke(new IntPtr[] { new IntPtr(&Op), new IntPtr(&Current) }).GetValuе<bool>();
+            return Instance_Class.GetMethod(nameof(BooleanOp)).Invoke<bool>(new IntPtr[] { new IntPtr(&Op), new IntPtr(&Current) }).GetValue();
         }
 
 
         unsafe public int NetworkID
         {
-            get => Instance_Class.GetProperty(nameof(NetworkID)).GetGetMethod().Invoke(ptr).GetValuе<int>();
-            set => Instance_Class.GetProperty(nameof(NetworkID)).GetSetMethod().Invoke(ptr, new IntPtr[] { new IntPtr(&value) });
+            get => Instance_Class.GetProperty(nameof(NetworkID)).GetGetMethod().Invoke<int>(this).GetValue();
+            set => Instance_Class.GetProperty(nameof(NetworkID)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
 		unsafe public void TriggerEvent(VrcEvent e, VrcBroadcastType broadcast, GameObject instagator, float fastForward = 0f)
 		{
-			Instance_Class.GetMethod(nameof(TriggerEvent)).Invoke(ptr, new IntPtr[] { (e == null) ? IntPtr.Zero : e.ptr, new IntPtr(&broadcast), (instagator == null) ? IntPtr.Zero : instagator.ptr, new IntPtr(&fastForward) });
+			Instance_Class.GetMethod(nameof(TriggerEvent)).Invoke(this, new IntPtr[] { (e == null) ? IntPtr.Zero : e.Pointer, new IntPtr(&broadcast), (instagator == null) ? IntPtr.Zero : instagator.Pointer, new IntPtr(&fastForward) });
 		}
 		/*
 		public static bool BooleanOp(VRC_EventHandler.VrcBooleanOp Op, bool Current)
@@ -267,119 +266,130 @@ namespace VRC.SDKBase
 			Toggle
 		}
 
-		public class VrcEvent : IL2Base
+		public class VrcEvent : IL2Object
 		{
-            public VrcEvent(IntPtr ptr) : base(ptr) => this.ptr = ptr;
+			public VrcEvent(IntPtr ptr) : base(ptr) { }
 
 			public VrcEvent() : base(IntPtr.Zero)
 			{
-				ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-				Instance_Class.GetMethod(".ctor").Invoke(ptr);
+				Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+				Instance_Class.GetMethod(".ctor").Invoke(Pointer);
             }
 
             public string Name
             {
-                get => Instance_Class.GetField(nameof(Name)).GetValue(ptr)?.GetValue<string>();
-                set => Instance_Class.GetField(nameof(Name)).SetValue(ptr, new IL2String(value).ptr);
+                get => Instance_Class.GetField(nameof(Name)).GetValue(this)?.GetValue<IL2String>().ToString();
+                set => Instance_Class.GetField(nameof(Name)).SetValue(this, new IL2String(value).Pointer);
             }
 
             unsafe public VrcEventType EventType
             {
-                get => Instance_Class.GetField(nameof(EventType)).GetValue(ptr).GetValuе<VrcEventType>();
-                set => Instance_Class.GetField(nameof(EventType)).SetValue(ptr, new IntPtr(&value));
+                get => Instance_Class.GetField(nameof(EventType)).GetValue<VrcEventType>(this).GetValue();
+                set => Instance_Class.GetField(nameof(EventType)).SetValue(this, new IntPtr(&value));
             }
 
             public string ParameterString
             {
-                get => Instance_Class.GetField(nameof(ParameterString)).GetValue(ptr)?.GetValue<string>();
-                set => Instance_Class.GetField(nameof(ParameterString)).SetValue(ptr, new IL2String(value).ptr);
+                get => Instance_Class.GetField(nameof(ParameterString)).GetValue(this)?.GetValue<IL2String>().ToString();
+                set => Instance_Class.GetField(nameof(ParameterString)).SetValue(this, new IL2String(value).Pointer);
             }
 
             unsafe public VrcBooleanOp ParameterBoolOp
             {
-                get => Instance_Class.GetField(nameof(ParameterBoolOp)).GetValue(ptr).GetValuе<VrcBooleanOp>();
-                set => Instance_Class.GetField(nameof(ParameterBoolOp)).SetValue(ptr, new IntPtr(&value));
+                get => Instance_Class.GetField(nameof(ParameterBoolOp)).GetValue<VrcBooleanOp>(this).GetValue();
+                set => Instance_Class.GetField(nameof(ParameterBoolOp)).SetValue(this, new IntPtr(&value));
             }
             
             unsafe public bool ParameterBool
             {
-                get => Instance_Class.GetField(nameof(ParameterBool)).GetValue(ptr).GetValuе<bool>();
-                set => Instance_Class.GetField(nameof(ParameterBool)).SetValue(ptr, new IntPtr(&value));
+                get => Instance_Class.GetField(nameof(ParameterBool)).GetValue<bool>(this).GetValue();
+                set => Instance_Class.GetField(nameof(ParameterBool)).SetValue(this, new IntPtr(&value));
             }
             
             unsafe public float ParameterFloat
             {
-                get => Instance_Class.GetField(nameof(ParameterFloat)).GetValue(ptr).GetValuе<float>();
-                set => Instance_Class.GetField(nameof(ParameterFloat)).SetValue(ptr, new IntPtr(&value));
+                get => Instance_Class.GetField(nameof(ParameterFloat)).GetValue<float>(this).GetValue();
+                set => Instance_Class.GetField(nameof(ParameterFloat)).SetValue(this, new IntPtr(&value));
             }
             
             unsafe public int ParameterInt
             {
-                get => Instance_Class.GetField(nameof(ParameterInt)).GetValue(ptr).GetValuе<int>();
-                set => Instance_Class.GetField(nameof(ParameterInt)).SetValue(ptr, new IntPtr(&value));
+                get => Instance_Class.GetField(nameof(ParameterInt)).GetValue<int>(this).GetValue();
+                set => Instance_Class.GetField(nameof(ParameterInt)).SetValue(this, new IntPtr(&value));
             }
             
             public GameObject ParameterObject
             {
-                get => Instance_Class.GetField(nameof(ParameterObject)).GetValue(ptr).GetValue<GameObject>();
-                set => Instance_Class.GetField(nameof(ParameterObject)).SetValue(ptr, (value == null) ? IntPtr.Zero : value.ptr);
+                get => Instance_Class.GetField(nameof(ParameterObject)).GetValue(this).GetValue<GameObject>();
+                set => Instance_Class.GetField(nameof(ParameterObject)).SetValue(this, (value == null) ? IntPtr.Zero : value.Pointer);
             }
 			
             public GameObject[] ParameterObjects
 			{
-                get => Instance_Class.GetField(nameof(ParameterObjects)).GetValue(ptr)?.UnboxArray<GameObject>();
-                set => Instance_Class.GetField(nameof(ParameterObjects)).SetValue(ptr, (value == null) ? IntPtr.Zero : value.Select(x => x.ptr).ToArray().ArrayToIntPtr(GameObject.Instance_Class));
-            }
+				get
+				{
+					IL2Object result = Instance_Class.GetField(nameof(ParameterObjects)).GetValue(this);
+					if (result == null)
+						return null;
+
+					return new IL2Array<IntPtr>(result.Pointer).ToArray<GameObject>();
+				}
+				set
+                {
+					IL2Array<IntPtr> array = null;
+					if (value != null)
+                    {
+						int len = value.Length;
+						array = new IL2Array<IntPtr>(len, GameObject.Instance_Class);
+						for(int i=0;i<len;i++)
+                        {
+							array[i] = value[i]?.Pointer??IntPtr.Zero;
+                        }
+					}
+					Instance_Class.GetField(nameof(ParameterObjects)).SetValue(this, (array == null) ? IntPtr.Zero : array.Pointer);
+				}
+			}
 
             public byte[] ParameterBytes
 			{
 				get
 				{
-					byte[] result = null;
-					IL2Object obj = Instance_Class.GetField(nameof(ParameterBytes)).GetValue(ptr);
-					if (obj != null)
-					{
-						IL2Array<byte> bytes = new IL2Array<byte>(obj.ptr);
-						int len = bytes.Length;
-						result = new byte[len];
-						for (int i = 0; i < len; i++)
-						{
-							result[i] = bytes[i];
-						}
-					}
-					return result;
+					IL2Object result = Instance_Class.GetField(nameof(ParameterBytes)).GetValue(this);
+					if (result == null)
+						return null;
+					return new IL2Array<byte>(result.Pointer).GetAsByteArray();
 				}
 				set
 				{
-					IL2Array<byte> bytes = new IL2Array<byte>(IntPtr.Zero);
+					IL2Array<byte> array = null;
 					if (value != null)
                     {
 						int len = value.Length;
-						bytes = new IL2Array<byte>(len);
+						array = new IL2Array<byte>(len, IL2Byte.Instance_Class);
 						for (int i = 0; i < len; i++)
                         {
-							bytes[i] = value[i];
+							array[i] = value[i];
                         }
                     }
-					Instance_Class.GetField(nameof(ParameterBytes)).SetValue(ptr, bytes.ptr);
+					Instance_Class.GetField(nameof(ParameterBytes)).SetValue(this, array == null ? IntPtr.Zero : array.Pointer);
 				}
 			}
 
 			unsafe public int? ParameterBytesVersion
 			{
-				get => Instance_Class.GetField(nameof(ParameterBytesVersion)).GetValue(ptr)?.GetValuе<int>();
+				get => Instance_Class.GetField(nameof(ParameterBytesVersion)).GetValue<int>(this).GetValue();
 				set
 				{
 					int val = 0;
 					if (value != null) val = value.Value;
-					Instance_Class.GetField(nameof(ParameterBytesVersion)).SetValue(ptr, (value == null) ? IntPtr.Zero : new IntPtr(&val));
+					Instance_Class.GetField(nameof(ParameterBytesVersion)).SetValue(this, (value == null) ? IntPtr.Zero : new IntPtr(&val));
 				}
 			}
 
 			unsafe public bool TakeOwnershipOfTarget
 			{
-				get => Instance_Class.GetField(nameof(TakeOwnershipOfTarget)).GetValue(ptr).GetValuе<bool>();
-				set => Instance_Class.GetField(nameof(TakeOwnershipOfTarget)).SetValue(ptr, new IntPtr(&value));
+				get => Instance_Class.GetField(nameof(TakeOwnershipOfTarget)).GetValue<bool>(this).GetValue();
+				set => Instance_Class.GetField(nameof(TakeOwnershipOfTarget)).SetValue(this, new IntPtr(&value));
 			}
 
             public static IL2Class Instance_Class = VRC_EventHandler.Instance_Class.GetNestedType("VrcEvent");
@@ -401,6 +411,6 @@ namespace VRC.SDKBase
 			public float fastForward;
 		}
 		*/
-		public static new IL2Class Instance_Class = Assembler.list["VRCSDKBase"].GetClass("VRC_EventHandler", "VRC.SDKBase");
+		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRCSDKBase"].GetClass("VRC_EventHandler", "VRC.SDKBase");
 	}
 }

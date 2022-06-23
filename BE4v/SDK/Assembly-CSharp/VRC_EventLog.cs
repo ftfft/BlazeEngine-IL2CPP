@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq;
-using UnityEngine;
+using IL2CPP_Core.Objects;
 using VRC.SDKBase;
-using BE4v.SDK;
-using BE4v.SDK.CPP2IL;
 
 public class VRC_EventLog : VRCNetworkBehaviour
 {
     static VRC_EventLog()
     {
-        Instance_Class = Assembler.list["acs"].GetClasses()
+        Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses()
             .FirstOrDefault(
                 x =>
                     x.BaseType == VRCNetworkBehaviour.Instance_Class
@@ -23,10 +21,10 @@ public class VRC_EventLog : VRCNetworkBehaviour
             );
     }
 
-    public VRC_EventLog(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+    public VRC_EventLog(IntPtr ptr) : base(ptr) { }
 
 
-    public class EventLogEntry : IL2Base
+    public class EventLogEntry : IL2Object
     {
         static EventLogEntry()
         {
@@ -35,12 +33,12 @@ public class VRC_EventLog : VRCNetworkBehaviour
             );
         }
 
-        public EventLogEntry(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+        public EventLogEntry(IntPtr ptr) : base(ptr) { }
 
         public EventLogEntry() : base(IntPtr.Zero)
         {
-            ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-            Instance_Class.GetMethod(".ctor").Invoke(ptr);
+            Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+            Instance_Class.GetMethod(".ctor").Invoke(Pointer);
         }
 
         unsafe public string ObjectPath
@@ -54,11 +52,11 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (property == null)
                         return null;
                 }
-                IL2Object obj = property.GetGetMethod().Invoke(ptr);
+                IL2Object obj = property.GetGetMethod().Invoke(this);
                 if (obj == null)
                     return null;
 
-                return obj.GetValue<string>();
+                return obj.GetValue<IL2Object>().ToString();
             }
             set
             {
@@ -69,7 +67,7 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (property == null)
                         return;
                 }
-                property.GetSetMethod().Invoke(ptr, new IntPtr[] { new IL2String(value).ptr });
+                property.GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
             }
         }
 
@@ -84,11 +82,7 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (field == null)
                         return default;
                 }
-                IL2Object obj = field.GetValue(ptr);
-                if (obj == null)
-                    return default;
-
-                return obj.GetValuе<int>();
+                return field.GetValue<int>(this).GetValue();
             }
             set
             {
@@ -99,7 +93,7 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (field == null)
                         return;
                 }
-                field.SetValue(ptr, new IntPtr(&value));
+                field.SetValue(this, new IntPtr(&value));
             }
         }
 
@@ -114,11 +108,7 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (field == null)
                         return default;
                 }
-                IL2Object obj = field.GetValue(ptr);
-                if (obj == null)
-                    return null;
-
-                return obj.GetValue<VRC_EventHandler.VrcEvent>();
+                return field.GetValue(this)?.GetValue<VRC_EventHandler.VrcEvent>();
             }
             set
             {
@@ -129,7 +119,7 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (field == null)
                         return;
                 }
-                field.SetValue(ptr, value == null ? IntPtr.Zero : value.ptr);
+                field.SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
             }
         }
 

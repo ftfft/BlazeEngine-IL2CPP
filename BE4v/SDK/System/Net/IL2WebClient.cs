@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using UnityEngine;
-using BE4v.SDK.CPP2IL;
-using BE4v.SDK;
+using IL2CPP_Core.Objects;
 
 namespace System.Net
 {
-    public class IL2WebClient : IL2Base
+    public class IL2WebClient : IL2Object
     {
-        public IL2WebClient(IntPtr ptr) : base(ptr) => base.ptr = ptr;
+		public IL2WebClient(IntPtr ptr) : base(ptr) { }
 		public IL2WebClient() : base(IntPtr.Zero)
 		{
-			ptr = Import.Object.il2cpp_object_new(Instance_Class.ptr);
-			Instance_Class.GetMethod(".ctor").Invoke(ptr);
+			Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
+			Instance_Class.GetMethod(".ctor").Invoke(Pointer);
 		}
 
 		public IntPtr DownloadData(string address)
@@ -52,39 +48,39 @@ namespace System.Net
 
 		private void ClearWebClientState()
 		{
-			Instance_Class.GetMethod(nameof(ClearWebClientState)).Invoke(ptr);
+			Instance_Class.GetMethod(nameof(ClearWebClientState)).Invoke(this);
 		}
 
 		private void CompleteWebClientState()
 		{
-			Instance_Class.GetMethod(nameof(CompleteWebClientState)).Invoke(ptr);
+			Instance_Class.GetMethod(nameof(CompleteWebClientState)).Invoke(this);
 		}
 
 		// More: , Stream writeStream, CompletionDelegate completionDelegate, AsyncOperation asyncOp
 		private IntPtr DownloadBits(IL2WebRequest request)
 		{
-			return Instance_Class.GetMethod(nameof(DownloadBits)).Invoke(ptr, new IntPtr[] { request.ptr, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, }).ptr;
+			return Instance_Class.GetMethod(nameof(DownloadBits)).Invoke(this, new IntPtr[] { request.Pointer, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, }).Pointer;
 		}
 
 		private IL2WebRequest GetWebRequest(IntPtr address)
 		{
-			return Instance_Class.GetMethod(nameof(GetWebRequest)).Invoke(ptr, new IntPtr[] { address })?.GetValue<IL2WebRequest>();
+			return Instance_Class.GetMethod(nameof(GetWebRequest)).Invoke(this, new IntPtr[] { address })?.GetValue<IL2WebRequest>();
 		}
 
 		private IntPtr GetUri(string path)
 		{
-			return Instance_Class.GetMethod(nameof(GetUri), x => x.GetParameters()[0].Name == "path").Invoke(ptr, new IntPtr[] { new IL2String(path).ptr }).ptr;
+			return Instance_Class.GetMethod(nameof(GetUri), x => x.GetParameters()[0].Name == "path").Invoke(this, new IntPtr[] { new IL2String(path).Pointer }).Pointer;
 		}
 
 		private static void AbortRequest(IL2WebRequest request)
 		{
 			IntPtr ptr = IntPtr.Zero;
 			if (request != null)
-				ptr = request.ptr;
+				ptr = request.Pointer;
 
 			Instance_Class.GetMethod(nameof(AbortRequest)).Invoke(new IntPtr[] { ptr });
 		}
 
-		public static IL2Class Instance_Class = Assembler.list["System"].GetClass("WebClient", "System.Net");
+		public static IL2Class Instance_Class = IL2CPP.AssemblyList["System"].GetClass("WebClient", "System.Net");
     }
 }

@@ -32,8 +32,14 @@ public class BinarySerializer : IL2Object
 
             IntPtr res = IntPtr.Zero;
             int len = bytes.Length;
-            IL2Array<byte> b = new IL2Array<byte>(len, IL2SystemClass.Byte);
-            method.Invoke(new IntPtr[] { b.Pointer, res });
+            IL2Array<byte> array = null;
+            if (bytes != null)
+            {
+                array = new IL2Array<byte>(len, IL2Byte.Instance_Class);
+                for (int i = 0; i < len; i++)
+                    array[i] = bytes[i];
+            }
+            method.Invoke(new IntPtr[] { array == null ? IntPtr.Zero : array.Pointer, res });
         }
 
         return result;
