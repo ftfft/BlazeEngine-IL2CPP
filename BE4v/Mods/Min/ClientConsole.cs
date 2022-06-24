@@ -59,6 +59,7 @@ namespace BE4v.Mods.Min
     public class ClientConsole : IUpdate
     {
         public static bool isLog = false;
+        public static bool isTest = false;
 
         public static string worldId = "wrld_a5be505e-3578-42eb-a40f-6ae98f27877e";
         public static string instanceId = "123456";
@@ -107,6 +108,19 @@ namespace BE4v.Mods.Min
                         else
                         {
                             Console.WriteLine("Logs disabled!");
+                        }
+                        break;
+                    }
+                case "test":
+                    {
+                        isTest = !isTest;
+                        if (isTest)
+                        {
+                            Console.WriteLine("isTest enabled!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("isTest disabled!");
                         }
                         break;
                     }

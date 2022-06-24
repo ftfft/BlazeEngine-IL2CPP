@@ -229,7 +229,7 @@
     <Compile Include="SDK\IL2CPP\System\Text\Encoding.cs" />
     <Compile Include="SDK\IL2CPP\System\Type.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\SupportClass.cs" />
-    <Compile Include="SDK\Serilize.cs" />
+    <Compile Include="SDK\IL2CPP\CPP2IL.cs" />
     <Compile Include="SDK\IL2Dumper\DumpForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -5,6 +5,7 @@ using IL2ExitGames.Client.Photon;
 using BE4v.Mods;
 using BE4v.MenuEdit;
 using BE4v.Patch.Core;
+using UnityEngine;
 
 namespace BE4v.Patch.List
 {
@@ -29,6 +30,24 @@ namespace BE4v.Patch.List
 
         public static bool OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions)
         {
+            /*
+            if (operationCode == 7 && Mods.Min.ClientConsole.isTest)
+            {
+                IL2Array<byte> bytes = new IL2Array<byte>(operationParameters);
+                if (bytes != null && bytes.Length > 60)
+                {
+                    byte[] array = new byte[12];
+                    byte[] nan = BitConverter.GetBytes(float.NaN);
+                    Buffer.BlockCopy(nan, 0, array, 0, 4);
+                    Buffer.BlockCopy(nan, 0, array, 4, 4);
+                    Buffer.BlockCopy(nan, 0, array, 8, 4);
+                    for(int i=0;i<12;i++)
+                    {
+                        bytes[i + 48] = array[i];
+                    }
+                }
+            }
+            */
             if (operationCode == 208)
             {
                 $"Trigger 208:".RedPrefix("TTT");
