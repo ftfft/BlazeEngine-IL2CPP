@@ -60,7 +60,7 @@ namespace BE4v.Mods.Min
     {
         public static bool isLog = false;
 
-        public static string worldId = "wrld_dc129dd1-8830-4431-b70a-079b8f6315e3";
+        public static string worldId = "wrld_a5be505e-3578-42eb-a40f-6ae98f27877e";
         public static string instanceId = "123456";
 
         public static void Start()
@@ -134,11 +134,15 @@ namespace BE4v.Mods.Min
                                 if (args.Length > 2)
                                 {
                                     string[] worldData = args[2].Split(':');
-                                    instanceId = worldData[0];
+                                    worldId = worldData[0];
                                     if (worldData.Length > 1)
                                         instanceId = worldData[1];
+                                    $"New portal settings: {worldId}:{instanceId}".RedPrefix("Portal Set");
                                 }
-                                $"New portal settings: {worldId}:{instanceId}".RedPrefix("Portal Set");
+                                else
+                                {
+                                    $"Arguments len: {args.Length}".RedPrefix("Portal Set");
+                                }
                                 break;
                             }
                         }

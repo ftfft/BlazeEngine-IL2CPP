@@ -84,7 +84,7 @@ public class UiAvatarList : UiVRCList
         set => Instance_Class.GetField(nameof(category)).SetValue(this, new IntPtr(&value));
     }
     
-    public IL2Dictionary<string, ApiAvatar> specificListValues
+    public IL2Dictionary<IL2String, ApiAvatar> specificListValues
     {
         get
         {
@@ -98,10 +98,7 @@ public class UiAvatarList : UiVRCList
                     return null;
                 }
             }
-            IL2Object result = field.GetValue(this);
-            if (result == null)
-                return null;
-            return new IL2Dictionary<string, ApiAvatar>(result.Pointer);
+            return field.GetValue(this)?.GetValue<IL2Dictionary<IL2String, ApiAvatar>>();
         }
     }
     

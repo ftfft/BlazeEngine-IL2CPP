@@ -110,7 +110,7 @@ namespace VRC.UI.Elements
             }
         }
 
-        public unsafe IL2Dictionary<string, UIPage> _uiPages
+        public unsafe IL2Dictionary<IL2String, UIPage> _uiPages
         {
             get
             {
@@ -125,7 +125,7 @@ namespace VRC.UI.Elements
                 if (result == null)
                     return null;
 
-                return new IL2Dictionary<string, UIPage>(result.Pointer);
+                return new IL2Dictionary<IL2String, UIPage>(result.Pointer);
             }
             set
             {

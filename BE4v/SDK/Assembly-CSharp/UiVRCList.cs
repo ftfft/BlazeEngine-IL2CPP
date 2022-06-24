@@ -113,7 +113,7 @@ public abstract class UiVRCList : MonoBehaviour
     }
 
 
-    public IL2Dictionary<int, IL2ListObject<ApiModel>> paginatedLists
+    public IL2Dictionary<IL2Int32, IL2ListObject<ApiModel>> paginatedLists
     {
         get
         {
@@ -130,7 +130,7 @@ public abstract class UiVRCList : MonoBehaviour
             IL2Object result = field.GetValue(this);
             if (result == null)
                 return null;
-            return new IL2Dictionary<int, IL2ListObject<ApiModel>>(result.Pointer);
+            return new IL2Dictionary<IL2Int32, IL2ListObject<ApiModel>>(result.Pointer);
         }
     }
 

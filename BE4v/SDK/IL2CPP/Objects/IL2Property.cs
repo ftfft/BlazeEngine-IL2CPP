@@ -26,6 +26,8 @@ namespace IL2CPP_Core.Objects
             }
         }
 
+        public string OriginalName => Marshal.PtrToStringAnsi(Import.Property.il2cpp_property_get_name(Pointer));
+
         public IL2BindingFlags Flags => (IL2BindingFlags)Import.Property.il2cpp_property_get_flags(Pointer);
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
         public bool Instance => GetGetMethod() != null && GetGetMethod().Instance;

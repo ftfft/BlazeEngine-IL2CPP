@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using IL2CPP_Core.Objects;
 using BE4v.MenuEdit;
@@ -39,7 +40,6 @@ namespace BE4v.Patch.List
         private static void ShowImage(IntPtr instance, IntPtr apiAvatarPtr)
         {
             if (instance == IntPtr.Zero) return;
-            __ShowImage(instance, apiAvatarPtr);
             if (Status.SendAvatarData)
             {
                 if (apiAvatarPtr == IntPtr.Zero) return;
@@ -54,12 +54,12 @@ namespace BE4v.Patch.List
                     }).Start();
                 }
             }
+            __ShowImage(instance, apiAvatarPtr);
         }
-        
+
         private static void LoadAvatar(IntPtr instance, bool forceLoad)
         {
             if (instance == IntPtr.Zero) return;
-            __LoadAvatar(instance, forceLoad);
             if (Status.SendAvatarData)
             {
                 VRCPlayer player = new VRCPlayer(instance);
@@ -74,7 +74,9 @@ namespace BE4v.Patch.List
                         Avatars.SendAvatarData(avatarId, avatarName);
                     }).Start();
                 }
+                File.WriteAllText(SDKLoader.mainDir + "/Debugger", "Last Load Avatar: " + avatarName + "\nAvatarId: " + avatarId);
             }
+            __LoadAvatar(instance, forceLoad);
         }
 
         public static _ShowImage __ShowImage;

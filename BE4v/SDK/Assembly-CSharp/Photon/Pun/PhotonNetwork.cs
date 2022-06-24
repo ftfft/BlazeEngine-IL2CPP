@@ -19,7 +19,6 @@ namespace IL2Photon.Pun
             Instance_Class.GetMethod(nameof(OnEvent)).Invoke(new IntPtr[] { photonEvent == null ? IntPtr.Zero : photonEvent.Pointer });
         }
 
-
         // <!---------- ---------- ---------->
         // <!---------- PROPERTY'S ---------->
         // <!---------- ---------- ---------->
@@ -31,6 +30,17 @@ namespace IL2Photon.Pun
                 if (property == null)
                     (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(double).FullName)).Name = nameof(Time);
                 return property?.GetGetMethod().Invoke<double>()?.GetValue() ?? default(double);
+            }
+        }
+
+        public static Room CurrentRoom
+        {
+            get
+            {
+                IL2Property property = Instance_Class.GetProperty(nameof(CurrentRoom));
+                if (property == null)
+                    (property = Instance_Class.GetProperty(Room.Instance_Class)).Name = nameof(CurrentRoom);
+                return property.GetGetMethod().Invoke()?.GetValue<Room>();
             }
         }
 

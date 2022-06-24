@@ -13,14 +13,15 @@ namespace System
                 Pointer = IntPtr.Zero;
                 return;
             }
-
-            IL2String result = IL2Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(value));
-            if (result == null)
+            while (Pointer == IntPtr.Zero || ToString() != value)
             {
-                Pointer = IntPtr.Zero;
-                return;
+                int length = value.Length;
+                Pointer = Import.Object.il2cpp_string_new(string.Empty.PadRight(length, '\u0001'));
+                for (int i = 0; i < length; i++)
+                {
+                    *(char*)(Pointer + 0x14 + (sizeof(char) * i)) = value[i];
+                }
             }
-            Pointer = result.Pointer;
         }
 
         unsafe public override string ToString()

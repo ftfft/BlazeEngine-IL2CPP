@@ -68,14 +68,14 @@ namespace IL2CPP_Core.Objects
             {
                 if (value)
                 {
-                    if (handleStatic > 0)
+                    if (handleStatic < 1)
                     {
                         handleStatic = Import.Handler.il2cpp_gchandle_new(Pointer, true);
                     }
                 }
                 else
                 {
-                    if (handleStatic < 1)
+                    if (handleStatic > 0)
                     {
                         Import.Handler.il2cpp_gchandle_free(handleStatic);
                         handleStatic = 0;
