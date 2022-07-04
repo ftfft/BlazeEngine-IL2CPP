@@ -42,20 +42,42 @@ namespace BE4v.MenuEdit.IMGUI
 
         }
 
+        int screenHeight = 0;
+        int screenWidth = 0;
+        public bool OnSize()
+        {
+            screenHeight = Screen.height;
+            screenWidth = Screen.width;
+
+            if (screenHeight < 1 || screenHeight < 1) return false;
+            // rectText = new Rect(screenWidth - 370, screenHeight - 230, 350, 200);
+
+            return true;
+        }
+
         public void OnGUI()
         {
             NotifySystem.Notify.OnGUI();
+            if (!isPressed) return;
+            if (!OnSize())
+            {
+                return;
+            }
+            GUI.backgroundColor = new Color(255, 0, 0);
+
+            int SizeX1 = screenWidth - (iLeftMargin * 2);
+
+            Rect rectPlayerId = new Rect(120, iTopMargin, 40, 20);
+            Rect rectPlayerName = new Rect(iLeftMargin, iTopMargin, SizeX1, 20);
+
+            VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
+
+            GUI.Label(new Rect(120, iTopMargin, 40, 20), "<b>#</b>");
+            GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), "<b>displayName</b>");
             try
             {
-                if (!isPressed) return;
-                GUI.backgroundColor = new Color(0, 255, 0);
-                int SizeX1 = Screen.width - (iLeftMargin * 2);
-                // GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), strTabMenuBold.ptr);
-                GUI.Label(new Rect(120, iTopMargin, 40, 20), "<b>#</b>");
-                GUI.Label(new Rect(160, iTopMargin, SizeX1, 20), "<b>displayName</b>");
-
-                int iPlayer = 0;
-                VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
+                GUI.Box(new Rect(100, 50, Screen.width - 200, Screen.height - 100), new IL2String(IntPtr.Zero));
+                
                 foreach (var player in playerArray)
                 {
                     int? playerId = player?.PhotonPlayer?.ActorNumber;
@@ -99,7 +121,6 @@ namespace BE4v.MenuEdit.IMGUI
                             }
                         }
                     }
-                    iPlayer++;
                     string userName = player.user.username;
                     if (string.IsNullOrWhiteSpace(userName))
                         player.user.Fetch();
@@ -111,8 +132,11 @@ namespace BE4v.MenuEdit.IMGUI
                         userIdMessage += "<b><color=yellow>" + playerId + "</color></b>";
                     else
                         userIdMessage += "<b><color=white>" + playerId + "</color></b>";
-                    if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), userIdMessage)
-                    || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), new IL2String_utf16(player.user.displayName)))
+                    
+                    rectPlayerName.y = (rectPlayerId.y += 20);
+
+                    if (GUI.Button(rectPlayerId, userIdMessage)
+                    || GUI.Button(rectPlayerName, new IL2String_utf16(player.user.displayName)))
                     {
                         playerPhoton = player;
                         iSelectUser = playerId;
