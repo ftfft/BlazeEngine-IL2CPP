@@ -54,7 +54,7 @@ namespace VRC.UI.Elements
                 return;
             }
 
-            method.Invoke(this, new IntPtr[] { new IL2String(pageName).Pointer, uiContext == null ? IntPtr.Zero : uiContext.Pointer, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
+            method.Invoke(this, new IntPtr[] { new IL2String_utf16(pageName).Pointer, uiContext == null ? IntPtr.Zero : uiContext.Pointer, new IntPtr(&clearPageStack), new IntPtr(&inPlace) });
         }
         
         public unsafe void PushPage(int contentIndex, UIContext uiContext = null, bool clearPageStack = false, bool inPlace = false)

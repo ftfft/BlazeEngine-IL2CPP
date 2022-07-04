@@ -31,7 +31,7 @@ namespace VRC.UI.Elements.Controls
 					if (field == null)
 						return;
 				}
-				field.SetValue(this, new IL2String(value).Pointer);
+				field.SetValue(this, new IL2String_utf16(value).Pointer);
 			}
 		}
 

@@ -15,7 +15,7 @@ namespace VRC.Core
         public string authorId
         {
             get => Instance_Class.GetProperty(nameof(authorId)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf8(value).Pointer });
         }
 
         public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("ApiWorld", "VRC.Core");

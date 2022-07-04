@@ -67,7 +67,7 @@ public class VRC_EventLog : VRCNetworkBehaviour
                     if (property == null)
                         return;
                 }
-                property.GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+                property.GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf16(value).Pointer });
             }
         }
 

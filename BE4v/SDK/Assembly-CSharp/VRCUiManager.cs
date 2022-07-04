@@ -20,7 +20,7 @@ public class VRCUiManager : MonoBehaviour
 
     public void HideScreen(string screenType)
     {
-        Instance_Class.GetMethod(nameof(HideScreen)).Invoke(this, new IntPtr[] { new IL2String(screenType).Pointer });
+        Instance_Class.GetMethod(nameof(HideScreen)).Invoke(this, new IntPtr[] { new IL2String_utf16(screenType).Pointer });
     }
 
     public static T GetPage<T>(string screenPath) where T : VRCUiPage

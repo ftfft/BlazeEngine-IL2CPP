@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientLogs.cs" />
     <Compile Include="InjectDLL.cs" />
     <Compile Include="MenuEdit\BE4V_ModeMenu.cs" />
     <Compile Include="MenuEdit\BE4V_QuickUIMenu_T2.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="NetworkSanity\Core\RateLimiter.cs" />
     <Compile Include="NetworkSanity\NetworkSanity.cs" />
     <Compile Include="NetworkSanity\Sanitizers\FlatBufferSanitizer.cs" />
+    <Compile Include="NetworkSanity\Sanitizers\ModerationEvent.cs" />
     <Compile Include="NetworkSanity\Sanitizers\ValidData.cs" />
     <Compile Include="NetworkSanity\Sanitizers\USpeakSanitizer.cs" />
     <Compile Include="NetworkSanity\Sanitizers\OwnershipTransfer.cs" />

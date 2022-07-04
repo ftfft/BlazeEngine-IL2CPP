@@ -94,7 +94,7 @@ namespace VRC
                     return null;
             }
 
-            return method.Invoke(new IntPtr[] { new IntPtr(&broadcast), new IL2String(prefabPathOrDynamicPrefabName).Pointer, new IntPtr(&position), new IntPtr(&rotation) })?.GetValue<GameObject>();
+            return method.Invoke(new IntPtr[] { new IntPtr(&broadcast), new IL2String_utf16(prefabPathOrDynamicPrefabName).Pointer, new IntPtr(&position), new IntPtr(&rotation) })?.GetValue<GameObject>();
         }
 
         unsafe public static void RPC(VRC_EventHandler.VrcTargetType targetClients, GameObject targetObject, string methodName, IntPtr[] parameters)
@@ -125,7 +125,7 @@ namespace VRC
             method.Invoke(IntPtr.Zero, new IntPtr[] {
                 new IntPtr(&targetClients),
                 targetObject == null ? IntPtr.Zero : targetObject.Pointer,
-                new IL2String(methodName).Pointer,
+                new IL2String_utf16(methodName).Pointer,
                 array == null ? IntPtr.Zero : array.Pointer
             }, ex: true);
         }
@@ -141,7 +141,7 @@ namespace VRC
                 if (method == null)
                     return null;
             }
-            return method.Invoke(new IntPtr[] { new IL2String(path).Pointer, new IntPtr(&suppressErrors) })?.GetValue<GameObject>();
+            return method.Invoke(new IntPtr[] { new IL2String_utf16(path).Pointer, new IntPtr(&suppressErrors) })?.GetValue<GameObject>();
         }
 
         public static GameObject SceneDispatcherObject

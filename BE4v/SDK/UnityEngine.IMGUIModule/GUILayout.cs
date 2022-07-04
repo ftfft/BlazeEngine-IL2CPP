@@ -18,7 +18,7 @@ namespace UnityEngine
 					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
 				}
 			}
-			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).Pointer, array == null ? IntPtr.Zero : array.Pointer });
+			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String_utf16(text).Pointer, array == null ? IntPtr.Zero : array.Pointer });
 		}
 
 		public static void Label(string text, GUIStyle style, params GUILayoutOption[] options)
@@ -33,7 +33,7 @@ namespace UnityEngine
 					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
 				}
 			}
-			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 3 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String(text).Pointer, style == null ? IntPtr.Zero : style.Pointer, array == null ? IntPtr.Zero : array.Pointer });
+			Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 3 && x.GetParameters()[0].Name == "text").Invoke(new IntPtr[] { new IL2String_utf16(text).Pointer, style == null ? IntPtr.Zero : style.Pointer, array == null ? IntPtr.Zero : array.Pointer });
 		}
 
 		unsafe public static Vector2 BeginScrollView(Vector2 scrollPosition, params GUILayoutOption[] options)
@@ -108,7 +108,7 @@ namespace UnityEngine
 					array[i] = options[i] == null ? IntPtr.Zero : options[i].Pointer;
 				}
 			}
-			return Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke<bool>(new IntPtr[] { new IL2String(text).Pointer, array == null ? IntPtr.Zero : array.Pointer }).GetValue();
+			return Instance_Class.GetMethod(nameof(Label), x => x.GetParameters().Length == 2 && x.GetParameters()[0].Name == "text").Invoke<bool>(new IntPtr[] { new IL2String_utf16(text).Pointer, array == null ? IntPtr.Zero : array.Pointer }).GetValue();
 		}
 
 		public static void Box(Texture image, params GUILayoutOption[] options)

@@ -26,7 +26,7 @@ namespace VRC.Management
             IL2Method method = Instance_Class.GetMethod(nameof(HasPlayerModeration));
             if (method == null)
                 (method = Instance_Class.GetMethod(x => x.IsPublic && x.ReturnType.Name == typeof(bool).FullName && x.GetParameters().Length == 2 && x.GetParameters()[1].ReturnType.Name == "VRC.Core.ApiPlayerModeration.ModerationType")).Name = nameof(HasPlayerModeration);
-            return method.Invoke<bool>(this, new IntPtr[] { new IL2String(userId).Pointer, new IntPtr(&moderationType) }).GetValue();
+            return method.Invoke<bool>(this, new IntPtr[] { new IL2String_utf8(userId).Pointer, new IntPtr(&moderationType) }).GetValue();
         }
         
 

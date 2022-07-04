@@ -56,7 +56,7 @@ public class VRCUiPopupManager : MonoBehaviour
         IL2Method method = Instance_Class.GetMethod(nameof(ShowAlert));
         if (method == null)
             (method = Instance_Class.GetMethods(x => x.GetParameters().Length == 3 && x.GetParameters()[2].ReturnType.Name == typeof(float).FullName).First(x => x.GetDisassembler().Disassemble().Count() == 1010)).Name = nameof(ShowAlert);
-        method.Invoke(this, new IntPtr[] { new IL2String(title).Pointer, new IL2String(body).Pointer, new IntPtr(&timeout) });
+        method.Invoke(this, new IntPtr[] { new IL2String_utf16(title).Pointer, new IL2String_utf16(body).Pointer, new IntPtr(&timeout) });
     }
 
     public void ShowUnityInputPopupWithCancel(
@@ -123,14 +123,14 @@ public class VRCUiPopupManager : MonoBehaviour
         }
 
         method.Invoke(this, new IntPtr[] {
-            new IL2String(title).Pointer, // string
-            new IL2String(body).Pointer, //  string
+            new IL2String_utf8(title).Pointer, // string
+            new IL2String_utf8(body).Pointer, //  string
             new IntPtr(&inputType), // InputType : int
             new IntPtr(&useNumericKeypad), // bool
-            new IL2String(submitButtonText).Pointer, // string
+            new IL2String_utf8(submitButtonText).Pointer, // string
             submitButtonAction == null ? IntPtr.Zero : submitButtonAction.Pointer, // Action<string, IL2List<KeyCode>, Text>
             cancelButtonAction == null ? IntPtr.Zero : cancelButtonAction.Pointer, // Action
-            new IL2String(placeholderText).Pointer, // string Default: "Enter text...."
+            new IL2String_utf8(placeholderText).Pointer, // string Default: "Enter text...."
             new IntPtr(&hidePopupOnSubmit), // bool Default: true
             additionalSetup == null ? IntPtr.Zero :additionalSetup.Pointer, // Action<VRCUiPopup> Default: null
             new IntPtr(&nanBool), // bool Default: false

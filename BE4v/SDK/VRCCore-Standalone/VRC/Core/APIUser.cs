@@ -15,16 +15,16 @@ namespace VRC.Core
             get => Instance_Class.GetProperty(nameof(CurrentUser)).GetGetMethod().Invoke()?.GetValue<APIUser>();
         }
 
-        public static bool IsFriendsWith(string userId) => IsFriendsWith(new IL2String(userId).Pointer);
-        public static bool IsFriendsWith(IntPtr userId)
+        public static bool IsFriendsWith(string userId) => IsFriendsWith(new IL2String_utf8(userId));
+        public static bool IsFriendsWith(IL2String userId)
         {
-            return Instance_Class.GetMethod(nameof(IsFriendsWith)).Invoke<bool>(new IntPtr[] { userId }).GetValue();
+            return Instance_Class.GetMethod(nameof(IsFriendsWith)).Invoke<bool>(new IntPtr[] { userId.Pointer }).GetValue();
         }
 
-        public bool HasTag(string tag) => HasTag(new IL2String(tag).Pointer);
-        public bool HasTag(IntPtr tag)
+        public bool HasTag(string tag) => HasTag(new IL2String_utf8(tag));
+        public bool HasTag(IL2String tag)
         {
-            return Instance_Class.GetMethod(nameof(HasTag)).Invoke<bool>(this, new IntPtr[] { tag }).GetValue();
+            return Instance_Class.GetMethod(nameof(HasTag)).Invoke<bool>(this, new IntPtr[] { tag.Pointer }).GetValue();
         }
 
         public string username

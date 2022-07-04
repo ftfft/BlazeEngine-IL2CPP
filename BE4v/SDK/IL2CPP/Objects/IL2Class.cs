@@ -137,7 +137,7 @@ namespace IL2CPP_Core.Objects
         // Methods
         public IL2Method GetMethodByName(string name, int argsCount)
         {
-            IntPtr result = Import.Class.il2cpp_class_get_method_from_name(Pointer, new IL2String(name).Pointer, argsCount);
+            IntPtr result = Import.Class.il2cpp_class_get_method_from_name(Pointer, new IL2String_utf16(name).Pointer, argsCount);
             if (result != IntPtr.Zero)
                 return new IL2Method(result);
             return null;

@@ -10,13 +10,13 @@ public class UiTooltip : MonoBehaviour
     public string text
     {
         get => Instance_Class.GetFields(x => x.ReturnType.Name == typeof(string).FullName)[0].GetValue(this)?.GetValue<IL2String>().ToString();
-        set => Instance_Class.GetFields(x => x.ReturnType.Name == typeof(string).FullName)[0].SetValue(this, new IL2String(value).Pointer);
+        set => Instance_Class.GetFields(x => x.ReturnType.Name == typeof(string).FullName)[0].SetValue(this, new IL2String_utf16(value).Pointer);
     }
 
     public string alternateText
     {
         get => Instance_Class.GetFields(x => x.ReturnType.Name == typeof(string).FullName)[1].GetValue(this)?.GetValue<IL2String>().ToString();
-        set => Instance_Class.GetFields(x => x.ReturnType.Name == typeof(string).FullName)[1].SetValue(this, new IL2String(value).Pointer);
+        set => Instance_Class.GetFields(x => x.ReturnType.Name == typeof(string).FullName)[1].SetValue(this, new IL2String_utf16(value).Pointer);
     }
 
     public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses()

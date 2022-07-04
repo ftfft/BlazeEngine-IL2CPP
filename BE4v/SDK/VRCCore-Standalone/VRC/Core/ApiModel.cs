@@ -11,7 +11,7 @@ namespace VRC.Core
         public string id
         {
             get => Instance_Class.GetProperty(nameof(id)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(id)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(id)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf8(value).Pointer });
         }    
     
         public bool Populated

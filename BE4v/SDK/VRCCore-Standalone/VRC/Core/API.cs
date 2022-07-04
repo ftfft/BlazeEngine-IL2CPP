@@ -15,13 +15,13 @@ namespace VRC.Core
             public string username
             {
                 get => Instance_Class.GetField(nameof(username)).GetValue(this)?.GetValue<IL2String>().ToString();
-                set => Instance_Class.GetField(nameof(username)).SetValue(this, new IL2String(value).Pointer);
+                set => Instance_Class.GetField(nameof(username)).SetValue(this, new IL2String_utf16(value).Pointer);
             }
 
             public string password
             {
                 get => Instance_Class.GetField(nameof(password)).GetValue(this)?.GetValue<IL2String>().ToString();
-                set => Instance_Class.GetField(nameof(password)).SetValue(this, new IL2String(value).Pointer);
+                set => Instance_Class.GetField(nameof(password)).SetValue(this, new IL2String_utf16(value).Pointer);
             }
 
             public static IL2Class Instance_Class = API.Instance_Class.GetNestedType("CredentialsBundle");

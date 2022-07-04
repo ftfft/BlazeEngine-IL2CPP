@@ -112,7 +112,7 @@ namespace BE4v.MenuEdit.IMGUI
                     else
                         userIdMessage += "<b><color=white>" + playerId + "</color></b>";
                     if (GUI.Button(new Rect(120, iPlayer * 20 + iTopMargin, 40, 20), userIdMessage)
-                    || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), player.user.displayName))
+                    || GUI.Button(new Rect(iLeftMargin, iPlayer * 20 + iTopMargin, SizeX1, 20), new IL2String_utf16(player.user.displayName)))
                     {
                         playerPhoton = player;
                         iSelectUser = playerId;

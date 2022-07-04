@@ -24,8 +24,8 @@ public static class UserUtils
 
         VRC.Network.RPC(VRC_EventHandler.VrcTargetType.AllBufferOne, gameObject, "ConfigurePortal", new IntPtr[]
         {
-            new IL2String(worldId).Pointer,
-            new IL2String(instanceId).Pointer,
+            new IL2String_utf8(worldId).Pointer,
+            new IL2String_utf16(instanceId).Pointer,
             new IL2Object<int>(0, IL2Int32.Instance_Class).Pointer
         });
         gameObject.GetComponent<PortalInternal>().enabled = false;

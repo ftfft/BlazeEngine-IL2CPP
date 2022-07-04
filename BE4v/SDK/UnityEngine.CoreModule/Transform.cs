@@ -50,7 +50,7 @@ namespace UnityEngine
 
         public Transform Find(string name)
         {
-            return Instance_Class.GetMethod(nameof(Find)).Invoke(this, new IntPtr[] { new IL2String(name).Pointer })?.GetValue<Transform>();
+            return Instance_Class.GetMethod(nameof(Find)).Invoke(this, new IntPtr[] { new IL2String_utf16(name).Pointer })?.GetValue<Transform>();
         }
 
         public void SetParent(Transform transform)

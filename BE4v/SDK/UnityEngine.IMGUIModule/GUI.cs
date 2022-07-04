@@ -11,12 +11,12 @@ namespace UnityEngine
 			set => Instance_Class.GetProperty(nameof(contentColor)).GetSetMethod().Invoke(new IntPtr[] { new IntPtr(&value) });
 		}
 
-		unsafe public static void Box(Rect position, string text) => Box(new IntPtr(&position), new IL2String(text).Pointer);
-		unsafe public static void Box(Rect position, IntPtr text) => Box(new IntPtr(&position), text);
-		public static void Box(IntPtr position, string text) => Box(position, new IL2String(text).Pointer);
-		public static void Box(IntPtr position, IntPtr text)
+		public static void Box(Rect position, string text, GUIStyle style = null) => Box(position, new IL2String_utf8(text), style);
+		unsafe public static void Box(Rect position, IL2String text, GUIStyle style = null)
 		{
-			Instance_Class.GetMethod(nameof(Box), m => m.GetParameters().Length == 3 && m.GetParameters()[1].Name == "text").Invoke(new IntPtr[] { position, text, skin.box.Pointer });
+			if (style == null)
+				style = skin.box;
+			Instance_Class.GetMethod(nameof(Box), m => m.GetParameters().Length == 3 && m.GetParameters()[1].Name == "text").Invoke(new IntPtr[] { new IntPtr(&position), text.Pointer, style.Pointer });
 		}
 
 		/*
@@ -30,29 +30,23 @@ namespace UnityEngine
 		}
 		*/
 
-		unsafe public static void Label(Rect position, string text) => Label(new IntPtr(&position), new IL2String(text).Pointer, skin.label.Pointer);
-		public static void Label(IntPtr position, string text) => Label(position, new IL2String(text).Pointer, skin.label.Pointer);
-		unsafe public static void Label(Rect position, IntPtr text, IntPtr style) => Label(new IntPtr(&position), text, style);
-		unsafe public static void Label(Rect position, string text, IntPtr style) => Label(new IntPtr(&position), new IL2String(text).Pointer, style);
-		unsafe public static void Label(Rect position, string text, GUIStyle style) => Label(new IntPtr(&position), new IL2String(text).Pointer, style == null ? IntPtr.Zero : style.Pointer);
-		public static void Label(IntPtr position, string text, IntPtr style) => Label(position, new IL2String(text).Pointer, style);
-		public static void Label(IntPtr position, string text, GUIStyle style) => Label(position, new IL2String(text).Pointer, style == null ? IntPtr.Zero : style.Pointer);
-		public static void Label(IntPtr position, IntPtr text, GUIStyle style) => Label(position, new IL2String(text).Pointer, style == null ? IntPtr.Zero : style.Pointer);
-		public static void Label(IntPtr position, IntPtr text, IntPtr style)
+		public static void Label(Rect position, string text, GUIStyle style = null) => Label(position, new IL2String_utf8(text), style);
+		unsafe public static void Label(Rect position, IL2String text, GUIStyle style = null)
 		{
-			Instance_Class.GetMethod(nameof(Label), m => m.GetParameters().Length == 3 && m.GetParameters()[1].Name == "text").Invoke(new IntPtr[] { position, text, style });
+			if (style == null)
+				style = skin.label;
+
+			Instance_Class.GetMethod(nameof(Label), m => m.GetParameters().Length == 3 && m.GetParameters()[1].Name == "text").Invoke(new IntPtr[] { new IntPtr(&position), text.Pointer, style.Pointer });
 		}
 		/*
 		public static void Label(Rect position, GUIContent content, GUIStyle style)
 		{
 		}
 		*/
-		unsafe public static bool Button(Rect position, string text) => Button(new IntPtr(&position), new IL2String(text).Pointer);
-		unsafe public static bool Button(Rect position, IntPtr text) => Button(new IntPtr(&position), text);
-		public static bool Button(IntPtr position, string text) => Button(position, new IL2String(text).Pointer);
-		public static bool Button(IntPtr position, IntPtr text)
+		unsafe public static bool Button(Rect position, string text) => Button(position, new IL2String_utf8(text));
+		unsafe public static bool Button(Rect position, IL2String text)
 		{
-			return Instance_Class.GetMethod(nameof(Button), m => m.GetParameters().Length == 2).Invoke<bool>(new IntPtr[] { position, text }).GetValue();
+			return Instance_Class.GetMethod(nameof(Button), m => m.GetParameters().Length == 2).Invoke<bool>(new IntPtr[] { new IntPtr(&position), text.Pointer }).GetValue();
 		}
 
 		unsafe public static bool Button(Rect position, string text, GUIStyle style) => Button(position, new GUIContent(text), style);

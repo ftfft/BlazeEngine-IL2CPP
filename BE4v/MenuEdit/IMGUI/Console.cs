@@ -46,13 +46,13 @@ namespace BE4v.MenuEdit.IMGUI
             int screenWidth = Screen.width;
 
             if (screenHeight < 1 || screenHeight < 1) return false;
-            if (screenHeight < 260 || screenWidth < 400)
+            if (screenHeight < 230 || screenWidth < 370)
             {
                 (screenHeight + "").RedPrefix("Height");
                 (screenWidth + "").RedPrefix("Width");
                 return false;
             }
-            rectText = new Rect(screenWidth - 400, screenHeight - 260, 380, 210);
+            rectText = new Rect(screenWidth - 370, screenHeight - 230, 350, 200);
             
             return true;
         }
@@ -70,9 +70,9 @@ namespace BE4v.MenuEdit.IMGUI
             }
 
             string Messages = string.Empty;
-            for (int i = 0; i < 50; i++)
+            foreach(var message in ClientLogs.logs)
             {
-                Messages += "Тут типо сообщение #" + i + "\n";
+                Messages += message + "\n";
             }
 
             GUILayout.BeginArea(rectText, NormalStyle);

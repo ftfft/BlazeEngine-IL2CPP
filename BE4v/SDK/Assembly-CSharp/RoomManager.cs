@@ -19,7 +19,7 @@ public class RoomManager : MonoBehaviour
         if (method == null)
             (method = Instance_Class.GetMethod(x => x.GetParameters().Length == 3 && x.GetParameters()[0].ReturnType.Name == ApiWorld.Instance_Class.FullName)).Name = nameof(SelectWorldInstanceToJoin);
         
-        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.Pointer, new IL2String(desiredInstanceId).Pointer, new IntPtr(&worldDefaultAccessType) })?.GetValue<ApiWorldInstance>();
+        return method?.Invoke(new IntPtr[] { world == null ? IntPtr.Zero : world.Pointer, new IL2String_utf16(desiredInstanceId).Pointer, new IntPtr(&worldDefaultAccessType) })?.GetValue<ApiWorldInstance>();
     }
 
     unsafe public static bool EnterWorld(ApiWorld world, ApiWorldInstance worldInstance)

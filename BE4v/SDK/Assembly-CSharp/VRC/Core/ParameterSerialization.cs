@@ -19,7 +19,7 @@ namespace VRC.Core
             public string name
             {
                 get => Instance_Class.GetField(nameof(name)).GetValue(this)?.GetValue<IL2String>().ToString();
-                set => Instance_Class.GetField(nameof(name)).SetValue(this, new IL2String(value).Pointer);
+                set => Instance_Class.GetField(nameof(name)).SetValue(this, new IL2String_utf16(value).Pointer);
             }
 
             public byte[] data

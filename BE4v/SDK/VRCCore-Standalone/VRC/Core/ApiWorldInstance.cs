@@ -10,7 +10,7 @@ namespace VRC.Core
         unsafe public ApiWorldInstance(ApiWorld world, string _idWithTags, int _count) : base(IntPtr.Zero)
         {
             Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
-            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 3 && x.GetParameters()[2].Name == "_count").Invoke(Pointer, new IntPtr[] { world.Pointer, new IL2String(_idWithTags).Pointer, new IntPtr(&_count) });
+            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 3 && x.GetParameters()[2].Name == "_count").Invoke(Pointer, new IntPtr[] { world.Pointer, new IL2String_utf16(_idWithTags).Pointer, new IntPtr(&_count) });
         }
 
         public string GetInstanceCreator()
@@ -31,7 +31,7 @@ namespace VRC.Core
         public string ownerId
         {
             get => Instance_Class.GetProperty(nameof(ownerId)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(ownerId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(ownerId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf8(value).Pointer });
         }
 
         public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRCCore-Standalone"].GetClass("ApiWorldInstance", "VRC.Core");

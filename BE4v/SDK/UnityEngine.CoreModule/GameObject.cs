@@ -11,7 +11,7 @@ namespace UnityEngine
         public GameObject(string name) : base(IntPtr.Zero)
         {
             Pointer = Import.Object.il2cpp_object_new(Instance_Class.Pointer);
-            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1).Invoke(Pointer, new IntPtr[] { new IL2String(name).Pointer });
+            Instance_Class.GetMethod(".ctor", x => x.GetParameters().Length == 1).Invoke(Pointer, new IntPtr[] { new IL2String_utf16(name).Pointer });
         }
 
         public Component AddComponent(Type type)
@@ -51,7 +51,7 @@ namespace UnityEngine
 
         public Component GetComponent(string type)
         {
-            return Instance_Class.GetMethod("GetComponentByName").Invoke(this, new IntPtr[] { new IL2String(type).Pointer })?.GetValue<Component>();
+            return Instance_Class.GetMethod("GetComponentByName").Invoke(this, new IntPtr[] { new IL2String_utf16(type).Pointer })?.GetValue<Component>();
         }
 
         public T GetComponentInChildren<T>() where T : Component => GetComponentInChildren(typeof(T))?.GetValue<T>();
@@ -122,13 +122,13 @@ namespace UnityEngine
 
         public static GameObject FindWithTag(string tag)
         {
-            return Instance_Class.GetMethod(nameof(FindWithTag)).Invoke(new IntPtr[] { new IL2String(tag).Pointer })?.GetValue<GameObject>();
+            return Instance_Class.GetMethod(nameof(FindWithTag)).Invoke(new IntPtr[] { new IL2String_utf16(tag).Pointer })?.GetValue<GameObject>();
         }
         
 
         public static GameObject Find(string name)
         {
-            return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String(name).Pointer })?.GetValue<GameObject>();
+            return Instance_Class.GetMethod(nameof(Find)).Invoke(new IntPtr[] { new IL2String_utf16(name).Pointer })?.GetValue<GameObject>();
         }
 
         public Transform transform
@@ -177,7 +177,7 @@ namespace UnityEngine
         public string tag
         {
             get => Instance_Class.GetProperty(nameof(tag)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(tag)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(tag)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf16(value).Pointer });
         }
 
         public GameObject gameObject

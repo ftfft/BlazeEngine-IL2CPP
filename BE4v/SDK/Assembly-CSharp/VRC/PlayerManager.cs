@@ -47,7 +47,7 @@ namespace VRC
             if (string.IsNullOrEmpty(userId))
                 return null;
 
-            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String(userId).Pointer })?.GetValue<Player>();
+            return Instance_Class.GetMethod(nameof(GetPlayer), x => x.GetParameters()[0].ReturnType.Name == typeof(string).FullName).Invoke(new IntPtr[] { new IL2String_utf8(userId).Pointer })?.GetValue<Player>();
         }
 
         public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPlayerDisconnected") != null);

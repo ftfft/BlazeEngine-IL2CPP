@@ -16,25 +16,25 @@ namespace VRC.Core
         public string releaseStatus
 		{
             get => Instance_Class.GetProperty(nameof(releaseStatus)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(releaseStatus)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(releaseStatus)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf8(value).Pointer });
 		}
 
         public string authorId
         {
             get => Instance_Class.GetProperty(nameof(authorId)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer});
+            set => Instance_Class.GetProperty(nameof(authorId)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf8(value).Pointer});
         }
 
         public string assetUrl
         {
             get => Instance_Class.GetProperty(nameof(assetUrl)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(assetUrl)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(assetUrl)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf8(value).Pointer });
         }
 
         public string name
         {
             get => Instance_Class.GetProperty(nameof(name)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-            set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+            set => Instance_Class.GetProperty(nameof(name)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf16(value).Pointer });
         }
 
         public void SaveReleaseStatus(Action<ApiContainer> onSuccess = null, Action<ApiContainer> onFailure = null)

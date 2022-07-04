@@ -27,11 +27,11 @@ namespace BE4v.Patch.List
             string src = SDKLoader.mainDir + "/spoof-id.json";
             if (File.Exists(src))
             {
-                _fakeDeviceId = new IL2String(File.ReadAllText(src));
+                _fakeDeviceId = new IL2String_utf8(File.ReadAllText(src));
             }
             if (string.IsNullOrWhiteSpace(_fakeDeviceId?.ToString()))
             {
-                _fakeDeviceId = new IL2String(CalculateHash<SHA1>(Guid.NewGuid().ToString()));
+                _fakeDeviceId = new IL2String_utf8(CalculateHash<SHA1>(Guid.NewGuid().ToString()));
                 File.WriteAllText(src, _fakeDeviceId.ToString(), Encoding.UTF8);
             }
             _fakeDeviceId.Static = true;

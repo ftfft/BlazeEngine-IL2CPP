@@ -14,7 +14,7 @@ namespace BE4v.Utils
                 return;
 
             NotificationDetails notificationDetails = new NotificationDetails();
-            notificationDetails[new IL2String("worldId")] = new IL2String(worldId);
+            notificationDetails[new IL2String_utf8("worldId")] = new IL2String_utf16(worldId);
             NotificationManager.Instance.SendNotification(Player.user.id, "requestInvite", string.Empty, notificationDetails);
         }
     }

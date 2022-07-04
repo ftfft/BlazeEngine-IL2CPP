@@ -279,7 +279,7 @@ namespace VRC.SDKBase
             public string Name
             {
                 get => Instance_Class.GetField(nameof(Name)).GetValue(this)?.GetValue<IL2String>().ToString();
-                set => Instance_Class.GetField(nameof(Name)).SetValue(this, new IL2String(value).Pointer);
+                set => Instance_Class.GetField(nameof(Name)).SetValue(this, new IL2String_utf16(value).Pointer);
             }
 
             unsafe public VrcEventType EventType
@@ -291,7 +291,7 @@ namespace VRC.SDKBase
             public string ParameterString
             {
                 get => Instance_Class.GetField(nameof(ParameterString)).GetValue(this)?.GetValue<IL2String>().ToString();
-                set => Instance_Class.GetField(nameof(ParameterString)).SetValue(this, new IL2String(value).Pointer);
+                set => Instance_Class.GetField(nameof(ParameterString)).SetValue(this, new IL2String_utf16(value).Pointer);
             }
 
             unsafe public VrcBooleanOp ParameterBoolOp

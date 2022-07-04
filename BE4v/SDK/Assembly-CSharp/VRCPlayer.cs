@@ -19,23 +19,7 @@ public class VRCPlayer : VRCNetworkBehaviour
 
         // void LoadAvatar(bool forceLoad = false)
         Instance_Class.GetMethod(x => x.Name == Instance_Class.GetMethod(nameof(LoadAvatar)).OriginalName).Name = nameof(LoadAvatar);
-
-        dictUserRank.Add("Nuisance", new IL2String("system_probable_troll"));
-        dictUserRank["Nuisance"].Static = true;
-        dictUserRank.Add("Legend", new IL2String("system_legend"));
-        dictUserRank["Legend"].Static = true;
-        dictUserRank.Add("Veteran", new IL2String("system_trust_legend"));
-        dictUserRank["Veteran"].Static = true;
-        dictUserRank.Add("Trusted user", new IL2String("system_trust_veteran"));
-        dictUserRank["Trusted user"].Static = true;
-        dictUserRank.Add("Known user", new IL2String("system_trust_trusted"));
-        dictUserRank["Known user"].Static = true;
-        dictUserRank.Add("User", new IL2String("system_trust_known"));
-        dictUserRank["User"].Static = true;
-        dictUserRank.Add("New user", new IL2String("system_trust_basic"));
-        dictUserRank["New user"].Static = true;
     }
-    private static Dictionary<string, IL2String> dictUserRank = new Dictionary<string, IL2String>();
 
     // <!---------- ---------- ---------->
     // <!---------- PROPERTY'S ---------->
@@ -142,35 +126,6 @@ public class VRCPlayer : VRCNetworkBehaviour
         return !string.IsNullOrEmpty(tag) && this.tags != null && this.tags.Contains(tag);
     }
     */
-    public static SocialRank GetSocialRank(APIUser apiuser)
-    {
-        if (apiuser == null) return SocialRank.None;
-        if (apiuser.hasVIPAccess || apiuser.hasModerationPowers)
-            return SocialRank.VRChatTeam;
-
-        if (apiuser.HasTag(dictUserRank["Nuisance"].Pointer))
-            return SocialRank.Nuisance;
-
-        if (apiuser.HasTag(dictUserRank["Legend"].Pointer))
-            return SocialRank.Legend;
-
-        if (apiuser.HasTag(dictUserRank["Veteran"].Pointer))
-            return SocialRank.VeteranUser;
-
-        if (apiuser.HasTag(dictUserRank["Trusted user"].Pointer))
-            return SocialRank.TrustedUser;
-
-        if (apiuser.HasTag(dictUserRank["Known user"].Pointer))
-            return SocialRank.KnownUser;
-
-        if (apiuser.HasTag(dictUserRank["User"].Pointer))
-            return SocialRank.User;
-
-        if (apiuser.HasTag(dictUserRank["New user"].Pointer))
-            return SocialRank.NewUser;
-
-        return SocialRank.Visitor;
-    }
 
     public void RefreshState()
     {
@@ -335,20 +290,6 @@ public class VRCPlayer : VRCNetworkBehaviour
         ShowRank = 64,
         Avatar = 128,
         User = 256
-    }
-
-    public enum SocialRank : byte
-    {
-        None = 0,
-        Visitor,
-        NewUser,
-        User,
-        KnownUser,
-        TrustedUser,
-        VeteranUser,
-        Legend,
-        Nuisance,
-        VRChatTeam
     }
 
     public static new IL2Class Instance_Class;

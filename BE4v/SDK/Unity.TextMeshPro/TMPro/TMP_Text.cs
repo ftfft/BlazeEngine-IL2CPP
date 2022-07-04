@@ -18,7 +18,7 @@ namespace TMPro
 		unsafe public string text
 		{
 			get => Instance_Class.GetProperty(nameof(text)).GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
-			set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String(value).Pointer });
+			set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf16(value).Pointer });
 		}
 
 		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Unity.TextMeshPro"].GetClass("TMP_Text", "TMPro");

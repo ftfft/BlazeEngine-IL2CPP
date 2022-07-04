@@ -13,12 +13,12 @@ namespace VRC.Udon
 
         unsafe public void SendCustomNetworkEvent(NetworkEventTarget target, string eventName)
         {
-            Instance_Class.GetMethod(nameof(SendCustomNetworkEvent)).Invoke(this, new IntPtr[] { new IntPtr(&target), new IL2String(eventName).Pointer });
+            Instance_Class.GetMethod(nameof(SendCustomNetworkEvent)).Invoke(this, new IntPtr[] { new IntPtr(&target), new IL2String_utf16(eventName).Pointer });
         }
         
         unsafe public void SendCustomEvent(string eventName)
         {
-            Instance_Class.GetMethod(nameof(SendCustomEvent)).Invoke(this, new IntPtr[] { new IL2String(eventName).Pointer });
+            Instance_Class.GetMethod(nameof(SendCustomEvent)).Invoke(this, new IntPtr[] { new IL2String_utf16(eventName).Pointer });
         }
 
         public string[] GetPrograms()
@@ -31,12 +31,12 @@ namespace VRC.Udon
 
         unsafe public void SendCustomEventDelayedSeconds(string eventName, float delaySeconds, EventTiming eventTiming = EventTiming.Update)
         {
-            Instance_Class.GetMethod(nameof(SendCustomEventDelayedSeconds)).Invoke(this, new IntPtr[] { new IL2String(eventName).Pointer, new IntPtr(&delaySeconds), new IntPtr(&eventTiming) });
+            Instance_Class.GetMethod(nameof(SendCustomEventDelayedSeconds)).Invoke(this, new IntPtr[] { new IL2String_utf16(eventName).Pointer, new IntPtr(&delaySeconds), new IntPtr(&eventTiming) });
         }
 
         unsafe public void SendCustomEventDelayedFrames(string eventName, int delayFrames, EventTiming eventTiming = EventTiming.Update)
         {
-            Instance_Class.GetMethod(nameof(SendCustomEventDelayedFrames)).Invoke(this, new IntPtr[] { new IL2String(eventName).Pointer, new IntPtr(&delayFrames), new IntPtr(&eventTiming) });
+            Instance_Class.GetMethod(nameof(SendCustomEventDelayedFrames)).Invoke(this, new IntPtr[] { new IL2String_utf16(eventName).Pointer, new IntPtr(&delayFrames), new IntPtr(&eventTiming) });
         }
 
         unsafe public bool DisableInteractive

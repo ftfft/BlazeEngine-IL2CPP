@@ -69,7 +69,7 @@ namespace System.Net
 
 		private IntPtr GetUri(string path)
 		{
-			return Instance_Class.GetMethod(nameof(GetUri), x => x.GetParameters()[0].Name == "path").Invoke(this, new IntPtr[] { new IL2String(path).Pointer }).Pointer;
+			return Instance_Class.GetMethod(nameof(GetUri), x => x.GetParameters()[0].Name == "path").Invoke(this, new IntPtr[] { new IL2String_utf16(path).Pointer }).Pointer;
 		}
 
 		private static void AbortRequest(IL2WebRequest request)

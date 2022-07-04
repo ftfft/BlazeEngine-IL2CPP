@@ -34,28 +34,28 @@ namespace IL2Photon.Realtime
 		public string AppIdRealtime
 		{
 			get => Instance_Class.GetField(nameof(AppIdRealtime)).GetValue(this)?.GetValue<IL2String>().ToString();
-			set => Instance_Class.GetField(nameof(AppIdRealtime)).SetValue(this, new IL2String(value).Pointer);
+			set => Instance_Class.GetField(nameof(AppIdRealtime)).SetValue(this, new IL2String_utf8(value).Pointer);
 		}
 
 
 		public string AppIdChat
 		{
 			get => Instance_Class.GetField(nameof(AppIdChat)).GetValue(this).GetValue<IL2String>().ToString();
-			set => Instance_Class.GetField(nameof(AppIdChat)).SetValue(this, new IL2String(value).Pointer);
+			set => Instance_Class.GetField(nameof(AppIdChat)).SetValue(this, new IL2String_utf8(value).Pointer);
 		}
 
 
 		public string AppIdVoice
 		{
 			get => Instance_Class.GetField(nameof(AppIdVoice)).GetValue(this)?.GetValue<IL2String>().ToString();
-			set => Instance_Class.GetField(nameof(AppIdVoice)).SetValue(this, new IL2String(value).Pointer);
+			set => Instance_Class.GetField(nameof(AppIdVoice)).SetValue(this, new IL2String_utf8(value).Pointer);
 		}
 
 
 		public string AppVersion
 		{
 			get => Instance_Class.GetField(nameof(AppVersion)).GetValue(this)?.GetValue<IL2String>().ToString();
-			set => Instance_Class.GetField(nameof(AppVersion)).SetValue(this, new IL2String(value).Pointer);
+			set => Instance_Class.GetField(nameof(AppVersion)).SetValue(this, new IL2String_utf8(value).Pointer);
 		}
 
 
@@ -68,14 +68,14 @@ namespace IL2Photon.Realtime
 		public string FixedRegion
 		{
 			get => Instance_Class.GetField(nameof(FixedRegion)).GetValue(this)?.GetValue<IL2String>().ToString();
-			set => Instance_Class.GetField(nameof(FixedRegion)).SetValue(this, new IL2String(value).Pointer);
+			set => Instance_Class.GetField(nameof(FixedRegion)).SetValue(this, new IL2String_utf8(value).Pointer);
 		}
 
 
 		public string Server
 		{
 			get => Instance_Class.GetField(nameof(Server)).GetValue(this)?.GetValue<IL2String>().ToString();
-			set => Instance_Class.GetField(nameof(Server)).SetValue(this, new IL2String(value).Pointer);
+			set => Instance_Class.GetField(nameof(Server)).SetValue(this, new IL2String_utf8(value).Pointer);
 		}
 
 		unsafe public int Port

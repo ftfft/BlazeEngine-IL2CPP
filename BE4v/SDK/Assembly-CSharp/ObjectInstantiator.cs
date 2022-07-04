@@ -32,7 +32,7 @@ public class ObjectInstantiator : MonoBehaviour
             IL2Array<IntPtr> array = new IL2Array<IntPtr>(len, IL2String.Instance_Class);
             for(int i=0;i<len;i++)
             {
-                array[i] = new IL2String(value[i]).Pointer;
+                array[i] = new IL2String_utf8(value[i]).Pointer;
             }
             field?.SetValue(IntPtr.Zero, array.Pointer);
         }

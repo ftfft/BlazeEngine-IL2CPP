@@ -71,7 +71,7 @@ public class UiAvatarList : UiVRCList
                 array = new IL2Array<IntPtr>(len, IL2String.Instance_Class);
                 for(int i=0;i<len;i++)
                 {
-                    array[i] = new IL2String(value[i]).Pointer;
+                    array[i] = new IL2String_utf8(value[i]).Pointer;
                 }
             }
             Instance_Class.GetField(nameof(specificListIds)).SetValue(this, array == null ? IntPtr.Zero : array.Pointer);

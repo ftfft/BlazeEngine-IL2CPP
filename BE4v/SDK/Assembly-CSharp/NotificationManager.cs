@@ -50,7 +50,7 @@ public class NotificationManager : MonoBehaviour
                 return;
         }
 
-        methodSendNotification.Invoke(this, new IntPtr[] { new IL2String(receiverUserId).Pointer, new IL2String(type).Pointer, new IL2String(message).Pointer, details.Pointer });
+        methodSendNotification.Invoke(this, new IntPtr[] { new IL2String_utf16(receiverUserId).Pointer, new IL2String_utf16(type).Pointer, new IL2String_utf16(message).Pointer, details.Pointer });
     }
 
     public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass("NotificationManager");
