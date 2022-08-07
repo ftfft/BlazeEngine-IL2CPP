@@ -52,8 +52,8 @@ namespace BE4v.Mods.Core
                 if (method != null)
                 {
                     updates = LoadInterfaces<IUpdate>();
-                    // __Update = PatchUtils.FastPatch<_Update>(method, Update);
-                    *(IntPtr*)method.Pointer.ToPointer() = ((_Update)Update).Method.MethodHandle.GetFunctionPointer();
+                    __Update = PatchUtils.FastPatch<_Update>(method, Update);
+                    // *(IntPtr*)method.Pointer.ToPointer() = ((_Update)Update).Method.MethodHandle.GetFunctionPointer();
                 }
                 else
                     $"Installer: Method Update not found!".RedPrefix("Patch");
