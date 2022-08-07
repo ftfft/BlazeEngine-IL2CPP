@@ -111,6 +111,7 @@
     <Compile Include="Patch\Core\oldPatch.cs" />
     <Compile Include="Patch\List\AvatarController.cs" />
     <Compile Include="Patch\List\AvatarData.cs" />
+    <Compile Include="Patch\List\BypassEAC.cs" />
     <Compile Include="Patch\List\SyncPhisycsFix.cs" />
     <Compile Include="Patch\List\UnityInstantiate.cs" />
     <Compile Include="Patch\List\OnMasterClientSwitched.cs" />
@@ -191,6 +192,12 @@
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRTK\UICircle.cs" />
+    <Compile Include="SDK\Epic.OnlineServices\EAC_StaticClass2.cs" />
+    <Compile Include="SDK\Epic.OnlineServices\EOSManager.cs" />
+    <Compile Include="SDK\Epic.OnlineServices\EAC_StaticClass.cs" />
+    <Compile Include="SDK\Epic.OnlineServices\EAC_Reason.cs" />
+    <Compile Include="SDK\Epic.OnlineServices\EAC_Type2.cs" />
+    <Compile Include="SDK\Epic.OnlineServices\EAC_Type.cs" />
     <Compile Include="SDK\IL2CPP\CastUtils.cs" />
     <Compile Include="SDK\IL2CPP\IL2CPP.cs" />
     <Compile Include="SDK\IL2CPP\Import.cs" />
@@ -230,6 +237,11 @@
     <Compile Include="SDK\IL2CPP\System\String.cs" />
     <Compile Include="SDK\IL2CPP\System\Text\Encoding.cs" />
     <Compile Include="SDK\IL2CPP\System\Type.cs" />
+    <Compile Include="SDK\MinHook.NET\Hook.cs" />
+    <Compile Include="SDK\MinHook.NET\HookEngine.cs" />
+    <Compile Include="SDK\MinHook.NET\MemoryAllocator.cs" />
+    <Compile Include="SDK\MinHook.NET\Trampoline.cs" />
+    <Compile Include="SDK\MinHook.NET\Utils.cs" />
     <Compile Include="SDK\Photon3Unity3D\ExitGames\Client\Photon\SupportClass.cs" />
     <Compile Include="SDK\IL2CPP\CPP2IL.cs" />
     <Compile Include="SDK\IL2Dumper\DumpForm.cs">

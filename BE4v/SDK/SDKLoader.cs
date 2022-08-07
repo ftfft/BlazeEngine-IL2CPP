@@ -9,10 +9,23 @@ namespace BE4v.SDK
 {
     public static class SDKLoader
     {
+        /*
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr LoadLibrary(string dllToLoad);
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool FreeLibrary(IntPtr hModule);
+
+        */
         public static string mainDir = Path.Combine(Environment.CurrentDirectory, "BlazeEngine");
 
         public static void Start()
         {
+            // LoadLibrary("VRCTool.dll");
+
             Console.WriteLine("Welcome to BE4v");
             Console.WriteLine("GitHub: https://github.com/BlazeBest/BlazeEngine-IL2CPP");
             Console.WriteLine("Donate: https://client.icefrag.ru/donate");

@@ -31,7 +31,6 @@ namespace BE4v.Patch.List
         public static void QuickMenu_OnEnable(IntPtr instance)
         {
             _delegateQuickMenu_OnEnable(instance);
-            patch.Enabled = false;
             ModifyQuickMenu.isLoadedMenu = true;
         }
 

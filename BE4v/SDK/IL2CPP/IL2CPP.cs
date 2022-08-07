@@ -57,6 +57,7 @@ public static class IL2CPP
     private static string[] Limiter = new string[]
     {
         "Assembly-CSharp",
+        "Epic.OnlineServices",
         "mscorlib",
         "System",
         "System.Core",

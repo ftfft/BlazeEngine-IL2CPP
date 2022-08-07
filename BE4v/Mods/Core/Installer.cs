@@ -44,7 +44,7 @@ namespace BE4v.Mods.Core
             return list.ToArray();
         }
 
-        public static void Start()
+        public unsafe static void Start()
         {
             try
             {
@@ -52,7 +52,8 @@ namespace BE4v.Mods.Core
                 if (method != null)
                 {
                     updates = LoadInterfaces<IUpdate>();
-                    __Update = PatchUtils.FastPatch<_Update>(method, Update);
+                    // __Update = PatchUtils.FastPatch<_Update>(method, Update);
+                    *(IntPtr*)method.Pointer.ToPointer() = ((_Update)Update).Method.MethodHandle.GetFunctionPointer();
                 }
                 else
                     $"Installer: Method Update not found!".RedPrefix("Patch");
@@ -68,7 +69,8 @@ namespace BE4v.Mods.Core
                 if (method != null)
                 {
                     onGUIs = LoadInterfaces<IOnGUI>();
-                    __OnGUI = PatchUtils.FastPatch<_OnGUI>(method, OnGUI);
+                    // __OnGUI = PatchUtils.FastPatch<_OnGUI>(method, OnGUI);
+                    *(IntPtr*)method.Pointer.ToPointer() = ((_OnGUI)OnGUI).Method.MethodHandle.GetFunctionPointer();
                 }
                 else
                     $"Installer: Method OnGUI not found!".RedPrefix("Patch");
@@ -110,8 +112,8 @@ namespace BE4v.Mods.Core
             }
             finally
             {
-                if (instance != IntPtr.Zero)
-                    __Update(instance);
+                // if (instance != IntPtr.Zero)
+                //    __Update(instance);
             }
         }
 
