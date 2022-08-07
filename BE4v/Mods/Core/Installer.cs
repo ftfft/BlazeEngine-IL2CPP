@@ -69,8 +69,8 @@ namespace BE4v.Mods.Core
                 if (method != null)
                 {
                     onGUIs = LoadInterfaces<IOnGUI>();
-                    // __OnGUI = PatchUtils.FastPatch<_OnGUI>(method, OnGUI);
-                    *(IntPtr*)method.Pointer.ToPointer() = ((_OnGUI)OnGUI).Method.MethodHandle.GetFunctionPointer();
+                    __OnGUI = PatchUtils.FastPatch<_OnGUI>(method, OnGUI);
+                    // *(IntPtr*)method.Pointer.ToPointer() = ((_OnGUI)OnGUI).Method.MethodHandle.GetFunctionPointer();
                 }
                 else
                     $"Installer: Method OnGUI not found!".RedPrefix("Patch");
@@ -112,8 +112,8 @@ namespace BE4v.Mods.Core
             }
             finally
             {
-                // if (instance != IntPtr.Zero)
-                //    __Update(instance);
+                if (instance != IntPtr.Zero)
+                    __Update(instance);
             }
         }
 
@@ -133,8 +133,8 @@ namespace BE4v.Mods.Core
             }
             finally
             {
-                // if (instance != IntPtr.Zero)
-                //    __OnGUI(instance);
+                if (instance != IntPtr.Zero)
+                    __OnGUI(instance);
             }
         }
     }
