@@ -50,6 +50,7 @@
     <Compile Include="Domain\DomainManager.cs" />
     <Compile Include="Domain\INetDomain.cs" />
     <Compile Include="Utils\Logs.cs" />
+    <Compile Include="Utils\MinHook.cs" />
     <Compile Include="VRCLoader.cs" />
     <Compile Include="Modules\ModuleManager.cs" />
     <Compile Include="Modules\VRModule.cs" />

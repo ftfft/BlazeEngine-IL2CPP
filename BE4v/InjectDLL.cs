@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
@@ -19,6 +20,15 @@ namespace BE4v
         {
             Main();
         }
+
+        [DllImport("kernel32.dll", EntryPoint = "LoadLibrary")]
+        static extern int LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpLibFileName);
+
+        [DllImport("kernel32.dll", EntryPoint = "GetProcAddress")]
+        static extern IntPtr GetProcAddress(int hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
+
+        [DllImport("kernel32.dll", EntryPoint = "FreeLibrary")]
+        static extern bool FreeLibrary(int hModule);
 
         private static void InitLicense()
         {
