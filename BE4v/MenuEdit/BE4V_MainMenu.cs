@@ -47,12 +47,6 @@ namespace BE4v.MenuEdit
                 buttonRemoveObjects.SetSprite(LoadSprites.trashIco);
                 return false;
             }
-            if (LocalMirror.button == null)
-            {
-                LocalMirror.button = new ElementButton("Portable Mirror", elementGroup, LocalMirror.OnClick);
-                LocalMirror.Refresh();
-                return false;
-            }
             return true;
         }
 
@@ -117,31 +111,6 @@ namespace BE4v.MenuEdit
             }
         }
 
-        public static class LocalMirror
-        {
-
-            public static ElementButton button = null;
-
-            public static void OnClick()
-            {
-                Mod_PortableMirror.Toggle();
-            }
-
-            public static void Refresh()
-            {
-                if (button != null)
-                {
-                    if (Mod_PortableMirror.gameObject != null)
-                    {
-                        button.SetSprite(LoadSprites.onButton);
-                    }
-                    else
-                    {
-                        button.SetSprite(LoadSprites.offButton);
-                    }
-                }
-            }
-        }
     }
 
     /*

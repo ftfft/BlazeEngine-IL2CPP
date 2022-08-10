@@ -14,7 +14,7 @@ namespace BE4v.Patch.List
 
             try
             {
-                IL2Method method = VRC.UI.Elements.QuickMenu.Instance_Class.GetMethod("OnEnable");
+                IL2Method method = VRC.UI.Elements.QuickMenu.Instance_Class.GetMethod("Awake");
                 if (method == null)
                     throw new NullReferenceException();
             

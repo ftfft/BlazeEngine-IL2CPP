@@ -91,7 +91,6 @@
     <Compile Include="Mods\Min\MouseTP.cs" />
     <Compile Include="Mods\Min\FlyHack.cs" />
     <Compile Include="Mods\Min\SpeedHack.cs" />
-    <Compile Include="Mods\Mod_PortableMirror.cs" />
     <Compile Include="Mods\Status.cs" />
     <Compile Include="Mods\Threads.cs" />
     <Compile Include="NetworkSanity\Core\ISanitizer.cs" />

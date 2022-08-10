@@ -48,20 +48,26 @@ namespace BE4v.Patch.List
                 }
             }
             */
-            if (operationCode == 208)
+            /*
+            (operationCode + "").RedPrefix("TTT");
+            if (operationParameters == IntPtr.Zero)
             {
-                $"Trigger 208:".RedPrefix("TTT");
-                if (operationParameters == IntPtr.Zero)
+                "operationParameters == null".RedPrefix("TTT");
+            }
+            else
+            {
+                byte[] bytes = new IL2Array<byte>(operationParameters).GetAsByteArray();
+                if (bytes.Length > 0)
                 {
-                    "operationParameters == null".RedPrefix("TTT");
-                }
-                else
-                {
-                    byte[] bytes = new IL2Array<byte>(operationParameters).GetAsByteArray();
                     ("operationParameters: [" + BitConverter.ToString(bytes) + "]").RedPrefix("TTT");
                     ("operationParameters (Base64): [" + Convert.ToBase64String(bytes) + "]").RedPrefix("TTT");
                 }
+                else
+                {
+                    "operationParameters byte[] == 0".RedPrefix("TTT");
+                }
             }
+            */
             if (Mods.Min.ClientConsole.isLog)
             {
                 byte[] array = null;
