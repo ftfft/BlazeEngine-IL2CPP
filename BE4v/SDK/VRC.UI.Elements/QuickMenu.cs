@@ -13,8 +13,8 @@ namespace VRC.UI.Elements
         {
             Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses()
             .FirstOrDefault(x =>
-                x.GetFields(y => y.ReturnType.Name == "UnityEngine.Vector3").Length > 9 &&
-                x.GetFields(y => y.ReturnType.Name == GameObject.Instance_Class.FullName).Length > 6
+                x.BaseType?.FullName == UIMenu.Instance_Class.FullName
+                && x.GetProperties().Length > 0
             );
 
             if (Instance_Class == null)
@@ -23,11 +23,16 @@ namespace VRC.UI.Elements
             }
         }
 
+        private static QuickMenu _instance = null;
         public static QuickMenu Instance
         {
             get
             {
-                return FindObjectOfType<QuickMenu>();
+                if (_instance == null)
+                {
+                    _instance = Resources.FindObjectsOfTypeAll<QuickMenu>().FirstOrDefault();
+                }
+                return _instance;
             }
         }
 

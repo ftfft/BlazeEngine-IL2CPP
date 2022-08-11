@@ -9,6 +9,6 @@ namespace VRC.UI.Core
     {
         public UIElement(IntPtr ptr) : base(ptr) { }
 
-        public static new IL2Class Instance_Class = UIMenu.Instance_Class.BaseType;
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Core"].GetClass("UIElement", "VRC.UI.Core");
     }
 }

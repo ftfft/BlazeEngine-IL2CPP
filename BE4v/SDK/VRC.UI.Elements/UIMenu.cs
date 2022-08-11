@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using IL2CPP_Core.Objects;
 using VRC.UI.Core;
 
@@ -23,6 +24,6 @@ namespace VRC.UI.Elements
             }
         }
 
-        public static new IL2Class Instance_Class = QuickMenu.Instance_Class.BaseType;
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.BaseType?.FullName == UIElement.Instance_Class.FullName);
     }
 }

@@ -12,11 +12,10 @@ namespace BE4v.Mods.Min
 {
     public class ModifyQuickMenu : IUpdate
     {
-        public static bool isLoadedMenu = false;
         public static bool isFinishLoad = false;
         public void Update()
         {
-            if (isLoadedMenu && !isFinishLoad)
+            if (!isFinishLoad)
             {
                 if (Delete())
                 {

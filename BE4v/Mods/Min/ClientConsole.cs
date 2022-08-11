@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -172,6 +173,24 @@ namespace BE4v.Mods.Min
             if (args == null || args.Length < 1) return;
             switch (args[0])
             {
+                case "scan":
+                    {
+                        // (GameObject.Find("Buttons_QuickActions").transform.parent.name + "/(../ for Buttons_QuickActions)").RedPrefix("SCAN");
+
+                        /*
+                        using(StreamWriter stream = File.CreateText("test.txt"))
+                        {
+                            foreach (var behaviour in behaviours)
+                            {
+                                if (behaviour.name == "Canvas_QuickMenu(Clone)")
+                                { 
+                                }
+                                stream.WriteLine(behaviour.name + "\n");
+                            }
+                        }
+                        */
+                        break;
+                    }
                 case "get_master":
                     {
                         byte[] array = Encoding.UTF8.GetBytes(VRC.Player.Instance.user.id);

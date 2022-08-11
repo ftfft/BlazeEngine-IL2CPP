@@ -134,7 +134,6 @@
     <Compile Include="Patch\List\MorePortals.cs" />
     <Compile Include="Patch\List\NoAnalytics_Unity.cs" />
     <Compile Include="Patch\List\NoPortalJoin.cs" />
-    <Compile Include="Patch\List\QuickMenu.cs" />
     <Compile Include="Patch\List\QuitFix.cs" />
     <Compile Include="Patch\List\InvisAPI.cs" />
     <Compile Include="Patch\List\Serilize.cs" />
