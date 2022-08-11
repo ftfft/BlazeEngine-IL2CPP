@@ -22,6 +22,8 @@ namespace BE4v.Mods
                 GameObject gameObject = new GameObject("BE4V_GUI");
                 gameObject.AddComponent<OVRLipSyncMicInput>();
                 UnityEngine.Object.DontDestroyOnLoad(gameObject);
+
+                MenuEdit.Core.Install();
             }
             if (--NetworkSanity.Sanitizers.OwnershipTransfer.fps < 0)
             {

@@ -67,6 +67,8 @@ namespace BE4v.MenuEdit.Construct.Menu
             RectMask2D mask = verticalLayoutGroup.transform.parent.GetComponent<RectMask2D>();
             if (mask != null)
                 mask.enabled = false;
+            
+            gameObject.SetActive(false);
         }
 
 

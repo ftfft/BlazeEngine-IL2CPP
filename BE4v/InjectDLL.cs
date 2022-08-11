@@ -82,8 +82,6 @@ namespace BE4v
             Console.ForegroundColor = ConsoleColor.Gray;
             new Thread(() => { InitLicense(); }).Start();
 
-            MenuEdit.Core.Install();
-            
             if (ClientDebug.IsEnableDebug())
             {
                 /*

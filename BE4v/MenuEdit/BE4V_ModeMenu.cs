@@ -16,6 +16,7 @@ namespace BE4v.MenuEdit
         public static void BlazeEngine4VersionMenu()
         {
             registerMenu = new ElementMenu("BlazeEngine4Version");
+            
             new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }).SetSprite(LoadSprites.be4vLogo);
 
             ElementGroup elementGroup = new ElementGroup("Networking Tools", registerMenu);
