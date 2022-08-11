@@ -66,6 +66,7 @@
     <Compile Include="MenuEdit\Construct\LoadSprites.cs" />
     <Compile Include="MenuEdit\Construct\QuickObject.cs" />
     <Compile Include="MenuEdit\Construct\UIMenu\UIButton.cs" />
+    <Compile Include="MenuEdit\Core.cs" />
     <Compile Include="MenuEdit\IMGUI\Console.cs" />
     <Compile Include="MenuEdit\IMGUI\TabMenu.cs" />
     <Compile Include="MenuOverlay\MainForm.cs">
@@ -83,7 +84,6 @@
     <Compile Include="Mods\Min\ClientConsole.cs" />
     <Compile Include="Mods\Min\PortableObject.cs" />
     <Compile Include="Mods\Min\CreatePortal.cs" />
-    <Compile Include="Mods\Min\ModifyQuickMenu.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Min\SitOnHead.cs" />
     <Compile Include="Mods\Min\Invisible.cs" />
@@ -177,6 +177,7 @@
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\ParameterSerialization.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Core\GC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\Networking\Tween\PositionEvent.cs" />
+    <Compile Include="SDK\Assembly-CSharp\VRC\SelectedUserManager.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventLog.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_EventDispatcherRFC.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC\FpsCounter.cs" />

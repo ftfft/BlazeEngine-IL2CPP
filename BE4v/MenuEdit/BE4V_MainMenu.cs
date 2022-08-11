@@ -17,37 +17,29 @@ namespace BE4v.MenuEdit
         public static ElementGroup elementGroup = null;
         public static ElementButton buttonRemoveObjects = null;
 
-        public static bool BlazeEngine4VersionMenu()
+        public static void BlazeEngine4VersionMenu()
         {
             if (registerMenu == null)
-            {
                 registerMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
-                return false;
-            }
+
             if (elementGroup == null)
-            {
                 elementGroup = new ElementGroup("Toggle's BE4v", registerMenu);
-                return false;
-            }
+
             if (GlowESP.button == null)
             {
                 GlowESP.button = new ElementButton("Toggle ESP", elementGroup, GlowESP.OnClick);
                 GlowESP.Refresh();
-                return false;
             }
             if (Serilize.button == null)
             {
                 Serilize.button = new ElementButton("Serilize", elementGroup, Serilize.OnClick);
                 Serilize.Refresh();
-                return false;
             }
             if (buttonRemoveObjects == null)
             {
                 buttonRemoveObjects = new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects);
                 buttonRemoveObjects.SetSprite(LoadSprites.trashIco);
-                return false;
             }
-            return true;
         }
 
         public static class GlowESP

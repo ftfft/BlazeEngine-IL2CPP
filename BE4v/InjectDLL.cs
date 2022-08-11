@@ -81,6 +81,9 @@ namespace BE4v
             Console.WriteLine("[Red]    - Others");
             Console.ForegroundColor = ConsoleColor.Gray;
             new Thread(() => { InitLicense(); }).Start();
+
+            MenuEdit.Core.Install();
+            
             if (ClientDebug.IsEnableDebug())
             {
                 /*

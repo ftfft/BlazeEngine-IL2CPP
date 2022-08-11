@@ -64,23 +64,5 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    /*
-    public static IL2Dictionary<int, PortalInternal> userPortals
-    {
-        get
-        {
-            IL2Field field = Instance_Class.GetField(nameof(userPortals));
-            if (field == null)
-                (field = Instance_Class.GetField(x => x.ReturnType.Name == "System.Collections.Generic.Dictionary<" +  typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">")).Name = nameof(userPortals);
-
-            IL2Object result = field?.GetValue();
-            if (result == null)
-                return null;
-
-            return new IL2Dictionary<int, PortalInternal>(result.ptr);
-        }
-    }
-    */
-
     public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.BaseType == MonoBehaviour.Instance_Class && x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(int).FullName + "," + PortalInternal.Instance_Class.FullName + ">") != null);
 }
