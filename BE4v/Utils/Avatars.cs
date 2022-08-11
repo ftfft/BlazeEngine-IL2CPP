@@ -43,16 +43,12 @@ namespace BE4v.Utils
             API.SendRequest(text, HTTPMethods.Get, apiModelContainer, null, true, true, 3600f, 2, null);
             *
             */
-            new PageAvatar
+            PageAvatar pageAvatar = GameObject.Find("Screens").transform.Find("Avatar").GetComponent<PageAvatar>();
+            pageAvatar.avatar.apiAvatar = new ApiAvatar
             {
-                avatar = new SimpleAvatarPedestal
-                {
-                    apiAvatar = new ApiAvatar
-                    {
-                        id = AvatarId
-                    }
-                }
-            }.ChangeToSelectedAvatar();
+                id = AvatarId
+            };
+            pageAvatar.ChangeToSelectedAvatar();
         }
 
         public static UiAvatarList AddNewList(string title, int index, bool changeTitle = true)
