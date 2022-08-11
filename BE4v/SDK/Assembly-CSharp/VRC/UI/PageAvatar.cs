@@ -20,14 +20,14 @@ namespace VRC.UI
             {
                 IL2Field field = Instance_Class.GetField(nameof(avatar));
                 if (field == null)
-                    (field = Instance_Class.GetField(SimpleAvatarPedestal.Instance_Class)).Name = nameof(avatar);
+                    (field = Instance_Class.GetFields().LastOrDefault(x => x.ReturnType.Name == SimpleAvatarPedestal.Instance_Class.FullName)).Name = nameof(avatar);
                 return field.GetValue(this)?.GetValue<SimpleAvatarPedestal>();
             }
             set
             {
                 IL2Field field = Instance_Class.GetField(nameof(avatar));
                 if (field == null)
-                    (field = Instance_Class.GetField(SimpleAvatarPedestal.Instance_Class)).Name = nameof(avatar);
+                    (field = Instance_Class.GetFields().LastOrDefault(x => x.ReturnType.Name == SimpleAvatarPedestal.Instance_Class.FullName)).Name = nameof(avatar);
                 field.SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
             }
         }

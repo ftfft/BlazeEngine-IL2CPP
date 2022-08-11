@@ -3,7 +3,7 @@ using System.Linq;
 using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.Core;
-using BE4v.SDK;
+using VRC.UI;
 
 namespace VRC
 {
@@ -34,6 +34,6 @@ namespace VRC
             }
         }
 
-        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(UiAvatarList.Instance_Class.GetFields().First().ReturnType.Name);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(PageAvatar.Instance_Class.GetFields().First().ReturnType.Name);
     }
 }

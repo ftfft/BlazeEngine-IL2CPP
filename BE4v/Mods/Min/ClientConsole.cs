@@ -173,6 +173,33 @@ namespace BE4v.Mods.Min
             if (args == null || args.Length < 1) return;
             switch (args[0])
             {
+                case "avatar":
+                    {
+                        if (args.Length > 1)
+                        {
+                            try
+                            {
+                                Utils.Avatars.ChangeAvatarById(args[1]);
+                            }
+                            catch { "Error changing avatar!".RedPrefix("Exception"); }
+                        }
+                        break;
+                    }
+                case "avatarlist":
+                    {
+                        if (NetworkSanity.NetworkSanity.players != null && NetworkSanity.NetworkSanity.players.Length > 0)
+                        {
+                            foreach (var player in NetworkSanity.NetworkSanity.players)
+                            {
+                                try
+                                {
+                                    Console.WriteLine($"{player.user.displayName.PadRight(40, ' ')} (AvatarId: {player.Components.AvatarModel.id})");
+                                }
+                                catch { }
+                            }
+                        }
+                        break;
+                    }
                 case "scan":
                     {
                         // (GameObject.Find("Buttons_QuickActions").transform.parent.name + "/(../ for Buttons_QuickActions)").RedPrefix("SCAN");
