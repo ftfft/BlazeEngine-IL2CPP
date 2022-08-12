@@ -91,7 +91,9 @@ namespace BE4v.Mods.Min
                 case "help":
                     {
                         Console.WriteLine("~~~ [ HELP For BE4v ] ~~~");
-                        Console.WriteLine("- connect World_Id:InstanceId");
+                        Console.WriteLine("- connect World_Id:InstanceId (Not worked)");
+                        Console.WriteLine("- avatar [avatar_id]  - change avatar by Avatar_ID");
+                        Console.WriteLine("- avatarlist - Player List with AvatarId");
                         break;
                     }
                 case "gg":
