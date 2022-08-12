@@ -3,6 +3,8 @@
 # [For buy EAC unblock Discord: BlazeBest#4974]
 Register for Client (Release): https://client.icefrag.ru
 
+Like video: https://www.youtube.com/watch?v=BWcNYdUs6Vg
+
 # Links
 | Links from Site |
 |----------------|
