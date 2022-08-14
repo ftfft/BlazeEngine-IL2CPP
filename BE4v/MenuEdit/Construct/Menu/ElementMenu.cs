@@ -74,7 +74,8 @@ namespace BE4v.MenuEdit.Construct.Menu
 
         public void Open()
         {
+            gameObject.SetActive(true);
             QuickMenu.Instance.MenuStateController.PushPage(menuName);
-		}
+        }
     }
 }
