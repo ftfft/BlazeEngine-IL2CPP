@@ -81,7 +81,8 @@ public static class IL2CPP
         "VRC.UI.Elements",
         "Facepunch.Steamworks.Win64",
         "Transmtn",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "DataModel"
     };
 
     public static Dictionary<string, IL2Assembly> AssemblyList;

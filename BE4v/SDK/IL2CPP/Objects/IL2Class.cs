@@ -123,6 +123,7 @@ namespace IL2CPP_Core.Objects
 
         public bool IsEnum => Import.Class.il2cpp_class_is_enum(Pointer);
         public bool IsAbstract => HasFlag(IL2BindingFlags.TYPE_ABSTRACT);
+        public bool IsInterface => HasFlag(IL2BindingFlags.TYPE_INTERFACE);
 
         public IL2BindingFlags Flags
         {

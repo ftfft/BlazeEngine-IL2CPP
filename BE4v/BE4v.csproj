@@ -191,6 +191,7 @@
     <Compile Include="SDK\Assembly-CSharp\VRC\SimpleAvatarPedestal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRC_TriggerInternal.cs" />
     <Compile Include="SDK\Assembly-CSharp\VRTK\UICircle.cs" />
+    <Compile Include="SDK\DataModel\VRC.DataModel\Interfaces\IUser.cs" />
     <Compile Include="SDK\Epic.OnlineServices\EAC_StaticClass2.cs" />
     <Compile Include="SDK\Epic.OnlineServices\EOSManager.cs" />
     <Compile Include="SDK\Epic.OnlineServices\EAC_StaticClass.cs" />
@@ -409,6 +410,7 @@
     <Compile Include="SDK\VRC.UI.Core\UIElement.cs" />
     <Compile Include="SDK\VRC.UI.Elements\Controls\MenuTab.cs" />
     <Compile Include="SDK\VRC.UI.Elements\MenuStateController.cs" />
+    <Compile Include="SDK\VRC.UI.Elements\Menus\SelectedUserMenuQM.cs" />
     <Compile Include="SDK\VRC.UI.Elements\Menus\LaunchPadQMMenu.cs" />
     <Compile Include="SDK\VRC.UI.Elements\UIPage.cs" />
     <Compile Include="SDK\VRC.UI.Elements\UIMenu.cs" />
