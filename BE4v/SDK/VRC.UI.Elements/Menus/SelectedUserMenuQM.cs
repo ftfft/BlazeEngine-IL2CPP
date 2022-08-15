@@ -9,20 +9,20 @@ namespace VRC.UI.Elements.Menus
 	{
         public SelectedUserMenuQM(IntPtr ptr) : base(ptr) { }
 
-        public IUser _iUser
+        public User _iUser
         {
             get
             {
                 IL2Field field = Instance_Class.GetField(nameof(_iUser));
                 if (field == null)
-                    (field = Instance_Class.GetField(IUser.Instance_Class)).Name = nameof(_iUser);
-                return field.GetValue(this)?.GetValue<IUser>();
+                    (field = Instance_Class.GetField(ClassIUser.Instance_Class)).Name = nameof(_iUser);
+                return field.GetValue(this)?.GetValue<User>();
             }
             set
             {
                 IL2Field field = Instance_Class.GetField(nameof(_iUser));
                 if (field == null)
-                    (field = Instance_Class.GetField(IUser.Instance_Class)).Name = nameof(_iUser);
+                    (field = Instance_Class.GetField(ClassIUser.Instance_Class)).Name = nameof(_iUser);
                 field.SetValue(this, value == null ? IntPtr.Zero : value.Pointer);
             }
         }

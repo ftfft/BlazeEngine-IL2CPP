@@ -10,8 +10,10 @@ namespace VRC.DataModel.Interfaces
         string UserId { get; set; }
     }
 
-    public static class ClassIUser
+    public class ClassIUser : IL2Object
     {
+        public ClassIUser(IntPtr ptr) : base(ptr) { }
+
         static ClassIUser()
         {
             IL2Field[] fields = SelectedUserMenuQM.Instance_Class.GetFields(y => y.ReturnType != null);
@@ -32,6 +34,19 @@ namespace VRC.DataModel.Interfaces
                 if (property == null)
                     (property = Instance_Class.GetProperty(x => x.GetGetMethod().ReturnType.Name == typeof(string).FullName)).Name = nameof(UserId);
                 return property;
+            }
+        }
+
+
+        public string TestId
+        {
+            get
+            {
+                return UserId.GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
+            }
+            set
+            {
+                UserId.GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : new IL2String_utf8(value).Pointer });
             }
         }
 

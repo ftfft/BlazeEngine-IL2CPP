@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using BE4v.Mods.Core;
+using VRC.DataModel;
+using VRC.UI.Core;
+using VRC.UI.Elements;
+using VRC.UI.Elements.Menus;
 using IL2Photon.Pun;
 using IL2Photon.Realtime;
 using IL2ExitGames.Client.Photon;
@@ -204,6 +208,24 @@ namespace BE4v.Mods.Min
                     }
                 case "scan":
                     {
+                        var selectedMenu = QuickMenu.Instance.transform.Find("Container/Window/QMParent/Menu_SelectedUser_Local").GetComponent<SelectedUserMenuQM>();
+                        if (selectedMenu == null)
+                            Console.WriteLine("selectedMenu: Null");
+                        else
+                        {
+                            var user = selectedMenu._iUser;
+                            if (user == null)
+                                Console.WriteLine("_iUser: Null");
+                            else
+                            {
+                                var userId = user.UserId;
+                                if (userId == null)
+                                    Console.WriteLine("_iUser: Null");
+                                else if (string.IsNullOrEmpty(userId))
+                                    Console.WriteLine("_iUser: Empty");
+                                Console.WriteLine("test " + userId);
+                            }
+                        }
                         // (GameObject.Find("Buttons_QuickActions").transform.parent.name + "/(../ for Buttons_QuickActions)").RedPrefix("SCAN");
 
                         /*

@@ -18,6 +18,8 @@ namespace VRC
                 IL2Property property = Instance_Class.GetProperty(nameof(UserId));
                 if (property == null)
                     (property = Instance_Class.GetProperty(ClassIUser.UserId.OriginalName)).Name = nameof(UserId);
+                if (property == null)
+                    "User::UserId{ get; set} not found!".RedPrefix("Warning");
                 return property.GetGetMethod().Invoke(this)?.GetValue<IL2String>().ToString();
             }
             set
@@ -25,6 +27,8 @@ namespace VRC
                 IL2Property property = Instance_Class.GetProperty(nameof(UserId));
                 if (property == null)
                     (property = Instance_Class.GetProperty(ClassIUser.UserId.OriginalName)).Name = nameof(UserId);
+                if (property == null)
+                    "User::UserId{ get; set} not found!".RedPrefix("Warning");
                 property.GetSetMethod().Invoke(this, new IntPtr[] { value == null ? IntPtr.Zero : new IL2String_utf8(value).Pointer });
             }
         }
