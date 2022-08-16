@@ -13,6 +13,7 @@ Like video: https://www.youtube.com/watch?v=BWcNYdUs6Vg
 | [- Binds](https://client.icefrag.ru/binds) |
 | [- FAQ](https://client.icefrag.ru/faq) |
 | [- Donate](https://client.icefrag.ru/donate) |
+| [- Functions](https://github.com/BlazeBest/BlazeEngine-IL2CPP/blob/master/Functions) |
 
 # Contacts
 | IF Community | Developer |
