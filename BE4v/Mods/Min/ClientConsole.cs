@@ -208,8 +208,10 @@ namespace BE4v.Mods.Min
                     }
                 case "scan":
                     {
-                        var go = GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)");
-                        FileDebug.debugGameObject("debug_QuickMenu.json", go);
+                        // For find DisplayName : For ForceCloneAvatar
+                        var go = GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)").transform.Find("Text_Username_NonFriend").GetComponent<TMPro.TextMeshProUGUI>();
+                        Console.WriteLine("Test: " + go.text);
+                        // FileDebug.debugGameObject("debug_QuickMenu.json", go);
                         /*
                         if (go == null)
                             Console.WriteLine("Go is null");
