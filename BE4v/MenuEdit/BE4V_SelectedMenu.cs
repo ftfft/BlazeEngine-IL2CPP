@@ -61,17 +61,21 @@ namespace BE4v.MenuEdit
             public static void Update()
             {
                 if (button == null) return;
+                if (buttonOriginal == null) return;
                 string displayName = UserUtils.QM_GetSelectedUserName();
                 if (!string.IsNullOrEmpty(displayName))
                 {
                     Player selectedPlayer = UserUtils.GetPlayerByName(displayName);
-                    if (selectedPlayer.user.allowAvatarCopying)
+                    if (selectedPlayer != null)
                     {
-                        button.SetText("Clone Avatar");
-                    }
-                    else
-                    {
-                        button.SetText("Force Clone Avatar");
+                        if (selectedPlayer.user.allowAvatarCopying)
+                        {
+                            button.SetText("Clone Avatar");
+                        }
+                        else
+                        {
+                            button.SetText("Force Clone Avatar");
+                        }
                     }
                 }
             }
