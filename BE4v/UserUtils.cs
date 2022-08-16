@@ -52,7 +52,7 @@ public static class UserUtils
 
     public static string QM_GetSelectedUserName()
     {
-        string userName = string.Empty;
+        string userName = null;
         GameObject go = GameObject.Find("Canvas_QuickMenu(Clone)");
         if (go != null)
         {
@@ -67,6 +67,18 @@ public static class UserUtils
             }
         }
         return userName;
+    }
+
+    public static VRC.Player GetPlayerByName(string userName)
+    {
+        if (string.IsNullOrEmpty(userName)) return null;
+        VRC.Player[] players = NetworkSanity.NetworkSanity.players;
+        foreach(VRC.Player player in players)
+        {
+            if (player.user.displayName == userName)
+                return player;
+        }
+        return null;
     }
     /*
     internal static APIUser current_User_UserInfo

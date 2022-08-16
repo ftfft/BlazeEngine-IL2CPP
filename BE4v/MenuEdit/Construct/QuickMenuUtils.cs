@@ -75,6 +75,19 @@ namespace BE4v.MenuEdit.Construct
             }
         }
 
+        private static Transform _selectedMenuTemplate = null;
+        public static Transform selectedMenuTemplate
+        {
+            get
+            {
+                if (_selectedMenuTemplate == null)
+                {
+                    _selectedMenuTemplate = QuickMenu.Instance.transform.Find(szMenuGroup + "/Menu_SelectedUser_Local");
+                }
+                return _selectedMenuTemplate;
+            }
+        }
+
         public static string szHorizontalGroup = "Container/Window/Page_Buttons_QM/HorizontalLayoutGroup";
 
         public static string szMenuGroup = "Container/Window/QMParent";

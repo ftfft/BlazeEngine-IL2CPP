@@ -16,6 +16,7 @@ namespace BE4v.MenuEdit
         {
             Delete();
             BE4V_MainMenu.BlazeEngine4VersionMenu();
+            BE4V_SelectedMenu.BlazeEngine4VersionMenu();
             BE4V_ModeMenu.BlazeEngine4VersionMenu();
 
             // QuickMenu.Instance.MenuStateController.PushPage("Page_BlazeEngine4Version");

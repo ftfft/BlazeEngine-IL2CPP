@@ -11,6 +11,10 @@ namespace BE4v.MenuEdit.Construct.Menu
 {
     public class ElementGroup : QuickObject
     {
+        public ElementGroup(GameObject elementGroup)
+        {
+            gameObject = elementGroup;
+        }
         public ElementGroup(string groupName, ElementMenu menu)
         {
             gameObject = CreateObject(groupName, menu.verticalLayoutGroup.gameObject);

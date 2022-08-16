@@ -11,6 +11,11 @@ namespace BE4v.MenuEdit.Construct.Menu
 {
     public class ElementButton : QuickObject
     {
+        public ElementButton(GameObject elementButton)
+        {
+            gameObject = elementButton;
+        }
+        
         public ElementButton(string buttonName, ElementMenu menu, UnityEngine.Events.UnityAction action)
         {
             gameObject = CreateElementButton(buttonName, menu.gameObject, action);
@@ -19,6 +24,12 @@ namespace BE4v.MenuEdit.Construct.Menu
         public ElementButton(string buttonName, ElementGroup menu, UnityEngine.Events.UnityAction action)
         {
             gameObject = CreateElementButton(buttonName, menu.gameObject, action);
+        }
+
+        public Sprite GetSprite()
+        {
+            Image image = gameObject.transform.Find("Icon").GetComponent<Image>();
+            return image.sprite;
         }
 
         public void SetSprite(Sprite sprite)
