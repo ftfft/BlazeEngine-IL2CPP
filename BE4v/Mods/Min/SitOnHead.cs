@@ -17,10 +17,16 @@ namespace BE4v.Mods.Min
                 SelectUser = null;
                 return;
             }
-            Transform boneTransform = selectPlayer.avatarAnimator?.GetBoneTransform(HumanBodyBones.Head);
-            if (boneTransform == null) return;
-            player.GetComponent<Collider>().enabled = false;
-            offsetBox.transform.position = boneTransform.position;
+            Transform[] transforms = selectPlayer.GetComponentsInChildren<Transform>(true);
+            foreach(Transform transform in transforms)
+            {
+                if (transform.gameObject.name == "Head")
+                {
+                    player.GetComponent<Collider>().enabled = false;
+                    offsetBox.transform.position = transform.position;
+                    break;
+                }
+            }
         }
 
         public static VRCPlayer SelectUser

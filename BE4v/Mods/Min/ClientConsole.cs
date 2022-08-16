@@ -208,6 +208,17 @@ namespace BE4v.Mods.Min
                     }
                 case "scan":
                     {
+                        /*
+
+                        string displayName = UserUtils.QM_GetSelectedUserName();
+                        if (!string.IsNullOrEmpty(displayName))
+                        {
+                            VRC.Player selectedPlayer = UserUtils.GetPlayerByName(displayName);
+                            if (selectedPlayer != null)
+                            {
+                                FileDebug.debugGameObject("debug_SelectedPlayer.json", selectedPlayer.gameObject);
+                            }
+                        }
                         // For find DisplayName : For ForceCloneAvatar
                         // FileDebug.debugGameObject("debug_QuickMenu.json", go);
                         /*

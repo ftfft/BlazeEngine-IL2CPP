@@ -11,13 +11,17 @@ namespace NetworkSanity.Sanitizers
         
         public bool OnPhotonEvent(EventData eventData)
         {
-            if (eventData.Code != 33)
+            //if (eventData.Code != 33)
+            //    return false;
+
+            if (eventData.Code == 1
+            || eventData.Code == 7
+            || eventData.Code == 8
+            || eventData.Code == 9
+            )
                 return false;
 
-            if (eventData.CustomData != null)
-            {
-                ClientLogs.Add("Player " + eventData.Sender + " send " + eventData.Code + " event");
-            }
+            // ClientLogs.Add("Player " + eventData.Sender + " send " + eventData.Code + " event");
             return false;
         }
 
