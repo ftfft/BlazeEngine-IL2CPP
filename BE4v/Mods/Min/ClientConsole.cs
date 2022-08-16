@@ -208,7 +208,12 @@ namespace BE4v.Mods.Min
                     }
                 case "scan":
                     {
-                        var selectedMenu = QuickMenu.Instance.transform.Find("Container/Window/QMParent/Menu_SelectedUser_Local").GetComponent<SelectedUserMenuQM>();
+                        var go = GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)");
+                        FileDebug.debugGameObject("debug_QuickMenu.json", go);
+                        /*
+                        if (go == null)
+                            Console.WriteLine("Go is null");
+                        var selectedMenu = go?.GetComponentInChildren<SelectedUserMenuQM>(true);
                         if (selectedMenu == null)
                             Console.WriteLine("selectedMenu: Null");
                         else
