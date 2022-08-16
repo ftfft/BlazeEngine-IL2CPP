@@ -49,6 +49,25 @@ public static class UserUtils
             obj.gameObject.Destroy();
         // RoomManager.userPortals.Clear();
     }
+
+    public static string QM_GetSelectedUserName()
+    {
+        string userName = string.Empty;
+        GameObject go = GameObject.Find("Canvas_QuickMenu(Clone)");
+        if (go != null)
+        {
+            var components = go.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+            foreach (var component in components)
+            {
+                if (component.gameObject.name == "Text_Username_NonFriend")
+                {
+                    userName = component.text;
+                    break;
+                }
+            }
+        }
+        return userName;
+    }
     /*
     internal static APIUser current_User_UserInfo
     {
