@@ -79,6 +79,8 @@ public static class IL2CPP
         "VRC.Udon",
         "VRC.UI.Core",
         "VRC.UI.Elements",
+        "VRC.Dynamics",
+        "VRC.SDK3.Dynamics.Contact",
         "Facepunch.Steamworks.Win64",
         "Transmtn",
         "Unity.TextMeshPro",

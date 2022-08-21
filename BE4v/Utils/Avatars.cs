@@ -49,6 +49,13 @@ namespace BE4v.Utils
                 id = AvatarId
             };
             pageAvatar.ChangeToSelectedAvatar();
+
+        }
+        public static void ChangeAvatar(ApiAvatar avatar)
+        {
+            PageAvatar pageAvatar = GameObject.Find("Screens").transform.Find("Avatar").GetComponent<PageAvatar>();
+            pageAvatar.avatar.apiAvatar = avatar;
+            pageAvatar.ChangeToSelectedAvatar();
         }
 
         public static UiAvatarList AddNewList(string title, int index, bool changeTitle = true)

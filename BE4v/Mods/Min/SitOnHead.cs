@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using VRC;
 using BE4v.Mods.Core;
+using VRC.SDK3.Dynamics.Contact.Components;
 
 namespace BE4v.Mods.Min
 {
@@ -11,20 +12,20 @@ namespace BE4v.Mods.Min
         {
             Player player = Player.Instance;
             if (player == null) return;
-            if (selectPlayer == null || selectPlayer.avatarAnimator == null) return;
+            if (selectPlayer == null) return;
             if (player == selectPlayer)
             {
                 SelectUser = null;
                 return;
             }
-            Transform[] transforms = selectPlayer.GetComponentsInChildren<Transform>(true);
-            foreach(Transform transform in transforms)
+
+            VRCContactSender[] components = selectPlayer.GetComponentsInChildren<VRCContactSender>(true);
+            foreach(var component in components)
             {
-                if (transform.gameObject.name == "Head")
+                if (component.gameObject.name.ToLower().Contains("head"))
                 {
                     player.GetComponent<Collider>().enabled = false;
-                    offsetBox.transform.position = transform.position;
-                    break;
+                    offsetBox.transform.position = component.position;
                 }
             }
         }

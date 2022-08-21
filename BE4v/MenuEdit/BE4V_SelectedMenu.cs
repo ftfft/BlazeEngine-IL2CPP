@@ -50,10 +50,10 @@ namespace BE4v.MenuEdit
                 if (!string.IsNullOrEmpty(displayName))
                 {
                     Player selectedPlayer = UserUtils.GetPlayerByName(displayName);
-                    string avatarId = selectedPlayer?.Components?.AvatarModel?.id;
-                    if (!string.IsNullOrEmpty(avatarId))
+                    var avatar = selectedPlayer?.Components?.AvatarModel;
+                    if (avatar != null)
                     {
-                        Utils.Avatars.ChangeAvatarById(avatarId);
+                        Utils.Avatars.ChangeAvatar(avatar);
                     }
                 }
             }
@@ -68,13 +68,23 @@ namespace BE4v.MenuEdit
                     Player selectedPlayer = UserUtils.GetPlayerByName(displayName);
                     if (selectedPlayer != null)
                     {
-                        if (selectedPlayer.user.allowAvatarCopying)
+                        if (selectedPlayer.Components.AvatarModel.releaseStatus == "public")
                         {
-                            button.SetText("Clone Avatar");
+                            button.gameObject.SetActive(true);
+                            buttonOriginal.gameObject.SetActive(false);
+                            if (selectedPlayer.user.allowAvatarCopying)
+                            {
+                                button.SetText("Clone Avatar");
+                            }
+                            else
+                            {
+                                button.SetText("Force Clone Avatar");
+                            }
                         }
                         else
                         {
-                            button.SetText("Force Clone Avatar");
+                            button.gameObject.SetActive(false);
+                            buttonOriginal.gameObject.SetActive(true);
                         }
                     }
                 }

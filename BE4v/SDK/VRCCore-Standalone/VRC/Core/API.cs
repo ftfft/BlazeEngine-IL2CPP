@@ -6,7 +6,11 @@ namespace VRC.Core
 {
     public static class API
     {
-
+        unsafe public static T FromCacheOrNew<T>(string id, float maxCacheAge = -1f) where T : ApiModel, new()
+        {
+            IL2Method method = Instance_Class.GetMethod(nameof(FromCacheOrNew));
+            return method.Invoke(new IntPtr[] { id == null ? IntPtr.Zero : new IL2String_utf8(id).Pointer, new IntPtr(&maxCacheAge), method.Pointer }).GetValue<T>();
+        }
 
         public class CredentialsBundle : IL2Object
         {
