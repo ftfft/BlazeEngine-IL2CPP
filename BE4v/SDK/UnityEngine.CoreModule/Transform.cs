@@ -48,6 +48,11 @@ namespace UnityEngine
             set => Instance_Class.GetProperty(nameof(localScale)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
         }
 
+        public Vector3 lossyScale
+        {
+            get => Instance_Class.GetProperty(nameof(lossyScale)).GetGetMethod().Invoke<Vector3>(this).GetValue();
+        }
+
         public Transform Find(string name)
         {
             return Instance_Class.GetMethod(nameof(Find)).Invoke(this, new IntPtr[] { new IL2String_utf16(name).Pointer })?.GetValue<Transform>();

@@ -10,24 +10,21 @@ namespace BE4v.Mods.Min
         // Thanks MagnaLuna#7488
         public void Update()
         {
-            Player player = Player.Instance;
-            if (player == null) return;
             if (selectPlayer == null) return;
+            VRCPlayer player = VRCPlayer.Instance;
+            if (player == null) return;
             if (player == selectPlayer)
             {
                 SelectUser = null;
                 return;
             }
-
-            VRCContactSender[] components = selectPlayer.GetComponentsInChildren<VRCContactSender>(true);
-            foreach(var component in components)
+            if (selectPlayer.gameObject == null)
             {
-                if (component.gameObject.name.ToLower().Contains("head"))
-                {
-                    player.GetComponent<Collider>().enabled = false;
-                    offsetBox.transform.position = component.position;
-                }
+                SelectUser = null;
+                return;
             }
+            player.GetComponent<Collider>().enabled = false;
+            offsetBox.transform.position = selectPlayer.avatarAnimator.GetBoneTransform(HumanBodyBones.Head).position;
         }
 
         public static VRCPlayer SelectUser
@@ -38,14 +35,13 @@ namespace BE4v.Mods.Min
             }
             set
             {
-                if (Player.Instance == null) return;
+                if (VRCPlayer.Instance == null) return;
                 Transform playerTransform = VRCPlayer.Instance.transform;
                 if (value == null)
                 {
-                    Collider collider = Player.Instance.GetComponent<Collider>();
+                    Collider collider = VRCPlayer.Instance.GetComponent<Collider>();
                     if (collider != null)
                         collider.enabled = true;
-                    playerTransform.SetParent(null);
                 }
                 else
                 {
@@ -58,7 +54,7 @@ namespace BE4v.Mods.Min
                     }
                     playerTransform.position = offsetBox.transform.position;
                     playerTransform.SetParent(offsetBox.transform);
-                    offsetBox.transform.position = value.transform.position;
+                    offsetBox.transform.position = value.avatarAnimator.GetBoneTransform(HumanBodyBones.Head).position;
                 }
                 selectPlayer = value;
             }
