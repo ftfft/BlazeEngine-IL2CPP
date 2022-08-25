@@ -20,8 +20,8 @@ namespace BE4v.MenuEdit
             new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }).SetSprite(LoadSprites.be4vLogo);
 
             ElementGroup elementGroup = new ElementGroup("Networking Tools", registerMenu);
-            InvisAPI.button = new ElementButton("Invis API", elementGroup, InvisAPI.OnClick);
-            InvisAPI.Refresh();
+            // InvisAPI.button = new ElementButton("Invis API", elementGroup, InvisAPI.OnClick);
+            // InvisAPI.Refresh();
             RPCBlock.button = new ElementButton("RPC Block", elementGroup, RPCBlock.OnClick);
             RPCBlock.Refresh();
             FakePing.button = new ElementButton("Fake Ping", elementGroup, FakePing.OnClick);

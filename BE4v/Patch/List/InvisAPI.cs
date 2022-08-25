@@ -7,7 +7,7 @@ using BE4v.Mods;
 
 namespace BE4v.Patch.List
 {
-    public class InvisAPI : IPatch
+    public class InvisAPI // : IPatch
     {
         public delegate void _VRC_Core_API_SendRequestInternal(IntPtr endpoint, IntPtr method, IntPtr responseContainer, IntPtr requestParams, bool authenticationRequired, bool disableCache, float cacheLifetime, int retryCount, IntPtr credentials, IntPtr formData);
         public static void Toggle()

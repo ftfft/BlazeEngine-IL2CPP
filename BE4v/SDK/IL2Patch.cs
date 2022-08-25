@@ -13,9 +13,12 @@ namespace BE4v.SDK
         {
             Pointer = newMethod.Method.MethodHandle.GetFunctionPointer();
             TargetMethod = targetMethod;
-
-            MinHook.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
+            if (ClientDebug.IsEnableDebug())
+                MinHook.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer, Pointer, out OriginalMethod);
+            else
+                MinHook.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
             Enabled = true;
+            
             // Import.Patch.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
         }
         internal IL2Patch(IntPtr targetMethod, Delegate newMethod) : base(IntPtr.Zero)
