@@ -69,7 +69,7 @@ namespace QuickMenuElement.Elements
 
         public QMButton AddButton(string buttonName, UnityEngine.Events.UnityAction action = null)
         {
-            return QMButton.Create(this, buttonName, action = null);
+            return QMButton.Create(this, buttonName, action);
         }
 
         public static ButtonsElement Create(MenuElement menu, string name)

@@ -34,8 +34,7 @@ namespace BE4v.MenuEdit
             {
                 ForceCloneAvatar.button = buttonsGroupAvatars.AddButton("ForceCloneAvatar", ForceCloneAvatar.OnClick);
 
-                ForceCloneAvatar.buttonOriginal = new QMButton();
-                ForceCloneAvatar.buttonOriginal.gameObject = buttonsGroupAvatars.gameObject.transform.Find("Button_CloneAvatar").gameObject;
+                ForceCloneAvatar.buttonOriginal = buttonsGroupAvatars["CloneAvatar"];
                 ForceCloneAvatar.buttonOriginal.gameObject.SetActive(false);
 
                 ForceCloneAvatar.button._Sprite = ForceCloneAvatar.buttonOriginal._Sprite;;
