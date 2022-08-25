@@ -29,7 +29,7 @@ namespace QuickMenuElement.Elements
         public static HeaderElement Create(MenuElement menu, string name)
         {
             HeaderElement element = new HeaderElement();
-            element.gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonGroupHeaderTemplate.gameObject, menu.gameObject.transform);
+            element.gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonGroupHeaderTemplate.gameObject, menu.verticalLayoutGroup.gameObject.transform);
             element.gameObject.name = "Header_" + name;
 
             element._Text = name;

@@ -75,7 +75,7 @@ namespace QuickMenuElement.Elements
         public static ButtonsElement Create(MenuElement menu, string name)
         {
             ButtonsElement element = new ButtonsElement();
-            element.gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonGroupBaseTemplate.gameObject, menu.gameObject.transform);
+            element.gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.buttonGroupBaseTemplate.gameObject, menu.verticalLayoutGroup.gameObject.transform);
             element.gameObject.name = "Buttons_" + name;
             
             element.DestroyAllButtons();

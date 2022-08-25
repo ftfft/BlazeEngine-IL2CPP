@@ -19,6 +19,7 @@ namespace BE4v.MenuEdit
             
             new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }).SetSprite(LoadSprites.be4vLogo);
 
+            registerMenu.AddHeader("Networking Tools");
             ButtonsElement butttonsGroup = registerMenu.AddButtonsGroup("Networking Tools");
             // InvisAPI.button = new ElementButton("Invis API", elementGroup, InvisAPI.OnClick);
             // InvisAPI.Refresh();

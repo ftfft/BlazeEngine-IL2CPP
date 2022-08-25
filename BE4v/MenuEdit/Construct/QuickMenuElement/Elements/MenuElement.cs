@@ -12,35 +12,17 @@ namespace QuickMenuElement.Elements
 {
     public class MenuElement : QuickObject
     {
-        public string menuName
-        {
-            get
-            {
-                if (gameObject == null)
-                    return null;
-                string[] strings = gameObject.name.Split(new char[] { '_' }, 2);
-                try
-                {
-                    if (strings.Length < 2 || strings[0] != "Menu")
-                        return null;
-                }
-                catch { return null; }
-
-                return strings[1];
-            }
-        }
-
         public VerticalLayoutGroup verticalLayoutGroup
         {
             get
             {
-                return gameObject.transform.Find("ScrollRect/Viewport/VerticalLayoutGroup")?.GetComponent<VerticalLayoutGroup>();
+                return gameObject?.transform.Find("ScrollRect/Viewport/VerticalLayoutGroup")?.GetComponent<VerticalLayoutGroup>();
             }
         }
 
         public void SetText(string text)
         {
-            TextMeshProUGUI title = gameObject.transform.Find("Header_H1/LeftItemContainer/Text_Title")?.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI title = gameObject?.transform.Find("Header_H1/LeftItemContainer/Text_Title")?.GetComponent<TextMeshProUGUI>();
             if (title != null)
                 title.text = text;
         }
@@ -48,7 +30,7 @@ namespace QuickMenuElement.Elements
         public void Open()
         {
             gameObject.SetActive(true);
-            QuickMenu.Instance.MenuStateController.PushPage(menuName);
+            QuickMenu.Instance.MenuStateController.PushPage(gameObject.name);
         }
 
         public HeaderElement AddHeader(string name)
@@ -66,6 +48,7 @@ namespace QuickMenuElement.Elements
             MenuElement element = new MenuElement();
             element.gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.menuTemplate.gameObject, QuickMenuUtils.menuTemplate.parent);
             element.gameObject.name = "Menu_" + name;
+            element.gameObject.SetActive(true);
 
             Transform transform = element.gameObject.transform;
             transform.SetSiblingIndex(5);
@@ -74,10 +57,10 @@ namespace QuickMenuElement.Elements
             transform.gameObject.GetOrAddComponent<UIPage>()?.Destroy();
 
             UIPage uiPage = element.gameObject.AddComponent<UIPage>();
-            uiPage.Name = name;
+            uiPage.Name = "Menu_" + name;
             uiPage._menuStateController = QuickMenu.Instance.MenuStateController;
 
-            QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String_utf16(name), uiPage);
+            QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String_utf16("Menu_" + name), uiPage);
 
             VerticalLayoutGroup verticalLayoutGroup = element.verticalLayoutGroup;
             if (verticalLayoutGroup != null)
