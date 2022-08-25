@@ -67,7 +67,7 @@ namespace BE4v
             SDKLoader.Start();
             Patch.Core.Installer.Start();
             Mods.Core.Installer.Start();
-            NetworkSanity.NetworkSanity.Start();
+            // NetworkSanity.NetworkSanity.Start();
             SDKLoader.Finish();
             Mods.Min.ClientConsole.Start();
             Console.ForegroundColor = ConsoleColor.White;
