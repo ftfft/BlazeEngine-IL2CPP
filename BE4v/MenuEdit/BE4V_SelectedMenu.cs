@@ -7,41 +7,45 @@ using VRC;
 using VRC.UI.Elements;
 using BE4v.Patch;
 using BE4v.MenuEdit.Construct;
-using BE4v.MenuEdit.Construct.Menu;
+using QuickMenuElement.Elements;
 
 namespace BE4v.MenuEdit
 {
     public static class BE4V_SelectedMenu
     {
-        public static ElementMenu registerMenu = null;
-        public static ElementGroup elementGroup = null;
-        public static ElementButton buttonRemoveObjects = null;
+        public static MenuElement registerMenu = null;
+        public static ButtonsElement buttonsGroupAvatars = null;
 
         public static void BlazeEngine4VersionMenu()
         {
             if (registerMenu == null)
-                registerMenu = new ElementMenu(QuickMenuUtils.selectedMenuTemplate);
+            {
+                registerMenu = new MenuElement();
+                registerMenu.gameObject = QuickMenuUtils.selectedMenuTemplate.gameObject;
+            }
 
-            if (elementGroup == null)
-                elementGroup = new ElementGroup(registerMenu.verticalLayoutGroup.transform.Find("Buttons_AvatarActions").gameObject);
-
-            // ScrollRect/Viewport/VerticalLayoutGroup/Buttons_AvatarActions/Button_CloneAvatar
+            if (buttonsGroupAvatars == null)
+            {
+                buttonsGroupAvatars = new ButtonsElement();
+                buttonsGroupAvatars.gameObject = registerMenu.verticalLayoutGroup.transform.Find("Buttons_AvatarActions").gameObject;
+            }
 
             if (ForceCloneAvatar.button == null)
             {
-                ForceCloneAvatar.button = new ElementButton("ForceCloneAvatar", elementGroup, ForceCloneAvatar.OnClick);
+                ForceCloneAvatar.button = buttonsGroupAvatars.AddButton("ForceCloneAvatar", ForceCloneAvatar.OnClick);
 
-                ForceCloneAvatar.buttonOriginal = new ElementButton(elementGroup.gameObject.transform.Find("Button_CloneAvatar").gameObject);
+                ForceCloneAvatar.buttonOriginal = new QMButton();
+                ForceCloneAvatar.buttonOriginal.gameObject = buttonsGroupAvatars.gameObject.transform.Find("Button_CloneAvatar").gameObject;
                 ForceCloneAvatar.buttonOriginal.gameObject.SetActive(false);
-                
-                ForceCloneAvatar.button.SetSprite(ForceCloneAvatar.buttonOriginal.GetSprite());
+
+                ForceCloneAvatar.button._Sprite = ForceCloneAvatar.buttonOriginal._Sprite;;
             }
         }
 
         public static class ForceCloneAvatar
         {
-            public static ElementButton button = null;
-            public static ElementButton buttonOriginal = null;
+            public static QMButton button = null;
+            public static QMButton buttonOriginal = null;
 
             public static void OnClick()
             {
@@ -74,11 +78,11 @@ namespace BE4v.MenuEdit
                             buttonOriginal.gameObject.SetActive(false);
                             if (selectedPlayer.user.allowAvatarCopying)
                             {
-                                button.SetText("Clone Avatar");
+                                button._Text = "Clone Avatar";
                             }
                             else
                             {
-                                button.SetText("Force Clone Avatar");
+                                button._Text = "Force Clone Avatar";
                             }
                         }
                         else

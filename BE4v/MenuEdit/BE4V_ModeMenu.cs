@@ -5,52 +5,49 @@ using BE4v.Patch.Core;
 using BE4v.Patch.List;
 using BE4v.MenuEdit.Construct;
 using BE4v.MenuEdit.Construct.Horizontal;
-using BE4v.MenuEdit.Construct.Menu;
+using QuickMenuElement.Elements;
 
 namespace BE4v.MenuEdit
 {
     public static class BE4V_ModeMenu
     {
-        public static ElementMenu registerMenu = null;
+        public static MenuElement registerMenu = null;
 
         public static void BlazeEngine4VersionMenu()
         {
-            registerMenu = new ElementMenu("BlazeEngine4Version");
+            registerMenu = MenuElement.Create("BlazeEngine4Version");
             
             new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }).SetSprite(LoadSprites.be4vLogo);
 
-            ElementGroup elementGroup = new ElementGroup("Networking Tools", registerMenu);
+            ButtonsElement butttonsGroup = registerMenu.AddButtonsGroup("Networking Tools");
             // InvisAPI.button = new ElementButton("Invis API", elementGroup, InvisAPI.OnClick);
             // InvisAPI.Refresh();
-            RPCBlock.button = new ElementButton("RPC Block", elementGroup, RPCBlock.OnClick);
-            RPCBlock.Refresh();
-            FakePing.button = new ElementButton("Fake Ping", elementGroup, FakePing.OnClick);
+            //RPCBlock.button = butttonsGroup.AddButton("RPC Block", RPCBlock.OnClick);
+            //RPCBlock.Refresh();
+            FakePing.button = butttonsGroup.AddButton("Fake Ping", FakePing.OnClick);
             FakePing.Refresh();
-            DeathMap.button = new ElementButton("Death Map", elementGroup, DeathMap.OnClick);
-            DeathMap.Refresh();
-
-            elementGroup = new ElementGroup("Other tools", registerMenu);
-            AutoClearRAM.button = new ElementButton("AutoClear RAM", elementGroup, delegate () { AutoClearRAM.OnClick(); });
+            AutoClearRAM.button = butttonsGroup.AddButton("AutoClear RAM", AutoClearRAM.OnClick);
             AutoClearRAM.Refresh();
-            InfinityJump.button = new ElementButton("Infinity Jump", elementGroup, delegate () { InfinityJump.OnClick(); });
-            InfinityJump.Refresh();
-            BunnyHop.button = new ElementButton("BunnyHop", elementGroup, delegate () { BunnyHop.OnClick(); });
-            BunnyHop.Refresh();
+            SendAvatarData.button = butttonsGroup.AddButton("Send Avatars Data", SendAvatarData.OnClick);
+            SendAvatarData.Refresh();
+            //DeathMap.button = butttonsGroup.AddButton("Death Map", DeathMap.OnClick);
+            //DeathMap.Refresh();
+
+            //InfinityJump.button = new ElementButton("Infinity Jump", elementGroup, delegate () { InfinityJump.OnClick(); });
+            //InfinityJump.Refresh();
+            //BunnyHop.button = new ElementButton("BunnyHop", elementGroup, delegate () { BunnyHop.OnClick(); });
+            //BunnyHop.Refresh();
             // GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
             // GlobalUdonEvent.Refresh();
 
-            elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
-            ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);
-            ConsoleLog.Refresh();
-            SendAvatarData.button = new ElementButton("Send Avatars Data", elementGroup, SendAvatarData.OnClick);
-            SendAvatarData.Refresh();
-            new ElementButton("Toggle Fly Type", elementGroup, delegate () { FlyHack.ToggleType(); });
-            new ElementButton("Toggle Fly Type 2", elementGroup, delegate () { FlyHack.ToggleType(); });
+            // elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
+            // ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);
+            // ConsoleLog.Refresh();
         }
 
         public static class RPCBlock
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -64,11 +61,11 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isRPCBlock)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }
@@ -76,7 +73,7 @@ namespace BE4v.MenuEdit
 
         public static class InvisAPI
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -88,7 +85,7 @@ namespace BE4v.MenuEdit
                 if (Status.isInvisAPI)
                 {
                     if (button != null)
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
 
                     if (Patch.List.InvisAPI.patch?.Enabled == false)
                         Patch.List.InvisAPI.patch.Enabled = true;
@@ -96,7 +93,7 @@ namespace BE4v.MenuEdit
                 else
                 {
                     if (button != null)
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
 
                     if (Patch.List.InvisAPI.patch?.Enabled == true)
                         Patch.List.InvisAPI.patch.Enabled = false;
@@ -106,7 +103,7 @@ namespace BE4v.MenuEdit
 
         public static class FakePing
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -119,14 +116,14 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isFakePing)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
 
                         if (Patch.List.FakePing.patch?.Enabled == false)
                             Patch.List.FakePing.patch.Enabled = true;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
 
                         if (Patch.List.FakePing.patch?.Enabled == true)
                             Patch.List.FakePing.patch.Enabled = false;
@@ -137,7 +134,7 @@ namespace BE4v.MenuEdit
 
         public static class DeathMap
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static bool isEnabled = false;
 
@@ -153,11 +150,11 @@ namespace BE4v.MenuEdit
                 {
                     if (isEnabled)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }
@@ -165,7 +162,7 @@ namespace BE4v.MenuEdit
         
         public static class AutoClearRAM
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -179,11 +176,11 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isAutoClear)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }
@@ -191,7 +188,7 @@ namespace BE4v.MenuEdit
         
         public static class InfinityJump
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -205,11 +202,11 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isInfinityJump)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }
@@ -218,7 +215,7 @@ namespace BE4v.MenuEdit
         
         public static class BunnyHop
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -232,11 +229,11 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isBHop)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }
@@ -244,7 +241,7 @@ namespace BE4v.MenuEdit
         
         public static class GlobalUdonEvent
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -258,7 +255,7 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isGlobalUdonEvent)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
 
                         foreach (var patch in GlobalUdonEvents.patch)
                         {
@@ -268,7 +265,7 @@ namespace BE4v.MenuEdit
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
 
                         foreach(var patch in GlobalUdonEvents.patch)
                         {
@@ -282,7 +279,7 @@ namespace BE4v.MenuEdit
 
         public static class ConsoleLog
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -296,12 +293,12 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isLog)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
 
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }
@@ -309,7 +306,7 @@ namespace BE4v.MenuEdit
 
         public static class SendAvatarData
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -323,12 +320,12 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.SendAvatarData)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
 
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
             }

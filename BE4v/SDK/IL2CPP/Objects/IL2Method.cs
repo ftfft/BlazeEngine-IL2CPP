@@ -67,6 +67,15 @@ namespace IL2CPP_Core.Objects
 
         public bool HasFlag(IL2BindingFlags flag) => ((Flags & flag) != 0);
 
+        public IL2Method ToVirtual(IL2Object obj = null)
+        {
+            IntPtr result = Import.Method.il2cpp_object_get_virtual_method(obj == null ? IntPtr.Zero : obj.Pointer, Pointer);
+            if (result == IntPtr.Zero)
+                return null;
+
+            return new IL2Method(result);
+        }
+
         public IL2Object Invoke() => Invoke(IntPtr.Zero, new IntPtr[] { IntPtr.Zero });
         public IL2Object Invoke(IL2Object obj, bool ex = true) => Invoke(obj.Pointer, new IntPtr[] { IntPtr.Zero }, ex: ex);
         public IL2Object Invoke(IntPtr obj, bool ex = true) => Invoke(obj, new IntPtr[] { IntPtr.Zero }, ex: ex);

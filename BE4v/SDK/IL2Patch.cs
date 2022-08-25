@@ -13,10 +13,7 @@ namespace BE4v.SDK
         {
             Pointer = newMethod.Method.MethodHandle.GetFunctionPointer();
             TargetMethod = targetMethod;
-            if (ClientDebug.IsEnableDebug())
-                MinHook.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer, Pointer, out OriginalMethod);
-            else
-                MinHook.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
+            MinHook.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer, Pointer, out OriginalMethod);
             Enabled = true;
             
             // Import.Patch.VRC_CreateHook(*(IntPtr*)targetMethod.Pointer.ToPointer(), Pointer, out OriginalMethod);
@@ -43,9 +40,9 @@ namespace BE4v.SDK
             set
             {
                 if (isEnabled = value)
-                    MinHook.VRC_EnableHook(*(IntPtr*)TargetMethod.Pointer.ToPointer());
+                    MinHook.VRC_EnableHook(*(IntPtr*)TargetMethod.Pointer);
                 else
-                    MinHook.VRC_DisableHook(*(IntPtr*)TargetMethod.Pointer.ToPointer());
+                    MinHook.VRC_DisableHook(*(IntPtr*)TargetMethod.Pointer);
             }
         }
 

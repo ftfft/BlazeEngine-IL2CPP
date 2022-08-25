@@ -1,4 +1,5 @@
 ﻿using BE4v.Mods;
+using BE4v.Mods.Min;
 using BE4v.SDK.IL2Dumper;
 using System;
 using System.Net;
@@ -7,29 +8,49 @@ using VRC;
 using VRC.UI.Elements;
 using BE4v.Patch;
 using BE4v.MenuEdit.Construct;
-using BE4v.MenuEdit.Construct.Menu;
+using QuickMenuElement.Elements;
 
 namespace BE4v.MenuEdit
 {
     public static class BE4V_MainMenu
     {
-        public static ElementMenu registerMenu = null;
-        public static ElementGroup elementGroup = null;
-        public static ElementButton buttonRemoveObjects = null;
-
+        public static MenuElement registerMenu = null;
+        public static ButtonsElement buttonsGroup = null;
         public static void BlazeEngine4VersionMenu()
         {
             if (registerMenu == null)
-                registerMenu = new ElementMenu(QuickMenuUtils.menuTemplate);
+            {
+                registerMenu = new MenuElement();
+                registerMenu.gameObject = QuickMenuUtils.menuTemplate.gameObject;
+            }
 
-            if (elementGroup == null)
-                elementGroup = new ElementGroup("Toggle's BE4v", registerMenu);
+            if (buttonsGroup == null)
+            {
+                registerMenu.AddHeader("Toggle's BE4v");
+                buttonsGroup = registerMenu.AddButtonsGroup("Toggle's BE4v");
+            }
 
             if (GlowESP.button == null)
             {
-                GlowESP.button = new ElementButton("Toggle ESP", elementGroup, GlowESP.OnClick);
+                GlowESP.button = buttonsGroup.AddButton("Toggle ESP", GlowESP.OnClick);
                 GlowESP.Refresh();
             }
+            if (GlowESP.button == null)
+            {
+                GlowESP.button = buttonsGroup.AddButton("Fly Mode", GlowESP.OnClick);
+                GlowESP.Refresh();
+            }
+            if (GlowESP.button == null)
+            {
+                GlowESP.button = buttonsGroup.AddButton("Fly Type", GlowESP.OnClick);
+                GlowESP.Refresh();
+            }
+            if (GlowESP.button == null)
+            {
+                GlowESP.button = buttonsGroup.AddButton("SpeedHack", GlowESP.OnClick);
+                GlowESP.Refresh();
+            }
+            /*
             if (Serilize.button == null)
             {
                 Serilize.button = new ElementButton("Serilize", elementGroup, Serilize.OnClick);
@@ -40,11 +61,12 @@ namespace BE4v.MenuEdit
                 buttonRemoveObjects = new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects);
                 buttonRemoveObjects.SetSprite(LoadSprites.trashIco);
             }
+            */
         }
 
         public static class GlowESP
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -58,11 +80,11 @@ namespace BE4v.MenuEdit
                 {
                     if (Status.isGlowESP)
                     {
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite = LoadSprites.onButton;
                     }
                     else
                     {
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                     }
                 }
 
@@ -81,7 +103,7 @@ namespace BE4v.MenuEdit
 
         public static class Serilize
         {
-            public static ElementButton button = null;
+            public static QMButton button = null;
 
             public static void OnClick()
             {
@@ -93,12 +115,12 @@ namespace BE4v.MenuEdit
                 if (Status.isSerilize)
                 {
                     if (button != null)
-                        button.SetSprite(LoadSprites.onButton);
+                        button._Sprite  = LoadSprites.onButton;
                 }
                 else
                 {
                     if (button != null)
-                        button.SetSprite(LoadSprites.offButton);
+                        button._Sprite = LoadSprites.offButton;
                 }
             }
         }

@@ -24,6 +24,7 @@ namespace BE4v.Mods
                 UnityEngine.Object.DontDestroyOnLoad(gameObject);
 
                 MenuEdit.Core.Install();
+
             }
             if (--NetworkSanity.Sanitizers.OwnershipTransfer.fps < 0)
             {
