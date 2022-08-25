@@ -36,8 +36,8 @@ namespace BE4v.MenuEdit
             InfinityJump.Refresh();
             BunnyHop.button = new ElementButton("BunnyHop", elementGroup, delegate () { BunnyHop.OnClick(); });
             BunnyHop.Refresh();
-            GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
-            GlobalUdonEvent.Refresh();
+            // GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
+            // GlobalUdonEvent.Refresh();
 
             elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
             ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);

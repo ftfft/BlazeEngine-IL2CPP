@@ -52,7 +52,6 @@ namespace BE4v.MenuEdit
             ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
             ClickClass_FlyHack.OnClick_FlyType_Refresh();
             ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
-            ClickClass_NoPortalJoin.OnClick_NoPortalJoin_Refresh();
         }
     }
 
@@ -81,31 +80,6 @@ namespace BE4v.MenuEdit
         }
     }
     
-    public static class ClickClass_NoPortalJoin
-    {
-        public static void OnClick_NoPortalJoin()
-        {
-            NoPortalJoin.Toggle();
-        }
-
-        public static void OnClick_NoPortalJoin_Refresh()
-        {
-            // BE4V_QuickUIMenu.toggler["NoPortalJoin"].SetToggleToOn(Status.isNoPortalJoin);
-            if (Status.isNoPortalJoin)
-            {
-                // BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("on");
-                if (NoPortalJoin.patch?.Enabled == false)
-                    NoPortalJoin.patch.Enabled = true;
-            }
-            else
-            {
-                // BE4V_QuickUIMenu.toggler["NoPortalJoin"].setOffText("off");
-                if (NoPortalJoin.patch?.Enabled == true)
-                    NoPortalJoin.patch.Enabled = false;
-            }
-        }
-    }
-
     public static class ClickClass_SpeedHack
     {
         public static void OnClick_SHButtonPlus()

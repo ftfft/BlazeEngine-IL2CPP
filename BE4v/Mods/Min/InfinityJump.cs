@@ -4,7 +4,7 @@ using BE4v.Mods.Core;
 
 namespace BE4v.Mods.Min
 {
-    public class InfinityJump : IUpdate
+    public class InfinityJump // : IUpdate
     {
         private static float fPressedLast = 0f;
         public void Update()

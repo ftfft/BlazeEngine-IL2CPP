@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace BE4v.Patch.List
 {
-    public class Serilize : IPatch
+    public class Serilize // : IPatch
     {
         public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions);
         public static void Toggle()
@@ -20,11 +20,14 @@ namespace BE4v.Patch.List
 
         public void Start()
         {
-            IL2Method method = IL2Photon.Realtime.LoadBalancingClient.Instance_Class.GetMethod("OpRaiseEvent");
-            if (method == null)
-                throw new NullReferenceException();
+            if (ClientDebug.IsEnableDebug())
+            {
+                IL2Method method = IL2Photon.Realtime.LoadBalancingClient.Instance_Class.GetMethod("OpRaiseEvent");
+                if (method == null)
+                    throw new NullReferenceException();
 
-            __OpRaiseEvent = PatchUtils.FastPatch<_OpRaiseEvent>(method, OpRaiseEvent);
+                __OpRaiseEvent = PatchUtils.FastPatch<_OpRaiseEvent>(method, OpRaiseEvent);
+            }
         }
 
 
@@ -82,6 +85,7 @@ namespace BE4v.Patch.List
             {
                 if (operationCode != 1
                 && operationCode != 6
+                && operationCode != 66
                 && operationCode != EventCode.Join
                 && operationCode != EventCode.Leave
                 )
@@ -130,7 +134,26 @@ namespace BE4v.Patch.List
             {
                 return __OpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions);
             }
-            catch { return false; }
+            catch(Exception ex) {
+                Console.WriteLine(ex);
+                ("Instance == " + instance).RedPrefix("Debug");
+                ("operationCode == " + operationCode).RedPrefix("Debug");
+                ("operationParameters == " + operationParameters).RedPrefix("Debug");
+
+                if (operationParameters != IntPtr.Zero)
+                {
+                    byte[] array = null;
+                    array = new IL2Array<byte>(operationParameters).GetAsByteArray();
+                    ("array[] len: == " + array).RedPrefix("Debug");
+                }
+                ("raiseEventOptions == " + raiseEventOptions).RedPrefix("Debug");
+                ("sendOptions[]").RedPrefix("Debug");
+                ("- Channel" + sendOptions.Channel).RedPrefix("Debug");
+                ("- DeliveryMode" + sendOptions.DeliveryMode).RedPrefix("Debug");
+                ("- Encrypt" + sendOptions.Encrypt).RedPrefix("Debug");
+                
+                return false;
+            }
         }
 
         public static _OpRaiseEvent __OpRaiseEvent;

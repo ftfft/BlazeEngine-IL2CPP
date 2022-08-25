@@ -66,7 +66,6 @@ namespace BE4v
         {
             SDKLoader.Start();
             Patch.Core.Installer.Start();
-            Patch.Patch_AntiCrash.Start();
             Mods.Core.Installer.Start();
             NetworkSanity.NetworkSanity.Start();
             SDKLoader.Finish();

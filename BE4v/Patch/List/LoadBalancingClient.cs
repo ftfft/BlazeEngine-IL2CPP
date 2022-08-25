@@ -4,7 +4,7 @@ using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
 {
-    public class LoadBalancingClient : IPatch
+    public class LoadBalancingClient // : IPatch
     {
         public delegate void _LoadBalancingClient_OnEvent(IntPtr instance, IntPtr pEventData);
         public void Start()

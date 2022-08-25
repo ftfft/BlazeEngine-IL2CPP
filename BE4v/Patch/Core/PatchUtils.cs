@@ -11,5 +11,10 @@ namespace BE4v.Patch.Core
             IL2Patch patch = new IL2Patch(method, newMethod);
             return patch.CreateDelegate<T>();
         }
+        public static T FastPatch<T>(IntPtr method, T newMethod) where T : Delegate
+        {
+            IL2Patch patch = new IL2Patch(method, newMethod);
+            return patch.CreateDelegate<T>();
+        }
     }
 }

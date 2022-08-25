@@ -4,7 +4,7 @@ using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
 {
-    public class PhotonNetwork : IPatch
+    public class PhotonNetwork //: IPatch
     {
         public delegate void _PhotonNetwork_OnEvent(IntPtr pEventData);
         public void Start()

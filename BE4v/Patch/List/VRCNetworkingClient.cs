@@ -4,7 +4,7 @@ using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
 {
-    public class VRCNetworkingClient : IPatch
+    public class VRCNetworkingClient // : IPatch
     {
         public delegate void _VRCNetworkingClient_OnEvent(IntPtr instance, IntPtr pEventData);
         public void Start()
