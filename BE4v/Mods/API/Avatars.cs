@@ -63,7 +63,7 @@ namespace BE4v.Mods.API
                 AvatarSearch = Core.Request("api/license/avatar/search", collection).Split(',').ToList();
                 ($"Loaded {AvatarSearch.Count} avatars").RedPrefix("Debug");
             }
-            catch { "Failed! Search avatar from API.".RedPrefix("Be4v API"); }
+            catch (Exception ex){  "Failed! Search avatar from API.".RedPrefix("Be4v API"); Console.WriteLine(ex); }
         }
 
         public static void SendAvatarData(string avatarId, string avatarName)

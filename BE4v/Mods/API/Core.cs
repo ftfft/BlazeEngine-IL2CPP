@@ -21,8 +21,11 @@ namespace BE4v.Mods.API
                 byte[] bytes = webClient.UploadValues(url, collection);
                 result = Encoding.UTF8.GetString(bytes);
             }
-            if (result[0] == '\n')
-                result.Remove(0, 1);
+            if (!string.IsNullOrEmpty(result))
+            {
+                if (result[0] == '\n')
+                    result.Remove(0, 1);
+            }
             return result;
         }
 

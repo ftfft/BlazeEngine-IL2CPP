@@ -12,7 +12,7 @@ using BE4v.Patch.Core;
 
 namespace BE4v.Patch.List
 {
-    public class DisableAnalytics // : IPatch
+    public class DisableAnalytics //: IPatch
     {
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);

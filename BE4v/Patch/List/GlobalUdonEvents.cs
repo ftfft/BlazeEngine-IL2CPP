@@ -9,7 +9,7 @@ using VRC.SDKBase;
 
 namespace BE4v.Patch.List
 {
-    public class GlobalUdonEvents : IPatch
+    public class GlobalUdonEvents // : IPatch
     {
         public delegate void _SendCustomEvent(IntPtr instance, IntPtr eventName);
         public delegate void _UdonSyncRunProgramAsRPC(IntPtr eventName, IntPtr instigator);
