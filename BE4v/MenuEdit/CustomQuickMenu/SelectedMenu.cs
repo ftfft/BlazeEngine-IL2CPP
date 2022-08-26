@@ -9,9 +9,9 @@ using BE4v.Patch;
 using BE4v.MenuEdit.Construct;
 using QuickMenuElement.Elements;
 
-namespace BE4v.MenuEdit
+namespace CustomQuickMenu.Menus
 {
-    public static class BE4V_SelectedMenu
+    public static class SelectedMenu
     {
         public static MenuElement registerMenu = null;
         public static ButtonsElement buttonsGroupAvatars = null;
@@ -56,7 +56,7 @@ namespace BE4v.MenuEdit
                     var avatar = selectedPlayer?.Components?.AvatarModel;
                     if (avatar != null)
                     {
-                        Utils.Avatars.ChangeAvatar(avatar);
+                        BE4v.Utils.Avatars.ChangeAvatar(avatar);
                     }
                 }
             }

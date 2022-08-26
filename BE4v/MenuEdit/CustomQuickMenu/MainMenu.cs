@@ -10,9 +10,9 @@ using BE4v.Patch;
 using BE4v.MenuEdit.Construct;
 using QuickMenuElement.Elements;
 
-namespace BE4v.MenuEdit
+namespace CustomQuickMenu.Menus
 {
-    public static class BE4V_MainMenu
+    public static class MainMenu
     {
         public static MenuElement registerMenu = null;
         public static ButtonsElement buttonsGroup = null;
@@ -95,7 +95,7 @@ namespace BE4v.MenuEdit
                     foreach (var player in NetworkSanity.NetworkSanity.players)
                     {
                         if (player == localPlayer) continue;
-                        Patch.List.OnPlayerReady.ESPUpdate(player);
+                        BE4v.Patch.List.OnPlayerReady.ESPUpdate(player);
                     }
                 }
             }
@@ -107,7 +107,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Patch.List.Serilize.Toggle();
+                BE4v.Patch.List.Serilize.Toggle();
             }
 
             public static void Refresh()

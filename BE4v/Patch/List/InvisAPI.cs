@@ -13,7 +13,7 @@ namespace BE4v.Patch.List
         public static void Toggle()
         {
             Status.isInvisAPI = !Status.isInvisAPI;
-            BE4V_ModeMenu.InvisAPI.Refresh();
+            CustomQuickMenu.Menus.BE4VMenu.InvisAPI.Refresh();
         }
 
         public void Start()

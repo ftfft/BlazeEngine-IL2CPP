@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using VRC.UI.Elements;
 using BE4v.MenuEdit.Construct;
+using CustomQuickMenu.Menus;
 
 namespace BE4v.MenuEdit
 {
@@ -15,9 +16,9 @@ namespace BE4v.MenuEdit
         public static void Install()
         {
             Delete();
-            BE4V_MainMenu.BlazeEngine4VersionMenu();
-            BE4V_SelectedMenu.BlazeEngine4VersionMenu();
-            BE4V_ModeMenu.BlazeEngine4VersionMenu();
+            MainMenu.BlazeEngine4VersionMenu();
+            SelectedMenu.BlazeEngine4VersionMenu();
+            BE4VMenu.BlazeEngine4VersionMenu();
 
             // QuickMenu.Instance.MenuStateController.PushPage("Page_BlazeEngine4Version");
         }

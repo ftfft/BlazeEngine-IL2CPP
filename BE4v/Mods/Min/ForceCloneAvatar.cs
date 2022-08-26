@@ -8,7 +8,7 @@ namespace BE4v.Mods.Min
     {
         public void Update()
         {
-            MenuEdit.BE4V_SelectedMenu.ForceCloneAvatar.Update();
+            CustomQuickMenu.Menus.SelectedMenu.ForceCloneAvatar.Update();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace BE4v.Patch.List
         public static void Toggle()
         {
             Status.isFakePing = !Status.isFakePing;
-            BE4V_ModeMenu.FakePing.Refresh();
+            CustomQuickMenu.Menus.BE4VMenu.FakePing.Refresh();
         }
 
         public void Start()

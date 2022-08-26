@@ -7,9 +7,9 @@ using BE4v.MenuEdit.Construct;
 using BE4v.MenuEdit.Construct.Horizontal;
 using QuickMenuElement.Elements;
 
-namespace BE4v.MenuEdit
+namespace CustomQuickMenu.Menus
 {
-    public static class BE4V_ModeMenu
+    public static class BE4VMenu
     {
         public static MenuElement registerMenu = null;
 
@@ -78,7 +78,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Patch.List.InvisAPI.Toggle();
+                BE4v.Patch.List.InvisAPI.Toggle();
             }
 
             public static void Refresh()
@@ -88,16 +88,16 @@ namespace BE4v.MenuEdit
                     if (button != null)
                         button._Sprite = LoadSprites.onButton;
 
-                    if (Patch.List.InvisAPI.patch?.Enabled == false)
-                        Patch.List.InvisAPI.patch.Enabled = true;
+                    if (BE4v.Patch.List.InvisAPI.patch?.Enabled == false)
+                        BE4v.Patch.List.InvisAPI.patch.Enabled = true;
                 }
                 else
                 {
                     if (button != null)
                         button._Sprite = LoadSprites.offButton;
 
-                    if (Patch.List.InvisAPI.patch?.Enabled == true)
-                        Patch.List.InvisAPI.patch.Enabled = false;
+                    if (BE4v.Patch.List.InvisAPI.patch?.Enabled == true)
+                        BE4v.Patch.List.InvisAPI.patch.Enabled = false;
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace BE4v.MenuEdit
 
             public static void OnClick()
             {
-                Patch.List.FakePing.Toggle();
+                BE4v.Patch.List.FakePing.Toggle();
             }
 
             public static void Refresh()
@@ -119,15 +119,15 @@ namespace BE4v.MenuEdit
                     {
                         button._Sprite = LoadSprites.onButton;
 
-                        if (Patch.List.FakePing.patch?.Enabled == false)
-                            Patch.List.FakePing.patch.Enabled = true;
+                        if (BE4v.Patch.List.FakePing.patch?.Enabled == false)
+                            BE4v.Patch.List.FakePing.patch.Enabled = true;
                     }
                     else
                     {
                         button._Sprite = LoadSprites.offButton;
 
-                        if (Patch.List.FakePing.patch?.Enabled == true)
-                            Patch.List.FakePing.patch.Enabled = false;
+                        if (BE4v.Patch.List.FakePing.patch?.Enabled == true)
+                            BE4v.Patch.List.FakePing.patch.Enabled = false;
                     }
                 }
             }
