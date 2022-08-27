@@ -40,6 +40,7 @@ namespace BE4v.Patch.List
             {
                 patch = new IL2Patch(method, (_NetworkPing)methodNetworkPing);
                 _RealPing = patch.CreateDelegate<_NetworkPing>();
+                patch.Enabled = false;
             }
             else
                 throw new NullReferenceException();

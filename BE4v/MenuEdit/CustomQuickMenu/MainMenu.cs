@@ -37,12 +37,7 @@ namespace CustomQuickMenu.Menus
             }
             if (GlowESP.button == null)
             {
-                GlowESP.button = buttonsGroup.AddButton("Fly Mode", GlowESP.OnClick);
-                GlowESP.Refresh();
-            }
-            if (GlowESP.button == null)
-            {
-                GlowESP.button = buttonsGroup.AddButton("Fly Type", GlowESP.OnClick);
+                GlowESP.button = buttonsGroup.AddButton("Fly mode", GlowESP.OnClick);
                 GlowESP.Refresh();
             }
             if (GlowESP.button == null)
@@ -50,12 +45,12 @@ namespace CustomQuickMenu.Menus
                 GlowESP.button = buttonsGroup.AddButton("SpeedHack", GlowESP.OnClick);
                 GlowESP.Refresh();
             }
-            /*
             if (Serilize.button == null)
             {
-                Serilize.button = new ElementButton("Serilize", elementGroup, Serilize.OnClick);
+                Serilize.button = buttonsGroup.AddButton("Serilize\n<color=red>experimental</color>", Serilize.OnClick);
                 Serilize.Refresh();
             }
+            /*
             if (buttonRemoveObjects == null)
             {
                 buttonRemoveObjects = new ElementButton("Remove Objects", elementGroup, UserUtils.RemoveInstiatorObjects);
@@ -116,11 +111,17 @@ namespace CustomQuickMenu.Menus
                 {
                     if (button != null)
                         button._Sprite  = LoadSprites.onButton;
+
+                    if (BE4v.Patch.List.Serilize.patch != null)
+                        BE4v.Patch.List.Serilize.patch.Enabled = true;
                 }
                 else
                 {
                     if (button != null)
                         button._Sprite = LoadSprites.offButton;
+
+                    if (BE4v.Patch.List.Serilize.patch != null)
+                        BE4v.Patch.List.Serilize.patch.Enabled = false;
                 }
             }
         }

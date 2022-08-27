@@ -8,7 +8,7 @@ namespace BE4v.Patch.List
 {
     // Thx: BlaBlaName#3854
     // Source: https://github.com/Mopo3eX/EasyFix/
-    public class SyncPhisycsFix : IPatch
+    public class SyncPhisycsFix // : IPatch
     {
         public delegate void _ApplyEvent(IntPtr instance, IntPtr target, float _float, bool _bool);
 

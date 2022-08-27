@@ -34,6 +34,7 @@ namespace BE4v.Mods
             timestamp = UnixTimeNow();
             if (Input.GetKeyDown(KeyCode.I))
             {
+                if (!Threads.isCtrl) return;
                 float volume = USpeaker.LocalGain;
                 if (volume <= 1f)
                 {

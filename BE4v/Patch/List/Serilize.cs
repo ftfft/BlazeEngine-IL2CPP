@@ -5,11 +5,12 @@ using IL2ExitGames.Client.Photon;
 using BE4v.Mods;
 using BE4v.MenuEdit;
 using BE4v.Patch.Core;
+using BE4v.SDK;
 using UnityEngine;
 
 namespace BE4v.Patch.List
 {
-    public class Serilize // : IPatch
+    public class Serilize : IPatch
     {
         public delegate bool _OpRaiseEvent(IntPtr instance, byte operationCode, IntPtr operationParameters, IntPtr raiseEventOptions, SendOptions sendOptions, IntPtr method);
         public static void Toggle()
@@ -20,14 +21,14 @@ namespace BE4v.Patch.List
 
         public void Start()
         {
-            if (ClientDebug.IsEnableDebug())
-            {
-                IL2Method method = IL2Photon.Realtime.LoadBalancingClient.Instance_Class.GetMethod("OpRaiseEvent");
-                if (method == null)
-                    throw new NullReferenceException();
+            IL2Method method = IL2Photon.Realtime.LoadBalancingClient.Instance_Class.GetMethod("OpRaiseEvent");
+            if (method == null)
+                throw new NullReferenceException();
 
-                __OpRaiseEvent = PatchUtils.FastPatch<_OpRaiseEvent>(method, OpRaiseEvent);
-            }
+
+            patch = new IL2Patch(method, (_OpRaiseEvent)OpRaiseEvent);
+            __OpRaiseEvent = patch.CreateDelegate<_OpRaiseEvent>();
+            patch.Enabled = false;
         }
 
 
@@ -42,13 +43,10 @@ namespace BE4v.Patch.List
                 }
                 $"Event Code: {operationCode} by len: {(array?.Length??-1)} |".RedPrefix("Logger");
             }
-            /*
-
             if (Status.isSerilize)
             {
                 if (operationCode != 1
                 && operationCode != 6
-                && operationCode != 66
                 && operationCode != EventCode.Join
                 && operationCode != EventCode.Leave
                 )
@@ -93,48 +91,17 @@ namespace BE4v.Patch.List
                 }
             }
             */
-            ("Instance == " + instance).RedPrefix("Debug");
-            ("Instance == " + method).RedPrefix("Debug");
-            ("operationCode == " + operationCode).RedPrefix("Debug");
-            ("operationParameters == " + operationParameters).RedPrefix("Debug");
-
-            if (operationParameters != IntPtr.Zero)
-            {
-                byte[] array = null;
-                array = new IL2Array<byte>(operationParameters).GetAsByteArray();
-                ("array[] len: == " + array).RedPrefix("Debug");
-            }
-                ("raiseEventOptions == " + raiseEventOptions).RedPrefix("Debug");
-            ("sendOptions[]").RedPrefix("Debug");
-            ("- Channel" + sendOptions.Channel).RedPrefix("Debug");
-            ("- DeliveryMode" + sendOptions.DeliveryMode).RedPrefix("Debug");
-            ("- Encrypt" + sendOptions.Encrypt).RedPrefix("Debug");
-
             try
             {
                 return __OpRaiseEvent(instance, operationCode, operationParameters, raiseEventOptions, sendOptions, method);
             }
             catch(Exception ex) {
                 Console.WriteLine(ex);
-                ("Instance == " + instance).RedPrefix("Debug");
-                ("operationCode == " + operationCode).RedPrefix("Debug");
-                ("operationParameters == " + operationParameters).RedPrefix("Debug");
-
-                if (operationParameters != IntPtr.Zero)
-                {
-                    byte[] array = null;
-                    array = new IL2Array<byte>(operationParameters).GetAsByteArray();
-                    ("array[] len: == " + array).RedPrefix("Debug");
-                }
-                ("raiseEventOptions == " + raiseEventOptions).RedPrefix("Debug");
-                ("sendOptions[]").RedPrefix("Debug");
-                ("- Channel" + sendOptions.Channel).RedPrefix("Debug");
-                ("- DeliveryMode" + sendOptions.DeliveryMode).RedPrefix("Debug");
-                ("- Encrypt" + sendOptions.Encrypt).RedPrefix("Debug");
-                
                 return false;
             }
         }
+
+        public static IL2Patch patch;
 
         public static _OpRaiseEvent __OpRaiseEvent;
     }

@@ -114,6 +114,11 @@
     <Compile Include="Patch\List\AvatarController.cs" />
     <Compile Include="Patch\List\AvatarData.cs" />
     <Compile Include="Patch\List\DisableAnalytics.cs" />
+    <Compile Include="Patch\List\NoAnalytics_Interface.cs" />
+    <Compile Include="Patch\List\NoAnalytics_LogEvent.cs" />
+    <Compile Include="Patch\List\NoAnalytics_Send.cs" />
+    <Compile Include="Patch\List\NoAnalytics_SendGen.cs" />
+    <Compile Include="Patch\List\NoAnalytics_Unity.cs" />
     <Compile Include="Patch\List\SyncPhisycsFix.cs" />
     <Compile Include="Patch\List\OnMasterClientSwitched.cs" />
     <Compile Include="Patch\List\PhotonNetwork.cs" />
