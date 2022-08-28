@@ -44,7 +44,7 @@ namespace BE4v.Patch.List
                     player.IsBlocked = false;
                     player.IsBlockedBy = false;
                 }
-                ESPUpdate(player);
+                ESPUtils.ESP_ForPlayer(player);
             }
         }
 
@@ -56,35 +56,6 @@ namespace BE4v.Patch.List
             Threads.UpdatePlayers();
         }
 
-
-        public static void ESPUpdate(VRC.Player player)
-        {
-            if (player == VRC.Player.Instance) return;
-            Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
-
-            if (renderer != null)
-            {
-                APIUser user = player.user;
-                if (user == null)
-                    return;
-
-                HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, false);
-                HighlightUtils.GetLight(Color.red).EnableOutline(renderer, false);
-                HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, false);
-                // if (blocked[player.ptr] || blockedBy[player.ptr])
-               // {
-                //    HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, Status.isGlowESP);
-                //}
-                if (APIUser.IsFriendsWith(user.id))
-                {
-                    HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, Status.isGlowESP);
-                }
-                else
-                {
-                    HighlightUtils.GetLight(Color.red).EnableOutline(renderer, Status.isGlowESP);
-                }
-            }
-        }
 
         public static Dictionary<IntPtr, bool> blocked = new Dictionary<IntPtr, bool>();
         public static Dictionary<IntPtr, bool> blockedBy = new Dictionary<IntPtr, bool>();

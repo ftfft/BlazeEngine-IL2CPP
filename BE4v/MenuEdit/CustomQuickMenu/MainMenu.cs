@@ -9,6 +9,7 @@ using VRC.UI.Elements;
 using BE4v.Patch;
 using BE4v.MenuEdit.Construct;
 using QuickMenuElement.Elements;
+using BE4v.Utils;
 
 namespace CustomQuickMenu.Menus
 {
@@ -90,7 +91,7 @@ namespace CustomQuickMenu.Menus
                     foreach (var player in NetworkSanity.NetworkSanity.players)
                     {
                         if (player == localPlayer) continue;
-                        BE4v.Patch.List.OnPlayerReady.ESPUpdate(player);
+                        ESPUtils.ESP_ForPlayer(player);
                     }
                 }
             }

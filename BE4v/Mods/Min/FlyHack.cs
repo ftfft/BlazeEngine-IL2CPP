@@ -4,6 +4,7 @@ using VRC;
 using VRC.Animation;
 using BE4v.MenuEdit;
 using BE4v.Mods.Core;
+using CustomQuickMenu.Menus;
 
 namespace BE4v.Mods.Min
 {
@@ -12,7 +13,8 @@ namespace BE4v.Mods.Min
         public static void ToggleType()
         {
             Status.isFlyType = !Status.isFlyType;
-            ClickClass_FlyHack.OnClick_FlyType_Refresh();
+            BE4VMenu.FlyType.Refresh();
+            // ClickClass_FlyHack.OnClick_FlyType_Refresh();
         }
         
         public static void Toggle()

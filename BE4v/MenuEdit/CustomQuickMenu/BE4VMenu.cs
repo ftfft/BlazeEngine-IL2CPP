@@ -34,6 +34,10 @@ namespace CustomQuickMenu.Menus
             //DeathMap.button = butttonsGroup.AddButton("Death Map", DeathMap.OnClick);
             //DeathMap.Refresh();
 
+            registerMenu.AddHeader("Movement Tools");
+            butttonsGroup = registerMenu.AddButtonsGroup("Movement Tools");
+            FlyType.button = butttonsGroup.AddButton("Fly Type", FlyType.OnClick);
+            FlyType.Refresh();
             //InfinityJump.button = new ElementButton("Infinity Jump", elementGroup, delegate () { InfinityJump.OnClick(); });
             //InfinityJump.Refresh();
             //BunnyHop.button = new ElementButton("BunnyHop", elementGroup, delegate () { BunnyHop.OnClick(); });
@@ -67,6 +71,31 @@ namespace CustomQuickMenu.Menus
                     else
                     {
                         button._Sprite = LoadSprites.offButton;
+                    }
+                }
+            }
+        }
+        
+        public static class FlyType
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                FlyHack.ToggleType();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isFlyType)
+                    {
+                        button._Text = "<color=red>NoClip</color>\nFly Type:";
+                    }
+                    else
+                    {
+                        button._Text = "<color=red>FlyHack</color>\nFly Type:";
                     }
                 }
             }

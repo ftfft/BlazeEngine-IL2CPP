@@ -35,6 +35,19 @@ namespace BE4v.MenuEdit.Construct
                 return _buttonTemplate;
             }
         }
+
+        private static Transform _buttonTextTemplate = null;
+        public static Transform buttonTextTemplate
+        {
+            get
+            {
+                if (_buttonTextTemplate == null)
+                {
+                    _buttonTextTemplate = menuSettingsTemplate?.Find(szSettingsVerticalLayoutGroup + "/Buttons_Debug/Button_Build");
+                }
+                return _buttonTextTemplate;
+            }
+        }
         
         private static Transform _buttonGroupHeaderTemplate = null;
         public static Transform buttonGroupHeaderTemplate
@@ -74,6 +87,19 @@ namespace BE4v.MenuEdit.Construct
                 return _menuTemplate;
             }
         }
+        
+        private static Transform _menuSettingsTemplate = null;
+        public static Transform menuSettingsTemplate
+        {
+            get
+            {
+                if (_menuSettingsTemplate == null)
+                {
+                    _menuSettingsTemplate = QuickMenu.Instance.transform.Find(szMenuGroup + "/Menu_Settings");
+                }
+                return _menuSettingsTemplate;
+            }
+        }
 
         private static Transform _selectedMenuTemplate = null;
         public static Transform selectedMenuTemplate
@@ -93,5 +119,7 @@ namespace BE4v.MenuEdit.Construct
         public static string szMenuGroup = "Container/Window/QMParent";
 
         public static string szVerticalLayoutGroup = "ScrollRect/Viewport/VerticalLayoutGroup";
+
+        public static string szSettingsVerticalLayoutGroup = "Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup";
     }
 }
