@@ -2,6 +2,7 @@
 using VRC;
 using BE4v.MenuEdit;
 using BE4v.Mods.Core;
+using CustomQuickMenu.Menus;
 
 namespace BE4v.Mods.Min
 {
@@ -10,7 +11,7 @@ namespace BE4v.Mods.Min
         public static void Toggle()
         {
             Status.isSpeedHack = !Status.isSpeedHack;
-            ClickClass_SpeedHack.OnClick_SHToggle_Refresh();
+            MainMenu.SpeedHackToggle.Refresh();
         }
 
         public void Update()

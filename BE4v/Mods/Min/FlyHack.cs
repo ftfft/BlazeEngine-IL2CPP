@@ -13,8 +13,7 @@ namespace BE4v.Mods.Min
         public static void ToggleType()
         {
             Status.isFlyType = !Status.isFlyType;
-            BE4VMenu.FlyType.Refresh();
-            // ClickClass_FlyHack.OnClick_FlyType_Refresh();
+            MainMenu.FlyToggle.Refresh();
         }
         
         public static void Toggle()
@@ -29,7 +28,7 @@ namespace BE4v.Mods.Min
             {
                 Physics.gravity = Vector3.zero;
             }
-            ClickClass_FlyHack.OnClick_FlyToggle_Refresh();
+            MainMenu.FlyToggle.Refresh();
         }
 
         public void Update()

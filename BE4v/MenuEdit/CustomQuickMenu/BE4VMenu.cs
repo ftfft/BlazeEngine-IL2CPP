@@ -38,10 +38,10 @@ namespace CustomQuickMenu.Menus
             butttonsGroup = registerMenu.AddButtonsGroup("Movement Tools");
             FlyType.button = butttonsGroup.AddButton("Fly Type", FlyType.OnClick);
             FlyType.Refresh();
-            //InfinityJump.button = new ElementButton("Infinity Jump", elementGroup, delegate () { InfinityJump.OnClick(); });
-            //InfinityJump.Refresh();
-            //BunnyHop.button = new ElementButton("BunnyHop", elementGroup, delegate () { BunnyHop.OnClick(); });
-            //BunnyHop.Refresh();
+            InfinityJump.button = butttonsGroup.AddButton("Infinity Jump", InfinityJump.OnClick);
+            InfinityJump.Refresh();
+            BunnyHop.button = butttonsGroup.AddButton("BunnyHop", BunnyHop.OnClick);
+            BunnyHop.Refresh();
             // GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
             // GlobalUdonEvent.Refresh();
 

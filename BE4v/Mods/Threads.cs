@@ -26,11 +26,6 @@ namespace BE4v.Mods
                 MenuEdit.Core.Install();
 
             }
-            if (--NetworkSanity.Sanitizers.OwnershipTransfer.fps < 0)
-            {
-                NetworkSanity.Sanitizers.OwnershipTransfer.fps = 5;
-                NetworkSanity.Sanitizers.OwnershipTransfer.limit.Clear();
-            }
             timestamp = UnixTimeNow();
             if (Input.GetKeyDown(KeyCode.I))
             {

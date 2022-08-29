@@ -36,15 +36,15 @@ namespace CustomQuickMenu.Menus
                 GlowESP.button = buttonsGroup.AddButton("Toggle ESP", GlowESP.OnClick);
                 GlowESP.Refresh();
             }
-            if (GlowESP.button == null)
+            if (FlyToggle.button == null)
             {
-                GlowESP.button = buttonsGroup.AddButton("Fly mode", GlowESP.OnClick);
-                GlowESP.Refresh();
+                FlyToggle.button = buttonsGroup.AddButton("Fly Toggle", FlyToggle.OnClick);
+                FlyToggle.Refresh();
             }
-            if (GlowESP.button == null)
+            if (SpeedHackToggle.button == null)
             {
-                GlowESP.button = buttonsGroup.AddButton("SpeedHack", GlowESP.OnClick);
-                GlowESP.Refresh();
+                SpeedHackToggle.button = buttonsGroup.AddButton("SpeedHack", SpeedHackToggle.OnClick);
+                SpeedHackToggle.Refresh();
             }
             if (Serilize.button == null)
             {
@@ -58,6 +58,56 @@ namespace CustomQuickMenu.Menus
                 buttonRemoveObjects.SetSprite(LoadSprites.trashIco);
             }
             */
+        }
+
+        public static class FlyToggle
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                FlyHack.Toggle();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isFly)
+                    {
+                        button._Sprite = LoadSprites.onButton;
+                    }
+                    else
+                    {
+                        button._Sprite = LoadSprites.offButton;
+                    }
+                }
+            }
+        }
+        
+        public static class SpeedHackToggle
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                SpeedHack.Toggle();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isSpeedHack)
+                    {
+                        button._Sprite = LoadSprites.onButton;
+                    }
+                    else
+                    {
+                        button._Sprite = LoadSprites.offButton;
+                    }
+                }
+            }
         }
 
         public static class GlowESP

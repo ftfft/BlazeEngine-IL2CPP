@@ -15,12 +15,26 @@ namespace BE4v.MenuEdit
         
         public static void Install()
         {
-            Delete();
-            MainMenu.BlazeEngine4VersionMenu();
-            SelectedMenu.BlazeEngine4VersionMenu();
-            BE4VMenu.BlazeEngine4VersionMenu();
-
-            // QuickMenu.Instance.MenuStateController.PushPage("Page_BlazeEngine4Version");
+            try
+            {
+                Delete();
+            }
+            catch { }
+            try
+            {
+                MainMenu.BlazeEngine4VersionMenu();
+            }
+            catch { }
+            try
+            {
+                SelectedMenu.BlazeEngine4VersionMenu();
+            }
+            catch { }
+            try
+            {
+                BE4VMenu.BlazeEngine4VersionMenu();
+            }
+            catch { }
         }
 
         public static void Delete()
