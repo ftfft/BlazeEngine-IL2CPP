@@ -35,6 +35,11 @@ namespace BE4v.MenuEdit
                 BE4VMenu.BlazeEngine4VersionMenu();
             }
             catch { }
+            try
+            {
+                xGameMenu.BlazeEngine4VersionMenu();
+            }
+            catch { }
         }
 
         public static void Delete()

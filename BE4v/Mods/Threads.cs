@@ -2,6 +2,7 @@
 using UnityEngine;
 using BE4v.Mods.Core;
 using BE4v.MenuEdit.Construct;
+using CustomQuickMenu.Menus;
 
 namespace BE4v.Mods
 {
@@ -54,8 +55,28 @@ namespace BE4v.Mods
             }
         }
 
+        public static void CheckGameButtons()
+        {
+            if (xGameMenu.header_Game_Murder != null)
+            {
+                bool gameInit = Utils.xGameUtils.Murder.IsGameWorld;
+                xGameMenu.header_Game_Murder.gameObject.SetActive(gameInit);
+                xGameMenu.buttonsGroup_Game_Murder.gameObject.SetActive(gameInit);
+                xGameMenu.buttonsGroup_Game_Murder2.gameObject.SetActive(gameInit);
+                if (gameInit)
+                {
+                    xGameMenu.registerMenuButton.gameObject.SetActive(true);
+                    return;
+                }
+
+
+                xGameMenu.registerMenuButton.gameObject.SetActive(false);
+            }
+        }
+
         public static void UpdatePlayers()
         {
+            CheckGameButtons();
             NetworkSanity.NetworkSanity.players = VRC.PlayerManager.PlayersCopy;
             int len = NetworkSanity.NetworkSanity.players.Length;
             if (len > 0)

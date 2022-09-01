@@ -51,7 +51,10 @@ namespace BE4v.Patch.List
         public static void OnDestroy(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
-
+            if (Mods.Min.SitOnHead.SelectUser?.Pointer == instance)
+            {
+                Mods.Min.SitOnHead.SelectUser = null;
+            }
             __OnDestroy(instance);
             Threads.UpdatePlayers();
         }

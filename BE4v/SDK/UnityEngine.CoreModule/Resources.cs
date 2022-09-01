@@ -6,7 +6,7 @@ namespace UnityEngine
 {
     public sealed class Resources
     {
-        public static T[] FindObjectsOfTypeAll<T>() where T : Component
+        public static T[] FindObjectsOfTypeAll<T>() where T : Object
         {
             Object[] objects = FindObjectsOfTypeAll(typeof(T));
             T[] result = new T[objects.Length];

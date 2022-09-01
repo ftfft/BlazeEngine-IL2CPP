@@ -43,6 +43,7 @@ namespace CustomQuickMenu.Menus
             InfinityJump.Refresh();
             BunnyHop.button = butttonsGroup.AddButton("BunnyHop", BunnyHop.OnClick);
             BunnyHop.Refresh();
+            ForceJump.button = butttonsGroup.AddButton("ForceJump", ForceJump.OnClick);
 
 
             registerMenu.AddHeader("ESP Tools");
@@ -273,6 +274,18 @@ namespace CustomQuickMenu.Menus
                         button._Sprite = LoadSprites.offButton;
                     }
                 }
+            }
+        }
+        
+        public static class ForceJump
+        {
+            public static QMButton button = null;
+            public static void OnClick()
+            {
+                VRCPlayer player = VRCPlayer.Instance;
+                if (player == null) return;
+                if (player.GetComponent<PlayerModComponentJump>() != null) return;
+                player.gameObject.AddComponent<PlayerModComponentJump>();
             }
         }
         

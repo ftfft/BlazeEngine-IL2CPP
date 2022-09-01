@@ -51,6 +51,7 @@ namespace CustomQuickMenu.Menus
                 Serilize.button = buttonsGroup.AddButton("Serilize\n<color=red>experimental</color>", Serilize.OnClick);
                 Serilize.Refresh();
             }
+
             /*
             if (buttonRemoveObjects == null)
             {
