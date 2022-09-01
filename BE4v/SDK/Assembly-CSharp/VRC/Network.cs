@@ -112,21 +112,11 @@ namespace VRC
                 if (method == null)
                     return;
             }
-            IL2Array<IntPtr> array = null;
-            if (parameters != null)
-            {
-                int len = parameters.Length;
-                array = new IL2Array<IntPtr>(len, IL2ObjectSystem.Instance_Class);
-                for (int i = 0; i < len; i++)
-                {
-                    array[i] = parameters[i];
-                }
-            }
             method.Invoke(IntPtr.Zero, new IntPtr[] {
                 new IntPtr(&targetClients),
                 targetObject == null ? IntPtr.Zero : targetObject.Pointer,
                 new IL2String_utf16(methodName).Pointer,
-                array == null ? IntPtr.Zero : array.Pointer
+                parameters.ToObjectPtr()
             }, ex: true);
         }
 

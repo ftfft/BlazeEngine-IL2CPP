@@ -82,6 +82,16 @@ namespace CustomQuickMenu.Menus
 
             try
             {
+                if (PickupOrbit.button == null)
+                {
+                    PickupOrbit.button = buttonsGroupBE4v_1.AddButton("<color=red>Disabled</color>\nPickup Orbit", PickupOrbit.OnClick);
+                    PickupOrbit.button._Sprite = LoadSprites.pickupOrbitIco;
+                }
+            }
+            catch { }
+
+            try
+            {
                 if (DownloadVRCA.button == null)
                 {
                     DownloadVRCA.button = buttonsGroupBE4v_1.AddButton("Download VRCA", DownloadVRCA.OnClick);
@@ -146,6 +156,35 @@ namespace CustomQuickMenu.Menus
                         string url = avatar.assetUrl;
                         if (Avatars.IsValidUrl(url))
                             Avatars.OpenUrlBrowser(url);
+                    }
+                }
+            }
+        }
+
+        public static class PickupOrbit
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                string displayName = UserUtils.QM_GetSelectedUserName();
+                if (!string.IsNullOrEmpty(displayName))
+                {
+                    if (button != null)
+                    {
+                        Player selectedPlayer = UserUtils.GetPlayerByName(displayName);
+                        if (selectedPlayer != null)
+                        {
+                            if (BE4v.Patch.List.OnPlayerUpdateSync.PickupOrbit_VRC_Player_Pointer == IntPtr.Zero)
+                                BE4v.Patch.List.OnPlayerUpdateSync.PickupOrbit_VRC_Player_Pointer = selectedPlayer.Pointer;
+                            else
+                                BE4v.Patch.List.OnPlayerUpdateSync.PickupOrbit_VRC_Player_Pointer = IntPtr.Zero;
+                        }
+
+                        if (BE4v.Patch.List.OnPlayerUpdateSync.PickupOrbit_VRC_Player_Pointer == IntPtr.Zero)
+                            button._Text = "<color=red>Disabled</color>\nPickup Orbit";
+                        else
+                            button._Text = "<color=green>Enabled</color>\nPickup Orbit";
                     }
                 }
             }

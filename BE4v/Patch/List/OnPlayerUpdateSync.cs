@@ -6,10 +6,12 @@ using VRC.Core;
 using BE4v.Mods;
 using BE4v.Patch.Core;
 using BE4v.Utils;
+using VRC.SDKBase;
+using VRC.SDK3.Components;
 
 namespace BE4v.Patch.List
 {
-    public class OnPlayerUpdateSync // : IPatch
+    public class OnPlayerUpdateSync : IPatch
     {
         public delegate void _VRC_Player_Update(IntPtr instance);
         public void Start()
@@ -25,80 +27,41 @@ namespace BE4v.Patch.List
         {
             if (instance == IntPtr.Zero) return;
             VRC_PlayerUpdate(instance);
-            VRC.Player localPlayer = VRC.Player.Instance;
-            if (localPlayer == null || localPlayer.Pointer == instance) return;
-            VRC.Player player = new VRC.Player(instance);
-
-            bool blockUpdate = false;
-            #region blocked
-            bool isBlocked = player.IsBlocked;
-            if (blocked.ContainsKey(instance))
+            if (PickupOrbit_VRC_Player_Pointer != IntPtr.Zero)
             {
-                if (blocked[instance] != isBlocked)
+                if (PickupOrbit_VRC_Player_Pointer == instance)
                 {
-                    blocked[instance] = isBlocked;
-                    blockUpdate = true;
+                    VRCPickup[] pickups = UnityEngine.Object.FindObjectsOfType<VRCPickup>();
+
+                    float degrees = 360 / pickups.Length;
+
+                    for (int i = 0; i < pickups.Length; i++)
+                    {
+                        VRC_Pickup pickup = pickups[i];
+
+                        if (pickup.gameObject.active == true)
+                        {
+                            VRCPlayerApi localPlayerApi = VRC.Player.Instance?.playerApi;
+                            if (Networking.GetOwner(pickup.gameObject) != localPlayerApi)
+                                Networking.SetOwner(localPlayerApi, pickup.gameObject);
+
+                            pickup.transform.position = new VRC.Player(instance).gameObject.transform.position + new Vector3(Mathf.Sin(Time.time * PickupOrbit.speed + degrees * i) * PickupOrbit.distance, PickupOrbit.height, Mathf.Cos(Time.time * PickupOrbit.speed + degrees * i) * PickupOrbit.distance);
+                        }
+                    }
                 }
             }
-            else
-            {
-                blocked.Add(instance, isBlocked);
-                blockUpdate = true;
-            }
-            #endregion
-
-
-            #region blockedBy
-            bool isBlockedBy = player.IsBlockedBy;
-            if (blockedBy.ContainsKey(instance))
-            {
-                if (blockedBy[instance] != isBlockedBy)
-                {
-                    blockedBy[instance] = isBlockedBy;
-                    blockUpdate = true;
-                }
-            }
-            else
-            {
-                blockedBy.Add(instance, isBlockedBy);
-                blockUpdate = true;
-            }
-            #endregion
-
-            if (blockUpdate)
-                ESPUpdate(player);
         }
 
-        public static void ESPUpdate(VRC.Player player)
+        public static class PickupOrbit
         {
-            Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
+            public static float speed = 1f;
 
-            if (renderer != null)
-            {
-                APIUser user = player.user;
-                if (user == null)
-                    return;
+            public static float distance = 1f;
 
-                HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, false);
-                HighlightUtils.GetLight(Color.red).EnableOutline(renderer, false);
-                HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, false);
-                if (blocked[player.Pointer] || blockedBy[player.Pointer])
-                {
-                    HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, Status.isGlowESP);
-                }
-                else if (APIUser.IsFriendsWith(user.id))
-                {
-                    HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, Status.isGlowESP);
-                }
-                else
-                {
-                    HighlightUtils.GetLight(Color.red).EnableOutline(renderer, Status.isGlowESP);
-                }
-            }
+            public static float height = 1f;
         }
 
-        public static Dictionary<IntPtr, bool> blocked = new Dictionary<IntPtr, bool>();
-        public static Dictionary<IntPtr, bool> blockedBy = new Dictionary<IntPtr, bool>();
+        public static IntPtr PickupOrbit_VRC_Player_Pointer = IntPtr.Zero;
 
         public static _VRC_Player_Update VRC_PlayerUpdate;
     }

@@ -67,7 +67,6 @@ namespace BE4v.Mods.Min
         public static bool isTest = false;
 
         public static string worldId = "wrld_a5be505e-3578-42eb-a40f-6ae98f27877e";
-        public static string instanceId = "123456";
 
         public static void Start()
         {
@@ -154,11 +153,8 @@ namespace BE4v.Mods.Min
                             {
                                 if (args.Length > 2)
                                 {
-                                    string[] worldData = args[2].Split(':');
-                                    worldId = worldData[0];
-                                    if (worldData.Length > 1)
-                                        instanceId = worldData[1];
-                                    $"New portal settings: {worldId}:{instanceId}".RedPrefix("Portal Set");
+                                    worldId = args[2];
+                                    $"New portal settings: {worldId}".RedPrefix("Portal Set");
                                 }
                                 else
                                 {

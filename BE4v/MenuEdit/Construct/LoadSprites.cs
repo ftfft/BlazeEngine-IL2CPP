@@ -112,5 +112,31 @@ namespace BE4v.MenuEdit.Construct
                 return gamingIcoSprite;
             }
         }
+
+        private static Sprite flyTypeIcoSprite = null;
+        public static Sprite flyTypeIco
+        {
+            get
+            {
+                if (flyTypeIcoSprite == null)
+                {
+                    flyTypeIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/fly-type.png", 64, 64);
+                }
+                return flyTypeIcoSprite;
+            }
+        }
+
+        private static Sprite pickupOrbitIcoSprite = null;
+        public static Sprite pickupOrbitIco
+        {
+            get
+            {
+                if (pickupOrbitIcoSprite == null)
+                {
+                    pickupOrbitIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/pickup-orbit.png", 64, 64);
+                }
+                return pickupOrbitIcoSprite;
+            }
+        }
     }
 }

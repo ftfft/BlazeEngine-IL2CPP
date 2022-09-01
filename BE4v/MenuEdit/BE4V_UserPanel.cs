@@ -35,7 +35,7 @@ namespace BE4v.MenuEdit
         }
 
     }
-
+    /*
     public static class ClickClass_DropPortalToUser
     {
         public static void PortalDrop()
@@ -70,4 +70,5 @@ namespace BE4v.MenuEdit
             UserUtils.SpawnPortal(VRCPlayer.Instance.transform, location[0], location[1]);
         }
     }
+    */
 }

@@ -13,7 +13,7 @@ namespace BE4v.Mods.Min
             {
                 Player player = Player.Instance;
                 if (player == null) return;
-                UserUtils.SpawnPortal(player.transform, ClientConsole.worldId, ClientConsole.instanceId);
+                UserUtils.SpawnPortal(player.transform, ClientConsole.worldId);
             }
         }
     }

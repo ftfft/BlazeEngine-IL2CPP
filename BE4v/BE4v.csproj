@@ -558,6 +558,8 @@
     <Compile Include="SDK\VRCSDK2\VRC_Pickup.cs" />
     <Compile Include="SDK\VRCSDK2\VRC_Station.cs" />
     <Compile Include="SDK\VRCSDK3A\VRC\SDK3\Avatars\Components\VRCAvatarDescriptor.cs" />
+    <Compile Include="SDK\VRCSDK3\Components\VRCAvatarDescriptor.cs" />
+    <Compile Include="SDK\VRCSDKBase\SDKBase\Networking.cs" />
     <Compile Include="SDK\VRCSDKBase\SDKBase\VRCPlayerApi.cs" />
     <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_DataStorage.cs" />
     <Compile Include="SDK\VRCSDKBase\SDKBase\VRC_EventDispatcher.cs" />

@@ -12,27 +12,42 @@ public static class UserUtils
     }
 
     #region SpawnPortal
-    public static GameObject SpawnPortal(Transform transform, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde", string instanceId = "Banned Instance\nTupper\0")
+    public static GameObject SpawnPortal(Transform transform, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde")
     {
-        return SpawnPortal(transform.position + (transform.forward * 2), worldId, instanceId);
+        return SpawnPortal(transform.position + (transform.forward * 2), transform.rotation, worldId);
     }
-    public static GameObject SpawnPortal(Vector3 position, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde", string instanceId = "Banned Instance\nTupper\0")
+    public static GameObject SpawnPortal(Vector3 position, Quaternion rotation, string worldId = "wrld_a61806c2-4f5c-4c00-8aae-c5f6d5c3bfde")
     {
-        GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", position, Quaternion.identity);
+        GameObject gameObject = VRC.Network.Instantiate(VRC_EventHandler.VrcBroadcastType.Always, "Portals/PortalInternalDynamic", position, rotation);
         if (gameObject == null)
             return null;
 
         VRC.Network.RPC(VRC_EventHandler.VrcTargetType.AllBufferOne, gameObject, "ConfigurePortal", new IntPtr[]
         {
-            new IL2String_utf8(worldId).Pointer,
-            new IL2String_utf16(instanceId).Pointer,
+            new IL2String_utf16(worldId).Pointer,
             new IL2Object<int>(0, IL2Int32.Instance_Class).Pointer
         });
-        gameObject.GetComponent<PortalInternal>().enabled = false;
+        // gameObject.GetComponent<PortalInternal>().enabled = false;
 
         return gameObject;
     }
     #endregion CreatePortal
+    /*
+    public static void SetPedestals(string string_0)
+    {
+        if (string_0.StartsWith("avtr_"))
+        {
+            foreach (VRC.SDKBase.VRC_AvatarPedestal vrc_AvatarPedestal in UnityEngine.Object.FindObjectsOfType<VRC.SDKBase.VRC_AvatarPedestal>())
+            {
+                Networking.SetOwner(Networking.LocalPlayer, vrc_AvatarPedestal.gameObject);
+                VRC.Network.RPC(VRC_EventHandler.VrcTargetType.All, vrc_AvatarPedestal.gameObject, "SwitchAvatar", new Il2CppSystem.Object[]
+                {
+                        string_0
+                });
+            }
+        }
+    }
+    */
 
     public static GameObject SpawnDynLight(Transform transform)
     {

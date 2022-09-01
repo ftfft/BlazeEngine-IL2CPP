@@ -38,6 +38,7 @@ namespace CustomQuickMenu.Menus
             registerMenu.AddHeader("Movement Tools");
             butttonsGroup = registerMenu.AddButtonsGroup("Movement Tools");
             FlyType.button = butttonsGroup.AddButton("Fly Type", FlyType.OnClick);
+            FlyType.button._Sprite = LoadSprites.flyTypeIco;
             FlyType.Refresh();
             InfinityJump.button = butttonsGroup.AddButton("JetPack", InfinityJump.OnClick);
             InfinityJump.Refresh();
