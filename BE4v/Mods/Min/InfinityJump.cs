@@ -25,7 +25,7 @@ namespace BE4v.Mods.Min
                         float fPressed = jump.timePressed;
                         if (!controller.isGrounded)
                         {
-                            if (fPressed != fPressedLast && Status.isInfinityJump)
+                            if (fPressed == fPressedLast && Status.isInfinityJump)
                             {
                                 OnJump(player);
                             }

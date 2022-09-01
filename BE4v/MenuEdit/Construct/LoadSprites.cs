@@ -86,5 +86,18 @@ namespace BE4v.MenuEdit.Construct
                 return notifyIcoSprite;
             }
         }
+
+        private static Sprite sitonIcoSprite = null;
+        public static Sprite sitonIco
+        {
+            get
+            {
+                if (sitonIcoSprite == null)
+                {
+                    sitonIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/siton.png", 64, 64);
+                }
+                return sitonIcoSprite;
+            }
+        }
     }
 }

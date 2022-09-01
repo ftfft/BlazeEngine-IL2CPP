@@ -30,7 +30,7 @@ namespace BE4v.SDK
             Console.WriteLine("GitHub: https://github.com/BlazeBest/BlazeEngine-IL2CPP");
             Console.WriteLine("Donate: https://client.icefrag.ru/donate");
             Console.WriteLine("Discord: https://discord.gg/8mMGM43");
-            Console.WriteLine("Developer: BlazeBest#4974");
+            Console.WriteLine("Developer: BlazeBest#1284");
 
             if (!Directory.Exists(mainDir))
                 Directory.CreateDirectory(mainDir);

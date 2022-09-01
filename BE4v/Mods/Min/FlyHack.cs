@@ -13,7 +13,7 @@ namespace BE4v.Mods.Min
         public static void ToggleType()
         {
             Status.isFlyType = !Status.isFlyType;
-            MainMenu.FlyToggle.Refresh();
+            BE4VMenu.FlyType.Refresh();
         }
         
         public static void Toggle()

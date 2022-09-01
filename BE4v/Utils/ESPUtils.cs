@@ -13,31 +13,53 @@ namespace BE4v.Utils
     {
         public static void ESP_ForPlayer(VRC.Player player)
         {
-            if (player == VRC.Player.Instance) return;
-            Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
-
-            if (renderer != null)
+            try
             {
-                APIUser user = player.user;
-                if (user == null)
-                    return;
+                if (player == VRC.Player.Instance) return;
+                Renderer renderer = player.Components?.playerSelector?.GetComponent<Renderer>();
 
-                HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, false);
-                HighlightUtils.GetLight(Color.red).EnableOutline(renderer, false);
-                HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, false);
-                // if (blocked[player.ptr] || blockedBy[player.ptr])
-                // {
-                //    HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, Status.isGlowESP);
-                //}
-                if (APIUser.IsFriendsWith(user.id))
+                if (renderer != null)
                 {
-                    HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, Status.isGlowESP);
-                }
-                else
-                {
-                    HighlightUtils.GetLight(Color.red).EnableOutline(renderer, Status.isGlowESP);
+                    APIUser user = player.user;
+                    if (user == null)
+                        return;
+
+                    HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, false);
+                    HighlightUtils.GetLight(Color.red).EnableOutline(renderer, false);
+                    HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, false);
+                    // if (blocked[player.ptr] || blockedBy[player.ptr])
+                    // {
+                    //    HighlightUtils.GetLight(Color.cyan).EnableOutline(renderer, Status.isGlowESP);
+                    //}
+                    if (APIUser.IsFriendsWith(user.id))
+                    {
+                        HighlightUtils.GetLight(Color.yellow).EnableOutline(renderer, Status.isGlowESP);
+                    }
+                    else
+                    {
+                        HighlightUtils.GetLight(Color.red).EnableOutline(renderer, Status.isGlowESP);
+                    }
                 }
             }
+            catch { }
+            /*
+            try
+            {
+                Canvas canvas = player.transform.Find("Player Nameplate/Canvas").GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    if (Status.isNameplatesESP)
+                    {
+                        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                    }
+                    else
+                    {
+                        canvas.renderMode = RenderMode.WorldSpace;
+                    }
+                }
+            }
+            catch { }
+            */
         }
 
         public static void EnableESP(Renderer renderer, Color color, bool status)

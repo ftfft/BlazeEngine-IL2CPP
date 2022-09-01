@@ -3,7 +3,7 @@ using BE4v.Mods.Core;
 
 namespace BE4v.Mods.Min
 {
-    public class AutoClearRAM : IUpdate
+    public class AutoClearRAM // : IUpdate
     {
         public void Update()
         {

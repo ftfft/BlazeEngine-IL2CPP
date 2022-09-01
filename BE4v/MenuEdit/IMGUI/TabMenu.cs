@@ -108,7 +108,7 @@ namespace BE4v.MenuEdit.IMGUI
                             else
                                 SitOnHead.SelectUser = null;
                         }
-                        string blockButton = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? "Data unBlock" : "Data Block");
+                        /*string blockButton = (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value) ? "Data unBlock" : "Data Block");
                         if (GUI.Button(new Rect(550, 100, 120, 20), blockButton))
                         {
                             if (NetworkSanity.NetworkSanity.userList.Contains(playerId.Value))
@@ -120,6 +120,7 @@ namespace BE4v.MenuEdit.IMGUI
                                 NetworkSanity.NetworkSanity.userList.Add(playerId.Value);
                             }
                         }
+                        */
                     }
                     string userName = player.user.username;
                     if (string.IsNullOrWhiteSpace(userName))

@@ -25,7 +25,7 @@ namespace BE4v.Mods
 
         public static bool isInvisAPI = false;
 
-        public static bool isNoPortalJoin = false;
+        public static bool isNameplatesESP = false;
 
         public static bool isGlowESP = false;
 

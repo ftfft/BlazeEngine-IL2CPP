@@ -11,18 +11,27 @@ namespace BE4v.Mods
 
         public static long timestamp = 0;
 
+        public static GameObject be4v_gui = null;
+
+        public static void Create()
+        {
+            if (be4v_gui == null)
+            {
+                Application.targetFrameRate = 101;
+                LoadSprites.DownloadAll();
+
+                be4v_gui = new GameObject("BE4V_GUI");
+                be4v_gui.AddComponent<OVRLipSyncMicInput>();
+                UnityEngine.Object.DontDestroyOnLoad(be4v_gui);
+            }
+        }
+
         public void Update()
         {
             if (!isLoadedCharacter)
             {
                 isLoadedCharacter = true;
-                Application.targetFrameRate = 101;
-                LoadSprites.DownloadAll();
-
-                GameObject gameObject = new GameObject("BE4V_GUI");
-                gameObject.AddComponent<OVRLipSyncMicInput>();
-                UnityEngine.Object.DontDestroyOnLoad(gameObject);
-
+                Create();
                 MenuEdit.Core.Install();
 
             }

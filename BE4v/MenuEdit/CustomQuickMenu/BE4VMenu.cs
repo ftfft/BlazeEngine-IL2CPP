@@ -6,6 +6,7 @@ using BE4v.Patch.List;
 using BE4v.MenuEdit.Construct;
 using BE4v.MenuEdit.Construct.Horizontal;
 using QuickMenuElement.Elements;
+using BE4v.Utils;
 
 namespace CustomQuickMenu.Menus
 {
@@ -27,8 +28,8 @@ namespace CustomQuickMenu.Menus
             //RPCBlock.Refresh();
             FakePing.button = butttonsGroup.AddButton("Fake Ping", FakePing.OnClick);
             FakePing.Refresh();
-            AutoClearRAM.button = butttonsGroup.AddButton("AutoClear RAM", AutoClearRAM.OnClick);
-            AutoClearRAM.Refresh();
+            //AutoClearRAM.button = butttonsGroup.AddButton("AutoClear RAM", AutoClearRAM.OnClick);
+            //AutoClearRAM.Refresh();
             SendAvatarData.button = butttonsGroup.AddButton("Send Avatars Data", SendAvatarData.OnClick);
             SendAvatarData.Refresh();
             //DeathMap.button = butttonsGroup.AddButton("Death Map", DeathMap.OnClick);
@@ -38,10 +39,16 @@ namespace CustomQuickMenu.Menus
             butttonsGroup = registerMenu.AddButtonsGroup("Movement Tools");
             FlyType.button = butttonsGroup.AddButton("Fly Type", FlyType.OnClick);
             FlyType.Refresh();
-            InfinityJump.button = butttonsGroup.AddButton("Infinity Jump", InfinityJump.OnClick);
+            InfinityJump.button = butttonsGroup.AddButton("JetPack", InfinityJump.OnClick);
             InfinityJump.Refresh();
             BunnyHop.button = butttonsGroup.AddButton("BunnyHop", BunnyHop.OnClick);
             BunnyHop.Refresh();
+
+
+            registerMenu.AddHeader("ESP Tools");
+            butttonsGroup = registerMenu.AddButtonsGroup("ESP Tools");
+            ESP_Nameplates.button = butttonsGroup.AddButton("ESP Nameplates", ESP_Nameplates.OnClick);
+            ESP_Nameplates.Refresh();
             // GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
             // GlobalUdonEvent.Refresh();
 
@@ -307,6 +314,42 @@ namespace CustomQuickMenu.Menus
             }
         }
 
+        public static class ESP_Nameplates
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isNameplatesESP = !Status.isNameplatesESP;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isNameplatesESP)
+                    {
+                        button._Sprite = LoadSprites.onButton;
+                    }
+                    else
+                    {
+                        button._Sprite = LoadSprites.offButton;
+                    }
+                }
+
+                VRC.Player localPlayer = VRC.Player.Instance;
+                if (localPlayer != null)
+                {
+                    Threads.UpdatePlayers();
+                    foreach (var player in NetworkSanity.NetworkSanity.players)
+                    {
+                        if (player == localPlayer) continue;
+                        ESPUtils.ESP_ForPlayer(player);
+                    }
+                }
+            }
+        }
         public static class ConsoleLog
         {
             public static QMButton button = null;

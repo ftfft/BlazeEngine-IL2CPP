@@ -17,6 +17,7 @@ namespace BE4v.Mods.Core
     {
         public static _Update __Update;
         public static _OnGUI __OnGUI;
+        public static _null __Awake;
 
         private static T1[] LoadInterfaces<T1>() where T1 : IThread
         {
@@ -57,6 +58,21 @@ namespace BE4v.Mods.Core
                 }
                 else
                     $"Installer: Method Update not found!".RedPrefix("Patch");
+            }
+            catch (Exception ex)
+            {
+                ex.ToString().WriteMessage("Patch");
+            }
+            try
+            {
+                IL2Method method = Analytics.Instance_Class.GetMethod("Awake");
+                if (method != null)
+                {
+                    __Awake = PatchUtils.FastPatch<_null>(method, Awake);
+                    // *(IntPtr*)method.Pointer.ToPointer() = ((_Update)Update).Method.MethodHandle.GetFunctionPointer();
+                }
+                else
+                    $"Installer: Method Awake not found!".RedPrefix("Patch");
             }
             catch (Exception ex)
             {
@@ -114,6 +130,19 @@ namespace BE4v.Mods.Core
             {
                 if (instance != IntPtr.Zero)
                     __Update(instance);
+            }
+        }
+        
+        public static void Awake(IntPtr instance)
+        {
+            try
+            {
+                Mods.Threads.Create();
+            }
+            finally
+            {
+                if (instance != IntPtr.Zero)
+                    __Awake(instance);
             }
         }
 

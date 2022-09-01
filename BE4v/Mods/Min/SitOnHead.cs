@@ -2,6 +2,7 @@
 using VRC;
 using BE4v.Mods.Core;
 using VRC.SDK3.Dynamics.Contact.Components;
+using CustomQuickMenu.Menus;
 
 namespace BE4v.Mods.Min
 {
@@ -42,6 +43,8 @@ namespace BE4v.Mods.Min
                     Collider collider = VRCPlayer.Instance.GetComponent<Collider>();
                     if (collider != null)
                         collider.enabled = true;
+                    if (SelectedMenu.SitOnHeadToggle.button != null)
+                        SelectedMenu.SitOnHeadToggle.button._Text = "Sit on";
                 }
                 else
                 {
@@ -55,6 +58,8 @@ namespace BE4v.Mods.Min
                     playerTransform.position = offsetBox.transform.position;
                     playerTransform.SetParent(offsetBox.transform);
                     offsetBox.transform.position = value.avatarAnimator.GetBoneTransform(HumanBodyBones.Head).position;
+                    if (SelectedMenu.SitOnHeadToggle.button != null)
+                        SelectedMenu.SitOnHeadToggle.button._Text = "Get up";
                 }
                 selectPlayer = value;
             }
