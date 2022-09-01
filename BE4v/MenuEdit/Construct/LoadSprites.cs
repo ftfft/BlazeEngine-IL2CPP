@@ -99,5 +99,18 @@ namespace BE4v.MenuEdit.Construct
                 return sitonIcoSprite;
             }
         }
+
+        private static Sprite gamingIcoSprite = null;
+        public static Sprite gamingIco
+        {
+            get
+            {
+                if (gamingIcoSprite == null)
+                {
+                    gamingIcoSprite = Utils.Sprites.DownloadSprite("http://37.230.228.70:5000/gaming-logo.png", 64, 64);
+                }
+                return gamingIcoSprite;
+            }
+        }
     }
 }

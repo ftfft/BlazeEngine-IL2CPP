@@ -24,7 +24,7 @@ namespace CustomQuickMenu.Menus
             registerMenu = MenuElement.Create("xGameMenu");
 
             registerMenuButton = new ElementHorizontalButton("xGameMenu", delegate () { registerMenu.Open(); });
-            registerMenuButton.SetSprite(LoadSprites.be4vLogo);
+            registerMenuButton.SetSprite(LoadSprites.gamingIco);
 
             /* | * * * * * * * * * | */
             /* | ~ Murder  Buttons | */
