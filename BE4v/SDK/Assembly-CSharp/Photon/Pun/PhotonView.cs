@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace IL2Photon.Pun
 {
+    [Obsolete]
     public class PhotonView : MonoBehaviour
     {
         public PhotonView(IntPtr ptr) : base(ptr) { }

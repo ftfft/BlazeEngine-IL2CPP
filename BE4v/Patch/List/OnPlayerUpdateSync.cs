@@ -39,14 +39,11 @@ namespace BE4v.Patch.List
                     {
                         VRC_Pickup pickup = pickups[i];
 
-                        if (pickup.gameObject.active == true)
-                        {
-                            VRCPlayerApi localPlayerApi = VRC.Player.Instance?.playerApi;
-                            if (Networking.GetOwner(pickup.gameObject) != localPlayerApi)
-                                Networking.SetOwner(localPlayerApi, pickup.gameObject);
+                        VRCPlayerApi localPlayerApi = Networking.LocalPlayer;
+                        if (Networking.GetOwner(pickup.gameObject) != localPlayerApi)
+                            Networking.SetOwner(localPlayerApi, pickup.gameObject);
 
-                            pickup.transform.position = new VRC.Player(instance).gameObject.transform.position + new Vector3(Mathf.Sin(Time.time * PickupOrbit.speed + degrees * i) * PickupOrbit.distance, PickupOrbit.height, Mathf.Cos(Time.time * PickupOrbit.speed + degrees * i) * PickupOrbit.distance);
-                        }
+                        pickup.transform.position = new VRC.Player(instance).gameObject.transform.position + new Vector3(Mathf.Sin(Time.time * PickupOrbit.speed + degrees * i) * PickupOrbit.distance, PickupOrbit.height, Mathf.Cos(Time.time * PickupOrbit.speed + degrees * i) * PickupOrbit.distance);
                     }
                 }
             }
