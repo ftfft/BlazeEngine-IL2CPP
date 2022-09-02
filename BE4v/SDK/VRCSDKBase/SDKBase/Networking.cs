@@ -13,7 +13,7 @@ namespace VRC.SDKBase
 
 		public static void SetOwner(VRCPlayerApi player, GameObject obj)
 		{
-			Instance_Class.GetMethod(nameof(SetOwner)).Invoke(IntPtr.Zero, new IntPtr[] { player == null ? IntPtr.Zero : player.Pointer, obj == null ? IntPtr.Zero : obj.Pointer }, ex:false);
+			Instance_Class.GetMethod(nameof(SetOwner)).Invoke(new IntPtr[] { player == null ? IntPtr.Zero : player.Pointer, obj == null ? IntPtr.Zero : obj.Pointer });
 		}
 
 		public static VRCPlayerApi LocalPlayer
