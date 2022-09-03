@@ -15,6 +15,7 @@ namespace VRCLoader.Utils
         public delegate void _VRC_RemoveHook(IntPtr pTarget);
         public delegate void _VRC_EnableHook(IntPtr pTarget);
         public delegate void _VRC_DisableHook(IntPtr pTarget);
+        public delegate string _CPP2IL_GetString(IntPtr pTarget);
 
         public static _VRC_CreateHook VRC_CreateHook { get; private set; }
         public static _VRC_RemoveHook VRC_RemoveHook { get; private set; }

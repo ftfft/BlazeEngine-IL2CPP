@@ -252,6 +252,7 @@ namespace BE4v.Mods.Min
                             }
                         }
                         */
+                        FileDebug.debugGameObject("debug_QuickMenu.json", QuickMenu.Instance.gameObject);
                         break;
                     }
                 case "get_master":

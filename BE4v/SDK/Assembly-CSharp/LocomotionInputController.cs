@@ -18,5 +18,5 @@ public class LocomotionInputController : InputStateController
         }
     }
 
-    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(PlayerModComponentSpeed.Instance_Class.GetField(x => x.ReturnType.Name.Length > 40).ReturnType.Name);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(PlayerModComponentJump.Instance_Class.GetField(x => !x.ReturnType.Name.StartsWith("System")).ReturnType.Name);
 }

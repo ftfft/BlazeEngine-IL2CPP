@@ -77,9 +77,13 @@ namespace VRC.UI.Elements
                 IL2Field field = Instance_Class.GetField(nameof(menuRootPages));
                 if (field == null)
                 {
-                    (field = Instance_Class.GetField(x => x.ReturnType.Name == UIPage.Instance_Class.FullName + "[]")).Name = nameof(menuRootPages);
-                    if (field == null)
-                        return null;
+                    try
+                    {
+                        (field = Instance_Class.GetField(x => x.ReturnType.Name == UIPage.Instance_Class.FullName + "[]")).Name = nameof(menuRootPages);
+                        if (field == null)
+                            return null;
+                    }
+                    catch { "Get error find Reflection".RedPrefix("MenuStateController::menuRootPages"); }
                 }
                 IL2Object result = field.GetValue(this);
                 if (result == null)
@@ -92,9 +96,13 @@ namespace VRC.UI.Elements
                 IL2Field field = Instance_Class.GetField(nameof(menuRootPages));
                 if (field == null)
                 {
-                    (field = Instance_Class.GetField(x => x.ReturnType.Name == UIPage.Instance_Class.FullName + "[]")).Name = nameof(menuRootPages);
-                    if (field == null)
-                        return;
+                    try
+                    {
+                        (field = Instance_Class.GetField(x => x.ReturnType.Name == UIPage.Instance_Class.FullName + "[]")).Name = nameof(menuRootPages);
+                        if (field == null)
+                            return;
+                    }
+                    catch { "Set error find Reflection".RedPrefix("MenuStateController::menuRootPages"); }
                 }
                 IL2Array<IntPtr> array = null;
                 if (value != null)
@@ -141,6 +149,7 @@ namespace VRC.UI.Elements
             }
         }
 
-        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(y => y.FullName == UIMenu.Instance_Class.GetProperties().FirstOrDefault(x => x.GetSetMethod() == null).GetGetMethod().ReturnType.Name);
+        //public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(y => y.FullName == UIMenu.Instance_Class.GetProperties().FirstOrDefault(x => x.GetSetMethod() == null).GetGetMethod().ReturnType.Name);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(string).FullName + "," + UIPage.Instance_Class.FullName + ">") != null);
     }
 }

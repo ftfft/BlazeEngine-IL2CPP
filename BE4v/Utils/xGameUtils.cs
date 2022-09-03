@@ -19,7 +19,13 @@ namespace BE4v.Utils
 			{
                 get
                 {
-					return RoomManager.currentRoom?.id.Contains("wrld_858dfdfc-1b48-4e1e-8a43-f0edc611e5fe") == true;
+					bool result = false;
+                    try
+                    {
+						result = RoomManager.currentRoom?.id.Contains("wrld_858dfdfc-1b48-4e1e-8a43-f0edc611e5fe") == true;
+					}
+                    catch { }
+					return result;
 				}
 			}
 			/*

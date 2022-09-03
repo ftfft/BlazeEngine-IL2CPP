@@ -16,8 +16,12 @@ namespace CustomQuickMenu.Menus
 
         public static void BlazeEngine4VersionMenu()
         {
-            registerMenu = MenuElement.Create("BlazeEngine4Version");
-            
+            try
+            {
+                registerMenu = MenuElement.Create("BlazeEngine4Version");
+            }
+            catch { "Register menu is error".RedPrefix("Error!"); }
+
             new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }).SetSprite(LoadSprites.be4vLogo);
 
             registerMenu.AddHeader("Networking Tools");

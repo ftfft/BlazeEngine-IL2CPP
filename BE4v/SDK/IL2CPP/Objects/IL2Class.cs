@@ -31,7 +31,9 @@ namespace IL2CPP_Core.Objects
             Pointer = ptr;
             Name = Marshal.PtrToStringAnsi(Import.Class.il2cpp_class_get_name(ptr));
             Namespace = Marshal.PtrToStringAnsi(Import.Class.il2cpp_class_get_namespace(ptr));
-            
+            // Name = Import.StringFromNativeUtf8(Import.Class.il2cpp_class_get_name(ptr));
+            //Namespace = Import.StringFromNativeUtf8(Import.Class.il2cpp_class_get_namespace(ptr));
+
             // Find Methods
             IntPtr method_iter = IntPtr.Zero;
             IntPtr method = IntPtr.Zero;

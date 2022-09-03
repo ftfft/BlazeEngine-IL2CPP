@@ -14,6 +14,16 @@ unsafe public static class Import
         }
     }
 
+    public unsafe static string StringFromNativeUtf8(IntPtr nativeUtf8)
+    {
+        byte* bytes = (byte*)nativeUtf8.ToPointer();
+        int size = 0;
+        while (bytes[size] != 0) ++size;
+        byte[] buffer = new byte[size];
+        Marshal.Copy((IntPtr)nativeUtf8, buffer, 0, size);
+        return System.Text.Encoding.UTF8.GetString(buffer);
+    }
+
     public static class Domain
     {
         [DllImport("GameAssembly", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]

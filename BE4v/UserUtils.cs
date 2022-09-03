@@ -8,7 +8,7 @@ public static class UserUtils
 {
     unsafe public static Disassembler GetDisassembler(this IL2Method method, int @size = 0x1000)
     {
-        return new Disassembler(*(IntPtr*)method.Pointer, @size, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)method.Pointer).ToInt64()), true, Vendor.Intel);
+        return new Disassembler(*(IntPtr*)method.Pointer, @size, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)method.Pointer).ToInt64()), true, Vendor.AMD);
     }
 
     #region SpawnPortal

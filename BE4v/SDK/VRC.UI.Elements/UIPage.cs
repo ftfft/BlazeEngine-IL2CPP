@@ -33,7 +33,7 @@ namespace VRC.UI.Elements
 					if (field == null)
 						return;
 				}
-				field.SetValue(this, new IL2String_utf8(value).Pointer);
+				field.SetValue(this, new IL2String_utf16(value).Pointer);
 			}
 		}
 
