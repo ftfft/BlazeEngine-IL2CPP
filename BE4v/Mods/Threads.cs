@@ -18,7 +18,7 @@ namespace BE4v.Mods
         {
             if (be4v_gui == null)
             {
-                Application.targetFrameRate = 101;
+                Application.targetFrameRate = 145;
                 LoadSprites.DownloadAll();
 
                 be4v_gui = new GameObject("BE4V_GUI");

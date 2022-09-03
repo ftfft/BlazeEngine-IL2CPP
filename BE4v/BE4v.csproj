@@ -88,7 +88,6 @@
     <Compile Include="Mods\Min\ClientConsole.cs" />
     <Compile Include="Mods\Min\ForceCloneAvatar.cs" />
     <Compile Include="Mods\Min\PortableObject.cs" />
-    <Compile Include="Mods\Min\CreatePortal.cs" />
     <Compile Include="Mods\Mod_CamMode.cs" />
     <Compile Include="Mods\Min\SitOnHead.cs" />
     <Compile Include="Mods\Min\Invisible.cs" />

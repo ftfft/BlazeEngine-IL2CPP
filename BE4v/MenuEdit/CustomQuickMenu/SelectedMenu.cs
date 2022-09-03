@@ -5,6 +5,7 @@ using System.Net;
 using UnityEngine;
 using VRC;
 using VRC.UI.Elements;
+using VRC.UI.Elements.Menus;
 using BE4v.Patch;
 using BE4v.Mods.Min;
 using BE4v.MenuEdit.Construct;
@@ -214,6 +215,10 @@ namespace CustomQuickMenu.Menus
             {
                 if (button == null) return;
                 if (buttonOriginal == null) return;
+                //if (ClientDebug.IsEnableDebug())
+                //{
+                //    ("Id: " + QuickMenu.FindObjectOfType<SelectedUserMenuQM>(true)._iUser.).RedPrefix
+                //}
                 string displayName = UserUtils.QM_GetSelectedUserName();
                 if (!string.IsNullOrEmpty(displayName))
                 {
