@@ -14,32 +14,6 @@ namespace BE4v.MenuEdit.IMGUI
         public void Update()
         {
             isPressed = Input.GetKey(KeyCode.Tab);
-
-            VRCPlayer sitOnPlayer = SitOnHead.SelectUser;
-            if (sitOnPlayer == null || sitOnPlayer == VRCPlayer.Instance)
-                sitOnPlayer = null;
-
-            try
-            {
-                if (sitOnPlayer != null)
-                {
-                    VRC.Player[] playerArray = NetworkSanity.NetworkSanity.players;
-                    foreach (var player in playerArray)
-                    {
-                        VRCPlayer components = player?.Components;
-                        if (sitOnPlayer == components)
-                        {
-                            SitOnHead.SelectUser = components;
-                        }
-                    }
-                }
-                if (sitOnPlayer != SitOnHead.SelectUser)
-                    SitOnHead.SelectUser = null;
-            }
-            catch
-            {
-            }
-
         }
 
         int screenHeight = 0;
@@ -97,14 +71,14 @@ namespace BE4v.MenuEdit.IMGUI
                             VRC.Player.Instance.transform.position = player.transform.position;
                         }
                         string sitText;
-                        if (SitOnHead.SelectUser != player?.Components)
+                        if (SitOnHead.VRC_Player_Pointer != player.Pointer)
                             sitText = "Sit on";
                         else
                             sitText = "Get up";
                         if (GUI.Button(new Rect(400, 120, 120, 20), sitText))
                         {
-                            if (SitOnHead.SelectUser != player?.Components)
-                                SitOnHead.SelectUser = player.Components;
+                            if (SitOnHead.VRC_Player_Pointer != player.Pointer)
+                                SitOnHead.SelectUser = player;
                             else
                                 SitOnHead.SelectUser = null;
                         }

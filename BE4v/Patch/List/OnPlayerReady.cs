@@ -51,7 +51,7 @@ namespace BE4v.Patch.List
         public static void OnDestroy(IntPtr instance)
         {
             if (instance == IntPtr.Zero) return;
-            if (Mods.Min.SitOnHead.SelectUser?.Pointer == instance)
+            if (Mods.Min.SitOnHead.VRC_Player_Pointer == instance)
             {
                 Mods.Min.SitOnHead.SelectUser = null;
             }

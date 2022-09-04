@@ -48,5 +48,7 @@ namespace BE4v.Mods
         public static bool isLog = false;
 
         public static bool SendAvatarData = true;
+
+        public static int SitOnType = 0;
     }
 }

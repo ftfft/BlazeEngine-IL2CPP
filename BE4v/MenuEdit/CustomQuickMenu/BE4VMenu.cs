@@ -51,6 +51,11 @@ namespace CustomQuickMenu.Menus
             ForceJump.button = butttonsGroup.AddButton("ForceJump", ForceJump.OnClick);
 
 
+            registerMenu.AddHeader("Settings for Tools");
+            butttonsGroup = registerMenu.AddButtonsGroup("Settings for Tools");
+            SitOnHeadType.button = butttonsGroup.AddButton("<color=red>Head</color>\nSit on head", SitOnHeadType.OnClick);
+            SitOnHeadType.Refresh();
+
             registerMenu.AddHeader("ESP Tools");
             butttonsGroup = registerMenu.AddButtonsGroup("ESP Tools");
             ESP_Nameplates.button = butttonsGroup.AddButton("ESP Nameplates", ESP_Nameplates.OnClick);
@@ -61,6 +66,40 @@ namespace CustomQuickMenu.Menus
             // elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
             // ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);
             // ConsoleLog.Refresh();
+        }
+
+        public static class SitOnHeadType
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                if (++Status.SitOnType > 2)
+                    Status.SitOnType = 0;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    // SitOnHead.SitOnType.Head = 0
+                    if (Status.SitOnType == 0)
+                    {
+                        button._Text = "<color=red>Head</color>\nSit on player";
+                    }
+                    // SitOnHead.SitOnType.LeftHand = 1
+                    else if (Status.SitOnType == 1)
+                    {
+                        button._Text = "<color=red>Left Hand</color>\nSit on player";
+                    }
+                    // SitOnHead.SitOnType.RightHand = 2
+                    else
+                    {
+                        button._Text = "<color=red>Right Hand</color>\nSit on player";
+                    }
+                }
+            }
         }
 
         public static class RPCBlock
@@ -412,11 +451,18 @@ namespace CustomQuickMenu.Menus
                     if (Status.SendAvatarData)
                     {
                         button._Sprite = LoadSprites.onButton;
-
+                        if (AvatarData.patch_LoadAvatar != null)
+                            AvatarData.patch_LoadAvatar.Enabled = true;
+                        if (AvatarData.patch_ShowImage != null)
+                            AvatarData.patch_ShowImage.Enabled = true;
                     }
                     else
                     {
                         button._Sprite = LoadSprites.offButton;
+                        if (AvatarData.patch_LoadAvatar != null)
+                            AvatarData.patch_LoadAvatar.Enabled = false;
+                        if (AvatarData.patch_ShowImage != null)
+                            AvatarData.patch_ShowImage.Enabled = false;
                     }
                 }
             }

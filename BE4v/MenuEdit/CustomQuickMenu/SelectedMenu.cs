@@ -129,10 +129,10 @@ namespace CustomQuickMenu.Menus
                 string displayName = UserUtils.QM_GetSelectedUserName();
                 if (!string.IsNullOrEmpty(displayName))
                 {
-                    VRCPlayer selectedPlayer = UserUtils.GetPlayerByName(displayName)?.Components;
+                    Player selectedPlayer = UserUtils.GetPlayerByName(displayName);
                     if (selectedPlayer != null)
                     {
-                        if (SitOnHead.SelectUser != selectedPlayer)
+                        if (SitOnHead.VRC_Player_Pointer != selectedPlayer.Pointer)
                             SitOnHead.SelectUser = selectedPlayer;
                         else
                             SitOnHead.SelectUser = null;

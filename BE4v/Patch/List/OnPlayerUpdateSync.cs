@@ -47,6 +47,26 @@ namespace BE4v.Patch.List
                     }
                 }
             }
+            if (Mods.Min.SitOnHead.VRC_Player_Pointer != IntPtr.Zero)
+            {
+                if (Mods.Min.SitOnHead.VRC_Player_Pointer == instance)
+                {
+                    VRC.Player player = VRC.Player.Instance;
+                    player.GetComponent<Collider>().enabled = false;
+                    if (Status.SitOnType == 0)
+                    {
+                        player.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.Head).position;
+                    }
+                    else if (Status.SitOnType == 1)
+                    {
+                        player.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.LeftHand).position;
+                    }
+                    else
+                    {
+                        player.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.RightHand).position;
+                    }
+                }
+            }
         }
 
         public static class PickupOrbit
