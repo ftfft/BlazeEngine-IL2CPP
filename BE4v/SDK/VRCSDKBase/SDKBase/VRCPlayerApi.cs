@@ -12,6 +12,11 @@ namespace VRC.SDKBase
 		{
 			Instance_Class.GetMethod(nameof(SetVelocity)).Invoke(this, new IntPtr[] { new IntPtr(&motion) });
 		}
+		
+		unsafe public void SetJumpImpulse(float impulse = 3f)
+		{
+			Instance_Class.GetMethod(nameof(SetJumpImpulse)).Invoke(this, new IntPtr[] { new IntPtr(&impulse) });
+		}
 
 		public static IL2Class Instance_Class = IL2CPP.AssemblyList["VRCSDKBase"].GetClass("VRCPlayerApi", "VRC.SDKBase");
 	}

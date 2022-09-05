@@ -71,6 +71,7 @@ public static class IL2CPP
         "UnityEngine.UI",
         "UnityEngine.UIModule",
         "UnityEngine.IMGUIModule",
+        "UnityEngine.VRModule",
         "Photon-DotNet",
         "VRCSDKBase",
         "VRCSDK2",

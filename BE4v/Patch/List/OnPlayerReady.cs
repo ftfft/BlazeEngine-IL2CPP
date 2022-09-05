@@ -39,11 +39,11 @@ namespace BE4v.Patch.List
             if (localPlayer != null && instance != localPlayer.Pointer)
             {
                 VRC.Player player = new VRC.Player(instance);
-                if (Status.isAntiBlock)
+                /*if (Status.isAntiBlock)
                 {
                     player.IsBlocked = false;
                     player.IsBlockedBy = false;
-                }
+                }*/
                 ESPUtils.ESP_ForPlayer(player);
             }
         }

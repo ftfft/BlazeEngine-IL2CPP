@@ -328,8 +328,8 @@ namespace CustomQuickMenu.Menus
             {
                 VRCPlayer player = VRCPlayer.Instance;
                 if (player == null) return;
-                if (player.GetComponent<PlayerModComponentJump>() != null) return;
-                player.gameObject.AddComponent<PlayerModComponentJump>();
+
+                VRC.SDKBase.Networking.LocalPlayer.SetJumpImpulse(3f);
             }
         }
         

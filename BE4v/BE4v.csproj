@@ -401,6 +401,11 @@
     <Compile Include="SDK\UnityEngine.UI\LayoutGroup.cs" />
     <Compile Include="SDK\UnityEngine.UI\RectMask2D.cs" />
     <Compile Include="SDK\UnityEngine.UI\VerticalLayoutGroup.cs" />
+    <Compile Include="SDK\UnityEngine.VRModule\Experimental\XR\Boundary.cs" />
+    <Compile Include="SDK\UnityEngine.VRModule\XR\XRDevice.cs" />
+    <Compile Include="SDK\UnityEngine.VRModule\XR\TrackingSpaceType.cs" />
+    <Compile Include="SDK\UnityEngine.VRModule\XR\XRStats.cs" />
+    <Compile Include="SDK\UnityEngine.VRModule\XR\WSA\WorldAnchor.cs" />
     <Compile Include="SDK\VRC.Dynamics\ContactBase.cs" />
     <Compile Include="SDK\VRC.Dynamics\ContactSender.cs" />
     <Compile Include="SDK\VRC.SDK3.Dynamics.Contact\Components\VRCContactSender.cs" />

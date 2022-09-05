@@ -29,7 +29,7 @@ namespace BE4v.Mods
 
         public static bool isGlowESP = false;
 
-        public static bool isAntiBlock = false;
+        public static bool isNamePlatesGUI = false;
 
         public static bool isRPCBlock = false;
 

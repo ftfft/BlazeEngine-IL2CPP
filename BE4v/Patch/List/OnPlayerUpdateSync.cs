@@ -67,6 +67,27 @@ namespace BE4v.Patch.List
                     }
                 }
             }
+            if (Status.isNamePlatesGUI)
+            {
+                if (instance != VRC.Player.Instance.Pointer)
+                {
+                    VRC.Player player = new VRC.Player(instance);
+                    // "Player Nameplate"
+                    Transform transformNamePlate = player.transform.Find("Player Nameplate");
+                    if (transformNamePlate != null)
+                    {
+                        Transform transformGUINamePlate = transformNamePlate.Find("BE4vNamePlate");
+                        if (transformGUINamePlate == null)
+                        {
+                            // Add func for GUI
+                        }
+                        if (transformGUINamePlate != null)
+                        {
+                            // Update Func for GUI ...
+                        }
+                    }
+                }
+            }
         }
 
         public static class PickupOrbit
