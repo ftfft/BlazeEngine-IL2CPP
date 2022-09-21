@@ -23,6 +23,21 @@ namespace VRC.UI.Elements
             }
         }
 
+        private static Transform _BaseContainer;
+        public static Transform BaseContainer
+        {
+            get
+            {
+                if (_BaseContainer == null)
+                {
+                    _BaseContainer = Instance.transform.Find("CanvasGroup/");
+                    if (_BaseContainer == null)
+                        _BaseContainer = Instance.transform;
+                    _BaseContainer = _BaseContainer.Find("Container/");
+                }
+                return _BaseContainer;
+            }
+        }
         private static QuickMenu _instance = null;
         public static QuickMenu Instance
         {

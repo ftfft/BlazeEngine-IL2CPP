@@ -90,6 +90,16 @@ namespace System.Collections.Generic
             return new IL2Array<T>(result.Pointer).ToArray();
         }
 
+        public T2[] ToArray<T2>() where T2 : IL2Object
+        {
+            IL2Method method = Instance_Class.GetMethod("ToArray");
+            IL2Object result = method.Invoke(this, new IntPtr[] { method.Pointer });
+            if (result == null)
+                return null;
+
+            return new IL2Array<IntPtr>(result.Pointer).ToArray<T2>();
+        }
+
         public static new IL2Class Instance_Class = IL2List.Instance_Class.MakeGenericType(new Type[] { typeof(T) });
     }
 }

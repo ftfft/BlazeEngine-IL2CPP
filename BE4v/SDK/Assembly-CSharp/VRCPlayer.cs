@@ -12,13 +12,21 @@ public class VRCPlayer : VRCNetworkBehaviour
 
     static VRCPlayer()
     {
-        Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("PlayEmoteRPC") != null);
+        Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(VRC.Player.Instance_Class.GetField("_vrcplayer").ReturnType.Name);
 
-        // void LoadAvatar(ApiAvatar a)
-        Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == ApiAvatar.Instance_Class.FullName).Name = nameof(LoadAvatar);
+        try
+        {
+            // void LoadAvatar(ApiAvatar a)
+            Instance_Class.GetMethod(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ReturnType.Name == ApiAvatar.Instance_Class.FullName).Name = nameof(LoadAvatar);
+        }
+        catch { "LoadAvatar(ApiAvatar a) not found!".RedPrefix("VRCPlayer"); }
 
-        // void LoadAvatar(bool forceLoad = false)
-        Instance_Class.GetMethod(x => x.Name == Instance_Class.GetMethod(nameof(LoadAvatar)).OriginalName).Name = nameof(LoadAvatar);
+        try
+        {
+            // void LoadAvatar(bool forceLoad = false)
+            Instance_Class.GetMethod(x => x.Name == Instance_Class.GetMethod(nameof(LoadAvatar)).OriginalName).Name = nameof(LoadAvatar);
+        }
+        catch { "LoadAvatar(bool forceLoad = false) not found!".RedPrefix("VRCPlayer"); }
     }
 
     // <!---------- ---------- ---------->
@@ -106,7 +114,7 @@ public class VRCPlayer : VRCNetworkBehaviour
             IL2Field field = Instance_Class.GetField(nameof(Instance));
             if (field == null)
                 (field = Instance_Class.GetField(x => x.Instance)).Name = nameof(Instance);
-            return field?.GetValue()?.GetValue<VRCPlayer>();
+            return field.GetValue()?.GetValue<VRCPlayer>();
         }
     }
 

@@ -22,7 +22,7 @@ namespace CustomQuickMenu.Menus
             if (registerMenu == null)
             {
                 registerMenu = new MenuElement();
-                registerMenu.gameObject = QuickMenuUtils.menuTemplate.gameObject;
+                registerMenu.gameObject = QuickMenuUtils.menuDashboardTemplate.gameObject;
             }
 
             if (buttonsGroup == null)

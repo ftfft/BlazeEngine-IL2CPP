@@ -12,8 +12,8 @@ namespace BE4v.Mods.Min
         {
             try
             {
-                if (!Status.isInfinityJump && !Status.isBHop) return;
-                VRCPlayer player = VRCPlayer.Instance;
+                if (!Status.isInfinityJump && !Status.isBHop && !Status.isJumpEffects) return;
+                VRC.Player player = VRC.Player.Instance;
                 if (player == null) return;
                 var jump = player.GetComponent<GamelikeInputController>()?.inJump;
                 if (jump != null)
@@ -29,6 +29,13 @@ namespace BE4v.Mods.Min
                             {
                                 OnJump(player);
                             }
+                            /*if (Status.isJumpEffects)
+                            {
+                                if (fPressed != fPressedLast)
+                                {
+                                    AdvancedEffects.CreateCylinderEffect(VRC.Player.Instance.transform.position, 5f);
+                                }
+                            }*/
                         }
                         else
                         {
@@ -44,7 +51,7 @@ namespace BE4v.Mods.Min
             catch (Exception ex) { ("IJ::OnJump - Reason: " + ex.ToString()).RedPrefix("Exception"); }
         }
 
-        public static void OnJump(VRCPlayer player)
+        public static void OnJump(VRC.Player player)
         {
             VRCMotionState motionState = player.GetComponent<VRCMotionState>();
             if (motionState == null) return;

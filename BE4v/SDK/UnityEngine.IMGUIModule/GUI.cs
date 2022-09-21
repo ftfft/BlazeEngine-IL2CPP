@@ -30,7 +30,7 @@ namespace UnityEngine
 		}
 		*/
 
-		public static void Label(Rect position, string text, GUIStyle style = null) => Label(position, new IL2String_utf8(text), style);
+		public static void Label(Rect position, string text, GUIStyle style = null) => Label(position, new IL2String_utf16(text), style);
 		unsafe public static void Label(Rect position, IL2String text, GUIStyle style = null)
 		{
 			if (style == null)

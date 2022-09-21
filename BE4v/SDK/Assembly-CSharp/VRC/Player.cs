@@ -213,6 +213,6 @@ namespace VRC
             return Instance_Class.GetMethod(nameof(ToString)).Invoke(ptr)?.unbox_ToString();
         }
         */
-        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClass(VRCPlayer.Instance_Class.GetMethod(m => m.Name.EndsWith("RPC")).GetParameters().LastOrDefault().ReturnType.Name);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField("_USpeaker") != null);
     }
 }

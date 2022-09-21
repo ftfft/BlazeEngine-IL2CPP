@@ -14,14 +14,14 @@ namespace BE4v.Mods
         public static bool isSpeedHack = false;
 
         public static int iSpeedHackSpeed = 8;
-
+        
         public static bool isInfinityJump = false;
 
         public static bool isSerilize = false;
 
         public static bool isFakePing = false;
 
-        public static bool isGlobalDynamicBones = false;
+        public static bool isLineRenderESP = false;
 
         public static bool isInvisAPI = false;
 
@@ -31,7 +31,7 @@ namespace BE4v.Mods
 
         public static bool isNamePlatesGUI = false;
 
-        public static bool isRPCBlock = false;
+        public static bool isJumpEffects = false;
 
         public static bool is3thCam = false;
 
@@ -41,7 +41,7 @@ namespace BE4v.Mods
 
         public static bool isRPCInject = false;
 
-        public static bool isAutoClear = false;
+        public static bool isFakeFPS = false;
 
         public static bool isGlobalUdonEvent = false;
 
@@ -50,5 +50,7 @@ namespace BE4v.Mods
         public static bool SendAvatarData = true;
 
         public static int SitOnType = 0;
+
+        public static int CylinderType = 0;
     }
 }

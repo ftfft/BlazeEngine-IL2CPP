@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
-using IL2CPP_Core.Objects;
 using UnityEngine;
+using VRC.UI.Client.HUD;
+using IL2CPP_Core.Objects;
 
 public class VRCUiManager : MonoBehaviour
 {
@@ -18,15 +19,10 @@ public class VRCUiManager : MonoBehaviour
         }
     }
 
-    public void HideScreen(string screenType)
-    {
-        Instance_Class.GetMethod(nameof(HideScreen)).Invoke(this, new IntPtr[] { new IL2String_utf16(screenType).Pointer });
-    }
-
     public static T GetPage<T>(string screenPath) where T : VRCUiPage
 	{
         return GameObject.Find(screenPath)?.GetComponent<T>();
     }
 
-	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("HideScreen") != null);
+	public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField(HudController.Instance_Class) != null && x.GetField("_dragMenuPanel") != null);
 }

@@ -11,7 +11,7 @@ using VRC.Core;
 
 namespace BE4v.Patch.List
 {
-    public class AvatarData : IPatch
+    public class AvatarData // : IPatch
     {
         public delegate void _ShowImage(IntPtr instance, IntPtr apiAvatarPtr);
         public delegate void _LoadAvatar(IntPtr instance, bool forceLoad);

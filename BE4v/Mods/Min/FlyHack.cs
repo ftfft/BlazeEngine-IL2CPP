@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.XR;
 using VRC;
 using VRC.Animation;
 using BE4v.MenuEdit;
@@ -45,13 +46,14 @@ namespace BE4v.Mods.Min
             if (!Status.isFly) return;
             Player player = Player.Instance;
             if (player == null) return;
+            float MultiSpeed = Input.GetKey(KeyCode.LeftShift) ? 2.5F : 1F;
+            float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed * (Status.isSpeedHack ? Status.iSpeedHackSpeed : 1f);
+
+            player.GetComponent<Collider>().enabled = false;
             if (Status.isFlyType)
             {
                 Transform transform = Camera.main.transform;
-                player.GetComponent<Collider>().enabled = false;
-                float MultiSpeed = Input.GetKey(KeyCode.LeftShift) ? 2.5F : 1F;
-                float calcTimes = MultiSpeed * Time.deltaTime * fNoClipSpeed * (Status.isSpeedHack ? Status.iSpeedHackSpeed : 1f);
-                Vector3 moveControl = Player.Instance.transform.position;
+                Vector3 moveControl = player.transform.position;
                 Vector3 moveControl2 = moveControl;
                 // NoClipMode
                 if (Input.GetKey(KeyCode.E))
@@ -76,6 +78,67 @@ namespace BE4v.Mods.Min
             }
             else
             {
+                Transform playerTransform = Player.Instance.transform;
+                Vector3 moveControl = playerTransform.position;
+                Vector3 moveControl2 = moveControl;
+
+                if (XRDevice.isPresent)
+                {
+                    if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 0f)
+                    {
+                        moveControl -= Vector3.up * calcTimes;
+                    }
+                    if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > 0f)
+                    {
+                        moveControl += Vector3.up * calcTimes;
+                    }
+                    if (Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickHorizontal") < 0f)
+                    {
+                        moveControl -= playerTransform.right * calcTimes;
+                    }
+                    if (Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickHorizontal") > 0f)
+                    {
+                        moveControl += playerTransform.right * calcTimes;
+                    }
+                    if (Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical") < 0f)
+                    {
+                        moveControl -= playerTransform.forward * calcTimes;
+                    }
+                    if (Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical") > 0f)
+                    {
+                        moveControl += playerTransform.forward * calcTimes;
+                    }
+                }
+
+                if (Input.GetKey(KeyCode.Q))
+                {
+                    moveControl -= Vector3.up * calcTimes;
+                }
+                if (Input.GetKey(KeyCode.E))
+                {
+                    moveControl += Vector3.up * calcTimes;
+                }
+                if (Input.GetKey(KeyCode.W))
+                {
+                    moveControl += playerTransform.forward * calcTimes;
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    moveControl -= playerTransform.forward * calcTimes;
+                }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    moveControl -= playerTransform.right * calcTimes;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    moveControl += playerTransform.right * calcTimes;
+                }
+
+                if (moveControl != moveControl2)
+                    player.transform.position = moveControl;
+
+                /*
                 player.GetComponent<Collider>().enabled = true;
                 if (Input.GetKey(KeyCode.Q))
                 {
@@ -101,6 +164,7 @@ namespace BE4v.Mods.Min
                         Physics.gravity = Vector3.zero;
                     }
                 }
+                */
             }
         }
 

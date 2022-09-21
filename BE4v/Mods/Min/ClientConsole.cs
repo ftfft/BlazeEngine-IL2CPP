@@ -145,26 +145,6 @@ namespace BE4v.Mods.Min
                     break;
                 }
                 */
-                case "portal":
-                    {
-                        if (args.Length > 1)
-                        {
-                            if (args[1] == "set")
-                            {
-                                if (args.Length > 2)
-                                {
-                                    worldId = args[2];
-                                    $"New portal settings: {worldId}".RedPrefix("Portal Set");
-                                }
-                                else
-                                {
-                                    $"Arguments len: {args.Length}".RedPrefix("Portal Set");
-                                }
-                                break;
-                            }
-                        }
-                        return;
-                    }
                 default: return;
             }
             args = new string[0];
@@ -252,17 +232,7 @@ namespace BE4v.Mods.Min
                             }
                         }
                         */
-                        FileDebug.debugGameObject("debug_QuickMenu.json", QuickMenu.Instance.gameObject);
-                        break;
-                    }
-                case "get_master":
-                    {
-                        byte[] array = Encoding.UTF8.GetBytes(VRC.Player.Instance.user.id);
-                        PhotonNetwork.NetworkingClient.OpRaiseEvent(208, array, new RaiseEventOptions
-                        {
-                            Receivers = ReceiverGroup.Others,
-                            CachingOption = EventCaching.DoNotCache
-                        }, default(SendOptions));
+                        Console.WriteLine(VRC.UI.PageUserInfo.userInfoScreenPath);
                         break;
                     }
                     /*

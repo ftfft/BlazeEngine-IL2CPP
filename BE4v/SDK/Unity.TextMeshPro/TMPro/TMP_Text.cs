@@ -20,6 +20,12 @@ namespace TMPro
 			get => Instance_Class.GetProperty(nameof(text)).GetGetMethod().Invoke(this)?.GetValue<IL2String>()?.ToString();
 			set => Instance_Class.GetProperty(nameof(text)).GetSetMethod().Invoke(this, new IntPtr[] { new IL2String_utf16(value).Pointer });
 		}
+		
+		unsafe public bool richText
+		{
+			get => Instance_Class.GetProperty(nameof(richText)).GetGetMethod().Invoke<bool>(this).GetValue();
+			set => Instance_Class.GetProperty(nameof(richText)).GetSetMethod().Invoke(this, new IntPtr[] { new IntPtr(&value) });
+		}
 
 		public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Unity.TextMeshPro"].GetClass("TMP_Text", "TMPro");
     }

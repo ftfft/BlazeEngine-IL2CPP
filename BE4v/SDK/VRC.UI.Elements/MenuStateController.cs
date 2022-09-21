@@ -149,7 +149,6 @@ namespace VRC.UI.Elements
             }
         }
 
-        //public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(y => y.FullName == UIMenu.Instance_Class.GetProperties().FirstOrDefault(x => x.GetSetMethod() == null).GetGetMethod().ReturnType.Name);
-        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetField(y => y.ReturnType.Name == "System.Collections.Generic.Dictionary<" + typeof(string).FullName + "," + UIPage.Instance_Class.FullName + ">") != null);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["VRC.UI.Elements"].GetClasses().FirstOrDefault(x => x.GetMethod("ShowTabContent", y => y.GetParameters().Length > 1) != null);
     }
 }

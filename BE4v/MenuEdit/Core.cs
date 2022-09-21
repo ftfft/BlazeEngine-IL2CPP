@@ -15,11 +15,8 @@ namespace BE4v.MenuEdit
         
         public static void Install()
         {
-            try
-            {
-                Delete();
-            }
-            catch { }
+            // Remove Carousel & VRC+ Banners
+            Delete();
             try
             {
                 MainMenu.BlazeEngine4VersionMenu();
@@ -40,22 +37,46 @@ namespace BE4v.MenuEdit
                 xGameMenu.BlazeEngine4VersionMenu();
             }
             catch { }
+            
+            /*try
+            {
+                CustomQuickMenu.Menus.Submenu.Effects.BlazeEngine4VersionMenu();
+            }
+            catch { }
+            */
         }
 
         public static void Delete()
         {
             Transform transform = null;
-            transform = QuickMenu.Instance.transform.Find("Container/Window/Toggle_SafeMode");
-            if (transform != null)
-                UnityEngine.Object.Destroy(transform.gameObject);
+            if (QuickMenu.Instance.transform.Find("CanvasGroup") != null)
+            {
+                transform = QuickMenuUtils.menuDashboardTemplate.Find(QuickMenuUtils.szVerticalLayoutGroup + "/VRC+_Banners");
+                if (transform != null)
+                {
+                    RectTransform rect = new RectTransform(transform.Pointer);
+                    rect.localScale = Vector3.zero;
+                    rect.sizeDelta = Vector2.zero;
+                }
 
-            transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners");
-            if (transform != null)
-                UnityEngine.Object.Destroy(transform.gameObject);
+                transform = QuickMenuUtils.menuDashboardTemplate.Find(QuickMenuUtils.szVerticalLayoutGroup + "/Carousel_Banners");
+                if (transform != null)
+                {
+                    RectTransform rect = new RectTransform(transform.Pointer);
+                    rect.localScale = Vector3.zero;
+                    rect.sizeDelta = Vector2.zero;
+                }
+            }
+            else
+            {
+                transform = QuickMenuUtils.menuDashboardTemplate.Find(QuickMenuUtils.szVerticalLayoutGroup + "/VRC+_Banners");
+                if (transform != null)
+                    transform.gameObject.Destroy();
 
-            transform = QuickMenuUtils.menuTemplate.Find("ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners");
-            if (transform != null)
-                UnityEngine.Object.Destroy(transform.gameObject);
+                transform = QuickMenuUtils.menuDashboardTemplate.Find(QuickMenuUtils.szVerticalLayoutGroup + "/Carousel_Banners");
+                if (transform != null)
+                    transform.gameObject.Destroy();
+            }
         }
     }
 }

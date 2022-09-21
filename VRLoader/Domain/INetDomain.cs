@@ -8,6 +8,6 @@ namespace VRCLoader.Domain
     {
         void Initialize();
         void OnApplicationStart();
-        void MinHook_CreateInstance(IntPtr mVRC_CreateHook, IntPtr mVRC_RemoveHook, IntPtr mVRC_EnableHook, IntPtr mVRC_DisableHook);
+        void MinHook_CreateInstance(IntPtr mGetLicense, IntPtr mVRC_CreateHook, IntPtr mVRC_RemoveHook, IntPtr mVRC_EnableHook, IntPtr mVRC_DisableHook);
     }
 }

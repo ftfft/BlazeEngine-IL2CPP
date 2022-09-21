@@ -33,5 +33,6 @@ public class HighlightsFXStandalone : HighlightsFX
         }
     }
 
-    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPreRender") != null && x.BaseType != MonoBehaviour.Instance_Class);
+    // Old: public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnPreRender") != null && x.BaseType != MonoBehaviour.Instance_Class);
+    public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetField("blurDownsampleFactor") != null);
 }

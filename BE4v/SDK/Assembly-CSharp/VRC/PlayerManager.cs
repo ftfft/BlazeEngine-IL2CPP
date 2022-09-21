@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using IL2CPP_Core.Objects;
 using UnityEngine;
 
@@ -18,6 +19,20 @@ namespace VRC
                     (property = Instance_Class.GetProperty(x => x.Instance)).Name = nameof(Instance);
                 return property?.GetGetMethod().Invoke()?.GetValue<PlayerManager>();
             }
+        }
+
+        public static Player[] GetPlayerList()
+        {
+            IL2Method method = Instance_Class.GetMethod(nameof(GetPlayerList));
+            if (method == null)
+            {
+                (method = Instance_Class.GetMethod(x => x.ReturnType.Name == "System.Collections.Generic.List<" + VRC.Player.Instance_Class.FullName + ">")).Name = nameof(GetPlayerList);
+            }
+            IL2Object result = method?.Invoke();
+            if (result == null)
+                return null;
+
+            return new IL2List<IntPtr>(result.Pointer).ToArray<Player>();
         }
 
         public static int MasterId { get; set; }

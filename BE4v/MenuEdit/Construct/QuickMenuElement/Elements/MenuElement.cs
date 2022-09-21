@@ -16,15 +16,27 @@ namespace QuickMenuElement.Elements
         {
             get
             {
-                return gameObject?.transform.Find("ScrollRect/Viewport/VerticalLayoutGroup")?.GetComponent<VerticalLayoutGroup>();
+                Transform transform = gameObject?.transform.Find("ScrollRect/Viewport/VerticalLayoutGroup");
+                if (transform == null)
+                {
+                    transform = gameObject?.transform.Find("Scrollrect/Viewport/VerticalLayoutGroup");
+                }
+                return transform?.GetComponent<VerticalLayoutGroup>();
             }
         }
 
         public void SetText(string text)
         {
             TextMeshProUGUI title = gameObject?.transform.Find("Header_H1/LeftItemContainer/Text_Title")?.GetComponent<TextMeshProUGUI>();
+            if (title == null)
+            {
+                title = gameObject?.transform.Find("Header_DevTools/LeftItemContainer/Text_Title")?.GetComponent<TextMeshProUGUI>();
+            }
             if (title != null)
+            {
                 title.text = text;
+                title.richText = true;
+            }
         }
 
         public void Open()
@@ -45,6 +57,10 @@ namespace QuickMenuElement.Elements
 
         public static MenuElement Create(string name, bool root = true)
         {
+            /*
+            ScrollRect component = base.RectTransform.Find("Scrollrect").GetComponent<ScrollRect>();
+            this._container = component.content;
+                        */
             MenuElement element = new MenuElement();
             element.gameObject = UnityEngine.Object.Instantiate(QuickMenuUtils.menuTemplate.gameObject, QuickMenuUtils.menuTemplate.parent);
             element.gameObject.name = "Menu_" + name;
@@ -53,14 +69,16 @@ namespace QuickMenuElement.Elements
             Transform transform = element.gameObject.transform;
             transform.SetSiblingIndex(5);
 
-            transform.gameObject.GetComponent<LaunchPadQMMenu>()?.Destroy();
+            UnityEngine.Object.DestroyImmediate(transform.gameObject.GetComponent<DevMenu>());
             transform.gameObject.GetOrAddComponent<UIPage>()?.Destroy();
 
             UIPage uiPage = element.gameObject.AddComponent<UIPage>();
-            uiPage.Name = "Menu_" + name;
+            uiPage.Name = "QuickMenu" + name;
+            // this.UiPage.field_Private_Boolean_1 = true;
             uiPage._menuStateController = QuickMenu.Instance.MenuStateController;
+            // this.UiPage.field_Private_List_1_UIPage_0 = new List<UIPage>();
+            // this.UiPage.field_Private_List_1_UIPage_0.Add(this.UiPage);
 
-            QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String_utf16("Menu_" + name), uiPage);
 
             VerticalLayoutGroup verticalLayoutGroup = element.verticalLayoutGroup;
             if (verticalLayoutGroup != null)
@@ -68,12 +86,14 @@ namespace QuickMenuElement.Elements
                 transform = verticalLayoutGroup.transform;
                 foreach (Transform obj in transform)
                 {
-                    obj.gameObject?.Destroy();
+                    UnityEngine.Object.Destroy(obj.gameObject);
                 }
 
                 verticalLayoutGroup.childControlHeight = false;
             }
 
+            QuickMenu.Instance.MenuStateController._uiPages.Add(new IL2String_utf16("Menu_" + name), uiPage);
+            
             if (root)
             {
                 List<UIPage> uIPages = QuickMenu.Instance.MenuStateController.menuRootPages.ToList();
@@ -82,6 +102,15 @@ namespace QuickMenuElement.Elements
             }
 
             element.SetText(name);
+
+            ScrollRect scrollRect = element.gameObject.transform.Find("Scrollrect").GetComponent<ScrollRect>();
+            Transform scrollbarTransform = scrollRect.transform.Find("Scrollbar");
+            scrollbarTransform.gameObject.SetActive(true);
+
+            scrollRect.enabled = true;
+            scrollRect.verticalScrollbar = scrollbarTransform.GetComponent<Scrollbar>();
+            scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
+            scrollRect.viewport.GetComponent<RectMask2D>().enabled = true;
 
             RectMask2D mask = verticalLayoutGroup?.transform.parent.GetComponent<RectMask2D>();
             if (mask != null)

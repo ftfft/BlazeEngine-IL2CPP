@@ -7,11 +7,13 @@ namespace BE4v.Mods.Min
     {
         public void Update()
         {
+            /*
             if (Status.isAutoClear)
             {
                 if (CheckTime())
                     Clear();
             }
+            */
         }
 
         public static void Clear()

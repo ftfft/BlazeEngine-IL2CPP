@@ -44,6 +44,6 @@ namespace VRC.Animation
             }
         }
 
-        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnControllerColliderHit") != null && x.GetMethod("Reset") != null && x.GetMethod("KillPortal") == null);
+        public static new IL2Class Instance_Class = IL2CPP.AssemblyList["Assembly-CSharp"].GetClasses().FirstOrDefault(x => x.GetMethod("OnControllerColliderHit") != null && x.BaseType == MonoBehaviour.Instance_Class);
     }
 }

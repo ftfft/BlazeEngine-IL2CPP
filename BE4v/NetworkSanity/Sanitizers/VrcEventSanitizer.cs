@@ -53,6 +53,7 @@ namespace NetworkSanity.Sanitizers
             return IsRpcBad(eventData);
         }
 
+        /*
         public bool VRCNetworkingClientOnPhotonEvent(EventData eventData)
         {
             if (eventData.Code != 6)
@@ -60,7 +61,7 @@ namespace NetworkSanity.Sanitizers
 
             return Status.isRPCBlock || _rateLimiter.IsRateLimited(eventData.Sender);
         }
-
+        */
         private bool IsRpcBad(EventData eventData)
         {
             if (!_rateLimiter.IsSafeToRun("Generic", 0))

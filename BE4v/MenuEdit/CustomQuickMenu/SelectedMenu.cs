@@ -156,7 +156,10 @@ namespace CustomQuickMenu.Menus
                     {
                         string url = avatar.assetUrl;
                         if (Avatars.IsValidUrl(url))
+                        {
+                            url = url.Replace("https://api.vrchat.cloud/", "https://vrchat.com/");
                             Avatars.OpenUrlBrowser(url);
+                        }
                     }
                 }
             }

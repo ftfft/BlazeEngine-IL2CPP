@@ -320,7 +320,10 @@ namespace BE4v.Patch.List
                     {
                         string url = apiAvatar.assetUrl;
                         if (Utils.Avatars.IsValidUrl(url))
+                        {
+                            url = url.Replace("https://api.vrchat.cloud/", "https://vrchat.com/");
                             Utils.Avatars.OpenUrlBrowser(url);
+                        }
                         return;
                     }
 

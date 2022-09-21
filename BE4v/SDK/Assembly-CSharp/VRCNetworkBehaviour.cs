@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
 using IL2CPP_Core.Objects;
-using IL2Photon.Pun;
 
-public abstract class VRCNetworkBehaviour : MonoBehaviourPun
+public abstract class VRCNetworkBehaviour : MonoBehaviour
 {
     public VRCNetworkBehaviour(IntPtr ptr) : base(ptr) { }
 

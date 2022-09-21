@@ -11,9 +11,26 @@ namespace BE4v.MenuEdit
 {
     public static class BE4V_UserPanel
     {
-        // public static UIButton UserDropPortal;
+        public static GameObject buttonTeleport;
         public static void Start()
         {
+            /*
+            try
+            {
+                string path = PageUserInfo.userInfoScreenPath;
+                GameObject original = GameObject.Find(path + "/OnlineFriendButtons/JoinButton");
+                GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(original, GameObject.Find(path).transform, true);
+                buttonTeleport = gameObject;
+                buttonTeleport.MoveLocation(0, -80f);
+                buttonTeleport.setButtonText("Drop Portal to Instance");
+                buttonTeleport.setAction(ClickClass_DropPortalToUser.PortalDrop, true);
+                "Portals to friend's".GreenPrefix("UI");
+            }
+            catch (Exception ex)
+            {
+                "Teleport to user".RedPrefix("UI");
+                ex.ToString().WriteMessage("EX:");
+            }
             /*
             try
             {

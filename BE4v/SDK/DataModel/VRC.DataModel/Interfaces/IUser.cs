@@ -16,7 +16,10 @@ namespace VRC.DataModel.Interfaces
 
         static ClassIUser()
         {
-            IL2Field[] fields = SelectedUserMenuQM.Instance_Class.GetFields(y => y.ReturnType != null);
+            IL2Field[] fields = SelectedUserMenuQM.Instance_Class.GetFields(y =>
+                !y.ReturnType.Name.StartsWith("System.")
+                && !y.ReturnType.Name.StartsWith("UnityEngine.")
+            );
             IL2Class[] classes = IL2CPP.AssemblyList["DataModel"].GetClasses().Where(x => x.IsInterface).ToArray();
             foreach(var field in fields)
             {

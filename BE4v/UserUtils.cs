@@ -3,12 +3,14 @@ using IL2CPP_Core.Objects;
 using UnityEngine;
 using VRC.SDKBase;
 using BE4v.SDK;
+using BE4v.MenuEdit.Construct;
+using CustomQuickMenu.Menus;
 using SharpDisasm;
 public static class UserUtils
 {
     unsafe public static Disassembler GetDisassembler(this IL2Method method, int @size = 0x1000)
     {
-        return new Disassembler(*(IntPtr*)method.Pointer, @size, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)method.Pointer).ToInt64()), true, Vendor.AMD);
+        return new Disassembler(*(IntPtr*)method.Pointer, @size, ArchitectureMode.x86_64, unchecked((ulong)(*(IntPtr*)method.Pointer).ToInt64()), true, Vendor.Intel);
     }
 
     #region SpawnPortal
@@ -68,16 +70,14 @@ public static class UserUtils
     public static string QM_GetSelectedUserName()
     {
         string userName = null;
-        GameObject go = GameObject.Find("Canvas_QuickMenu(Clone)");
-        if (go != null)
+        if (SelectedMenu.registerMenu != null)
         {
-            var components = go.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
-            foreach (var component in components)
+            if (SelectedMenu.registerMenu.gameObject.active)
             {
-                if (component.gameObject.name == "Text_Username_NonFriend")
+                Transform transform = SelectedMenu.registerMenu.verticalLayoutGroup.transform.Find("UserProfile_Compact/PanelBG/Info/Text_Username_NonFriend");
+                if (transform != null)
                 {
-                    userName = component.text;
-                    break;
+                    userName = transform.GetComponent<TMPro.TextMeshProUGUI>()?.text;
                 }
             }
         }

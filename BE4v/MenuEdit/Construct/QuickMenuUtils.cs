@@ -10,6 +10,7 @@ namespace BE4v.MenuEdit.Construct
 {
     public static class QuickMenuUtils
     {
+
         private static Transform _buttonHorizontal = null;
         public static Transform buttonHorizontal
         {
@@ -17,7 +18,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonHorizontal == null)
                 {
-                    _buttonHorizontal = QuickMenu.Instance.transform.Find(szHorizontalGroup + "/Page_Dashboard");
+                    _buttonHorizontal = QuickMenu.BaseContainer.Find(szHorizontalGroup + "/Page_Dashboard");
                 }
                 return _buttonHorizontal;
             }
@@ -30,7 +31,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonTemplate == null)
                 {
-                    _buttonTemplate = menuTemplate?.Find(szVerticalLayoutGroup + "/Buttons_QuickActions/Button_Respawn");
+                    _buttonTemplate = menuDashboardTemplate?.Find(szVerticalLayoutGroup + "/Buttons_QuickActions/Button_Respawn");
                 }
                 return _buttonTemplate;
             }
@@ -56,7 +57,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonGroupHeaderTemplate == null)
                 {
-                    _buttonGroupHeaderTemplate = menuTemplate?.Find(szVerticalLayoutGroup + "/Header_QuickActions");
+                    _buttonGroupHeaderTemplate = menuDashboardTemplate?.Find(szVerticalLayoutGroup + "/Header_QuickActions");
                 }
                 return _buttonGroupHeaderTemplate;
             }
@@ -69,7 +70,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_buttonGroupBaseTemplate == null)
                 {
-                    _buttonGroupBaseTemplate = menuTemplate?.Find(szVerticalLayoutGroup + "/Buttons_QuickActions");
+                    _buttonGroupBaseTemplate = menuDashboardTemplate?.Find(szVerticalLayoutGroup + "/Buttons_QuickActions");
                 }
                 return _buttonGroupBaseTemplate;
             }
@@ -82,9 +83,22 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_menuTemplate == null)
                 {
-                    _menuTemplate = QuickMenu.Instance.transform.Find(szMenuGroup + "/Menu_Dashboard");
+                    _menuTemplate = QuickMenu.BaseContainer.Find(szMenuGroup + "/Menu_DevTools");
                 }
                 return _menuTemplate;
+            }
+        }
+
+        private static Transform _menuDashboard = null;
+        public static Transform menuDashboardTemplate
+        {
+            get
+            {
+                if (_menuDashboard == null)
+                {
+                    _menuDashboard = QuickMenu.BaseContainer.transform.Find(szMenuGroup + "/Menu_Dashboard");
+                }
+                return _menuDashboard;
             }
         }
         
@@ -95,7 +109,7 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_menuSettingsTemplate == null)
                 {
-                    _menuSettingsTemplate = QuickMenu.Instance.transform.Find(szMenuGroup + "/Menu_Settings");
+                    _menuSettingsTemplate = QuickMenu.BaseContainer.transform.Find(szMenuGroup + "/Menu_Settings");
                 }
                 return _menuSettingsTemplate;
             }
@@ -108,16 +122,16 @@ namespace BE4v.MenuEdit.Construct
             {
                 if (_selectedMenuTemplate == null)
                 {
-                    _selectedMenuTemplate = QuickMenu.Instance.transform.Find(szMenuGroup + "/Menu_SelectedUser_Local");
+                    _selectedMenuTemplate = QuickMenu.BaseContainer.transform.Find(szMenuGroup + "/Menu_SelectedUser_Local");
                 }
                 return _selectedMenuTemplate;
             }
         }
 
-        public static string szHorizontalGroup = "Container/Window/Page_Buttons_QM/HorizontalLayoutGroup";
-
-        public static string szMenuGroup = "Container/Window/QMParent";
-
+        public static string szHorizontalGroup = "Window/Page_Buttons_QM/HorizontalLayoutGroup";
+        
+        public static string szMenuGroup = "Window/QMParent";
+        
         public static string szVerticalLayoutGroup = "ScrollRect/Viewport/VerticalLayoutGroup";
 
         public static string szSettingsVerticalLayoutGroup = "Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup";

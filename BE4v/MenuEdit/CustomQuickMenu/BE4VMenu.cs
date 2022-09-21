@@ -7,12 +7,16 @@ using BE4v.MenuEdit.Construct;
 using BE4v.MenuEdit.Construct.Horizontal;
 using QuickMenuElement.Elements;
 using BE4v.Utils;
+using VRC.UI.Elements;
+using VRC.UI.Elements.Controls;
+using UnityEngine;
 
 namespace CustomQuickMenu.Menus
 {
     public static class BE4VMenu
     {
         public static MenuElement registerMenu = null;
+        public static ElementHorizontalButton horizontalButton = null;
 
         public static void BlazeEngine4VersionMenu()
         {
@@ -22,7 +26,11 @@ namespace CustomQuickMenu.Menus
             }
             catch { "Register menu is error".RedPrefix("Error!"); }
 
-            new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }).SetSprite(LoadSprites.be4vLogo);
+            horizontalButton = new ElementHorizontalButton("BlazeEngine4Version", delegate () { registerMenu.Open(); }, "Open BE4v Menu", sprite: LoadSprites.be4vLogo);
+
+            // registerMenu.AddHeader("Sub menus");
+            // ButtonsElement butttonsGroup = registerMenu.AddButtonsGroup("Sub menus");
+            // butttonsGroup.AddButton("Advanced Effects", () => { Submenu.Effects.registerMenu.Open(); });
 
             registerMenu.AddHeader("Networking Tools");
             ButtonsElement butttonsGroup = registerMenu.AddButtonsGroup("Networking Tools");
@@ -32,10 +40,12 @@ namespace CustomQuickMenu.Menus
             //RPCBlock.Refresh();
             FakePing.button = butttonsGroup.AddButton("Fake Ping", FakePing.OnClick);
             FakePing.Refresh();
+            FakeFPS.button = butttonsGroup.AddButton("Fake FPS", FakeFPS.OnClick);
+            FakeFPS.Refresh();
             //AutoClearRAM.button = butttonsGroup.AddButton("AutoClear RAM", AutoClearRAM.OnClick);
             //AutoClearRAM.Refresh();
-            SendAvatarData.button = butttonsGroup.AddButton("Send Avatars Data", SendAvatarData.OnClick);
-            SendAvatarData.Refresh();
+            // SendAvatarData.button = butttonsGroup.AddButton("Send Avatars Data", SendAvatarData.OnClick);
+            // SendAvatarData.Refresh();
             //DeathMap.button = butttonsGroup.AddButton("Death Map", DeathMap.OnClick);
             //DeathMap.Refresh();
 
@@ -58,6 +68,8 @@ namespace CustomQuickMenu.Menus
 
             registerMenu.AddHeader("ESP Tools");
             butttonsGroup = registerMenu.AddButtonsGroup("ESP Tools");
+            ESP_LineRenderer.button = butttonsGroup.AddButton("ESP LineRenderer", ESP_LineRenderer.OnClick);
+            ESP_LineRenderer.Refresh();
             ESP_Nameplates.button = butttonsGroup.AddButton("ESP Nameplates", ESP_Nameplates.OnClick);
             ESP_Nameplates.Refresh();
             // GlobalUdonEvent.button = new ElementButton("Global Udon Events", elementGroup, GlobalUdonEvent.OnClick);
@@ -102,6 +114,7 @@ namespace CustomQuickMenu.Menus
             }
         }
 
+        /*
         public static class RPCBlock
         {
             public static QMButton button = null;
@@ -127,6 +140,7 @@ namespace CustomQuickMenu.Menus
                 }
             }
         }
+        */
         
         public static class FlyType
         {
@@ -143,11 +157,11 @@ namespace CustomQuickMenu.Menus
                 {
                     if (Status.isFlyType)
                     {
-                        button._Text = "<color=red>NoClip</color>\nFly Type:";
+                        button._Text = "<color=red>Directional</color>\nFly Type:";
                     }
                     else
                     {
-                        button._Text = "<color=red>FlyHack</color>\nFly Type:";
+                        button._Text = "<color=red>Standart</color>\nFly Type:";
                     }
                 }
             }
@@ -213,6 +227,37 @@ namespace CustomQuickMenu.Menus
                 }
             }
         }
+        
+        public static class FakeFPS
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                BE4v.Patch.List.FakeFPS.Toggle();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isFakeFPS)
+                    {
+                        button._Sprite = LoadSprites.onButton;
+
+                        if (BE4v.Patch.List.FakeFPS.patch?.Enabled == false)
+                            BE4v.Patch.List.FakeFPS.patch.Enabled = true;
+                    }
+                    else
+                    {
+                        button._Sprite = LoadSprites.offButton;
+
+                        if (BE4v.Patch.List.FakeFPS.patch?.Enabled == true)
+                            BE4v.Patch.List.FakeFPS.patch.Enabled = false;
+                    }
+                }
+            }
+        }
 
         public static class DeathMap
         {
@@ -242,6 +287,7 @@ namespace CustomQuickMenu.Menus
             }
         }
         
+        /*
         public static class AutoClearRAM
         {
             public static QMButton button = null;
@@ -267,7 +313,7 @@ namespace CustomQuickMenu.Menus
                 }
             }
         }
-        
+        */
         public static class InfinityJump
         {
             public static QMButton button = null;
@@ -366,6 +412,45 @@ namespace CustomQuickMenu.Menus
                             if (patch?.Enabled == true)
                                 patch.Enabled = false;
                         }
+                    }
+                }
+            }
+        }
+
+        public static class ESP_LineRenderer
+        {
+            public static QMButton button = null;
+
+            public static void OnClick()
+            {
+                Status.isLineRenderESP = !Status.isLineRenderESP;
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                if (button != null)
+                {
+                    if (Status.isLineRenderESP)
+                    {
+                        button._Sprite = LoadSprites.onButton;
+                    }
+                    else
+                    {
+                        button._Sprite = LoadSprites.offButton;
+                    }
+                }
+
+                VRC.Player localPlayer = VRC.Player.Instance;
+                if (localPlayer != null)
+                {
+                    Threads.UpdatePlayers();
+                    foreach (var player in NetworkSanity.NetworkSanity.players)
+                    {
+                        if (player == localPlayer) continue;
+                        LineRenderer lineRenderer = player.transform.GetComponent<LineRenderer>();
+                        if (lineRenderer != null)
+                            lineRenderer.Destroy();
                     }
                 }
             }

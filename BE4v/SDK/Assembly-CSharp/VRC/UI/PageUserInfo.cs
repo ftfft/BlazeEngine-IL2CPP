@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
 using IL2CPP_Core.Objects;
 using VRC.Core;
 
@@ -42,14 +43,27 @@ namespace VRC.UI
             get => VRCUiManager.GetPage<PageUserInfo>(userInfoScreenPath);
         }
 
+        private static string szUserInfoScreenPath = null;
         public static string userInfoScreenPath
         {
             get
             {
-                IL2Field field = Instance_Class.GetField(nameof(userInfoScreenPath));
-                if (field == null)
-                    (field = Instance_Class.GetField(x => x.IsStatic && x.ReturnType.Name == typeof(string).FullName && x.GetValue()?.GetValue<IL2String>().ToString().StartsWith("UserInterface") == true)).Name = nameof(userInfoScreenPath);
-                return field.GetValue()?.GetValue<IL2String>().ToString();
+                if (szUserInfoScreenPath == null)
+                {
+                    PageUserInfo[] components = Resources.FindObjectsOfTypeAll<PageUserInfo>();
+                    PageUserInfo component = components.FirstOrDefault();
+                    if (component != null)
+                    {
+                        Transform parent = component.transform;
+                        szUserInfoScreenPath = parent.gameObject.name;
+                        while (parent.parent != null)
+                        {
+                            parent = parent.parent;
+                            szUserInfoScreenPath = parent.gameObject.name + "/" + szUserInfoScreenPath;
+                        }
+                    }
+                }
+                return szUserInfoScreenPath;
             }
         }
 

@@ -21,6 +21,7 @@ namespace CustomQuickMenu.Menus
 
         public static void BlazeEngine4VersionMenu()
         {
+
             registerMenu = MenuElement.Create("xGameMenu");
 
             registerMenuButton = new ElementHorizontalButton("xGameMenu", delegate () { registerMenu.Open(); });

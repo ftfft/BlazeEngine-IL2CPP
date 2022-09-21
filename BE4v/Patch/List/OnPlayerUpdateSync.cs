@@ -27,6 +27,8 @@ namespace BE4v.Patch.List
         {
             if (instance == IntPtr.Zero) return;
             VRC_PlayerUpdate(instance);
+            VRC.Player PlayerInstance = VRC.Player.Instance;
+            if (PlayerInstance == null) return;
             if (PickupOrbit_VRC_Player_Pointer != IntPtr.Zero)
             {
                 if (PickupOrbit_VRC_Player_Pointer == instance)
@@ -51,40 +53,47 @@ namespace BE4v.Patch.List
             {
                 if (Mods.Min.SitOnHead.VRC_Player_Pointer == instance)
                 {
-                    VRC.Player player = VRC.Player.Instance;
-                    player.GetComponent<Collider>().enabled = false;
+                    PlayerInstance.GetComponent<Collider>().enabled = false;
                     if (Status.SitOnType == 0)
                     {
-                        player.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.Head).position;
+                        PlayerInstance.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.Head).position;
                     }
                     else if (Status.SitOnType == 1)
                     {
-                        player.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.LeftHand).position;
+                        PlayerInstance.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.LeftHand).position;
                     }
                     else
                     {
-                        player.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.RightHand).position;
+                        PlayerInstance.transform.position = new VRC.Player(instance).Components.avatarAnimator.GetBoneTransform(HumanBodyBones.RightHand).position;
                     }
                 }
             }
-            if (Status.isNamePlatesGUI)
+            if (Status.isLineRenderESP)
             {
-                if (instance != VRC.Player.Instance.Pointer)
+                if (instance != PlayerInstance.Pointer)
                 {
                     VRC.Player player = new VRC.Player(instance);
-                    // "Player Nameplate"
-                    Transform transformNamePlate = player.transform.Find("Player Nameplate");
-                    if (transformNamePlate != null)
+                    LineRenderer lineRenderer = player.gameObject.GetComponent<LineRenderer>();
+                    if (lineRenderer == null)
                     {
-                        Transform transformGUINamePlate = transformNamePlate.Find("BE4vNamePlate");
-                        if (transformGUINamePlate == null)
-                        {
-                            // Add func for GUI
-                        }
-                        if (transformGUINamePlate != null)
-                        {
-                            // Update Func for GUI ...
-                        }
+                        lineRenderer = player.gameObject.GetOrAddComponent<LineRenderer>();
+
+                        lineRenderer.startWidth = 0.01f;
+                        lineRenderer.endWidth = 0.01f;
+                        // lineRenderer.startColor = Color.red;
+                        // lineRenderer.endColor = Color.red;
+                        lineRenderer.SetPositions(new Vector3[] { Vector3.zero, Vector3.zero });
+                        lineRenderer.useWorldSpace = true;
+                    }
+                    if (lineRenderer != null)
+                    {
+                        Vector3[] vectors = new Vector3[2] {
+                            PlayerInstance.transform.position,
+                            player.transform.position
+                        };
+                        vectors[0].y += 0.25f;
+                        vectors[1].y += 0.25f;
+                        lineRenderer.SetPositions(vectors);
                     }
                 }
             }
