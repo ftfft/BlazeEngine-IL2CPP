@@ -34,18 +34,18 @@ namespace CustomQuickMenu.Menus
 
             registerMenu.AddHeader("Networking Tools");
             ButtonsElement butttonsGroup = registerMenu.AddButtonsGroup("Networking Tools");
-            // InvisAPI.button = new ElementButton("Invis API", elementGroup, InvisAPI.OnClick);
-            // InvisAPI.Refresh();
             //RPCBlock.button = butttonsGroup.AddButton("RPC Block", RPCBlock.OnClick);
             //RPCBlock.Refresh();
+            InvisAPI.button = butttonsGroup.AddButton("Invis API", InvisAPI.OnClick);
+            InvisAPI.Refresh();
             FakePing.button = butttonsGroup.AddButton("Fake Ping", FakePing.OnClick);
             FakePing.Refresh();
             FakeFPS.button = butttonsGroup.AddButton("Fake FPS", FakeFPS.OnClick);
             FakeFPS.Refresh();
+            SendAvatarData.button = butttonsGroup.AddButton("Send Avatars Data\n<color=red>Not working</color>", SendAvatarData.OnClick);
+            SendAvatarData.Refresh();
             //AutoClearRAM.button = butttonsGroup.AddButton("AutoClear RAM", AutoClearRAM.OnClick);
             //AutoClearRAM.Refresh();
-            // SendAvatarData.button = butttonsGroup.AddButton("Send Avatars Data", SendAvatarData.OnClick);
-            // SendAvatarData.Refresh();
             //DeathMap.button = butttonsGroup.AddButton("Death Map", DeathMap.OnClick);
             //DeathMap.Refresh();
 
@@ -78,6 +78,77 @@ namespace CustomQuickMenu.Menus
             // elementGroup = new ElementGroup("First Test GRoup 3", registerMenu);
             // ConsoleLog.button = new ElementButton("Log Events", elementGroup, ConsoleLog.OnClick);
             // ConsoleLog.Refresh();
+
+            registerMenu.AddHeader("Funny BE4v");
+            butttonsGroup = registerMenu.AddButtonsGroup("Funny BE4v");
+            DevMenu.DevStatusMenu.button = butttonsGroup.AddButton("Dev GUI Menu", DevMenu.DevStatusMenu.OnClick);
+            DevMenu.DevStatusMenu.Refresh();
+            DevMenu.HideSelfAvatar.button = butttonsGroup.AddButton("Hide Self Avatar", DevMenu.HideSelfAvatar.OnClick);
+            DevMenu.HideSelfAvatar.Refresh();
+        }
+
+        public static class DevMenu
+        {
+            public static class DevStatusMenu
+            {
+                public static QMButton button = null;
+
+                public static void OnClick()
+                {
+                    if (Status.devMenuStatus++ > 1)
+                        Status.devMenuStatus = 0;
+                    Refresh();
+                }
+
+                public static void Refresh()
+                {
+                    if (button != null)
+                    {
+                        if (Status.devMenuStatus == 1)
+                        {
+                            button._Sprite = LoadSprites.onButton;
+                        }
+                        else
+                        {
+                            button._Sprite = LoadSprites.offButton;
+                        }
+                    }
+                }
+            }
+
+            public static class HideSelfAvatar
+            {
+                public static QMButton button = null;
+
+                public static void OnClick()
+                {
+                    Transform transform = VRCPlayer.Instance.avatarGameObject.transform.parent;
+                    if (transform != null)
+                    {
+                        transform.gameObject.active = !transform.gameObject.active;
+                    }
+                    Refresh();
+                }
+
+                public static void Refresh()
+                {
+                    if (button != null)
+                    {
+                        Transform transform = VRCPlayer.Instance.avatarGameObject.transform.parent;
+                        if (transform != null)
+                        {
+                            if (VRCPlayer.Instance.avatarGameObject.transform.parent.gameObject.active)
+                            {
+                                button._Sprite = LoadSprites.offButton;
+                            }
+                            else
+                            {
+                                button._Sprite = LoadSprites.onButton;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public static class SitOnHeadType

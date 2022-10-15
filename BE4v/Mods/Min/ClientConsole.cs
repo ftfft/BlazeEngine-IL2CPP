@@ -232,7 +232,8 @@ namespace BE4v.Mods.Min
                             }
                         }
                         */
-                        Console.WriteLine(VRC.UI.PageUserInfo.userInfoScreenPath);
+                        FileDebug.debugGameObject("debug_QuickMenu.json", UnityEngine.Resources.FindObjectsOfTypeAll<QuickMenu>().First().gameObject);
+                        // Console.WriteLine(VRC.UI.PageUserInfo.userInfoScreenPath);
                         break;
                     }
                     /*

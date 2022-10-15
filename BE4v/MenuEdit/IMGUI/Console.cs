@@ -59,7 +59,7 @@ namespace BE4v.MenuEdit.IMGUI
 
         public void OnGUI()
         {
-            if (!BE4v.Mods.Status.isLog || TabMenu.isPressed)
+            if (!BE4v.Mods.Status.isLog || TabMenu_PlayerList.isPressed)
                 return;
 
             LoadStyle();

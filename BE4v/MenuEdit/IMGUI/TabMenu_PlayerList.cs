@@ -7,12 +7,13 @@ using BE4v.Mods.Min;
 
 namespace BE4v.MenuEdit.IMGUI
 {
-    public class TabMenu : IUpdate, IOnGUI
+    public class TabMenu_PlayerList : IUpdate, IOnGUI
     {
         public static bool isPressed = false;
         
         public void Update()
         {
+            if (Status.devMenuStatus != 0) return;
             isPressed = Input.GetKey(KeyCode.Tab);
         }
 
@@ -31,6 +32,7 @@ namespace BE4v.MenuEdit.IMGUI
 
         public void OnGUI()
         {
+            if (Status.devMenuStatus != 0) return;
             NotifySystem.Notify.OnGUI();
             if (!isPressed) return;
             if (!OnSize())

@@ -43,7 +43,7 @@ namespace UnityEngine
 		{
 		}
 		*/
-		unsafe public static bool Button(Rect position, string text) => Button(position, new IL2String_utf8(text));
+		unsafe public static bool Button(Rect position, string text) => Button(position, new IL2String_utf16(text));
 		unsafe public static bool Button(Rect position, IL2String text)
 		{
 			return Instance_Class.GetMethod(nameof(Button), m => m.GetParameters().Length == 2).Invoke<bool>(new IntPtr[] { new IntPtr(&position), text.Pointer }).GetValue();

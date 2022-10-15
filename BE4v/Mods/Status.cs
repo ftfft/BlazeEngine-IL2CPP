@@ -52,5 +52,7 @@ namespace BE4v.Mods
         public static int SitOnType = 0;
 
         public static int CylinderType = 0;
+
+        public static int devMenuStatus = 0;
     }
 }

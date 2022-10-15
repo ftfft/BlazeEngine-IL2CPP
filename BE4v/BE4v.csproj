@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ClientLogs.cs" />
     <Compile Include="InjectDLL.cs" />
+    <Compile Include="MenuEdit\Construct\MainMenuUtils.cs" />
     <Compile Include="MenuEdit\Construct\QuickMenuElement\Elements\QMButtonText.cs" />
     <Compile Include="MenuEdit\CustomQuickMenu\Submenu\Effects.cs" />
     <Compile Include="MenuEdit\CustomQuickMenu\xGameMenu.cs" />
@@ -73,7 +74,8 @@
     <Compile Include="MenuEdit\Construct\UIMenu\UIButton.cs" />
     <Compile Include="MenuEdit\Core.cs" />
     <Compile Include="MenuEdit\IMGUI\Console.cs" />
-    <Compile Include="MenuEdit\IMGUI\TabMenu.cs" />
+    <Compile Include="MenuEdit\IMGUI\TabMenu_ObjectsDebug.cs" />
+    <Compile Include="MenuEdit\IMGUI\TabMenu_PlayerList.cs" />
     <Compile Include="MenuOverlay\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

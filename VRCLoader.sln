@@ -34,7 +34,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CFE72319-45E3-4E7F-9635-C533C5D66DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFE72319-45E3-4E7F-9635-C533C5D66DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFE72319-45E3-4E7F-9635-C533C5D66DDF}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{CFE72319-45E3-4E7F-9635-C533C5D66DDF}.Debug|x64.Build.0 = Debug|Any CPU
 		{CFE72319-45E3-4E7F-9635-C533C5D66DDF}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -141,7 +140,6 @@ Global
 		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|x86.ActiveCfg = Release|Any CPU
 		{48A98327-969A-4676-A7E7-6E8A3030F4DA}.Unity-Release|x86.Build.0 = Release|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|x64.Build.0 = Debug|Any CPU
 		{643ADA23-A2FD-496A-AC9B-A54C02623549}.Debug|x86.ActiveCfg = Debug|Any CPU

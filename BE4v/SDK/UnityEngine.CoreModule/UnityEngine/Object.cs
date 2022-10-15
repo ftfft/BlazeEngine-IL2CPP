@@ -8,6 +8,11 @@ namespace UnityEngine
     {
         public Object(IntPtr ptr) : base(ptr) { }
 
+        public int GetInstanceID()
+        {
+            return Instance_Class.GetMethod(nameof(GetInstanceID)).Invoke<int>(this).GetValue();
+        }
+        
         public static T Instantiate<T>(T original, Transform parent) where T : Object
         {
             return Instantiate(original.GetValue<Object>(), parent, false)?.GetValue<T>();
