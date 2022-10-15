@@ -110,11 +110,11 @@ namespace QuickMenuElement.Elements
             scrollRect.enabled = true;
             scrollRect.verticalScrollbar = scrollbarTransform.GetComponent<Scrollbar>();
             scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
-            scrollRect.viewport.GetComponent<RectMask2D>().enabled = true;
+            scrollRect.viewport.GetComponent<RectMask2D>().enabled = false;
 
             RectMask2D mask = verticalLayoutGroup?.transform.parent.GetComponent<RectMask2D>();
             if (mask != null)
-                mask.enabled = false;
+                mask.enabled = true;
 
             element.gameObject.SetActive(false);
 
